@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "shipping-laravel-apps-on-ec2",
+    "title": "Shipping Laravel Apps on EC2: A Practical Checklist",
+    "date": "2026-02-12",
+    "preview": "A clear deployment checklist covering Nginx, PHP-FPM, SSL, and process verification for production Laravel servers.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  },
+  {
+    "slug": "database-design-lessons-from-real-projects",
+    "title": "Database Design Lessons from Real Client Projects",
+    "date": "2026-01-20",
+    "preview": "Schema decisions that helped avoid painful migrations later in HR and print workflow systems.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  },
+  {
+    "slug": "queue-jobs-for-email-campaigns",
+    "title": "Using Queue Jobs for Reliable Email Campaign Delivery",
+    "date": "2025-12-04",
+    "preview": "How I structured queue workers and retry logic to improve campaign send reliability.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  },
+  {
+    "slug": "backend-focused-hackathon-takeaways",
+    "title": "Backend-Focused Hackathon Takeaways",
+    "date": "2025-11-10",
+    "preview": "What changed in my engineering workflow after building under strict time pressure in a hackathon final.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  },
+  {
+    "slug": "docker-for-laravel-beginners",
+    "title": "Docker for Laravel Beginners: What Actually Matters",
+    "date": "2025-10-18",
+    "preview": "A beginner-friendly path to containerizing Laravel apps without overcomplicating local workflows.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  },
+  {
+    "slug": "from-raw-php-to-maintainable-laravel",
+    "title": "From Raw PHP to Maintainable Laravel Architecture",
+    "date": "2025-09-01",
+    "preview": "How service boundaries and cleaner domain structure improved readability and long-term maintainability.",
+    "readUrl": "https://madinbloch.hashnode.dev/"
+  }
+]

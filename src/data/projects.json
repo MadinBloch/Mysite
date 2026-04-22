@@ -1,0 +1,96 @@
+[
+  {
+    "id": 1,
+    "title": "Smart Print System",
+    "description": "Production-level system for managing end-to-end printing workflows. Handles job queuing, order tracking, and status management for a print business.",
+    "tech": ["Laravel", "MySQL", "PHP"],
+    "role": "Built the full backend — job management, order processing, status flows, and admin dashboard.",
+    "category": "production",
+    "live": null,
+    "github": null,
+    "year": 2025
+  },
+  {
+    "id": 2,
+    "title": "HRM System",
+    "description": "Internal HR and employee management system. Handles employee records, attendance, leave management, and reporting.",
+    "tech": ["Laravel", "MySQL", "PHP"],
+    "role": "Designed and built the backend architecture, database schema, and all business logic.",
+    "category": "production",
+    "live": null,
+    "github": null,
+    "year": 2025
+  },
+  {
+    "id": 3,
+    "title": "Custom Email Campaign System",
+    "description": "Built for company internal use. Manages bulk email sending, campaign scheduling, template management, and delivery tracking.",
+    "tech": ["Laravel", "MySQL", "PHP", "Queue Jobs"],
+    "role": "Developed the campaign engine, queue-based email dispatching, and analytics tracking.",
+    "category": "production",
+    "live": null,
+    "github": null,
+    "year": 2025
+  },
+  {
+    "id": 4,
+    "title": "Kesari Select Website",
+    "description": "Live client project for Kesari Select. A content-driven website with custom backend integrations.",
+    "tech": ["Laravel", "MySQL", "PHP"],
+    "role": "Backend development and CMS integration for a real client.",
+    "category": "client",
+    "live": "https://www.kesariselect.com/",
+    "github": null,
+    "year": "2025-2026"
+  },
+  {
+    "id": 5,
+    "title": "Kesari Custom CMS",
+    "description": "Flexible internal Content Management System built for Kesari. Handles dynamic page content, media, and structured data.",
+    "tech": ["Laravel", "MySQL", "PHP", "Livewire"],
+    "role": "Designed and built the full CMS from scratch — custom content types, media management, and admin UI.",
+    "category": "client",
+    "live": null,
+    "github": null,
+    "year": "2025-2026"
+  },
+  {
+    "id": 6,
+    "title": "Car Web Services",
+    "description": "A basic car service management system to handle car washing operations, track service status, and manage daily service records.",
+    "tech": ["PHP", "MySQL"],
+    "role": "Built the complete system including form handling, database design, and admin panel for managing car service records.",
+    "category": "learning",
+    "live": "https://youtu.be/EMP0RciGICg?si=O5gwr0W7A38-6Ajy",
+    "github": null,
+    "year": 2022,
+    "features": [
+      "Add and manage car entries (owner name, car number, service type)",
+      "Track washing status (pending, in progress, completed)",
+      "Admin dashboard with total cars serviced and pending count",
+      "View and filter service history records",
+      "Basic CRUD operations for managing services"
+    ],
+    "learning": "Learned CRUD operations, form handling, and the importance of clean relational database structure before writing backend logic."
+  },
+  {
+    "id": 7,
+    "title": "Book Server",
+    "description": "A basic book management system focused on storing and managing old books records. Built to track book details, availability, and simple inventory operations.",
+    "tech": ["PHP", "MySQL"],
+    "role": "Built the complete system including database design, CRUD operations, and basic admin functionality.",
+    "category": "learning",
+    "type": "hackathon",
+    "live": "https://youtu.be/yLy_fBdOT7M?si=IXdyDegtJKRMqwkE",
+    "github": "https://github.com/MadinBloch",
+    "year": 2023,
+    "features": [
+      "Add and manage books (title, author, category)",
+      "Track availability and stock of books",
+      "Simple admin panel for managing records",
+      "Search and filter books",
+      "Basic CRUD operations"
+    ],
+    "learning": "Learned practical CRUD operations, session handling basics, and realized the limitations of raw PHP for scaling projects."
+  }
+]

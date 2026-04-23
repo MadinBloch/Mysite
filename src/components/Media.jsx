@@ -4,42 +4,42 @@ const CERTIFICATES = [
   {
     id: 1,
     title: 'Grand Finale Hackathon Certificate',
-    src: 'public/certificateHackthnone.jpg',
+    src: '/certificateHackthnone.jpg',
   },
   {
     id: 2,
     title: 'Grand Finale Moment',
-    src: 'public/image3hackthone.jpg',
+    src: '/image3hackthone.jpg',
   },
   {
     id: 3,
     title: 'Team Achievement',
-    src: 'public/image5.jpg',
+    src: '/image5.jpg',
   },
   {
     id: 4,
     title: 'Presentation Session',
-    src: 'public/image2hackthone.jpg',
+    src: '/image2hackthone.jpg',
   },
   {
     id: 5,
     title: 'Regional Round Certificate',
-    src: 'public/image9.jpg',
+    src: '/image9.jpg',
   },
   {
     id: 6,
     title: 'Regional Round Moment',
-    src: 'public/image7.jpg',
+    src: '/image7.jpg',
   },
   {
     id: 7,
     title: 'Team Achievement',
-    src: 'public/image6.jpg',
+    src: '/image6.jpg',
   },
   {
     id: 8,
     title: 'Regional Round Moment',
-    src: 'public/imag1hackthone.jpg',
+    src: '/imag1hackthone.jpg',
   },
 ]
 

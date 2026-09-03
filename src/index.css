@@ -9,6 +9,10 @@
 
   body {
     @apply bg-zinc-950 text-zinc-100 font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(110, 231, 183, 0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(56, 189, 248, 0.05), transparent);
+    background-attachment: fixed;
   }
 
   ::selection {
@@ -16,44 +20,56 @@
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-zinc-900;
+    @apply bg-zinc-950;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-zinc-600 rounded-full;
+    @apply bg-zinc-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-500;
   }
 }
 
 @layer components {
   .section-heading {
-    @apply font-display text-2xl font-bold text-zinc-100 mb-1;
+    @apply font-display text-3xl sm:text-4xl font-bold text-zinc-50 tracking-tight mb-1;
   }
 
   .section-label {
-    @apply font-mono text-xs text-accent tracking-widest uppercase mb-3;
+    @apply font-mono text-[11px] text-accent tracking-[0.2em] uppercase mb-3;
   }
 
   .card {
-    @apply bg-zinc-900 border border-zinc-800 rounded-lg p-5 hover:border-zinc-700 transition-colors duration-200;
+    @apply bg-zinc-900/70 border border-zinc-800/90 rounded-2xl p-5 backdrop-blur-sm hover:border-zinc-700 transition-all duration-300;
   }
 
   .tag {
-    @apply font-mono text-xs bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded;
+    @apply font-mono text-[11px] bg-zinc-950/70 text-zinc-400 border border-zinc-800 px-2.5 py-1 rounded-full;
   }
 
   .link-accent {
     @apply text-accent hover:text-accent-dim transition-colors;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-accent text-zinc-950 font-semibold text-sm px-5 py-3 rounded-xl hover:bg-accent-dim transition-all shadow-[0_0_28px_rgba(110,231,183,0.22)];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 border border-zinc-700/80 text-zinc-300 font-medium text-sm px-5 py-3 rounded-xl hover:border-accent/40 hover:text-accent transition-all bg-zinc-900/40;
   }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -61,11 +77,30 @@
   }
 }
 
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 .animate-fadeInUp {
-  animation: fadeInUp 0.5s ease forwards;
+  animation: fadeInUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-float {
+  animation: floatSoft 5s ease-in-out infinite;
 }
 
 .animate-delay-100 { animation-delay: 0.1s; opacity: 0; }
 .animate-delay-200 { animation-delay: 0.2s; opacity: 0; }
 .animate-delay-300 { animation-delay: 0.3s; opacity: 0; }
 .animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+.noise-overlay::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

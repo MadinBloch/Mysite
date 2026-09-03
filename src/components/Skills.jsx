@@ -2,33 +2,37 @@ const SKILLS = [
   {
     category: 'Backend',
     items: [
-      { name: 'Laravel', level: 'Primary', note: '1.5+ years, production projects' },
+      { name: 'Laravel', level: 'Primary', note: '2+ years, production projects' },
       { name: 'PHP', level: 'Primary', note: 'Core language' },
       { name: 'MySQL', level: 'Primary', note: 'Schema design, queries, optimization' },
+      { name: 'Frappe', level: 'Comfortable', note: 'ERP integrations & APIs' },
+      { name: 'Queue Jobs', level: 'Comfortable', note: 'Campaigns, async workflows' },
     ],
   },
   {
     category: 'Frontend',
     items: [
       { name: 'Livewire', level: 'Comfortable', note: 'Dynamic UI within Laravel' },
-      { name: 'React', level: 'Basic', note: 'Building understanding' },
       { name: 'Blade', level: 'Comfortable', note: 'Laravel templating' },
+      { name: 'React', level: 'Basic', note: 'Working knowledge' },
     ],
   },
   {
     category: 'DevOps',
     items: [
-      { name: 'Nginx', level: 'Basic', note: 'Config, reverse proxy, SSL' },
+      { name: 'Docker', level: 'Comfortable', note: 'Containers, Compose, workshops' },
+      { name: 'Git', level: 'Primary', note: 'Daily workflow + teaching' },
       { name: 'AWS EC2', level: 'Basic', note: 'Deployed real apps' },
-      { name: 'Linux', level: 'Basic', note: 'Server management' },
+      { name: 'Nginx', level: 'Basic', note: 'Reverse proxy, SSL' },
     ],
   },
   {
-    category: 'Tools',
+    category: 'Extra Skills',
     items: [
-      { name: 'Docker', level: 'Learning', note: 'Containerizing apps' },
+      { name: 'Workshops', level: 'Comfortable', note: 'University facilitator' },
+      { name: 'Mentoring', level: 'Comfortable', note: 'BCA & MCA cohorts' },
       { name: 'CI/CD', level: 'Learning', note: 'GitHub Actions, pipelines' },
-      { name: 'DevOps', level: 'Learning', note: 'Deployment workflows' },
+      { name: 'Linux', level: 'Basic', note: 'Server management' },
     ],
   },
 ]
@@ -53,7 +57,10 @@ export default function Skills() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <p className="section-label">Technical Skills</p>
         <h2 className="section-heading mb-2">What I Work With</h2>
-    
+        <p className="text-zinc-500 text-sm mb-8 max-w-2xl">
+          Laravel-first backend stack with Docker, Git, and deployment experience — plus teaching skills from university workshops.
+        </p>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {SKILLS.map((group) => (
             <div key={group.category} className="h-full">
@@ -62,10 +69,10 @@ export default function Skills() {
               </p>
               <div className="space-y-3 h-full">
                 {group.items.map((skill) => (
-                  <div key={skill.name} className="card min-h-[96px] hover:border-zinc-600 transition-all">
-                    <div className="flex items-center justify-between mb-1">
+                  <div key={skill.name} className="card min-h-[88px] hover:border-accent/25 hover:-translate-y-0.5 transition-all">
+                    <div className="flex items-center justify-between mb-1 gap-2">
                       <span className="text-zinc-200 text-sm font-medium">{skill.name}</span>
-                      <span className={`font-mono text-xs flex items-center gap-1 ${levelColor[skill.level]}`}>
+                      <span className={`font-mono text-xs flex items-center gap-1 shrink-0 ${levelColor[skill.level]}`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${levelDot[skill.level]}`} />
                         {skill.level}
                       </span>
@@ -78,7 +85,6 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Legend */}
         <div className="mt-8 flex flex-wrap gap-5">
           {Object.entries(levelColor).map(([level, cls]) => (
             <div key={level} className="flex items-center gap-1.5">

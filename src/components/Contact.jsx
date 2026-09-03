@@ -1,8 +1,8 @@
 const CONTACTS = [
   {
     label: 'Email',
-    value: 'madinbloch@gmail.com',
-    href: 'mailto:madinbloch@gmail.com',
+    value: 'madinkhan0633@gmail.com',
+    href: 'mailto:madinkhan0633@gmail.com',
     icon: (
       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -47,9 +47,20 @@ export default function Contact() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <p className="section-label">Get in Touch</p>
         <h2 className="section-heading mb-2">Contact</h2>
-        <p className="text-zinc-500 text-sm mb-10">
-          Open to backend roles, freelance Laravel work, or just a conversation about tech.
+        <p className="text-zinc-500 text-sm mb-8 max-w-2xl">
+          Open to Senior Laravel / backend roles — currently completing MCA while shipping production systems.
         </p>
+
+        <a
+          href="/Madin_Bloch_Resume.pdf"
+          download
+          className="mb-10 btn-primary"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Download Resume (PDF)
+        </a>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CONTACTS.map((c) => (
@@ -58,7 +69,7 @@ export default function Contact() {
               href={c.href}
               target={c.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noreferrer"
-              className="card group hover:border-zinc-600 flex flex-col gap-3"
+              className="card group hover:border-accent/30 flex flex-col gap-3"
             >
               <div className="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
                 {c.icon}
@@ -73,10 +84,7 @@ export default function Contact() {
           ))}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-mono text-xs text-zinc-600">
-            Built with React + Tailwind CSS
-          </p>
+        <div className="mt-16 pt-8 border-t border-zinc-800 flex items-center justify-center">
           <p className="font-mono text-xs text-zinc-600">
             © {new Date().getFullYear()} Madin Bloch
           </p>

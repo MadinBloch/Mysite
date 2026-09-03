@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'monospace'],
-        sans: ['"DM Sans"', 'sans-serif'],
-        display: ['"Syne"', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Outfit"', 'system-ui', 'sans-serif'],
       },
       colors: {
         zinc: {
@@ -17,6 +17,9 @@ export default {
           DEFAULT: '#6ee7b7',
           dim: '#34d399',
         },
+      },
+      boxShadow: {
+        glow: '0 0 40px rgba(110, 231, 183, 0.15)',
       },
     },
   },

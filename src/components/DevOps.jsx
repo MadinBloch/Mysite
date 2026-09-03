@@ -1,8 +1,13 @@
 const STEPS = [
   {
+    label: 'Docker',
+    status: 'done',
+    detail: 'Containerizing Laravel apps, Compose setups, and teaching Docker fundamentals at university workshops.',
+  },
+  {
     label: 'AWS EC2',
     status: 'done',
-    detail: 'Deployed Laravel + React apps on EC2 instances. Managed server setup from scratch.',
+    detail: 'Deployed Laravel apps on EC2 instances. Managed server setup from scratch.',
   },
   {
     label: 'Nginx',
@@ -24,11 +29,6 @@ const STEPS = [
     status: 'learning',
     detail: 'Currently learning GitHub Actions for automated deployments.',
   },
-  {
-    label: 'Docker',
-    status: 'learning',
-    detail: 'Learning to containerize Laravel apps for consistent environments.',
-  },
 ]
 
 export default function DevOps() {
@@ -36,13 +36,12 @@ export default function DevOps() {
     <section id="devops" className="py-20 sm:py-24 bg-zinc-900/30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <p className="section-label">Infrastructure</p>
-        <h2 className="section-heading mb-2">DevOps Work</h2>
+        <h2 className="section-heading mb-2">DevOps &amp; Docker</h2>
         <p className="text-zinc-500 text-sm mb-10">
-          Not just building apps — learning how to actually ship and run them.
+          Not just building apps — shipping them with Docker, Nginx, and cloud deployments.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Steps */}
           <div>
             <p className="font-mono text-xs text-zinc-600 uppercase tracking-widest mb-4">
               What I've done
@@ -75,27 +74,24 @@ export default function DevOps() {
             </div>
           </div>
 
-          {/* Config snippet */}
           <div>
             <p className="font-mono text-xs text-zinc-600 uppercase tracking-widest mb-4">
-              Sample Nginx config
+              Sample Docker Compose
             </p>
-            <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 font-mono text-xs leading-relaxed text-zinc-500 overflow-x-auto">
-              <p><span className="text-blue-400">server</span> {'{'}</p>
-              <p className="pl-4"><span className="text-zinc-600">listen</span> <span className="text-amber-400">80</span>;</p>
-              <p className="pl-4"><span className="text-zinc-600">server_name</span> <span className="text-accent">yourdomain.com</span>;</p>
-              <p className="pl-4"><span className="text-zinc-600">root</span> <span className="text-zinc-400">/var/www/html/public</span>;</p>
-              <p className="pl-4 mt-2"><span className="text-zinc-600">index</span> index.php;</p>
-              <p className="pl-4 mt-2"><span className="text-blue-400">location</span> / {'{'}</p>
-              <p className="pl-8"><span className="text-zinc-600">try_files</span> $uri $uri/ /index.php?$query_string;</p>
-              <p className="pl-4">{'}'}</p>
-              <p className="pl-4 mt-2"><span className="text-blue-400">location</span> ~ \.php$ {'{'}</p>
-              <p className="pl-8"><span className="text-zinc-600">fastcgi_pass</span> unix:/run/php/php8.2-fpm.sock;</p>
-              <p className="pl-8"><span className="text-zinc-600">include</span> fastcgi_params;</p>
-              <p className="pl-4">{'}'}</p>
-              <p>{'}'}</p>
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 font-mono text-xs leading-relaxed text-zinc-500 overflow-x-auto shadow-[inset_0_1px_0_rgba(110,231,183,0.08)]">
+              <p><span className="text-blue-400">services</span>:</p>
+              <p className="pl-3"><span className="text-accent">app</span>:</p>
+              <p className="pl-6"><span className="text-zinc-600">image</span>: <span className="text-amber-400">php:8.2-fpm</span></p>
+              <p className="pl-6"><span className="text-zinc-600">volumes</span>: [<span className="text-zinc-400">.:/var/www</span>]</p>
+              <p className="pl-3 mt-2"><span className="text-accent">nginx</span>:</p>
+              <p className="pl-6"><span className="text-zinc-600">image</span>: <span className="text-amber-400">nginx:alpine</span></p>
+              <p className="pl-6"><span className="text-zinc-600">ports</span>: [<span className="text-zinc-400">"80:80"</span>]</p>
+              <p className="pl-3 mt-2"><span className="text-accent">mysql</span>:</p>
+              <p className="pl-6"><span className="text-zinc-600">image</span>: <span className="text-amber-400">mysql:8</span></p>
+              <p className="pl-6"><span className="text-zinc-600">environment</span>:</p>
+              <p className="pl-9">MYSQL_DATABASE: <span className="text-zinc-400">laravel</span></p>
             </div>
-            <p className="font-mono text-xs text-zinc-600 mt-3">// This is a real config I've worked with</p>
+            <p className="font-mono text-xs text-zinc-600 mt-3">// Real stack I use and teach</p>
           </div>
         </div>
       </div>

@@ -1,24 +1,26 @@
 export default function About() {
   return (
-    <section id="about" className="py-8 sm:py-8">
+    <section id="about" className="py-20 sm:py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <p className="section-label">Background</p>
         <h2 className="section-heading mb-8">About Me</h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {/* Main text */}
           <div className="md:col-span-2 space-y-5 text-zinc-300 leading-7">
             <p>
               I started web development to understand how products work under the hood, not only
               how they look.
             </p>
             <p>
-              In the last 1.5+ years, I have worked on production Laravel systems for print workflows,
-              HR operations, and internal campaign tools.
+              Over <span className="text-accent font-medium">2+ years</span>, I have shipped production
+              Laravel systems — with strong ownership on the live{' '}
+              <span className="text-zinc-100 font-medium">Kesari Select</span> platform, plus internal
+              tools for print, HR, and campaigns.
             </p>
             <p>
-              My core focus is backend architecture: database design, business logic, API structure,
-              and making codebases maintainable for long-term teams.
+              Academically, I have completed my <span className="text-zinc-100 font-medium">BCA</span> and
+              am in the <span className="text-zinc-100 font-medium">final year of MCA</span>. I focus on
+              backend architecture, clean APIs, Dockerized environments, and maintainable codebases.
             </p>
             <ul className="space-y-2 pt-2">
               <li className="flex items-start gap-3">
@@ -27,37 +29,51 @@ export default function About() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>
-                <span>Deployed Laravel + React apps on AWS EC2 with Nginx, PHP-FPM, and SSL.</span>
+                <span>Deployed Laravel apps on AWS EC2 with Nginx, PHP-FPM, SSL — plus Docker.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>
-                <span>Currently deepening DevOps skills with Docker and CI/CD automation.</span>
+                <span>Conducted a hands-on Git &amp; Docker workshop for BCA/MCA students at Dr. Subhash University.</span>
               </li>
             </ul>
           </div>
 
-          {/* Quick facts */}
           <div className="space-y-4">
-            <div className="card">
+            <div className="card hover:border-accent/30">
               <p className="font-mono text-xs text-zinc-600 mb-2">// experience</p>
-              <p className="text-zinc-200 text-sm font-medium">1.5+ Years</p>
+              <p className="text-zinc-200 text-sm font-medium">2+ Years</p>
               <p className="text-zinc-500 text-xs mt-0.5">Real-world Laravel projects</p>
             </div>
-            <div className="card">
+            <div className="card hover:border-accent/30">
+              <p className="font-mono text-xs text-zinc-600 mb-2">// education</p>
+              <p className="text-zinc-200 text-sm font-medium">MCA · Final Year</p>
+              <p className="text-zinc-500 text-xs mt-0.5">BCA Completed</p>
+            </div>
+            <div className="card hover:border-accent/30">
               <p className="font-mono text-xs text-zinc-600 mb-2">// focus</p>
               <p className="text-zinc-200 text-sm font-medium">Backend Systems</p>
               <p className="text-zinc-500 text-xs mt-0.5">APIs, logic, databases</p>
             </div>
-            <div className="card">
-              <p className="font-mono text-xs text-zinc-600 mb-2">// currently</p>
-              <p className="text-zinc-200 text-sm font-medium">Learning DevOps</p>
-              <p className="text-zinc-500 text-xs mt-0.5">Docker, CI/CD, AWS</p>
-            </div>
-            <div className="card">
+            <div className="card hover:border-accent/30">
               <p className="font-mono text-xs text-zinc-600 mb-2">// community</p>
-              <p className="text-zinc-200 text-sm font-medium">Laravel Meetups</p>
+              <p className="text-zinc-200 text-sm font-medium">Workshop Facilitator</p>
               <p className="text-zinc-500 text-xs mt-0.5">Hackathon Grand Finalist</p>
             </div>
+          </div>
+        </div>
+
+        <div id="education" className="mt-12 grid sm:grid-cols-2 gap-4">
+          <div className="card border-accent/20 bg-gradient-to-br from-accent/5 to-transparent">
+            <p className="font-mono text-[11px] text-accent uppercase tracking-wider mb-2">Education</p>
+            <h3 className="font-display text-xl font-bold text-zinc-100">MCA</h3>
+            <p className="text-zinc-400 text-sm mt-1">Master of Computer Applications</p>
+            <p className="font-mono text-xs text-zinc-500 mt-3">Final Year · Pursuing</p>
+          </div>
+          <div className="card">
+            <p className="font-mono text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Education</p>
+            <h3 className="font-display text-xl font-bold text-zinc-100">BCA</h3>
+            <p className="text-zinc-400 text-sm mt-1">Bachelor of Computer Applications</p>
+            <p className="font-mono text-xs text-accent mt-3">Completed</p>
           </div>
         </div>
       </div>

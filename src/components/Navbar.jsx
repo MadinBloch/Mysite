@@ -4,11 +4,10 @@ import { Link, useLocation } from 'react-router-dom'
 const NAV_LINKS = [
   { href: '/#home', label: 'Home' },
   { href: '/#about', label: 'About' },
-  { href: '/#skills', label: 'Skills' },
+  { href: '/#experience', label: 'Experience' },
   { href: '/#projects', label: 'Projects' },
-  { href: '/#devops', label: 'DevOps' },
-  { href: '/#hackathon', label: 'Experience' },
-  { href: '/#media', label: 'Media' },
+  { href: '/#workshop', label: 'Workshop' },
+  { href: '/#skills', label: 'Skills' },
   { href: '/#contact', label: 'Contact' },
 ]
 
@@ -29,13 +28,12 @@ export default function Navbar() {
         scrolled ? 'bg-zinc-950/90 backdrop-blur border-b border-zinc-800' : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-5xl mx-auto px-6 flex items-center justify-between h-14">
-        <Link to="/" className="font-display font-bold text-zinc-100 tracking-tight text-lg">
+      <nav className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+        <Link to="/" className="font-display font-bold text-zinc-100 tracking-tight text-xl">
           mb<span className="text-accent">.</span>
         </Link>
 
-        {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-6">
+        <ul className="hidden lg:flex items-center gap-5">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -48,20 +46,28 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <Link
-          to="/blogs"
-          className={`hidden md:inline-flex font-mono text-xs border rounded-md px-3 py-1.5 transition-colors ${
-            location.pathname === '/blogs'
-              ? 'text-accent border-accent/40 bg-accent/10'
-              : 'text-zinc-300 border-zinc-700 hover:border-zinc-500 hover:text-accent'
-          }`}
-        >
-          Blogs
-        </Link>
+        <div className="hidden md:flex items-center gap-2">
+          <a
+            href="/Madin_Bloch_Resume.pdf"
+            download
+            className="font-mono text-xs text-zinc-950 bg-accent hover:bg-accent-dim rounded-lg px-3.5 py-2 font-semibold transition-colors shadow-[0_0_18px_rgba(110,231,183,0.2)]"
+          >
+            Resume
+          </a>
+          <Link
+            to="/blogs"
+            className={`font-mono text-xs border rounded-md px-3 py-1.5 transition-colors ${
+              location.pathname === '/blogs'
+                ? 'text-accent border-accent/40 bg-accent/10'
+                : 'text-zinc-300 border-zinc-700 hover:border-zinc-500 hover:text-accent'
+            }`}
+          >
+            Blogs
+          </Link>
+        </div>
 
-        {/* Mobile menu button */}
         <button
-          className="md:hidden text-zinc-400 hover:text-zinc-100"
+          className="lg:hidden text-zinc-400 hover:text-zinc-100"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -77,9 +83,8 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-zinc-900 border-b border-zinc-800 px-6 py-4">
+        <div className="lg:hidden bg-zinc-900 border-b border-zinc-800 px-6 py-4">
           <ul className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
@@ -92,6 +97,16 @@ export default function Navbar() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href="/Madin_Bloch_Resume.pdf"
+                download
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-sm text-accent"
+              >
+                Download Resume
+              </a>
+            </li>
             <li>
               <Link
                 to="/blogs"

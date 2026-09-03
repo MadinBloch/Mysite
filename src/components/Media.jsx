@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import Lightbox from './Lightbox'
 
 const CERTIFICATES = [
   {
@@ -60,14 +61,7 @@ const VIDEOS = [
 
 export default function Media() {
   const [activeImage, setActiveImage] = useState(null)
-
-  useEffect(() => {
-    const onEsc = (event) => {
-      if (event.key === 'Escape') setActiveImage(null)
-    }
-    window.addEventListener('keydown', onEsc)
-    return () => window.removeEventListener('keydown', onEsc)
-  }, [])
+  const closeLightbox = useCallback(() => setActiveImage(null), [])
 
   return (
     <section id="media" className="py-20 sm:py-24 bg-zinc-900/30">
@@ -84,7 +78,7 @@ export default function Media() {
               type="button"
               key={item.id}
               onClick={() => setActiveImage(item)}
-              className="group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900"
+              className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900"
             >
               <img
                 src={item.src}
@@ -101,9 +95,9 @@ export default function Media() {
         </div>
 
         <div className="mt-12">
-          <h3 className="text-zinc-100 text-lg font-semibold mb-1">Videos</h3>
+          <h3 className="font-display text-zinc-100 text-xl font-semibold mb-1">Videos</h3>
           <p className="text-zinc-500 text-sm mb-5">
-            Hackathon updates and demo recordings embedded in responsive format.
+            Hackathon updates and demo recordings.
           </p>
           <div className="grid lg:grid-cols-2 gap-6">
             {VIDEOS.map((video) => (
@@ -126,22 +120,7 @@ export default function Media() {
         </div>
       </div>
 
-      {activeImage && (
-        <div
-          className="fixed inset-0 z-[60] bg-black/85 p-4 sm:p-8 flex items-center justify-center"
-          onClick={() => setActiveImage(null)}
-        >
-          <div className="max-w-5xl w-full">
-            <img
-              src={activeImage.src}
-              alt={activeImage.title}
-              className="w-full max-h-[85vh] object-contain rounded-lg"
-              onClick={(event) => event.stopPropagation()}
-            />
-            <p className="text-center text-zinc-300 text-sm mt-3">{activeImage.title}</p>
-          </div>
-        </div>
-      )}
+      <Lightbox image={activeImage} onClose={closeLightbox} />
     </section>
   )
 }

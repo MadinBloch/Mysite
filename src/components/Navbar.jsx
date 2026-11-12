@@ -1,125 +1,58 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-const NAV_LINKS = [
-  { href: '/#home', label: 'Home' },
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#workshop', label: 'Workshop' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#contact', label: 'Contact' },
+const links = [
+  ['#work','Work'],['#experience','Experience'],['#about','About'],['#stories','Beyond code'],['#contact','Contact']
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    setOpen(false)
+  }, [location.pathname, location.hash])
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 24)
+    handler()
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-zinc-950/90 backdrop-blur border-b border-zinc-800' : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <Link to="/" className="font-display font-bold text-zinc-100 tracking-tight text-xl">
-          mb<span className="text-accent">.</span>
+    <header className={'site-nav fixed inset-x-0 top-0 z-50 transition-all duration-300 ' + (scrolled || open ? 'border-b border-white/10 bg-[#0b0d12]/95 shadow-xl shadow-black/20 backdrop-blur-xl' : 'bg-[#0b0d12]/65 backdrop-blur-lg')}>
+      <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-5 px-5 sm:px-8 lg:px-12">
+        <Link to="/" aria-label="Madin Bloch home" className="group flex shrink-0 items-center gap-2.5">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent font-display text-base font-extrabold tracking-[-.08em] text-[#09100c] transition-transform group-hover:-rotate-6">mb.</span>
+          <span className="font-display text-[15px] font-semibold tracking-tight text-white">Madin Bloch<span className="text-accent">/</span></span>
         </Link>
 
-        <ul className="hidden lg:flex items-center gap-5">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="font-mono text-xs text-zinc-400 hover:text-zinc-100 transition-colors tracking-wide"
-              >
-                {link.label}
-              </a>
-            </li>
+        <nav aria-label="Main navigation" className="hidden items-center gap-7 lg:flex">
+          {links.map(([id,label]) => (
+            <Link key={id} to={'/'+id} className="font-mono text-[11px] tracking-wide text-[#a7acb7] transition-colors hover:text-white">{label}</Link>
           ))}
-        </ul>
+          <Link to="/blogs" className="font-mono text-[11px] text-[#a7acb7] hover:text-white">Writing</Link>
+        </nav>
 
-        <div className="hidden md:flex items-center gap-2">
-          <a
-            href="/Madin_Bloch_Resume.pdf"
-            download
-            className="font-mono text-xs text-zinc-950 bg-accent hover:bg-accent-dim rounded-lg px-3.5 py-2 font-semibold transition-colors shadow-[0_0_18px_rgba(110,231,183,0.2)]"
-          >
-            Resume
-          </a>
-          <Link
-            to="/blogs"
-            className={`font-mono text-xs border rounded-md px-3 py-1.5 transition-colors ${
-              location.pathname === '/blogs'
-                ? 'text-accent border-accent/40 bg-accent/10'
-                : 'text-zinc-300 border-zinc-700 hover:border-zinc-500 hover:text-accent'
-            }`}
-          >
-            Blogs
-          </Link>
+        <div className="hidden items-center gap-3 md:flex">
+          <a href="/Madin_Bloch_Resume.pdf" download className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 font-mono text-[11px] text-white transition-colors hover:border-accent hover:text-accent">Resume <span aria-hidden="true">↗</span></a>
+          <a href="mailto:madinkhan0633@gmail.com" className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 font-mono text-[11px] font-semibold text-[#10130e] transition-colors hover:bg-white">Get in touch <span aria-hidden="true">↗</span></a>
         </div>
 
-        <button
-          className="lg:hidden text-zinc-400 hover:text-zinc-100"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-        >
-          {menuOpen ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
+        <button type="button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(v=>!v)} className="rounded-xl border border-white/15 px-3 py-2 text-xl leading-none text-white md:hidden">
+          {open ? '×' : '☰'}
         </button>
-      </nav>
-
-      {menuOpen && (
-        <div id="mobile-navigation" className="lg:hidden bg-zinc-900 border-b border-zinc-800 px-6 py-4">
-          <ul className="flex flex-col gap-3">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-mono text-sm text-zinc-400 hover:text-zinc-100 transition-colors"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a
-                href="/Madin_Bloch_Resume.pdf"
-                download
-                onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm text-accent"
-              >
-                Download Resume
-              </a>
-            </li>
-            <li>
-              <Link
-                to="/blogs"
-                onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm text-accent"
-              >
-                Blogs
-              </Link>
-            </li>
-          </ul>
-        </div>
+      </div>
+      {open && (
+        <nav id="mobile-nav" aria-label="Mobile navigation" className="border-t border-white/10 px-5 pb-5 pt-3 md:hidden">
+          <div className="grid gap-1">
+            {links.map(([id,label]) => <Link key={id} to={'/'+id} onClick={()=>setOpen(false)} className="rounded-lg px-3 py-3 text-sm text-[#d0d3dc] hover:bg-white/10">{label}</Link>)}
+            <Link to="/blogs" onClick={()=>setOpen(false)} className="rounded-lg px-3 py-3 text-sm text-[#d0d3dc] hover:bg-white/10">Writing</Link>
+            <a href="/Madin_Bloch_Resume.pdf" download className="mt-2 rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-black">Download resume</a>
+          </div>
+        </nav>
       )}
     </header>
   )

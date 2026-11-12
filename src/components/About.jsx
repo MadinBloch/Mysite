@@ -1,84 +1,31 @@
+const values = [
+  {number:'01',title:'Make it recoverable',text:'Imports, exports and queued work need a way to retry, inspect or pick up where they stopped.'},
+  {number:'02',title:'Prefer clarity over cleverness',text:'The next developer should be able to understand why a business rule exists and how a record moves through the system.'},
+  {number:'03',title:'Measure what matters',text:'When a page feels slow or a batch stalls, I look for the bottleneck and track the result rather than calling the code “optimized” without a baseline.'}
+]
 export default function About() {
-  return (
-    <section id="about" className="py-20 sm:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <p className="section-label">Background</p>
-        <h2 className="section-heading mb-8">About Me</h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-5 text-zinc-300 leading-7">
-            <p>
-              I started web development to understand how products work under the hood, not only
-              how they look.
-            </p>
-            <p>
-              Since <span className="text-accent font-medium">December 2024</span>, I've worked in PHP
-              and Laravel on the sort of business software where mistakes have real consequences.
-              At <span className="text-zinc-100 font-medium">Kesari Select</span>, that means
-              getting ERP exports right, respecting finance approvals, handling notifications,
-              and shipping fixes to production. I also built the first version of an internal
-              Excel-driven email campaign system.
-            </p>
-            <p>
-              Academically, I have completed my <span className="text-zinc-100 font-medium">BCA</span> and
-              am in the <span className="text-zinc-100 font-medium">final year of MCA</span>. I focus on
-              backend architecture, clean APIs, Dockerized environments, and maintainable codebases.
-            </p>
-            <ul className="space-y-2 pt-2">
-              <li className="flex items-start gap-3">
-                <span className="text-accent mt-0.5">•</span>
-                <span>Production work with Laravel, Frappe ERP integrations, DBF/S3 exports, queues and approvals.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-accent mt-0.5">•</span>
-                <span>Handled application deployments and post-release issues with Docker, EC2, Nginx, PHP-FPM and SSL.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-accent mt-0.5">•</span>
-                <span>Conducted a hands-on Git &amp; Docker workshop for BCA/MCA students at Dr. Subhash University.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <div className="card hover:border-accent/30">
-              <p className="font-mono text-xs text-zinc-600 mb-2">// experience</p>
-              <p className="text-zinc-200 text-sm font-medium">Since Dec 2024</p>
-              <p className="text-zinc-500 text-xs mt-0.5">Real-world Laravel projects</p>
-            </div>
-            <div className="card hover:border-accent/30">
-              <p className="font-mono text-xs text-zinc-600 mb-2">// education</p>
-              <p className="text-zinc-200 text-sm font-medium">MCA · Final Year</p>
-              <p className="text-zinc-500 text-xs mt-0.5">BCA Completed</p>
-            </div>
-            <div className="card hover:border-accent/30">
-              <p className="font-mono text-xs text-zinc-600 mb-2">// focus</p>
-              <p className="text-zinc-200 text-sm font-medium">Backend Systems</p>
-              <p className="text-zinc-500 text-xs mt-0.5">APIs, logic, databases</p>
-            </div>
-            <div className="card hover:border-accent/30">
-              <p className="font-mono text-xs text-zinc-600 mb-2">// community</p>
-              <p className="text-zinc-200 text-sm font-medium">Workshop Facilitator</p>
-              <p className="text-zinc-500 text-xs mt-0.5">Hackathon Grand Finalist</p>
-            </div>
+  return <section id="about" className="bg-[#eff1e9] py-24 text-[#141e17] sm:py-32">
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+      <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-20">
+        <div>
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[.24em] text-[#4d7744]">04 / How I think</p>
+          <h2 className="mt-5 font-display text-[clamp(2.6rem,5vw,5.25rem)] font-semibold leading-[1.02] tracking-[-.07em]">Good backend work is often the stuff <span className="font-light italic text-[#668b54]">you don't notice.</span></h2>
+          <p className="mt-7 max-w-xl text-sm leading-8 text-[#59655c]">A business team can finish its work. A file doesn't go missing. A campaign can be paused. A release can be recovered. That's the kind of engineering I care about.</p>
+          <div className="mt-10 flex flex-wrap gap-2">
+            {['Laravel & PHP','MySQL','Frappe ERP APIs','Queues / Workers','AWS & Docker','Git & Linux'].map(s=><span key={s} className="rounded-full border border-[#cbd4c6] px-4 py-2 font-mono text-[11px] text-[#415146]">{s}</span>)}
           </div>
         </div>
-
-        <div id="education" className="mt-12 grid sm:grid-cols-2 gap-4">
-          <div className="card border-accent/20 bg-gradient-to-br from-accent/5 to-transparent">
-            <p className="font-mono text-[11px] text-accent uppercase tracking-wider mb-2">Education</p>
-            <h3 className="font-display text-xl font-bold text-zinc-100">MCA</h3>
-            <p className="text-zinc-400 text-sm mt-1">Master of Computer Applications</p>
-            <p className="font-mono text-xs text-zinc-500 mt-3">Final Year · Pursuing</p>
-          </div>
-          <div className="card">
-            <p className="font-mono text-[11px] text-zinc-500 uppercase tracking-wider mb-2">Education</p>
-            <h3 className="font-display text-xl font-bold text-zinc-100">BCA</h3>
-            <p className="text-zinc-400 text-sm mt-1">Bachelor of Computer Applications</p>
-            <p className="font-mono text-xs text-accent mt-3">Completed</p>
+        <div className="lg:pt-10">
+          {values.map(v=><div key={v.number} className="grid grid-cols-[58px_1fr] gap-4 border-t border-[#c9d0c5] py-8 last:border-b">
+            <span className="font-mono text-xs font-semibold text-[#73946b]">{v.number}</span>
+            <div><h3 className="font-display text-2xl font-semibold tracking-tight text-[#17281c]">{v.title}</h3><p className="mt-3 max-w-lg text-sm leading-7 text-[#667267]">{v.text}</p></div>
+          </div>)}
+          <div className="mt-8 flex items-start gap-4 rounded-2xl bg-[#dae6d5] p-6">
+            <span aria-hidden="true" className="font-display text-3xl text-[#578b4a]">↗</span>
+            <p className="text-sm leading-7 text-[#405845]">Also a workshop facilitator: I have taught Git and Docker through live demos for BCA/MCA students at Dr. Subhash University.</p>
           </div>
         </div>
       </div>
-    </section>
-  )
+    </div>
+  </section>
 }

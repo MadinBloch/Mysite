@@ -1,201 +1,112 @@
 [
   {
     "id": 4,
-    "title": "Kesari Select · Travel Operations Platform",
-    "tagline": "High-volume travel operations, ERP integrations & production delivery",
-    "description": "I work on the Laravel application behind Kesari Select's sales and operations workflows. The platform handles an estimated 10K+ inquiries per day and is used by roughly 700–1,000 internal team members. My work spans finance data exchange, booking flows, alerts and deployment.",
-    "role": "I built scheduled DBF export/reconciliation workflows, Cash Contra requisitions, ERP API handling and reminders; expanded multi-role financial approvals; and handled application deployment and production issues. Kesari Select is a team-built product.",
+    "title": "Kesari Select",
+    "type": "Production platform",
+    "eyebrow": "01 / CLIENT SYSTEM",
+    "tagline": "Travel operations, not just another dashboard.",
+    "description": "Backend delivery for a busy travel business: keeping ERP data, approvals, alerts and releases dependable as teams work across the same platform.",
+    "note": "My work on a team-built product; not sole platform ownership.",
     "category": "client",
-    "company": "Kesari Select (via Shine Infosoft)",
     "featured": true,
     "spotlight": true,
-    "accent": "kesari",
     "logo": "/Footer_logo-new.6076b51f76fa6ba0f5b7.webp",
     "live": "https://www.kesariselect.com/",
-    "github": null,
     "caseStudySlug": "kesari-select-backend",
-    "year": "2025–2026",
+    "year": "2025–Present",
     "tech": [
-      "Laravel",
-      "PHP",
-      "Frappe ERP",
-      "MySQL",
-      "MongoDB",
-      "AWS S3",
+      "PHP / Laravel",
+      "ERP APIs",
+      "AWS",
       "Docker",
       "Nginx"
     ],
-    "flow": [
-      {
-        "label": "ERP APIs",
-        "detail": "Retrieve approved operational records"
-      },
-      {
-        "label": "Laravel",
-        "detail": "Validate, transform and reconcile data"
-      },
-      {
-        "label": "AWS S3",
-        "detail": "Stage, publish and archive DBF exports"
-      },
-      {
-        "label": "Operations",
-        "detail": "Scheduled jobs, approvals and audit logs"
-      }
-    ],
-    "highlights": [
-      "Built repeatable ERP exports with S3 staging, archives, export logs and lookback for missed records.",
-      "Connected Sales, Operations and Finance through approval gates, RFQ and stock alerts.",
-      "Handled app deployments with Docker, Nginx/PHP-FPM, EC2, SSL and post-release checks.",
-      "Improved one observed page load from ~15s to ~3s by optimizing the backend."
-    ],
     "metrics": [
-      {
-        "value": "10K+",
-        "label": "Inquiries / day",
-        "note": "Estimated platform scale"
-      },
-      {
-        "value": "700–1K",
-        "label": "Internal users",
-        "note": "Estimated team reach"
-      },
-      {
-        "value": "15s → 3s",
-        "label": "Page load",
-        "note": "Observed improvement"
-      }
-    ],
-    "metricNote": "Approximate platform scale and observed performance figures are developer-reported estimates, not audited analytics."
+      "10K+ total inquiries",
+      "80–100+ new daily",
+      "700–1,000 team users"
+    ]
   },
   {
     "id": 3,
-    "title": "Excel-to-Email Campaign Engine",
-    "tagline": "Upload contacts. Queue delivery. Monitor engagement.",
-    "description": "Built the initial version of an internal email campaign system. Staff upload an Excel list, write and test an email, then Laravel queue jobs send to recipients without holding a browser request open.",
-    "role": "Created the original schema, validation, queued sender, pause/resume controls, tracking pixel, hourly open-log processor, exports and sender settings. Later work was collaborative.",
+    "title": "Email Campaign Platform",
+    "type": "Internal product",
+    "eyebrow": "02 / HIGH-VOLUME PROCESSING",
+    "tagline": "From Excel upload to queue-powered delivery.",
+    "description": "Built for marketing teams who need to import, validate, send, monitor and pause campaigns without locking up the request or losing visibility.",
+    "note": "10K+ recipient records inserted under 4 seconds; sending happens asynchronously.",
     "category": "production",
-    "company": "Internal business tool",
     "featured": true,
-    "accent": "violet",
-    "live": null,
-    "github": null,
     "caseStudySlug": "email-campaign-engine",
-    "year": "2025",
+    "year": "2025–2026",
     "tech": [
-      "Laravel 11",
+      "Laravel",
       "MySQL",
-      "Queues",
-      "Scheduler",
+      "Queues / Workers",
       "Excel",
-      "Mail"
+      "Rich editor"
     ],
-    "highlights": [
-      "Separated Excel upload and email composition from background sending.",
-      "Allowed test sends, pause and resume without restarting a campaign.",
-      "Moved email-open persistence to hourly batches instead of writing on every pixel request."
+    "metrics": [
+      "10K+ recipient rows",
+      "<4s import benchmark",
+      "Pause / resume"
     ]
   },
   {
     "id": 1,
-    "title": "Smart Print · Operations & Access Control",
-    "tagline": "Inquiry capture, role permissions and print-job reliability",
-    "description": "Worked in an existing Laravel print-management system to improve prospect intake, role permissions, task safety and configurable print-job sheets.",
-    "role": "Built the prospect module across schema, Eloquent, controllers and AJAX; made role updates safer with scoped joins/upsert-style writes; added soft-delete behavior and fixed print/prepress options. Task/job modules predated my contributions.",
+    "title": "Smart Print",
+    "type": "Operational software",
+    "eyebrow": "03 / WORKFLOW RELIABILITY",
+    "tagline": "Making everyday print operations less fragile.",
+    "description": "Strengthened prospect intake, access checks, safe record retention and job-sheet consistency inside an existing print-management application.",
+    "note": "Evidence-backed work in an existing multi-developer codebase.",
     "category": "production",
-    "company": "Internal tool",
     "featured": true,
-    "accent": "emerald",
-    "live": null,
-    "github": null,
+    "caseStudySlug": "smart-print-operations",
     "year": "2025",
     "tech": [
       "Laravel",
       "MySQL",
-      "RBAC",
-      "Eloquent",
-      "Blade",
+      "Role permissions",
       "AJAX"
     ],
-    "caseStudySlug": "smart-print-operations",
-    "highlights": [
-      "Prospect inquiries with validation, soft delete and permissions.",
-      "Role-specific edit/delete controls and safer permission updates.",
-      "Consistent extra/VAT persistence and configurable design/prepress options."
-    ]
-  },
-  {
-    "id": 2,
-    "title": "HRM System",
-    "tagline": "Employee and leave workflows",
-    "description": "Internal HR administration modules covering employee records, attendance, leave and reporting workflows.",
-    "role": "Contributed backend logic and management screens.",
-    "category": "production",
-    "company": "Internal tool",
-    "featured": false,
-    "accent": "sky",
-    "live": null,
-    "github": null,
-    "year": "2025",
-    "tech": [
-      "Laravel",
-      "MySQL",
-      "PHP"
+    "metrics": [
+      "Role-aware operations",
+      "Safer record lifecycle",
+      "Consistent print jobs"
     ]
   },
   {
     "id": 8,
-    "title": "DevCommand AI (experimental)",
-    "tagline": "Multi-agent development orchestration prototype",
-    "description": "Public experimental project exploring GitHub-connected task planning, isolated worktrees, agent execution and verification workflows. Not presented as a production service.",
-    "role": "Personal engineering experiment; implementation status and limitations are documented in the repository.",
+    "title": "DevCommand AI",
+    "type": "Independent experiment",
+    "eyebrow": "04 / EXPLORATION",
+    "tagline": "Experimenting with GitHub-connected coding workflows.",
+    "description": "Exploring repository scanning, task breakdown, isolated worktrees and verification gates. An engineering experiment—not a production claim.",
+    "note": "See README for implementation limits.",
     "category": "engineering",
-    "company": null,
     "featured": false,
-    "accent": "amber",
-    "live": null,
     "github": "https://github.com/MadinBloch/DevCommand-AI",
     "year": "2026",
     "tech": [
       "TypeScript",
       "React",
       "Express",
-      "PostgreSQL",
-      "Git"
+      "PostgreSQL"
     ]
   },
   {
-    "id": 6,
-    "title": "Car Web Services",
-    "tagline": "Early PHP CRUD project",
-    "description": "A learning project to track car washing records, service states and basic admin actions.",
-    "role": "Built an introductory PHP/MySQL CRUD system.",
-    "category": "learning",
-    "company": null,
+    "id": 2,
+    "title": "HRM System",
+    "type": "Internal operations",
+    "eyebrow": "OTHER WORK",
+    "tagline": "Practical people-operations workflows.",
+    "description": "Contributed to internal employee, attendance and leave-management features.",
+    "category": "production",
     "featured": false,
-    "accent": "zinc",
-    "live": "https://youtu.be/EMP0RciGICg?si=O5gwr0W7A38-6Ajy",
-    "github": null,
-    "year": "2022",
+    "year": "2025",
     "tech": [
-      "PHP",
-      "MySQL"
-    ]
-  },
-  {
-    "id": 7,
-    "title": "Book Server",
-    "tagline": "Hackathon-era PHP project",
-    "description": "A basic book inventory learning project covering records, availability and search.",
-    "role": "Built early PHP/MySQL features during the hackathon period.",
-    "category": "learning",
-    "company": null,
-    "featured": false,
-    "accent": "zinc",
-    "live": "https://youtu.be/yLy_fBdOT7M?si=IXdyDegtJKRMqwkE",
-    "github": null,
-    "year": "2023",
-    "tech": [
+      "Laravel",
       "PHP",
       "MySQL"
     ]

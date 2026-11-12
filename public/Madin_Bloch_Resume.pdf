@@ -15,61 +15,66 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 6 0 obj
-<< /Length 5769 >>
+<< /Length 6591 >>
 stream
-0.11 0.14 0.20 rg BT /F2 20 Tf 1 0 0 1 180.0 800.0 Tm (MADIN BLOCH) Tj ET
-0.10 0.34 0.37 rg BT /F2 9.6 Tf 1 0 0 1 110.0 780.0 Tm (BACKEND DEVELOPER  |  PHP & LARAVEL  |  ERP INTEGRATIONS) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.6 Tf 1 0 0 1 75.0 764.0 Tm (Ahmedabad, India \(remote / relocation\)  |  +91 9510299312  |  madinkhan0633@gmail.com) Tj ET
-0.31 0.35 0.42 rg BT /F1 8.5 Tf 1 0 0 1 110.0 751.0 Tm (madin-bloch.vercel.app  |  github.com/MadinBloch  |  linkedin.com/in/madin-bloch) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 740.0 m 552 740.0 l S
-0.10 0.34 0.37 rg BT /F2 10 Tf 1 0 0 1 44.0 715.0 Tm (PROFESSIONAL SUMMARY) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 710.0 m 552 710.0 l S
-0.11 0.14 0.20 rg BT /F1 9.1 Tf 1 0 0 1 45.0 695.0 Tm (Backend developer building production Laravel applications since December 2024. Experience in REST/Frappe ERP) Tj ET
-0.11 0.14 0.20 rg BT /F1 9.1 Tf 1 0 0 1 45.0 683.5 Tm (integrations, finance and travel workflows, scheduled DBF exports, queued email campaigns, AWS S3 operations and) Tj ET
-0.11 0.14 0.20 rg BT /F1 9.1 Tf 1 0 0 1 45.0 672.0 Tm (production debugging.) Tj ET
-0.10 0.34 0.37 rg BT /F2 10 Tf 1 0 0 1 44.0 652.5 Tm (TECHNICAL SKILLS) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 647.5 m 552 647.5 l S
-0.11 0.14 0.20 rg BT /F1 8.95 Tf 1 0 0 1 45.0 632.5 Tm (Backend: PHP, Laravel, REST APIs, Eloquent, Guzzle, Queues, Scheduler, Frappe ERP APIs) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.95 Tf 1 0 0 1 45.0 621.0 Tm (Databases: MySQL, MongoDB, PostgreSQL  |  Infrastructure: AWS S3, AWS SES, EC2, Docker, Nginx, Linux, PHP-FPM,) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.95 Tf 1 0 0 1 45.0 609.5 Tm (SSL, Git) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.95 Tf 1 0 0 1 45.0 598.0 Tm (Supporting: Excel/DBF processing, Blade, Livewire, React \(working knowledge\)) Tj ET
-0.10 0.34 0.37 rg BT /F2 10 Tf 1 0 0 1 44.0 579.5 Tm (PROFESSIONAL EXPERIENCE) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 574.5 m 552 574.5 l S
-0.11 0.14 0.20 rg BT /F2 9.5 Tf 1 0 0 1 45.0 559.5 Tm (Laravel Developer  |  Shine Infosoft, Ahmedabad) Tj ET
-0.31 0.35 0.42 rg BT /F1 8.6 Tf 1 0 0 1 440.0 559.5 Tm (May 2025 - Present) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 545.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 545.5 Tm (Designed and extended ERP/DBF export workflows across booking, receipt, passenger, supplier, billing, forex and) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 534.5 Tm (cash-contra records, including scheduled publishing, S3 staging/archive and export logs.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 521.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 521.5 Tm (Built cash-contra requisitions and extended Journal Voucher workflows with Sales Manager and Finance approvals, role) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 510.5 Tm (restrictions, notifications and ERP exports.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 497.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 497.5 Tm (Enhanced air quotation/ticketing, booking, billing, insurance and multi-currency flows; introduced a reusable Frappe/ERP) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 486.5 Tm (API client and operational log tooling.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 473.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 473.5 Tm (Automated RFQ alerts, follow-up reminders and ticket-stock checks with scheduled Artisan commands.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 460.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 460.5 Tm (Improved a production page's observed load time from approximately 15s to 3s through backend optimization.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 447.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 447.5 Tm (Supported deployments and troubleshooting with Docker, Nginx, PHP-FPM, SSL and AWS EC2.) Tj ET
-0.11 0.14 0.20 rg BT /F2 9.5 Tf 1 0 0 1 45.0 431.5 Tm (PHP Developer  |  Magecurious, Ahmedabad) Tj ET
-0.31 0.35 0.42 rg BT /F1 8.6 Tf 1 0 0 1 440.0 431.5 Tm (Dec 2024 - May 2025) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 417.5 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 417.5 Tm (Contributed PHP features and issue fixes to live development assignments, collaborating with senior engineers.) Tj ET
-0.10 0.34 0.37 rg BT /F2 10 Tf 1 0 0 1 44.0 397.5 Tm (SELECTED PROJECT  |  BULK EMAIL CAMPAIGN ENGINE) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 392.5 m 552 392.5 l S
-0.11 0.14 0.20 rg BT /F1 8.8 Tf 1 0 0 1 45.0 377.5 Tm (Laravel 11, MySQL, Queues, Scheduler, Excel, Mail) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 366.0 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 366.0 Tm (Introduced an Excel-driven email campaign module with recipient validation, HTML templates, test sends, queued delivery,) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 355.0 Tm (scheduler dispatch and pause/resume controls.) Tj ET
-0.10 0.34 0.37 rg BT /F2 9 Tf 1 0 0 1 49.0 342.0 Tm (-) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 342.0 Tm (Implemented open tracking, hourly file-to-database batch processing, recipient exports, campaign archiving and) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.85 Tf 1 0 0 1 64.0 331.0 Tm (configurable sender/reply-to identities.) Tj ET
-0.10 0.34 0.37 rg BT /F2 10 Tf 1 0 0 1 44.0 311.0 Tm (EDUCATION & RECOGNITION) Tj ET
-0.76 0.79 0.81 RG 0.5 w 43 306.0 m 552 306.0 l S
-0.11 0.14 0.20 rg BT /F1 8.9 Tf 1 0 0 1 45.0 291.0 Tm (MCA - Master of Computer Applications \(final year, pursuing\)  |  BCA - Completed) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.9 Tf 1 0 0 1 45.0 279.5 Tm (Git & Docker Workshop Facilitator - Dr. Subhash University \(Aug 2026\)) Tj ET
-0.11 0.14 0.20 rg BT /F1 8.9 Tf 1 0 0 1 45.0 268.0 Tm (Grand Finalist - New India Vibrant Hackathon, PDEU \(2023\)) Tj ET
+0.07 0.15 0.20 rg BT /F2 22 Tf 1 0 0 1 190.0 799.0 Tm (MADIN BLOCH) Tj ET
+0.05 0.40 0.41 rg BT /F2 9.4 Tf 1 0 0 1 122.0 779.0 Tm (BACKEND DEVELOPER | PHP - LARAVEL - ERP INTEGRATIONS) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.5 Tf 1 0 0 1 68.0 763.0 Tm (Ahmedabad, India | Open to remote / relocation | +91 9510299312 | madinkhan0633@gmail.com) Tj ET
+0.31 0.36 0.39 rg BT /F1 8.45 Tf 1 0 0 1 110.0 750.0 Tm (madin-bloch.vercel.app | github.com/MadinBloch | linkedin.com/in/madin-bloch) Tj ET
+0.75 0.83 0.84 RG 0.8 w 45 741.0 m 550 741.0 l S
+0.05 0.40 0.41 rg BT /F2 9.7 Tf 1 0 0 1 45.0 725.0 Tm (PROFILE) Tj ET
+0.75 0.83 0.84 RG 0.5 w 45 719.0 m 550 719.0 l S
+0.13 0.18 0.22 rg BT /F1 9.05 Tf 1 0 0 1 47.0 704.0 Tm (Laravel backend developer with production experience since December 2024. I work on travel-operations ERP exchange,) Tj ET
+0.13 0.18 0.22 rg BT /F1 9.05 Tf 1 0 0 1 47.0 692.3 Tm (finance approvals, scheduled jobs, alerts and releases. Kesari Select operates at a reported 10K+ inquiries/day and) Tj ET
+0.13 0.18 0.22 rg BT /F1 9.05 Tf 1 0 0 1 47.0 680.6 Tm (roughly 700-1,000 internal users; I contribute to its Laravel application and production deployments.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9.7 Tf 1 0 0 1 45.0 660.9 Tm (TECHNICAL STACK) Tj ET
+0.75 0.83 0.84 RG 0.5 w 45 654.9 m 550 654.9 l S
+0.13 0.18 0.22 rg BT /F1 8.85 Tf 1 0 0 1 47.0 639.9 Tm (Backend: PHP, Laravel, REST APIs, Frappe ERP, Guzzle, Queues & Scheduler, Blade, Livewire) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.85 Tf 1 0 0 1 47.0 628.2 Tm (Data & infra: MySQL, MongoDB, PostgreSQL, AWS S3/SES/EC2, Docker, Nginx, PHP-FPM, Linux, SSL, Git, DBF/Excel) Tj ET
+0.05 0.40 0.41 rg BT /F2 9.7 Tf 1 0 0 1 45.0 608.5 Tm (PROFESSIONAL EXPERIENCE) Tj ET
+0.75 0.83 0.84 RG 0.5 w 45 602.5 m 550 602.5 l S
+0.13 0.18 0.22 rg BT /F2 9.7 Tf 1 0 0 1 47.0 587.5 Tm (Laravel Developer - Shine Infosoft, Ahmedabad) Tj ET
+0.31 0.36 0.39 rg BT /F1 8.5 Tf 1 0 0 1 431.0 587.5 Tm (May 2025 - Present) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 572.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 572.5 Tm (Built and evolved ERP-to-S3 DBF exports for booking, receipt, passenger, supplier, billing and forex data; introduced) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 560.9 Tm (schedules, staging/live separation, archives and missed-record lookback checks.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 546.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 546.5 Tm (Built Cash Contra requisitions and extended Sales Manager to Finance approval flows for journal vouchers, with) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 534.9 Tm (notifications, role checks and export-ready finance records.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 520.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 520.5 Tm (Handled Laravel deployments end-to-end using Docker, AWS EC2, Nginx, PHP-FPM and SSL, including production) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 508.9 Tm (debugging and post-deployment verification.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 494.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 494.5 Tm (Worked across air tickets, receipts, insurance and sales/ops alerts; built RFQ reminders, low-ticket-stock checks) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 482.9 Tm (and operational log tooling.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 468.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 468.5 Tm (Reduced an observed page load from ~15 seconds to ~3 seconds \(~80% less wait time\) through backend optimization;) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 456.9 Tm (timing based on personal operational measurements.) Tj ET
+0.13 0.18 0.22 rg BT /F2 9.7 Tf 1 0 0 1 47.0 440.5 Tm (PHP Developer - Magecurious, Ahmedabad) Tj ET
+0.31 0.36 0.39 rg BT /F1 8.5 Tf 1 0 0 1 431.0 440.5 Tm (Dec 2024 - May 2025) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 425.5 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 425.5 Tm (Worked on live PHP assignments, backend fixes and business workflows with senior-developer reviews.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9.7 Tf 1 0 0 1 45.0 403.1 Tm (SELECTED ENGINEERING WORK) Tj ET
+0.75 0.83 0.84 RG 0.5 w 45 397.1 m 550 397.1 l S
+0.13 0.18 0.22 rg BT /F2 9.5 Tf 1 0 0 1 47.0 382.1 Tm (Bulk Email Campaign Engine) Tj ET
+0.31 0.36 0.39 rg BT /F1 8.3 Tf 1 0 0 1 214.0 382.1 Tm (Laravel 11 | Queues | MySQL | Excel) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 368.1 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 368.1 Tm (Built Excel-to-email campaigns with validation, test sends, queued dispatch and pause/resume. Moved tracking-pixel) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 356.5 Tm (open events to hourly file-based batch persistence instead of a DB write per request.) Tj ET
+0.13 0.18 0.22 rg BT /F2 9.5 Tf 1 0 0 1 47.0 342.1 Tm (Smart Print Operations) Tj ET
+0.31 0.36 0.39 rg BT /F1 8.3 Tf 1 0 0 1 189.0 342.1 Tm (Laravel | MySQL | RBAC | AJAX) Tj ET
+0.05 0.40 0.41 rg BT /F2 9 Tf 1 0 0 1 48.0 328.1 Tm (-) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 328.1 Tm (Built inquiry intake and RBAC improvements using Eloquent, AJAX, scoped joins and upsert-style permission updates;) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.95 Tf 1 0 0 1 63.0 316.5 Tm (added task soft deletes and improved configurable print/prepress job sheets.) Tj ET
+0.05 0.40 0.41 rg BT /F2 9.7 Tf 1 0 0 1 45.0 294.1 Tm (EDUCATION & RECOGNITION) Tj ET
+0.75 0.83 0.84 RG 0.5 w 45 288.1 m 550 288.1 l S
+0.13 0.18 0.22 rg BT /F1 8.9 Tf 1 0 0 1 47.0 273.1 Tm (MCA - Master of Computer Applications \(final year, pursuing\) | BCA - Completed) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.7 Tf 1 0 0 1 47.0 261.4 Tm (Workshop Facilitator - Dr. Subhash University \(Aug 2026\): practical Git and Docker workshop for BCA/MCA students with) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.7 Tf 1 0 0 1 47.0 249.7 Tm (live setup demos.) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.7 Tf 1 0 0 1 47.0 238.0 Tm (Grand Finalist - New India Vibrant Hackathon 2023, Pandit Deendayal Energy University \(PDEU\): selected from the regional) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.7 Tf 1 0 0 1 47.0 226.3 Tm (round, presented a backend-focused project at the Grand Finale, defended architecture decisions before judges and) Tj ET
+0.13 0.18 0.22 rg BT /F1 8.7 Tf 1 0 0 1 47.0 214.6 Tm (mentors, and worked with teammates under tight deadlines.) Tj ET
+0.13 0.18 0.22 rg BT /F1 7.5 Tf 1 0 0 1 47.0 198.9 Tm (Platform scale and performance figures are developer-reported operating estimates, not audited analytics.) Tj ET
 endstream
 endobj
 xref
@@ -84,5 +89,5 @@ xref
 trailer
 << /Size 7 /Root 1 0 R >>
 startxref
-6216
+7038
 %%EOF

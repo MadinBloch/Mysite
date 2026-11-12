@@ -1,16 +1,17 @@
 const EXPERIENCE = [
   {
-    company: 'Product Engineering',
+    company: 'Shine Infosoft',
     role: 'Laravel Developer',
     type: 'Full-time',
     period: 'May 2025 – Present',
     location: 'Ahmedabad',
     current: true,
     points: [
-      'Shipping production Laravel backends for live client platforms and internal tools.',
-      'Primary delivery on Kesari Select — website, backend APIs, integrations, and day-to-day product stability.',
-      'Also built print, HR, and email campaign systems with clean MySQL schemas and queue workflows.',
-      'Deployed with Docker, Nginx, and AWS-backed environments.',
+      'Designed and expanded a Laravel ERP export pipeline with scheduled DBF publishing, S3 staging/archiving and reconciliation.',
+      'Built cash-contra requisitions and enhanced Sales Manager/Finance journal-voucher approvals and notifications.',
+      'Contributed air-ticketing, booking, billing, insurance, RFQ automation and operational logging features for Kesari Select.',
+      'Built an internal Excel-based email campaign engine with queued delivery, pause/resume and email-open tracking.',
+      'Supported deployments and production troubleshooting with Docker, Nginx, PHP-FPM and AWS tooling.',
     ],
   },
   {
@@ -35,7 +36,7 @@ export default function Experience() {
         <p className="section-label">Career</p>
         <h2 className="section-heading mb-2">Experience</h2>
         <p className="text-zinc-500 text-sm mb-10 max-w-2xl">
-          2+ years shipping Laravel backends in production — from early PHP work to full product delivery.
+          Backend experience since December 2024, from PHP development to production Laravel integrations and workflows.
         </p>
 
         <div className="relative space-y-0">

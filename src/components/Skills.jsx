@@ -2,11 +2,13 @@ const SKILLS = [
   {
     category: 'Backend',
     items: [
-      { name: 'Laravel', level: 'Primary', note: '2+ years, production projects' },
+      { name: 'Laravel', level: 'Primary', note: 'Production applications since 2024' },
       { name: 'PHP', level: 'Primary', note: 'Core language' },
-      { name: 'MySQL', level: 'Primary', note: 'Schema design, queries, optimization' },
+      { name: 'MySQL', level: 'Primary', note: 'Queries, schema work, debugging' },
+      { name: 'MongoDB', level: 'Comfortable', note: 'Application notifications and logs' },
       { name: 'Frappe', level: 'Comfortable', note: 'ERP integrations & APIs' },
-      { name: 'Queue Jobs', level: 'Comfortable', note: 'Campaigns, async workflows' },
+      { name: 'Queue Jobs', level: 'Comfortable', note: 'Campaigns, scheduled operations' },
+      { name: 'AWS S3', level: 'Comfortable', note: 'ERP export staging and archival' },
     ],
   },
   {

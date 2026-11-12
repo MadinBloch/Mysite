@@ -14,6 +14,7 @@ import Community from './components/Community'
 import Contact from './components/Contact'
 import BlogsPage from './pages/BlogsPage'
 import BlogPostPage from './pages/BlogPostPage'
+import CaseStudyPage from './pages/CaseStudyPage'
 
 function HomePage() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/projects/:slug" element={<CaseStudyPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
         </Routes>
       </main>

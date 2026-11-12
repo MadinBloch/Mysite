@@ -12,10 +12,11 @@ export default function About() {
               how they look.
             </p>
             <p>
-              Over <span className="text-accent font-medium">2+ years</span>, I have shipped production
-              Laravel systems — with strong ownership on the live{' '}
-              <span className="text-zinc-100 font-medium">Kesari Select</span> platform, plus internal
-              tools for print, HR, and campaigns.
+              Since <span className="text-accent font-medium">December 2024</span>, I have worked
+              on PHP and Laravel applications. At{' '}
+              <span className="text-zinc-100 font-medium">Kesari Select</span>, my focus has included
+              ERP exports, finance approvals, notifications, and operational automation. I also
+              introduced an internal Excel-driven email campaign system.
             </p>
             <p>
               Academically, I have completed my <span className="text-zinc-100 font-medium">BCA</span> and
@@ -25,7 +26,7 @@ export default function About() {
             <ul className="space-y-2 pt-2">
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>
-                <span>Production experience with Laravel, MySQL, queue jobs, and admin workflows.</span>
+                <span>Production work with Laravel, Frappe ERP integrations, DBF/S3 exports, queues and approvals.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>
@@ -41,7 +42,7 @@ export default function About() {
           <div className="space-y-4">
             <div className="card hover:border-accent/30">
               <p className="font-mono text-xs text-zinc-600 mb-2">// experience</p>
-              <p className="text-zinc-200 text-sm font-medium">2+ Years</p>
+              <p className="text-zinc-200 text-sm font-medium">Since Dec 2024</p>
               <p className="text-zinc-500 text-xs mt-0.5">Real-world Laravel projects</p>
             </div>
             <div className="card hover:border-accent/30">

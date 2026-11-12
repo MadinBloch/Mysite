@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import projects from '../data/projects.json'
 
 function ExternalLinkIcon() {
@@ -21,6 +22,7 @@ const CATEGORY_LABELS = {
   production: { label: 'Production', color: 'text-accent bg-accent/10 border-accent/20' },
   client: { label: 'Client', color: 'text-sky-300 bg-sky-400/10 border-sky-400/20' },
   learning: { label: 'Early Work', color: 'text-zinc-400 bg-zinc-800 border-zinc-700' },
+  engineering: { label: 'Experimental', color: 'text-amber-300 bg-amber-400/10 border-amber-400/20' },
 }
 
 const ACCENT_GLOW = {
@@ -33,8 +35,8 @@ const ACCENT_GLOW = {
   zinc: 'from-zinc-500/20 via-zinc-500/5 to-transparent',
 }
 
-const FILTERS = ['All', 'Production', 'Client', 'Early Work']
-const filterMap = { All: null, Production: 'production', Client: 'client', 'Early Work': 'learning' }
+const FILTERS = ['All', 'Production', 'Client', 'Engineering', 'Early Work']
+const filterMap = { All: null, Production: 'production', Client: 'client', Engineering: 'engineering', 'Early Work': 'learning' }
 
 function KesariSpotlight({ project }) {
   return (
@@ -133,6 +135,14 @@ function KesariSpotlight({ project }) {
           </div>
         )}
 
+        {project.caseStudySlug && (
+          <div className="mt-6">
+            <Link to={'/projects/' + project.caseStudySlug} className="btn-primary">
+              Read technical case study <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        )}
+
         {project.highlights?.length > 0 && (
           <div className="mt-6 grid sm:grid-cols-2 gap-3">
             {project.highlights.map((item) => (
@@ -192,6 +202,9 @@ function FeaturedCard({ project }) {
             <span key={t} className="tag">{t}</span>
           ))}
           <div className="flex gap-3 ml-auto">
+            {project.caseStudySlug && (
+              <Link to={'/projects/' + project.caseStudySlug} className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accent-dim">Case study →</Link>
+            )}
             {project.live && (
               <a
                 href={project.live}
@@ -258,6 +271,12 @@ function ProjectCard({ project }) {
         <div className="flex items-center gap-3 pt-4 mt-auto">
           <span className="font-mono text-xs text-zinc-600">{project.year}</span>
           <div className="flex gap-3 ml-auto">
+            {project.caseStudySlug && (
+              <Link to={'/projects/' + project.caseStudySlug} className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accent-dim">Case study →</Link>
+            )}
+            {project.caseStudySlug && (
+              <Link to={'/projects/' + project.caseStudySlug} className="text-xs text-accent hover:text-accent-dim">Case study →</Link>
+            )}
             {project.live && (
               <a href={project.live} target="_blank" rel="noreferrer"
                 className="flex items-center gap-1 text-xs text-zinc-400 hover:text-accent transition-colors">
@@ -297,7 +316,7 @@ export default function Projects() {
             <p className="section-label">Selected work</p>
             <h2 className="section-heading mb-2">Projects</h2>
             <p className="text-zinc-500 text-sm max-w-xl">
-              Flagship work on <span className="text-zinc-300">Kesari Select</span>, plus production Laravel systems built for real teams.
+              Verified contributions across <span className="text-zinc-300">Kesari Select</span>, email automation and backend engineering experiments.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">

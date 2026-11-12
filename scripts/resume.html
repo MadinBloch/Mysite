@@ -1,40 +1,46 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><title>Madin Bloch | Backend Developer Resume</title>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madin Bloch — Backend Developer Resume</title>
 <style>
-@page {size:A4;margin:12mm 15mm}body{font-family:Arial,sans-serif;color:#171717;font-size:10px;line-height:1.45;max-width:850px;margin:auto}
-h1{text-align:center;font-size:27px;letter-spacing:1px;margin:0} .sub{text-align:center;font-weight:700;font-size:12px;margin:2px}
-.contact{text-align:center;color:#333;margin:5px 0 10px}h2{font-size:12px;letter-spacing:1px;border-bottom:1px solid #aaa;padding-bottom:3px;margin:12px 0 6px}
-h3{font-size:11px;margin:7px 0 2px}.row{display:flex;justify-content:space-between;gap:15px}.muted{color:#444}
-ul{padding-left:17px;margin:3px 0 6px}li{margin:2px 0}p{margin:3px 0}
-</style></head><body>
-<h1>MADIN BLOCH</h1><div class="sub">BACKEND DEVELOPER | PHP & LARAVEL | ERP INTEGRATIONS</div>
-<div class="contact">Ahmedabad, India (open to remote & relocation) | +91 9510299312 | madinkhan0633@gmail.com<br>madin-bloch.vercel.app | github.com/MadinBloch | linkedin.com/in/madin-bloch</div>
-<h2>PROFESSIONAL SUMMARY</h2><p>Backend developer building production Laravel applications since December 2024. Experience in REST/Frappe ERP integrations, finance and travel workflows, scheduled DBF exports, queued email campaigns, AWS S3 operations and production debugging.</p>
-<h2>TECHNICAL SKILLS</h2>
-<p><b>Backend:</b> PHP, Laravel, REST APIs, Eloquent, Guzzle, Queues, Scheduler, Frappe ERP APIs</p>
-<p><b>Databases:</b> MySQL, MongoDB, PostgreSQL</p>
-<p><b>Infrastructure:</b> AWS S3, AWS SES, EC2, Docker, Nginx, Linux, PHP-FPM, SSL, Git</p>
-<p><b>Additional:</b> Excel/DBF processing, Blade, Livewire, React (working knowledge)</p>
-<h2>PROFESSIONAL EXPERIENCE</h2>
-<div class="row"><h3>Laravel Developer — Shine Infosoft, Ahmedabad</h3><h3>May 2025 – Present</h3></div>
+@page{size:A4;margin:12mm 16mm}*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;color:#24313e;font-size:10pt;line-height:1.35;max-width:820px;margin:20px auto;padding:0 12px}
+h1{font-size:23pt;margin:0;text-align:center;letter-spacing:.5px;color:#132838}
+.subtitle{margin:0 0 5px;text-align:center;font-weight:bold;color:#0e696b;font-size:10pt}
+.contact{text-align:center;color:#45525d;font-size:8.3pt;margin:2px 0 11px}
+h2{font-size:9.5pt;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #c4d6da;color:#0e696b;padding-bottom:3px;margin:11px 0 5px}
+h3{font-size:10pt;margin:6px 0 2px}p{margin:3px 0}ul{padding-left:18px;margin:3px 0 6px}li{margin-bottom:3px}
+.small{font-size:8pt}.muted{color:#5b6670}.date{font-style:italic;font-weight:normal;font-size:9pt}.label{font-weight:bold}
+@media print{body{margin:0;padding:0}}
+</style></head>
+<body>
+<h1>MADIN BLOCH</h1>
+<p class="subtitle">BACKEND DEVELOPER | PHP · LARAVEL · ERP INTEGRATIONS</p>
+<p class="contact">Ahmedabad, India · Remote / relocation open | +91 9510299312 | madinkhan0633@gmail.com<br>
+madin-bloch.vercel.app | github.com/MadinBloch | linkedin.com/in/madin-bloch</p>
+<h2>Profile</h2>
+<p>Laravel backend developer with production experience since December 2024. I work on the systems behind travel operations: ERP data exchange, financial approvals, scheduled jobs, notifications and deployments. Kesari Select operates at a reported scale of 10K+ inquiries/day and roughly 700–1,000 internal users; I contribute to its Laravel application and production releases.</p>
+<h2>Technical stack</h2>
+<p><span class="label">Backend</span> PHP, Laravel, REST APIs, Frappe/ERP integrations, Guzzle, Laravel Queues & Scheduler, Blade, Livewire</p>
+<p><span class="label">Data & infrastructure</span> MySQL, MongoDB, PostgreSQL, AWS S3/SES/EC2, Docker, Nginx, PHP-FPM, Linux, SSL, Git, DBF/Excel</p>
+<h2>Professional experience</h2>
+<h3>Laravel Developer — Shine Infosoft, Ahmedabad <span class="date">May 2025 – Present</span></h3>
 <ul>
-<li>Designed and extended ERP/DBF export workflows across booking, receipt, passenger, supplier, billing, forex and cash-contra records, including scheduled publishing, S3 staging/archive and export logs.</li>
-<li>Built cash-contra requisition and extended Journal Voucher workflows with Sales Manager and Finance approvals, role restrictions, notifications and ERP exports.</li>
-<li>Enhanced air quotation/ticketing, booking, billing, insurance and multi-currency workflows; introduced a shared Frappe/ERP API client and operational log tooling.</li>
-<li>Automated RFQ alerts, follow-up reminders and ticket-stock checks with scheduled Artisan commands.</li>
-<li>Improved a production page's observed load time from approximately 15s to 3s through backend optimization.</li>
-<li>Supported deployments and troubleshooting with Docker, Nginx, PHP-FPM, SSL and AWS EC2.</li>
+<li>Built and evolved ERP-to-S3 DBF exports for bookings, receipts, passengers, suppliers, billing and forex; introduced scheduled publishing, staging/live separation, archive jobs and lookback checks for previously missed records.</li>
+<li>Designed cash-contra requisitions and extended Sales Manager → Finance approval flows for journal vouchers; connected role checks, notifications and export-ready financial data.</li>
+<li>Handled end-to-end Laravel environment deployment and releases with Docker, AWS EC2, Nginx, PHP-FPM and SSL, including production debugging and post-deploy verification.</li>
+<li>Worked across air-ticketing, finance receipts, insurance and sales/ops notifications. Built RFQ reminder jobs, low-ticket-stock alerts and operational log tools so teams could act on stalled work.</li>
+<li>Reduced an observed production page load from ~15 seconds to ~3 seconds (~80% less wait time) through backend optimization. Timing is based on personal operational measurements.</li>
 </ul>
-<div class="row"><h3>PHP Developer — Magecurious, Ahmedabad</h3><h3>Dec 2024 – May 2025</h3></div>
-<ul><li>Contributed PHP features and issue fixes in live development assignments while collaborating with senior engineers.</li></ul>
-<h2>SELECTED PROJECT — BULK EMAIL CAMPAIGN ENGINE</h2>
-<p><b>Laravel 11, Queues, Scheduler, MySQL, Excel</b></p>
-<ul>
-<li>Introduced an Excel-driven campaign system with recipient validation, HTML templates, test sends, queued delivery, scheduler-based dispatch and pause/resume controls.</li>
-<li>Implemented tracking-pixel open events, hourly file-to-database batch processing, recipient exports, campaign archiving and dynamic sender/reply-to fields.</li>
-</ul>
-<h2>EDUCATION & RECOGNITION</h2>
-<p><b>MCA</b> — Final year (pursuing) | <b>BCA</b> — Completed</p>
-<p><b>Git & Docker Workshop Facilitator</b> — Dr. Subhash University, Aug 2026</p>
-<p><b>Grand Finalist</b> — New India Vibrant Hackathon, PDEU, 2023</p>
+<h3>PHP Developer — Magecurious, Ahmedabad <span class="date">Dec 2024 – May 2025</span></h3>
+<ul><li>Worked on live PHP assignments, fixes and backend workflows with senior-developer reviews and team collaboration.</li></ul>
+<h2>Selected engineering work</h2>
+<h3>Bulk Email Campaign Engine <span class="muted small">Laravel 11 · MySQL · Queues · Excel</span></h3>
+<ul><li>Built Excel-to-email campaigns with validation, queued dispatch, test sends and pause/resume. Added tracking-pixel engagement events; moved open-event writes into an hourly batch processor instead of doing database work on every request.</li></ul>
+<h3>Smart Print Operations <span class="muted small">Laravel · MySQL · RBAC · AJAX</span></h3>
+<ul><li>Built the prospect inquiry flow; improved role-permission updates with scoped joins/upsert-style handling; enforced permission-based actions, task soft deletes and configurable design/prepress fields across print job sheets.</li></ul>
+<h2>Education & recognition</h2>
+<p><b>MCA — Master of Computer Applications</b> (final year, pursuing) | <b>BCA</b> (completed)</p>
+<p><b>Workshop Facilitator — Dr. Subhash University (Aug 2026).</b> Led a practical Git and Docker session for BCA/MCA students, including live workflows and setup demos.</p>
+<p><b>Grand Finalist — New India Vibrant Hackathon (2023), Pandit Deendayal Energy University (PDEU).</b> Selected from the regional round for the Grand Finale; built and presented a backend-focused solution under time pressure, defended architecture choices before judges and mentors, and collaborated on delivery and presentation.</p>
+<p class="small muted"><i>Scale and performance figures are developer-reported estimates, not independently audited platform metrics.</i></p>
 </body></html>

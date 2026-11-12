@@ -7,11 +7,11 @@ const EXPERIENCE = [
     location: 'Ahmedabad',
     current: true,
     points: [
-      'Designed and expanded a Laravel ERP export pipeline with scheduled DBF publishing, S3 staging/archiving and reconciliation.',
-      'Built cash-contra requisitions and enhanced Sales Manager/Finance journal-voucher approvals and notifications.',
-      'Contributed air-ticketing, booking, billing, insurance, RFQ automation and operational logging features for Kesari Select.',
-      'Built an internal Excel-based email campaign engine with queued delivery, pause/resume and email-open tracking.',
-      'Supported deployments and production troubleshooting with Docker, Nginx, PHP-FPM and AWS tooling.',
+      'Contribute to Kesari Select, a platform with reported scale of 10K+ daily inquiries and roughly 700–1,000 internal users.',
+      'Built scheduled DBF exports and S3 staging/archives with logging and lookback checks to recover previously missed ERP records.',
+      'Designed Cash Contra requisitions and extended Sales Manager-to-Finance approval and notification paths.',
+      'Handled application deployments end-to-end using AWS EC2, Docker, Nginx/PHP-FPM, SSL and release troubleshooting.',
+      'Built RFQ and low-stock alerts, extended air-ticketing and billing workflows, and reduced one observed page load from ~15s to ~3s.',
     ],
   },
   {
@@ -36,7 +36,7 @@ export default function Experience() {
         <p className="section-label">Career</p>
         <h2 className="section-heading mb-2">Experience</h2>
         <p className="text-zinc-500 text-sm mb-10 max-w-2xl">
-          Backend experience since December 2024, from PHP development to production Laravel integrations and workflows.
+          Since December 2024 — from PHP project work to systems that support travel operations, finance and production deployments.
         </p>
 
         <div className="relative space-y-0">

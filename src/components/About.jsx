@@ -12,11 +12,12 @@ export default function About() {
               how they look.
             </p>
             <p>
-              Since <span className="text-accent font-medium">December 2024</span>, I have worked
-              on PHP and Laravel applications. At{' '}
-              <span className="text-zinc-100 font-medium">Kesari Select</span>, my focus has included
-              ERP exports, finance approvals, notifications, and operational automation. I also
-              introduced an internal Excel-driven email campaign system.
+              Since <span className="text-accent font-medium">December 2024</span>, I've worked in PHP
+              and Laravel on the sort of business software where mistakes have real consequences.
+              At <span className="text-zinc-100 font-medium">Kesari Select</span>, that means
+              getting ERP exports right, respecting finance approvals, handling notifications,
+              and shipping fixes to production. I also built the first version of an internal
+              Excel-driven email campaign system.
             </p>
             <p>
               Academically, I have completed my <span className="text-zinc-100 font-medium">BCA</span> and
@@ -30,7 +31,7 @@ export default function About() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>
-                <span>Deployed Laravel apps on AWS EC2 with Nginx, PHP-FPM, SSL — plus Docker.</span>
+                <span>Handled application deployments and post-release issues with Docker, EC2, Nginx, PHP-FPM and SSL.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent mt-0.5">•</span>

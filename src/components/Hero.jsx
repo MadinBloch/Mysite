@@ -33,9 +33,9 @@ export default function Hero() {
             </p>
 
             <p className="text-zinc-300 text-base sm:text-lg leading-relaxed mb-9 max-w-xl">
-              I build production backend systems — ERP integrations, financial
-              workflows, scheduled exports and queue-based processing. Recent work includes the{' '}
-              <span className="text-zinc-100 font-medium">Kesari Select</span> platform.
+              I work on Laravel systems behind large travel operations — finance exports,
+              approvals, notifications and production releases. My current work supports{' '}
+              <span className="text-zinc-100 font-medium">Kesari Select</span>, used by hundreds of team members.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -79,21 +79,21 @@ export default function Hero() {
                 <div className="w-2.5 h-2.5 rounded-full bg-accent/80" />
               </div>
               <p><span className="text-zinc-600">$</span> <span className="text-accent">whoami</span></p>
-              <p className="mt-2 text-zinc-300">madin · laravel backend developer</p>
+              <p className="mt-2 text-zinc-300">madin · backend engineering / deployments</p>
               <p className="mt-3"><span className="text-zinc-600">$</span> <span className="text-accent">cat</span> profile.json</p>
               <p className="mt-2 text-zinc-500">{'{'}</p>
-              <p className="pl-3 text-zinc-500">"experience": <span className="text-accent">"since 2024"</span>,</p>
+              <p className="pl-3 text-zinc-500">"work": <span className="text-accent">"production Laravel"</span>,</p>
               <p className="pl-3 text-zinc-500">"focus": <span className="text-sky-300">"Laravel backends"</span>,</p>
-              <p className="pl-3 text-zinc-500">"flagship": <span className="text-red-300">"Kesari Select"</span>,</p>
+              <p className="pl-3 text-zinc-500">"releases": <span className="text-red-300">"end-to-end"</span>,</p>
               <p className="pl-3 text-zinc-500">"stack": [<span className="text-amber-300">"Laravel"</span>, <span className="text-amber-300">"Docker"</span>, <span className="text-amber-300">"MySQL"</span>]</p>
               <p className="text-zinc-500">{'}'}</p>
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3">
               {[
-                { label: 'Since', value: '2024' },
-                { label: 'Focus', value: 'Backend' },
-                { label: 'Stack', value: 'Laravel' },
+                { label: 'Inquiries / day', value: '10K+' },
+                { label: 'Team users', value: '700–1K' },
+                { label: 'Page load', value: '15→3s' },
               ].map((stat) => (
                 <div key={stat.label} className="rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-3.5 text-center">
                   <p className="font-display font-bold text-accent text-xl">{stat.value}</p>
@@ -101,6 +101,7 @@ export default function Hero() {
                 </div>
               ))}
             </div>
+            <p className="mt-3 text-[10px] leading-5 text-zinc-500 font-mono">Platform scale and latency figures are developer-reported estimates.</p>
           </div>
         </div>
       </div>

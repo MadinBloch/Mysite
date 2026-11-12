@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import AnimatedNumber from './AnimatedNumber'
 import projects from '../data/projects.json'
 
 const projectById = id => projects.find(p => p.id === id)
@@ -62,9 +63,9 @@ export default function Projects() {
           <div className="flex flex-col justify-between gap-5 bg-[#11161c] p-5 sm:p-8 lg:p-10">
             <WorkflowIllustration />
             <div className="grid grid-cols-3 gap-2">
-              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">10K+</p><p className="mt-1 text-[10px] text-[#8996a0]">Total inquiries</p></div>
-              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">80–100+</p><p className="mt-1 text-[10px] text-[#8996a0]">New / day</p></div>
-              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">700–1K</p><p className="mt-1 text-[10px] text-[#8996a0]">Team users</p></div>
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white"><AnimatedNumber a={10000} suffix="+" /></p><p className="mt-1 text-[10px] text-[#8996a0]">Total inquiries</p></div>
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white"><AnimatedNumber a={80} b={100} suffix="+" /></p><p className="mt-1 text-[10px] text-[#8996a0]">New / day</p></div>
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white"><AnimatedNumber a={700} b={1000} /></p><p className="mt-1 text-[10px] text-[#8996a0]">Team users</p></div>
             </div>
             <p className="font-mono text-[10px] text-[#737f89]">Developer-reported platform figures</p>
           </div>
@@ -76,7 +77,7 @@ export default function Projects() {
           <span className="font-mono text-[10px] uppercase tracking-[.24em] text-[#578052]">{email.eyebrow}</span>
           <h3 className="mt-6 max-w-[470px] font-display text-4xl font-semibold leading-[1.03] tracking-[-.055em]">{email.title}</h3>
           <p className="mt-4 max-w-lg text-sm leading-7 text-[#4d6653]">{email.description}</p>
-          <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono"><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5">10K+ rows / &lt;4 seconds</span><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5">Queue-powered sends</span></div>
+          <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono"><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5"><AnimatedNumber a={10000} suffix="+" /> rows / &lt;4 seconds</span><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5">Queue-powered sends</span></div>
           <EmailIllustration />
           <Link to={'/projects/'+email.caseStudySlug} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#22472b] hover:underline">View engineering story <Arrow /></Link>
         </article>

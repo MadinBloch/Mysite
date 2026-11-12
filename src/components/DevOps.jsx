@@ -7,12 +7,12 @@ const STEPS = [
   {
     label: 'AWS EC2',
     status: 'done',
-    detail: 'Deployed Laravel apps on EC2 instances. Managed server setup from scratch.',
+    detail: 'Handled EC2-based Laravel releases, environment setup, production fixes and post-deploy checks.',
   },
   {
     label: 'Nginx',
     status: 'done',
-    detail: 'Configured Nginx as reverse proxy, set up virtual hosts and server blocks.',
+    detail: 'Configured server blocks, reverse proxy routing and application domains.',
   },
   {
     label: 'PHP-FPM',
@@ -38,7 +38,7 @@ export default function DevOps() {
         <p className="section-label">Infrastructure</p>
         <h2 className="section-heading mb-2">DevOps &amp; Docker</h2>
         <p className="text-zinc-500 text-sm mb-10">
-          Not just building apps — shipping them with Docker, Nginx, and cloud deployments.
+          I handle the release as well as the code: environment setup, web server, SSL, deployment checks and production troubleshooting.
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">

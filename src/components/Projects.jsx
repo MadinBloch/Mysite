@@ -105,6 +105,21 @@ function KesariSpotlight({ project }) {
           </div>
         </div>
 
+        {project.metrics?.length > 0 && (
+          <div className="mt-7 pt-6 border-t border-zinc-800/80">
+            <div className="grid sm:grid-cols-3 gap-3">
+              {project.metrics.map((metric) => (
+                <div key={metric.label} className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4">
+                  <p className="font-display font-bold text-2xl text-white">{metric.value}</p>
+                  <p className="text-sm text-zinc-300 mt-1">{metric.label}</p>
+                  <p className="text-xs text-zinc-500 mt-1">{metric.note}</p>
+                </div>
+              ))}
+            </div>
+            {project.metricNote && <p className="text-xs text-zinc-500 mt-3 leading-5">{project.metricNote}</p>}
+          </div>
+        )}
+
         {project.flow?.length > 0 && (
           <div className="mt-8 pt-6 border-t border-zinc-800/80">
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500 mb-4">

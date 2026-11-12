@@ -25,16 +25,16 @@ export default function Hero() {
             </h1>
 
             <p className="font-display text-lg sm:text-xl text-zinc-200 font-medium mb-3">
-              Senior Laravel Developer · Backend Engineer
+              Backend Developer · PHP & Laravel
             </p>
 
             <p className="text-zinc-400 text-sm font-mono mb-6">
-              2+ years · Laravel · Docker
+              Ahmedabad · Open to remote & relocation
             </p>
 
             <p className="text-zinc-300 text-base sm:text-lg leading-relaxed mb-9 max-w-xl">
-              I design and ship maintainable Laravel backends — APIs, business logic, and
-              reliable deployments. Flagship work includes the live{' '}
+              I build production backend systems — ERP integrations, financial
+              workflows, scheduled exports and queue-based processing. Recent work includes the{' '}
               <span className="text-zinc-100 font-medium">Kesari Select</span> platform.
             </p>
 
@@ -79,10 +79,10 @@ export default function Hero() {
                 <div className="w-2.5 h-2.5 rounded-full bg-accent/80" />
               </div>
               <p><span className="text-zinc-600">$</span> <span className="text-accent">whoami</span></p>
-              <p className="mt-2 text-zinc-300">madin · senior laravel developer</p>
+              <p className="mt-2 text-zinc-300">madin · laravel backend developer</p>
               <p className="mt-3"><span className="text-zinc-600">$</span> <span className="text-accent">cat</span> profile.json</p>
               <p className="mt-2 text-zinc-500">{'{'}</p>
-              <p className="pl-3 text-zinc-500">"experience": <span className="text-accent">"2+ years"</span>,</p>
+              <p className="pl-3 text-zinc-500">"experience": <span className="text-accent">"since 2024"</span>,</p>
               <p className="pl-3 text-zinc-500">"focus": <span className="text-sky-300">"Laravel backends"</span>,</p>
               <p className="pl-3 text-zinc-500">"flagship": <span className="text-red-300">"Kesari Select"</span>,</p>
               <p className="pl-3 text-zinc-500">"stack": [<span className="text-amber-300">"Laravel"</span>, <span className="text-amber-300">"Docker"</span>, <span className="text-amber-300">"MySQL"</span>]</p>
@@ -91,7 +91,7 @@ export default function Hero() {
 
             <div className="mt-4 grid grid-cols-3 gap-3">
               {[
-                { label: 'Years', value: '2+' },
+                { label: 'Since', value: '2024' },
                 { label: 'Focus', value: 'Backend' },
                 { label: 'Stack', value: 'Laravel' },
               ].map((stat) => (

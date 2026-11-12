@@ -69,7 +69,9 @@ export default function Navbar() {
         <button
           className="lg:hidden text-zinc-400 hover:text-zinc-100"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
         >
           {menuOpen ? (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,7 +86,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="lg:hidden bg-zinc-900 border-b border-zinc-800 px-6 py-4">
+        <div id="mobile-navigation" className="lg:hidden bg-zinc-900 border-b border-zinc-800 px-6 py-4">
           <ul className="flex flex-col gap-3">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>

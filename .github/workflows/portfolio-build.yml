@@ -1,0 +1,20 @@
+name: Portfolio build
+on:
+  pull_request:
+  push:
+    branches: [main, portfolio/backend-case-studies-20261112]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Validate portfolio content
+        run: node scripts/check-portfolio.mjs
+      - run: npm run build

@@ -17,7 +17,7 @@ const STEPS = [
   {
     label: 'PHP-FPM',
     status: 'done',
-    detail: 'Setup PHP-FPM, tuned pool config for production performance.',
+    detail: 'Configured PHP-FPM and helped troubleshoot PHP application deployments.',
   },
   {
     label: 'SSL + Domain',

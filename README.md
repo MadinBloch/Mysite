@@ -1,112 +1,34 @@
-# Madin Bloch — Portfolio
+# Madin Bloch — Backend Developer Portfolio
 
-Personal portfolio website built with **React + Vite + Tailwind CSS**.
+Portfolio built with React 18, Vite and Tailwind CSS. Dark, responsive layout featuring production backend engineering case studies.
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Install & Run
+## Development
 
 ```bash
-npm install
+npm ci
 npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-### Build for Production
-
-```bash
 npm run build
 npm run preview
 ```
 
----
+## Content
 
-## 📁 Project Structure
+- `src/data/projects.json` — featured work and project cards
+- `src/data/caseStudies.js` — technical case study content
+- `src/pages/CaseStudyPage.jsx` — case study page layout
+- `src/components/Hero.jsx`, `About.jsx`, `Experience.jsx` — profile copy
+- `public/Madin_Bloch_Resume.pdf` — downloadable resume; update when experience changes
+- `index.html` — title, description, social meta, canonical URL
+- `public/robots.txt`, `public/sitemap.xml` — crawling metadata
 
-```
-src/
-├── components/
-│   ├── Navbar.jsx        # Fixed top navigation
-│   ├── Hero.jsx          # Home / landing section
-│   ├── About.jsx         # About me section
-│   ├── Skills.jsx        # Skills with honest labels
-│   ├── Projects.jsx      # Filterable project cards
-│   ├── DevOps.jsx        # DevOps work & config
-│   ├── Hackathon.jsx     # Hackathon experience
-│   ├── Blogs.jsx         # Hashnode API blog posts
-│   ├── YouTube.jsx       # YouTube videos section
-│   ├── Community.jsx     # Events + What I'm doing now
-│   └── Contact.jsx       # Contact links + footer
-├── data/
-│   └── projects.json     # All project data
-├── App.jsx
-├── main.jsx
-└── index.css
-```
+## Routes
 
----
+`/`, `/projects/kesari-select-backend`, `/projects/email-campaign-engine`, `/blogs`, `/blog/:slug`.
 
-## ✏️ Customisation
+`vercel.json` enables SPA fallback for deep routes. Static assets with file extensions are not rewritten.
 
-### Update your info
-- **Email / LinkedIn**: Edit `src/components/Contact.jsx`
-- **Projects**: Edit `src/data/projects.json`
-- **Intro text**: Edit `src/components/Hero.jsx` and `About.jsx`
+## Content accuracy and privacy
 
-### Add Hackathon media
-In `src/components/Hackathon.jsx`, replace the placeholder divs with:
-```jsx
-<iframe
-  width="100%"
-  height="100%"
-  src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-  title="Hackathon Project"
-  allowFullScreen
-/>
-```
-And replace the certificate placeholder with:
-```jsx
-<img src="/images/certificate.jpg" alt="Certificate" className="rounded w-full" />
-```
-Place images in the `public/images/` folder.
+Statements about client work should describe the developer's contributions, not claim full ownership of collaborative projects. Private backend source, internal credentials and customer records must not be published. The ~15s → ~3s observed page-load result is developer-reported and should not be presented as an independently audited benchmark.
 
-### Enable YouTube API (live videos)
-1. Get a YouTube Data API v3 key from [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a `.env` file in the root:
-   ```
-   VITE_YOUTUBE_API_KEY=your_key_here
-   VITE_YOUTUBE_CHANNEL_ID=your_channel_id_here
-   ```
-3. Update `src/components/YouTube.jsx` to fetch from:
-   ```
-   https://www.googleapis.com/youtube/v3/search?key=${key}&channelId=${channelId}&part=snippet&order=date&maxResults=6&type=video
-   ```
-
-### Profile Image
-Add your photo to `public/images/profile.jpg` and use it in `Hero.jsx`:
-```jsx
-<img src="/images/profile.jpg" alt="Madin Bloch" className="w-24 h-24 rounded-full object-cover" />
-```
-
----
-
-## 🌐 Deploy on Vercel
-
-1. Push to GitHub
-2. Import repo at [vercel.com](https://vercel.com)
-3. Framework preset: **Vite**
-4. Deploy — done.
-
----
-
-## 🎨 Design
-
-- **Dark theme** — zinc-950 base
-- **Accent** — emerald green (`#6ee7b7`)
-- **Fonts** — Syne (display), DM Sans (body), JetBrains Mono (code)
-- No fake skill bars, no heavy animations
+The personal projects are deliberately labeled as internal, experimental or learning work where relevant.

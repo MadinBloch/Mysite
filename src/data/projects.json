@@ -1,123 +1,176 @@
 [
   {
     "id": 4,
-    "title": "Kesari Select",
-    "tagline": "Flagship client delivery · live product",
-    "description": "Live travel platform for Kesari Select. Owned major Laravel backend work across the public website, internal tools, and ERP-connected product flows — shipping reliable features used by real teams every day.",
-    "role": "Led core backend delivery: APIs, integrations, admin workflows, Dockerized setup, and production fixes that kept the product moving.",
+    "title": "Kesari Select — Backend & ERP Workflows",
+    "tagline": "Production travel platform · proprietary client work",
+    "description": "Contributed to the Laravel-based travel-operations platform by developing ERP-integrated exports, finance and approval workflows, air-ticketing enhancements, notifications, and operational tools.",
+    "role": "My contributions include a scheduled ERP/DBF-to-S3 export pipeline, cash-contra requisitions, multi-role journal-voucher approvals, Frappe API integration, and RFQ/ticket-stock automation. Other team members built and maintained additional areas of the product.",
     "category": "client",
-    "company": "Kesari Select",
+    "company": "Kesari Select (via Shine Infosoft)",
     "featured": true,
     "spotlight": true,
     "accent": "kesari",
     "logo": "/Footer_logo-new.6076b51f76fa6ba0f5b7.webp",
     "live": "https://www.kesariselect.com/",
     "github": null,
+    "caseStudySlug": "kesari-select-backend",
     "year": "2025–2026",
-    "tech": ["Laravel", "PHP", "MySQL", "Frappe", "Docker", "APIs"],
+    "tech": [
+      "Laravel",
+      "PHP",
+      "Frappe ERP APIs",
+      "AWS S3",
+      "DBF",
+      "MongoDB",
+      "Docker"
+    ],
     "flow": [
-      { "label": "Website", "detail": "Public product surface" },
-      { "label": "Backend", "detail": "Laravel APIs & logic" },
-      { "label": "Integrations", "detail": "ERP & internal tools" },
-      { "label": "Ship", "detail": "Production delivery" }
+      {
+        "label": "ERP APIs",
+        "detail": "Retrieve approved operational records"
+      },
+      {
+        "label": "Laravel",
+        "detail": "Validate, transform and reconcile data"
+      },
+      {
+        "label": "AWS S3",
+        "detail": "Stage, publish and archive DBF exports"
+      },
+      {
+        "label": "Operations",
+        "detail": "Scheduled jobs, approvals and audit logs"
+      }
     ],
     "highlights": [
-      "Built and maintained production Laravel features for a live client platform",
-      "Connected website and internal tools through clean API / ERP integrations",
-      "Owned Docker-friendly environments and day-to-day production stability",
-      "Collaborated with sales/ops stakeholders to ship practical product improvements"
+      "Implemented daily export workflows spanning booking, receipt, passenger, billing, supplier, forex and cash-contra data",
+      "Built cash-contra requisitions and expanded Finance / Sales Manager approval workflows",
+      "Automated RFQ reminders, follow-up notifications and low-ticket-stock alerts",
+      "Improved a production page from approximately 15s to 3s observed load time (self-reported; benchmark not in Git)"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Bulk Email Campaign Engine",
+    "tagline": "Excel import → queued delivery → engagement tracking",
+    "description": "An internal Laravel campaign subsystem that imports recipient lists, validates email addresses, sends HTML campaigns through queued jobs, and records per-recipient delivery and open activity.",
+    "role": "Introduced the initial campaign module, schema, scheduler-driven queue pipeline, pause/resume controls, tracking pixel, hourly open-log processing, exports, and configurable sender/reply-to settings. Later teammates extended the implementation.",
+    "category": "production",
+    "company": "Internal business tool",
+    "featured": true,
+    "accent": "violet",
+    "live": null,
+    "github": null,
+    "caseStudySlug": "email-campaign-engine",
+    "year": "2025",
+    "tech": [
+      "Laravel 11",
+      "MySQL",
+      "Queues",
+      "Scheduler",
+      "Excel",
+      "Mail"
+    ],
+    "highlights": [
+      "Excel upload and recipient validation",
+      "Queued sends with campaign pause/resume",
+      "Open tracking with batch persistence",
+      "Campaign archive and recipient exports"
     ]
   },
   {
     "id": 1,
     "title": "Smart Print System",
-    "tagline": "End-to-end print operations",
-    "description": "Production-level system for managing end-to-end printing workflows. Handles job queuing, order tracking, and status management for a print business.",
-    "tech": ["Laravel", "MySQL", "PHP"],
-    "role": "Built the full backend — job management, order processing, status flows, and admin dashboard.",
+    "tagline": "Operational tooling for print jobs",
+    "description": "Laravel-based print operations tooling for job tracking, order status transitions and administrative visibility.",
+    "role": "Implemented backend features for print job and order workflows.",
     "category": "production",
-    "company": null,
+    "company": "Internal tool",
     "featured": true,
     "accent": "emerald",
     "live": null,
     "github": null,
-    "year": 2025
+    "year": "2025",
+    "tech": [
+      "Laravel",
+      "PHP",
+      "MySQL"
+    ]
   },
   {
     "id": 2,
     "title": "HRM System",
-    "tagline": "People ops, simplified",
-    "description": "Internal HR and employee management system. Handles employee records, attendance, leave management, and reporting.",
-    "tech": ["Laravel", "MySQL", "PHP"],
-    "role": "Designed and built the backend architecture, database schema, and all business logic.",
+    "tagline": "Employee and leave workflows",
+    "description": "Internal HR administration modules covering employee records, attendance, leave and reporting workflows.",
+    "role": "Contributed backend logic and management screens.",
     "category": "production",
-    "company": null,
+    "company": "Internal tool",
     "featured": false,
     "accent": "sky",
     "live": null,
     "github": null,
-    "year": 2025
+    "year": "2025",
+    "tech": [
+      "Laravel",
+      "MySQL",
+      "PHP"
+    ]
   },
   {
-    "id": 3,
-    "title": "Custom Email Campaign System",
-    "tagline": "Queue-powered outreach",
-    "description": "Built for company internal use. Manages bulk email sending, campaign scheduling, template management, and delivery tracking.",
-    "tech": ["Laravel", "MySQL", "PHP", "Queue Jobs"],
-    "role": "Developed the campaign engine, queue-based email dispatching, and analytics tracking.",
-    "category": "production",
+    "id": 8,
+    "title": "DevCommand AI (experimental)",
+    "tagline": "Multi-agent development orchestration prototype",
+    "description": "Public experimental project exploring GitHub-connected task planning, isolated worktrees, agent execution and verification workflows. Not presented as a production service.",
+    "role": "Personal engineering experiment; implementation status and limitations are documented in the repository.",
+    "category": "engineering",
     "company": null,
     "featured": false,
-    "accent": "violet",
+    "accent": "amber",
     "live": null,
-    "github": null,
-    "year": 2025
+    "github": "https://github.com/MadinBloch/DevCommand-AI",
+    "year": "2026",
+    "tech": [
+      "TypeScript",
+      "React",
+      "Express",
+      "PostgreSQL",
+      "Git"
+    ]
   },
   {
     "id": 6,
     "title": "Car Web Services",
-    "tagline": "Early CRUD foundations",
-    "description": "A basic car service management system to handle car washing operations, track service status, and manage daily service records.",
-    "tech": ["PHP", "MySQL"],
-    "role": "Built the complete system including form handling, database design, and admin panel for managing car service records.",
+    "tagline": "Early PHP CRUD project",
+    "description": "A learning project to track car washing records, service states and basic admin actions.",
+    "role": "Built an introductory PHP/MySQL CRUD system.",
     "category": "learning",
     "company": null,
     "featured": false,
     "accent": "zinc",
     "live": "https://youtu.be/EMP0RciGICg?si=O5gwr0W7A38-6Ajy",
     "github": null,
-    "year": 2022,
-    "features": [
-      "Add and manage car entries (owner name, car number, service type)",
-      "Track washing status (pending, in progress, completed)",
-      "Admin dashboard with total cars serviced and pending count",
-      "View and filter service history records",
-      "Basic CRUD operations for managing services"
-    ],
-    "learning": "Learned CRUD operations, form handling, and the importance of clean relational database structure before writing backend logic."
+    "year": "2022",
+    "tech": [
+      "PHP",
+      "MySQL"
+    ]
   },
   {
     "id": 7,
     "title": "Book Server",
-    "tagline": "Hackathon project",
-    "description": "A basic book management system focused on storing and managing old books records. Built to track book details, availability, and simple inventory operations.",
-    "tech": ["PHP", "MySQL"],
-    "role": "Built the complete system including database design, CRUD operations, and basic admin functionality.",
+    "tagline": "Hackathon-era PHP project",
+    "description": "A basic book inventory learning project covering records, availability and search.",
+    "role": "Built early PHP/MySQL features during the hackathon period.",
     "category": "learning",
     "company": null,
     "featured": false,
     "accent": "zinc",
-    "type": "hackathon",
     "live": "https://youtu.be/yLy_fBdOT7M?si=IXdyDegtJKRMqwkE",
-    "github": "https://github.com/MadinBloch",
-    "year": 2023,
-    "features": [
-      "Add and manage books (title, author, category)",
-      "Track availability and stock of books",
-      "Simple admin panel for managing records",
-      "Search and filter books",
-      "Basic CRUD operations"
-    ],
-    "learning": "Learned practical CRUD operations, session handling basics, and realized the limitations of raw PHP for scaling projects."
+    "github": null,
+    "year": "2023",
+    "tech": [
+      "PHP",
+      "MySQL"
+    ]
   }
 ]

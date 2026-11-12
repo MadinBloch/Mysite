@@ -48,7 +48,7 @@ export default function Contact() {
         <p className="section-label">Get in Touch</p>
         <h2 className="section-heading mb-2">Contact</h2>
         <p className="text-zinc-500 text-sm mb-8 max-w-2xl">
-          Open to Senior Laravel / backend roles — currently completing MCA while shipping production systems.
+          Open to backend developer roles in Ahmedabad, remotely, or with relocation. Currently completing MCA while working on production systems.
         </p>
 
         <a

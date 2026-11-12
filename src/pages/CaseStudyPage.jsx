@@ -65,6 +65,20 @@ export default function CaseStudyPage() {
       </div>
 
       <div className="grid gap-5">
+        {study.metrics?.length > 0 && (
+          <section aria-label="Project scale and outcomes" className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-8">
+            <div className="grid sm:grid-cols-3 gap-5">
+              {study.metrics.map(metric => (
+                <div key={metric.label} className="border-l-2 border-accent/50 pl-4">
+                  <p className="text-3xl font-display font-bold text-white">{metric.value}</p>
+                  <p className="text-sm text-zinc-200 mt-1">{metric.label}</p>
+                  <p className="text-xs text-zinc-500 mt-1">{metric.note}</p>
+                </div>
+              ))}
+            </div>
+            {study.metricNote && <p className="text-xs text-zinc-500 mt-5 leading-6">{study.metricNote}</p>}
+          </section>
+        )}
         <section className="grid sm:grid-cols-2 gap-5">
           <div className="card"><h2 className="font-display text-xl font-semibold text-white mb-3">The problem</h2><p className="text-zinc-300 text-sm leading-7">{study.problem}</p></div>
           <div className="card"><h2 className="font-display text-xl font-semibold text-white mb-3">My role</h2><p className="text-zinc-300 text-sm leading-7">{study.role}</p></div>

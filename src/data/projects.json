@@ -1,10 +1,10 @@
 [
   {
     "id": 4,
-    "title": "Kesari Select — Backend & ERP Workflows",
-    "tagline": "Production travel platform · proprietary client work",
-    "description": "Contributed to the Laravel-based travel-operations platform by developing ERP-integrated exports, finance and approval workflows, air-ticketing enhancements, notifications, and operational tools.",
-    "role": "My contributions include a scheduled ERP/DBF-to-S3 export pipeline, cash-contra requisitions, multi-role journal-voucher approvals, Frappe API integration, and RFQ/ticket-stock automation. Other team members built and maintained additional areas of the product.",
+    "title": "Kesari Select · Travel Operations Platform",
+    "tagline": "High-volume travel operations, ERP integrations & production delivery",
+    "description": "I work on the Laravel application behind Kesari Select's sales and operations workflows. The platform handles an estimated 10K+ inquiries per day and is used by roughly 700–1,000 internal team members. My work spans finance data exchange, booking flows, alerts and deployment.",
+    "role": "I built scheduled DBF export/reconciliation workflows, Cash Contra requisitions, ERP API handling and reminders; expanded multi-role financial approvals; and handled application deployment and production issues. Kesari Select is a team-built product.",
     "category": "client",
     "company": "Kesari Select (via Shine Infosoft)",
     "featured": true,
@@ -18,11 +18,12 @@
     "tech": [
       "Laravel",
       "PHP",
-      "Frappe ERP APIs",
-      "AWS S3",
-      "DBF",
+      "Frappe ERP",
+      "MySQL",
       "MongoDB",
-      "Docker"
+      "AWS S3",
+      "Docker",
+      "Nginx"
     ],
     "flow": [
       {
@@ -43,18 +44,36 @@
       }
     ],
     "highlights": [
-      "Implemented daily export workflows spanning booking, receipt, passenger, billing, supplier, forex and cash-contra data",
-      "Built cash-contra requisitions and expanded Finance / Sales Manager approval workflows",
-      "Automated RFQ reminders, follow-up notifications and low-ticket-stock alerts",
-      "Improved a production page from approximately 15s to 3s observed load time (self-reported; benchmark not in Git)"
-    ]
+      "Built repeatable ERP exports with S3 staging, archives, export logs and lookback for missed records.",
+      "Connected Sales, Operations and Finance through approval gates, RFQ and stock alerts.",
+      "Handled app deployments with Docker, Nginx/PHP-FPM, EC2, SSL and post-release checks.",
+      "Improved one observed page load from ~15s to ~3s by optimizing the backend."
+    ],
+    "metrics": [
+      {
+        "value": "10K+",
+        "label": "Inquiries / day",
+        "note": "Estimated platform scale"
+      },
+      {
+        "value": "700–1K",
+        "label": "Internal users",
+        "note": "Estimated team reach"
+      },
+      {
+        "value": "15s → 3s",
+        "label": "Page load",
+        "note": "Observed improvement"
+      }
+    ],
+    "metricNote": "Approximate platform scale and observed performance figures are developer-reported estimates, not audited analytics."
   },
   {
     "id": 3,
-    "title": "Bulk Email Campaign Engine",
-    "tagline": "Excel import → queued delivery → engagement tracking",
-    "description": "An internal Laravel campaign subsystem that imports recipient lists, validates email addresses, sends HTML campaigns through queued jobs, and records per-recipient delivery and open activity.",
-    "role": "Introduced the initial campaign module, schema, scheduler-driven queue pipeline, pause/resume controls, tracking pixel, hourly open-log processing, exports, and configurable sender/reply-to settings. Later teammates extended the implementation.",
+    "title": "Excel-to-Email Campaign Engine",
+    "tagline": "Upload contacts. Queue delivery. Monitor engagement.",
+    "description": "Built the initial version of an internal email campaign system. Staff upload an Excel list, write and test an email, then Laravel queue jobs send to recipients without holding a browser request open.",
+    "role": "Created the original schema, validation, queued sender, pause/resume controls, tracking pixel, hourly open-log processor, exports and sender settings. Later work was collaborative.",
     "category": "production",
     "company": "Internal business tool",
     "featured": true,
@@ -72,18 +91,17 @@
       "Mail"
     ],
     "highlights": [
-      "Excel upload and recipient validation",
-      "Queued sends with campaign pause/resume",
-      "Open tracking with batch persistence",
-      "Campaign archive and recipient exports"
+      "Separated Excel upload and email composition from background sending.",
+      "Allowed test sends, pause and resume without restarting a campaign.",
+      "Moved email-open persistence to hourly batches instead of writing on every pixel request."
     ]
   },
   {
     "id": 1,
-    "title": "Smart Print System",
-    "tagline": "Operational tooling for print jobs",
-    "description": "Laravel-based print operations tooling for job tracking, order status transitions and administrative visibility.",
-    "role": "Implemented backend features for print job and order workflows.",
+    "title": "Smart Print · Operations & Access Control",
+    "tagline": "Inquiry capture, role permissions and print-job reliability",
+    "description": "Worked in an existing Laravel print-management system to improve prospect intake, role permissions, task safety and configurable print-job sheets.",
+    "role": "Built the prospect module across schema, Eloquent, controllers and AJAX; made role updates safer with scoped joins/upsert-style writes; added soft-delete behavior and fixed print/prepress options. Task/job modules predated my contributions.",
     "category": "production",
     "company": "Internal tool",
     "featured": true,
@@ -93,8 +111,17 @@
     "year": "2025",
     "tech": [
       "Laravel",
-      "PHP",
-      "MySQL"
+      "MySQL",
+      "RBAC",
+      "Eloquent",
+      "Blade",
+      "AJAX"
+    ],
+    "caseStudySlug": "smart-print-operations",
+    "highlights": [
+      "Prospect inquiries with validation, soft delete and permissions.",
+      "Role-specific edit/delete controls and safer permission updates.",
+      "Consistent extra/VAT persistence and configurable design/prepress options."
     ]
   },
   {

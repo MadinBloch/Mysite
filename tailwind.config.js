@@ -10,18 +10,13 @@ export default {
         display: ['"Outfit"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        zinc: {
-          950: '#09090b',
-        },
-        accent: {
-          DEFAULT: '#6ee7b7',
-          dim: '#34d399',
-        },
+        zinc: { 950: '#0b0d12' },
+        accent: { DEFAULT: '#b9f483', dim: '#a2df73' },
       },
       boxShadow: {
-        glow: '0 0 40px rgba(110, 231, 183, 0.15)',
-      },
-    },
+        glow: '0 0 40px rgba(185,244,131,.16)',
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }

@@ -1,377 +1,107 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import projects from '../data/projects.json'
 
-function ExternalLinkIcon() {
-  return (
-    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-    </svg>
-  )
+const projectById = id => projects.find(p => p.id === id)
+
+function Arrow() { return <span aria-hidden="true">↗</span> }
+function Tags({ items, dark = false }) {
+  return <div className="flex flex-wrap gap-2">{items.map(t => <span key={t} className={'rounded-full border px-3 py-1.5 font-mono text-[10px] ' + (dark ? 'border-[#b3bca8] text-[#49604d]' : 'border-white/15 bg-white/[.035] text-[#bdc5cb]')}>{t}</span>)}</div>
 }
 
-function GithubIcon() {
-  return (
-    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-    </svg>
-  )
+function WorkflowIllustration() {
+  const steps = ['Inquiry received','ERP & workflow','Operational teams']
+  return <div aria-label="Illustrative workflow: inquiry, ERP and operational teams" className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#0d1219] p-5 sm:p-6">
+    <div className="mb-7 flex items-center justify-between border-b border-white/10 pb-4">
+      <span className="font-mono text-[10px] uppercase tracking-widest text-[#8593a5]">Engineering view / illustrative</span>
+      <span className="flex items-center gap-2 font-mono text-[10px] text-accent"><i className="h-1.5 w-1.5 rounded-full bg-accent" /> Production</span>
+    </div>
+    <div className="space-y-3">
+      {steps.map((s,i)=><div key={s} className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[.035] px-4 py-3.5">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 font-mono text-xs text-accent">0{i+1}</span>
+        <span className="text-sm font-medium text-[#f2f3ed]">{s}</span>
+        <span className="ml-auto text-[#74818a]" aria-hidden="true">↗</span>
+      </div>)}
+    </div>
+    <div className="mt-5 flex flex-wrap gap-2 text-[10px] font-mono text-[#acb5a9]"><span className="rounded-full border border-accent/20 bg-accent/[.07] px-3 py-1.5">Approval checks</span><span className="rounded-full border border-white/10 px-3 py-1.5">Export recovery</span><span className="rounded-full border border-white/10 px-3 py-1.5">Deployments</span></div>
+  </div>
 }
 
-const CATEGORY_LABELS = {
-  production: { label: 'Production', color: 'text-accent bg-accent/10 border-accent/20' },
-  client: { label: 'Client', color: 'text-sky-300 bg-sky-400/10 border-sky-400/20' },
-  learning: { label: 'Early Work', color: 'text-zinc-400 bg-zinc-800 border-zinc-700' },
-  engineering: { label: 'Experimental', color: 'text-amber-300 bg-amber-400/10 border-amber-400/20' },
-}
-
-const ACCENT_GLOW = {
-  emerald: 'from-emerald-500/25 via-emerald-500/5 to-transparent',
-  sky: 'from-sky-500/25 via-sky-500/5 to-transparent',
-  violet: 'from-violet-500/25 via-violet-500/5 to-transparent',
-  amber: 'from-amber-500/25 via-amber-500/5 to-transparent',
-  rose: 'from-rose-500/25 via-rose-500/5 to-transparent',
-  kesari: 'from-red-500/20 via-amber-500/10 to-transparent',
-  zinc: 'from-zinc-500/20 via-zinc-500/5 to-transparent',
-}
-
-const FILTERS = ['All', 'Production', 'Client', 'Engineering', 'Early Work']
-const filterMap = { All: null, Production: 'production', Client: 'client', Engineering: 'engineering', 'Early Work': 'learning' }
-
-function KesariSpotlight({ project }) {
-  return (
-    <article className="relative overflow-hidden rounded-3xl border border-red-500/25 bg-zinc-900/80 mb-8 group">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-600/15 via-zinc-950/40 to-amber-500/10" />
-      <div className="pointer-events-none absolute -right-20 top-0 h-72 w-72 rounded-full bg-red-500/15 blur-3xl group-hover:bg-red-500/25 transition-colors" />
-      <div className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-amber-400/10 blur-3xl" />
-
-      <div className="relative p-6 sm:p-8 lg:p-10">
-        <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2 mb-5">
-              <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full border border-red-400/40 text-red-300 bg-red-500/10">
-                Flagship project
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full border border-accent/30 text-accent bg-accent/10">
-                Main work
-              </span>
-              <span className="font-mono text-[10px] text-zinc-400 bg-zinc-950/60 border border-zinc-800 px-2.5 py-1 rounded-full">
-                {project.company}
-              </span>
-              <span className="font-mono text-[10px] text-zinc-500 ml-auto">{project.year}</span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-              {project.logo && (
-                <div className="rounded-xl border border-zinc-700/80 bg-zinc-950/80 px-4 py-3 shadow-[0_0_30px_rgba(227,30,36,0.12)]">
-                  <img
-                    src={project.logo}
-                    alt="Kesari Select"
-                    className="h-10 sm:h-12 w-auto object-contain"
-                  />
-                </div>
-              )}
-              <div>
-                <p className="font-mono text-xs text-red-300 mb-1">{project.tagline}</p>
-                <h3 className="font-display text-3xl sm:text-4xl font-bold text-zinc-50 tracking-tight">
-                  {project.title}
-                </h3>
-              </div>
-            </div>
-
-            <p className="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-3xl mb-5">
-              {project.description}
-            </p>
-
-            <p className="text-zinc-400 text-sm leading-relaxed border-l-2 border-red-400/50 pl-3 mb-6 max-w-3xl">
-              {project.role}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              {project.tech.map((t) => (
-                <span key={t} className="tag">{t}</span>
-              ))}
-              {project.live && (
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ml-auto inline-flex items-center gap-1.5 text-xs font-semibold text-red-300 hover:text-red-200 transition-colors"
-                >
-                  <ExternalLinkIcon /> Visit kesariselect.com
-                </a>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {project.metrics?.length > 0 && (
-          <div className="mt-7 pt-6 border-t border-zinc-800/80">
-            <div className="grid sm:grid-cols-3 gap-3">
-              {project.metrics.map((metric) => (
-                <div key={metric.label} className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4">
-                  <p className="font-display font-bold text-2xl text-white">{metric.value}</p>
-                  <p className="text-sm text-zinc-300 mt-1">{metric.label}</p>
-                  <p className="text-xs text-zinc-500 mt-1">{metric.note}</p>
-                </div>
-              ))}
-            </div>
-            {project.metricNote && <p className="text-xs text-zinc-500 mt-3 leading-5">{project.metricNote}</p>}
-          </div>
-        )}
-
-        {project.flow?.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-zinc-800/80">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500 mb-4">
-              Delivery flow
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {project.flow.map((step, index) => (
-                <div
-                  key={step.label}
-                  className="relative rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-mono text-[10px] text-red-300 bg-red-500/10 border border-red-500/20 rounded-full w-6 h-6 inline-flex items-center justify-center">
-                      {index + 1}
-                    </span>
-                    {index < project.flow.length - 1 && (
-                      <span className="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 text-zinc-600 text-sm z-10">→</span>
-                    )}
-                  </div>
-                  <p className="font-display font-semibold text-zinc-100 text-sm">{step.label}</p>
-                  <p className="text-zinc-500 text-xs mt-1 leading-relaxed">{step.detail}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 text-zinc-500 text-xs leading-relaxed max-w-3xl">
-              A clean product path — public site, Laravel backend, integrations, and production shipping.
-            </p>
-          </div>
-        )}
-
-        {project.caseStudySlug && (
-          <div className="mt-6">
-            <Link to={'/projects/' + project.caseStudySlug} className="btn-primary">
-              Read technical case study <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        )}
-
-        {project.highlights?.length > 0 && (
-          <div className="mt-6 grid sm:grid-cols-2 gap-3">
-            {project.highlights.map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-2.5 rounded-xl border border-zinc-800/90 bg-zinc-950/40 px-3.5 py-3"
-              >
-                <span className="text-red-400 mt-0.5 text-xs">▸</span>
-                <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">{item}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </article>
-  )
-}
-
-function FeaturedCard({ project }) {
-  const cat = CATEGORY_LABELS[project.category]
-  const glow = ACCENT_GLOW[project.accent] || ACCENT_GLOW.zinc
-
-  return (
-    <article className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 sm:p-8 group hover:border-accent/30 transition-all duration-300">
-      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${glow} opacity-80`} />
-      <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/10 blur-3xl group-hover:bg-accent/20 transition-colors" />
-
-      <div className="relative flex flex-col h-full gap-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border ${cat.color}`}>
-            {cat.label}
-          </span>
-          {project.company && (
-            <span className="font-mono text-[10px] text-zinc-400 bg-zinc-950/50 border border-zinc-800 px-2 py-0.5 rounded-full">
-              {project.company}
-            </span>
-          )}
-          <span className="font-mono text-[10px] text-zinc-500 ml-auto">{project.year}</span>
-        </div>
-
-        <div>
-          <p className="font-mono text-xs text-accent mb-2">{project.tagline}</p>
-          <h3 className="font-display text-2xl sm:text-3xl font-bold text-zinc-50 tracking-tight">
-            {project.title}
-          </h3>
-          <p className="mt-3 text-zinc-400 text-sm sm:text-base leading-relaxed max-w-xl">
-            {project.description}
-          </p>
-        </div>
-
-        <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed border-l-2 border-accent/30 pl-3">
-          {project.role}
-        </p>
-
-        <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-          {project.tech.map((t) => (
-            <span key={t} className="tag">{t}</span>
-          ))}
-          <div className="flex gap-3 ml-auto">
-            {project.caseStudySlug && (
-              <Link to={'/projects/' + project.caseStudySlug} className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accent-dim">Case study →</Link>
-            )}
-            {project.live && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:text-accent-dim transition-colors"
-              >
-                <ExternalLinkIcon /> Live site
-              </a>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-accent transition-colors"
-              >
-                <GithubIcon /> GitHub
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </article>
-  )
-}
-
-function ProjectCard({ project }) {
-  const cat = CATEGORY_LABELS[project.category]
-  const glow = ACCENT_GLOW[project.accent] || ACCENT_GLOW.zinc
-
-  return (
-    <article className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 flex flex-col gap-3 h-full group hover:-translate-y-1 hover:border-accent/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35)] transition-all duration-300">
-      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${glow} opacity-40 group-hover:opacity-70 transition-opacity`} />
-      <div className="relative flex flex-col h-full">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div>
-            <p className="font-mono text-[10px] text-accent mb-1">{project.tagline}</p>
-            <h3 className="font-display font-semibold text-zinc-100 text-lg leading-tight">{project.title}</h3>
-          </div>
-          <span className={`font-mono text-[10px] px-2 py-0.5 rounded-full border whitespace-nowrap ${cat.color}`}>
-            {cat.label}
-          </span>
-        </div>
-
-        <p className="text-zinc-400 text-sm leading-relaxed line-clamp-3 min-h-[60px]">{project.description}</p>
-
-        {project.company && (
-          <p className="font-mono text-[11px] text-zinc-500 mt-3">{project.company}</p>
-        )}
-
-        {project.learning && (
-          <div className="border-l-2 border-amber-400/30 pl-3 mt-3">
-            <p className="text-amber-400/70 text-xs">{project.learning}</p>
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-1.5 mt-4">
-          {project.tech.map((t) => (
-            <span key={t} className="tag">{t}</span>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3 pt-4 mt-auto">
-          <span className="font-mono text-xs text-zinc-600">{project.year}</span>
-          <div className="flex gap-3 ml-auto">
-            {project.caseStudySlug && (
-              <Link to={'/projects/' + project.caseStudySlug} className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:text-accent-dim">Case study →</Link>
-            )}
-            {project.caseStudySlug && (
-              <Link to={'/projects/' + project.caseStudySlug} className="text-xs text-accent hover:text-accent-dim">Case study →</Link>
-            )}
-            {project.live && (
-              <a href={project.live} target="_blank" rel="noreferrer"
-                className="flex items-center gap-1 text-xs text-zinc-400 hover:text-accent transition-colors">
-                <ExternalLinkIcon /> Live
-              </a>
-            )}
-            {project.github && (
-              <a href={project.github} target="_blank" rel="noreferrer"
-                className="flex items-center gap-1 text-xs text-zinc-400 hover:text-accent transition-colors">
-                <GithubIcon /> GitHub
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </article>
-  )
+function EmailIllustration() {
+  return <div className="relative mt-7 overflow-hidden rounded-2xl border border-[#d1dcc3] bg-[#f4f7ec] p-5 text-[#1c3125]">
+    <div className="flex items-center justify-between"><span className="font-mono text-[10px] font-semibold tracking-widest text-[#6b7b65]">CAMPAIGN MONITOR / CONCEPT</span><span className="rounded-full bg-[#dcf1c5] px-2.5 py-1 font-mono text-[10px] text-[#34653a]">● Running</span></div>
+    <div className="mt-6 flex items-end justify-between gap-2"><div><p className="text-xs text-[#7a8b76]">Example progress</p><p className="font-display text-3xl font-semibold tracking-[-.06em]">6,000 <span className="text-lg font-normal text-[#9ba99c]">/ 10,000</span></p></div><span className="font-mono text-xs text-[#497452]">60%</span></div>
+    <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#d4dfc9]"><div className="h-full w-[60%] rounded-full bg-[#76ad6d]" /></div>
+    <div className="mt-5 grid grid-cols-3 gap-2 border-t border-[#d7e0d2] pt-4 text-center"><span className="rounded-lg bg-white/60 p-2 font-mono text-[10px]">Excel import</span><span className="rounded-lg bg-white/60 p-2 font-mono text-[10px]">Queue workers</span><span className="rounded-lg bg-white/60 p-2 font-mono text-[10px]">Pause / resume</span></div>
+    <p className="mt-3 text-[10px] text-[#8a9988]">Illustrative screen, not a captured dashboard or delivery-speed benchmark.</p>
+  </div>
 }
 
 export default function Projects() {
-  const [filter, setFilter] = useState('All')
+  const kesari=projectById(4),email=projectById(3),print=projectById(1),other=projects.filter(p=>![4,3,1].includes(p.id))
+  return <section id="work" className="relative bg-[#0b0d12] py-24 sm:py-32">
+    <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+      <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div><p className="eyebrow mb-5">02 / Selected work</p><h2 className="section-heading max-w-[690px]">The work, the <span className="font-light italic text-accent">why,</span> and the result.</h2></div>
+        <p className="max-w-[320px] text-sm leading-7 text-[#97a1ab]">A few engineering problems worth explaining. Some systems are private business software, so the diagrams show the approach—not internal screens.</p>
+      </div>
 
-  const filtered = filter === 'All'
-    ? projects
-    : projects.filter((p) => p.category === filterMap[filter])
-
-  const spotlight = filtered.find((p) => p.spotlight)
-  const featured = filtered.filter((p) => p.featured && !p.spotlight)
-  const rest = filtered.filter((p) => !p.featured && !p.spotlight)
-
-  return (
-    <section id="projects" className="py-20 sm:py-24 relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(227,30,36,0.06),transparent_45%)]" />
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-          <div>
-            <p className="section-label">Selected work</p>
-            <h2 className="section-heading mb-2">Projects</h2>
-            <p className="text-zinc-500 text-sm max-w-xl">
-              Verified contributions across <span className="text-zinc-300">Kesari Select</span>, email automation and backend engineering experiments.
-            </p>
+      <article className="group overflow-hidden rounded-[30px] border border-white/10 bg-[#161b22]">
+        <div className="grid lg:grid-cols-[1.03fr_.97fr]">
+          <div className="p-6 sm:p-10 lg:p-12">
+            <div className="flex flex-wrap items-center gap-3"><span className="eyebrow">{kesari.eyebrow}</span><span className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#929ea7]">{kesari.year}</span></div>
+            <div className="mt-10 flex items-center gap-4">
+              <div className="flex h-16 w-20 items-center justify-center rounded-2xl border border-white/10 bg-[#0a0c10] p-3"><img src={kesari.logo} alt="Kesari Select logo" className="max-h-12 w-full object-contain" /></div>
+              <div><h3 className="font-display text-4xl font-semibold tracking-[-.06em] text-white sm:text-5xl">{kesari.title}</h3><p className="mt-1 text-xs text-[#97a0a9]">{kesari.type}</p></div>
+            </div>
+            <h4 className="mt-9 max-w-md font-display text-[25px] font-medium leading-tight tracking-[-.04em] text-[#f4f5eb]">{kesari.tagline}</h4>
+            <p className="mt-4 max-w-lg text-sm leading-8 text-[#aeb6bd]">{kesari.description}</p>
+            <div className="mt-7"><Tags items={kesari.tech} /></div>
+            <Link to={'/projects/'+kesari.caseStudySlug} className="mt-9 inline-flex items-center gap-3 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-[#13180f] hover:bg-white">Read the engineering story <Arrow /></Link>
+            <p className="mt-5 max-w-lg text-[11px] leading-5 text-[#7c8994]">{kesari.note}</p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {FILTERS.map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`font-mono text-xs px-3 py-1.5 rounded-full border transition-all ${
-                  filter === f
-                    ? 'border-accent text-zinc-950 bg-accent shadow-[0_0_20px_rgba(110,231,183,0.25)]'
-                    : 'border-zinc-800 text-zinc-500 hover:border-zinc-600 hover:text-zinc-300'
-                }`}
-              >
-                {f}
-              </button>
-            ))}
+          <div className="flex flex-col justify-between gap-5 bg-[#11161c] p-5 sm:p-8 lg:p-10">
+            <WorkflowIllustration />
+            <div className="grid grid-cols-3 gap-2">
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">10K+</p><p className="mt-1 text-[10px] text-[#8996a0]">Total inquiries</p></div>
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">80–100+</p><p className="mt-1 text-[10px] text-[#8996a0]">New / day</p></div>
+              <div className="rounded-xl border border-white/10 p-3"><p className="font-display text-xl font-semibold text-white">700–1K</p><p className="mt-1 text-[10px] text-[#8996a0]">Team users</p></div>
+            </div>
+            <p className="font-mono text-[10px] text-[#737f89]">Developer-reported platform figures</p>
           </div>
         </div>
+      </article>
 
-        {spotlight && <KesariSpotlight project={spotlight} />}
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+        <article className="overflow-hidden rounded-[30px] border border-[#d8e4c9] bg-[#eaf1df] p-6 text-[#1b3024] sm:p-9">
+          <span className="font-mono text-[10px] uppercase tracking-[.24em] text-[#578052]">{email.eyebrow}</span>
+          <h3 className="mt-6 max-w-[470px] font-display text-4xl font-semibold leading-[1.03] tracking-[-.055em]">{email.title}</h3>
+          <p className="mt-4 max-w-lg text-sm leading-7 text-[#4d6653]">{email.description}</p>
+          <div className="mt-6 flex flex-wrap gap-2 text-[11px] font-mono"><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5">10K+ rows / &lt;4 seconds</span><span className="rounded-full border border-[#bdcdb4] px-3 py-1.5">Queue-powered sends</span></div>
+          <EmailIllustration />
+          <Link to={'/projects/'+email.caseStudySlug} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#22472b] hover:underline">View engineering story <Arrow /></Link>
+        </article>
 
-        {featured.length > 0 && (
-          <div className="grid lg:grid-cols-2 gap-5 mb-5">
-            {featured.slice(0, 2).map((project) => (
-              <FeaturedCard key={project.id} project={project} />
-            ))}
+        <article className="relative overflow-hidden rounded-[30px] border border-white/10 bg-[#1a2027] p-6 sm:p-9">
+          <span className="eyebrow">{print.eyebrow}</span>
+          <h3 className="mt-6 font-display text-4xl font-semibold tracking-[-.06em] text-white">{print.title}</h3>
+          <p className="mt-4 max-w-lg text-sm leading-8 text-[#adb9c1]">{print.description}</p>
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            {[
+              ['Prospect intake','Validated data & safer lifecycle'],
+              ['Role-based work','Permission decisions'],
+              ['Job consistency','Extras & configurable options'],
+              ['Record retention','Soft-delete behavior']
+            ].map(([t,d],i)=><div key={t} className="min-h-[120px] rounded-2xl border border-white/10 bg-[#11161b] p-4"><span className="font-mono text-[10px] text-accent">0{i+1}</span><p className="mt-3 text-sm font-semibold text-white">{t}</p><p className="mt-1 text-xs leading-5 text-[#8697a2]">{d}</p></div>)}
           </div>
-        )}
-
-        {(featured.length > 2 || rest.length > 0) && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {featured.slice(2).map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-            {rest.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        )}
+          <div className="mt-7"><Tags items={print.tech} /></div>
+          <Link to={'/projects/'+print.caseStudySlug} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-white">Read the case study <Arrow /></Link>
+        </article>
       </div>
-    </section>
-  )
+
+      <div className="mt-5 flex flex-col justify-between gap-5 rounded-[26px] border border-white/10 bg-[#13181e] px-6 py-7 sm:flex-row sm:items-center sm:px-9">
+        <div><p className="eyebrow">Outside client work</p><h3 className="mt-3 font-display text-2xl font-medium tracking-tight text-white">Still building, still experimenting.</h3><p className="mt-2 text-sm text-[#9aa9b1]">Independent projects are labeled as experiments, not dressed up as production systems.</p></div>
+        <a href="https://github.com/MadinBloch/DevCommand-AI" target="_blank" rel="noreferrer" className="shrink-0 rounded-full border border-white/20 px-5 py-3 text-sm text-white hover:border-accent hover:text-accent">Explore DevCommand AI ↗</a>
+      </div>
+    </div>
+  </section>
 }

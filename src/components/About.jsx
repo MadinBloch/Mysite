@@ -18,13 +18,12 @@ export default function About() {
           <h2 className="section-heading mt-3">
             More than <span className="text-accent">just code.</span>
           </h2>
-          <p className="mt-5 text-sm leading-8 text-zinc-400">
-            I’m a developer who likes understanding the problem before writing the solution.
-            I care about clear code, solid APIs, and software that stays easy to work on as it grows.
+          <p className="mt-5 text-[15px] leading-8 text-zinc-400">
+            I like understanding the problem before writing the solution — clear APIs, maintainable Laravel code, and software that stays easy to ship as it grows.
           </p>
           <div className="mt-6 divider-glow" />
-          <p className="mt-6 text-sm leading-8 text-zinc-400">
-            Outside work, I teach, share notes, and keep learning through real projects — not just tutorials.
+          <p className="mt-6 text-[15px] leading-8 text-zinc-400">
+            Outside work I teach Git & Docker, write notes, and keep learning through real projects — not tutorials alone.
           </p>
         </SectionReveal>
 
@@ -47,7 +46,7 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="rounded-2xl border border-zinc-800 bg-zinc-950/50 px-5 py-5"
+                  className="rounded-2xl border border-zinc-800/90 bg-zinc-950/55 px-5 py-5 transition-colors"
                 >
                   <p className="mb-2 font-mono text-[11px] uppercase tracking-wider text-accent">{item.label}</p>
                   <p className="text-sm font-semibold text-white">{item.title}</p>

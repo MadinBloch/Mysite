@@ -43,11 +43,11 @@ export default function Experience() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="section-label">My journey so far</p>
+            <p className="section-label">Career so far</p>
             <h2 className="section-heading mt-2">Experience</h2>
           </div>
           <p className="max-w-sm text-sm leading-7 text-zinc-500">
-            Click a role to expand the story — short, clear, and focused on impact.
+            Expand a role for the day-to-day ownership — short, clear, impact-first.
           </p>
         </SectionReveal>
 
@@ -92,9 +92,12 @@ export default function Experience() {
                   layout
                   className={
                     'overflow-hidden rounded-2xl border transition-colors ' +
-                    (open ? 'border-accent/35 bg-zinc-900/80 shadow-[0_0_40px_rgba(110,231,183,0.06)]' : 'border-zinc-800 bg-zinc-900/50')
+                    (open
+                      ? 'border-accent/35 bg-zinc-900/80 shadow-[0_0_36px_rgba(110,231,183,0.07)]'
+                      : 'border-zinc-800/90 bg-zinc-900/45 hover:border-zinc-700')
                   }
                 >
+
                   <button
                     type="button"
                     onClick={() => setOpenId(job.id)}

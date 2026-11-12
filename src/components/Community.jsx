@@ -51,8 +51,10 @@ export default function Community() {
               transition={{ delay: index * 0.06 }}
               whileHover={{ y: -6 }}
               className={
-                'card flex h-full flex-col ' +
-                (event.accent ? 'border-accent/25 bg-gradient-to-br from-accent/5 to-transparent' : '')
+                'flex h-full flex-col rounded-2xl border bg-zinc-900/65 p-5 sm:p-6 ' +
+                (event.accent
+                  ? 'border-accent/25 bg-gradient-to-br from-accent/5 to-transparent'
+                  : 'border-zinc-800/90')
               }
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">{event.meta}</p>
@@ -69,7 +71,7 @@ export default function Community() {
           ))}
         </div>
 
-        <SectionReveal delay={0.1} className="mt-8 card border-accent/20 bg-accent/[.04]">
+        <SectionReveal delay={0.1} className="mt-8 rounded-2xl border border-accent/20 bg-accent/[.04] p-5 sm:p-6">
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">What I’m doing now</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <div>

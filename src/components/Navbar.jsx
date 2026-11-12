@@ -22,6 +22,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeId, setActiveId] = useState('home')
   const moreRef = useRef(null)
   const location = useLocation()
 
@@ -38,6 +39,28 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
+    if (location.pathname !== '/') return undefined
+
+    const sectionIds = allLinks.map(([id]) => id)
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean)
+
+    const syncActive = () => {
+      const marker = window.scrollY + 120
+      let current = 'home'
+      for (const el of elements) {
+        if (el.offsetTop <= marker) current = el.id
+      }
+      setActiveId(current)
+    }
+
+    syncActive()
+    window.addEventListener('scroll', syncActive, { passive: true })
+    return () => window.removeEventListener('scroll', syncActive)
+  }, [location.pathname])
+
+  useEffect(() => {
     const onPointerDown = (event) => {
       if (moreRef.current && !moreRef.current.contains(event.target)) {
         setMoreOpen(false)
@@ -46,6 +69,12 @@ export default function Navbar() {
     document.addEventListener('pointerdown', onPointerDown)
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [])
+
+  const linkClass = (id) =>
+    'rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ' +
+    (activeId === id
+      ? 'bg-white/5 text-accent'
+      : 'text-zinc-400 hover:bg-white/5 hover:text-white')
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
@@ -69,11 +98,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-1 xl:flex">
           {primaryLinks.map(([id, label]) => (
-            <Link
-              key={id}
-              to={'/#' + id}
-              className="rounded-full px-3 py-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-            >
+            <Link key={id} to={'/#' + id} className={linkClass(id)}>
               {label}
             </Link>
           ))}
@@ -81,7 +106,12 @@ export default function Navbar() {
           <div className="relative" ref={moreRef}>
             <button
               type="button"
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
+              className={
+                'inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ' +
+                (moreLinks.some(([id]) => id === activeId)
+                  ? 'bg-white/5 text-accent'
+                  : 'text-zinc-400 hover:bg-white/5 hover:text-white')
+              }
               aria-expanded={moreOpen}
               aria-haspopup="true"
               onClick={() => setMoreOpen((value) => !value)}
@@ -105,10 +135,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link
-            to="/#contact"
-            className="rounded-full px-3 py-1.5 text-[12px] font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-          >
+          <Link to="/#contact" className={linkClass('contact')}>
             Contact
           </Link>
         </div>

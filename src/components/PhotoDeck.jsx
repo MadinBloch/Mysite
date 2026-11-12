@@ -62,12 +62,11 @@ export default function PhotoDeck({ photos, className = '' }) {
 
   return (
     <div className={'relative ' + className}>
-      <div className="relative mx-auto aspect-[4/5] w-full max-w-[400px] overflow-hidden rounded-[28px]">
-        <div className="pointer-events-none absolute inset-0 z-0 rounded-[28px] border border-accent/20" aria-hidden="true" />
+      <div className="relative mx-auto aspect-[4/5] w-full max-w-[380px] overflow-hidden rounded-[26px]">
+        <div className="pointer-events-none absolute -inset-px z-0 rounded-[26px] bg-gradient-to-br from-accent/25 via-transparent to-sky-400/15 opacity-70" aria-hidden="true" />
 
-        {/* Back card */}
         {count > 2 && (
-          <div className="pointer-events-none absolute inset-[10px] z-[1] scale-[0.92] translate-y-4 overflow-hidden rounded-[24px] border border-zinc-700/50 bg-zinc-900 opacity-50">
+          <div className="pointer-events-none absolute inset-[12px] z-[1] scale-[0.91] translate-y-5 overflow-hidden rounded-[22px] border border-zinc-700/40 bg-zinc-900 opacity-45">
             <img
               src={third.src}
               alt=""
@@ -77,14 +76,13 @@ export default function PhotoDeck({ photos, className = '' }) {
           </div>
         )}
 
-        {/* Middle / next card — rises from behind */}
         {count > 1 && (
           <motion.div
             key={`next-${next.id}-${index}`}
-            className="pointer-events-none absolute inset-[6px] z-[2] overflow-hidden rounded-[26px] border border-zinc-700/70 bg-zinc-900"
+            className="pointer-events-none absolute inset-[7px] z-[2] overflow-hidden rounded-[24px] border border-zinc-700/60 bg-zinc-900"
             initial={false}
-            animate={{ scale: 0.96, y: 10, opacity: 0.85 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+            animate={{ scale: 0.965, y: 8, opacity: 0.88 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
           >
             <img
               src={next.src}
@@ -92,21 +90,20 @@ export default function PhotoDeck({ photos, className = '' }) {
               className={'h-full w-full object-cover ' + (next.objectPosition || 'object-center')}
               draggable={false}
             />
-            <div className="absolute inset-0 bg-zinc-950/25" />
+            <div className="absolute inset-0 bg-zinc-950/20" />
           </motion.div>
         )}
 
-        {/* Front card */}
         <motion.div
           key={`front-${current.id}-${index}`}
-          className="absolute inset-0 z-[3] cursor-grab touch-none overflow-hidden rounded-[28px] border border-zinc-700/80 bg-zinc-900 shadow-[0_20px_50px_rgba(0,0,0,.4)] active:cursor-grabbing"
+          className="absolute inset-0 z-[3] cursor-grab touch-none overflow-hidden rounded-[26px] border border-zinc-700/70 bg-zinc-900 shadow-[0_24px_60px_rgba(0,0,0,.45)] active:cursor-grabbing"
           style={reduce ? undefined : { x, rotate }}
-          initial={reduce ? false : { scale: 0.96, opacity: 0.7 }}
-          animate={{ scale: 1, opacity: 1, x: 0 }}
-          transition={{ type: 'spring', stiffness: 280, damping: 26 }}
+          initial={reduce ? false : { scale: 0.97, opacity: 0.65, y: 12 }}
+          animate={{ scale: 1, opacity: 1, y: 0, x: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 28 }}
           drag={reduce || busy ? false : 'x'}
           dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.75}
+          dragElastic={0.72}
           onDragEnd={onDragEnd}
         >
           <img
@@ -116,13 +113,15 @@ export default function PhotoDeck({ photos, className = '' }) {
             draggable={false}
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/92 via-zinc-950/15 to-transparent" />
           <div className="pointer-events-none absolute bottom-5 left-5 right-5">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[.16em] text-accent">
+            <p className="font-mono text-[10px] font-medium uppercase tracking-[.18em] text-accent">
               {current.eyebrow || 'Moments'}
             </p>
-            <p className="mt-1 font-display text-xl font-semibold text-white">{current.title}</p>
-            {current.caption && <p className="mt-1 text-xs text-zinc-300">{current.caption}</p>}
+            <p className="mt-1.5 font-display text-[1.2rem] font-semibold leading-tight text-white sm:text-xl">
+              {current.title}
+            </p>
+            {current.caption && <p className="mt-1 text-xs leading-5 text-zinc-300">{current.caption}</p>}
           </div>
         </motion.div>
       </div>
@@ -136,15 +135,15 @@ export default function PhotoDeck({ photos, className = '' }) {
             aria-label={`Show ${photo.title}`}
             onClick={() => goTo(i)}
             className={
-              'h-2 rounded-full transition-all ' +
-              (i === index ? 'w-7 bg-accent' : 'w-2 bg-zinc-700 hover:bg-zinc-500')
+              'h-1.5 rounded-full transition-all duration-300 ' +
+              (i === index ? 'w-7 bg-accent shadow-[0_0_12px_rgba(110,231,183,.45)]' : 'w-1.5 bg-zinc-700 hover:bg-zinc-500')
             }
           />
         ))}
       </div>
 
-      <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
-        {(index + 1).toString().padStart(2, '0')} / {count.toString().padStart(2, '0')} · Drag to change
+      <p className="mt-2.5 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-600">
+        {(index + 1).toString().padStart(2, '0')} / {count.toString().padStart(2, '0')} · Drag
       </p>
     </div>
   )

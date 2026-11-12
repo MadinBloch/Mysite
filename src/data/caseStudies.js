@@ -1,71 +1,128 @@
 // Case studies distinguish user-reported measurements from verified code-level contributions.
 export const CASE_STUDIES = {
   'kesari-select-backend': {
-    number:'01',title:'When the business cannot wait for the backend.',
-    subtitle:'The engineering decisions behind an ERP-connected travel operations platform.',
-    period:'2025 — Present',category:'Client platform',tone:'green',
-    stack:['PHP','Laravel','Frappe / ERP','AWS S3','Docker','MySQL','Nginx'],
-    intro:'Kesari Select brings Sales, Land Ops, Air Ops, Cashier, Product, Finance and other teams into the same operational flow. I work on its Laravel application and handle application deployment and production issues. The platform is a team-built system, not a product built by me alone.',
-    metrics:[
-      {value:'10K+',label:'Total inquiries',detail:'Historical accumulated count'},
-      {value:'80–100+',label:'New inquiries / day',detail:'Approximate daily volume'},
-      {value:'700–1,000',label:'Internal users',detail:'Team-wide estimate'},
-      {value:'15s → 3s',label:'Observed page-load change',detail:'Developer-reported'}
+    number: '01',
+    title: 'Keep operations moving when the backend cannot pause.',
+    subtitle: 'Laravel work on an ERP-connected travel platform — APIs, reliability, and releases.',
+    period: '2025 — Present',
+    category: 'Client platform',
+    tone: 'green',
+    stack: ['PHP', 'Laravel', 'Frappe / ERP', 'AWS S3', 'Docker', 'MySQL', 'Nginx'],
+    intro:
+      'Kesari Select connects Sales, Land Ops, Air Ops, Cashier, Product, Finance and more into one operational flow. I own Laravel application work and production deployment. It is a team-built product — not sole authorship.',
+    metrics: [
+      { value: '10K+', label: 'Total inquiries', detail: 'Historical accumulated count' },
+      { value: '80–100+', label: 'New inquiries / day', detail: 'Approximate daily volume' },
+      { value: '700–1,000', label: 'Internal users', detail: 'Team-wide estimate' },
+      { value: '15s → 3s', label: 'Observed page load', detail: 'Developer-reported' },
     ],
-    challenge:'A live operations system is less about individual screens and more about keeping business data trustworthy. When finance exports run, approvals are pending or operational records arrive late, the system needs a predictable way to recover—not another manual patch.',
-    approach:'I worked on the paths that connect ERP data to operations: repeatable scheduled exports, staging before publishing, traceable logs, lookback checks for missed records, guarded approval paths and the notifications that help teams act. I also handle deployment work from environment setup through release verification.',
-    decisions:[
-      {title:'Make failures recoverable',body:'A scheduled export should not silently forget a late record. Export logs and a lookback window help identify records still awaiting downstream delivery.'},
-      {title:'Separate preparation from publication',body:'Staging output before publishing avoids treating a partly prepared file as a complete business export.'},
-      {title:'Check approvals in the workflow',body:'Finance-sensitive changes should respect business rules beyond hiding or showing a button.'},
-      {title:'Own the release, not only the code',body:'My responsibility extends to Docker environments, AWS EC2, Nginx/PHP-FPM, SSL, deployment checks and troubleshooting after release.'}
+    challenge:
+      'Live ops systems fail quietly: late ERP records, fragile finance exports, and approvals that look fine in the UI but break business rules. The need was predictable recovery — not another one-off patch.',
+    approach:
+      'I focused on the paths that connect ERP data to day-to-day ops: scheduled exports with staging, export logs, lookback checks for missed records, guarded approval flows, and the release path from Docker/AWS setup through verification.',
+    decisions: [
+      {
+        title: 'Make failures recoverable',
+        body: 'Problem: a scheduled export can miss late records with no signal. Choice: export logs + lookback windows. Result: missed records can be found and re-delivered instead of vanishing.',
+      },
+      {
+        title: 'Separate prep from publish',
+        body: 'Problem: a half-ready file can look “done” to finance. Choice: stage output before publishing. Result: incomplete exports never become trusted business files.',
+      },
+      {
+        title: 'Enforce approvals in the workflow',
+        body: 'Problem: hiding a button is not a business rule. Choice: check approvals inside the workflow path. Result: finance-sensitive changes stay explicit under load.',
+      },
+      {
+        title: 'Own the release, not only the PR',
+        body: 'Problem: features that never reach production carefully still fail users. Choice: own Docker, EC2, Nginx/PHP-FPM, SSL, and post-release checks. Result: fixes land with accountability.',
+      },
     ],
-    takeaway:'The result is operational confidence: scheduled work can be inspected and recovered, approvals remain explicit and fixes reach production with ownership. On one slow page, my observed load time improved from roughly 15 seconds to 3 seconds.',
-    note:'Platform figures and load-time measurements are user-reported operational estimates; Git authorship supports work categories but does not independently verify these KPIs.',
-    ctaUrl:'https://www.kesariselect.com/',ctaLabel:'View public client website'
+    takeaway:
+      'Operational confidence: scheduled work can be inspected and recovered, approvals stay explicit, and production changes ship with ownership. On one slow path, observed load improved from ~15s to ~3s.',
+    note: 'Platform figures and load-time measurements are developer-reported operational estimates; Git authorship supports work categories but does not independently verify these KPIs.',
+    ctaUrl: 'https://www.kesariselect.com/',
+    ctaLabel: 'View public client website',
   },
   'email-campaign-engine': {
-    number:'02',title:'10,000 rows in. The browser stays responsive.',
-    subtitle:'A Laravel email platform built for large imports and controlled background delivery.',
-    period:'2025 — 2026',category:'Internal platform',tone:'cream',
-    stack:['Laravel','PHP','MySQL','Queues / Workers','Excel','Rich editor'],
-    intro:'A campaign starts with an Excel file. The team needs to validate recipients, prepare content, send a test and track progress—without waiting for a browser request to finish thousands of tasks.',
-    metrics:[
-      {value:'10K+',label:'Recipient rows',detail:'Inserted during batch test'},
-      {value:'<4 sec',label:'Database ingestion',detail:'Reported benchmark'},
-      {value:'6,000 / 10,000',label:'Progress example',detail:'Illustrative dashboard state'}
+    number: '02',
+    title: '10,000 rows in. The browser stays responsive.',
+    subtitle: 'Laravel campaign tooling for fast imports and controlled background delivery.',
+    period: '2025 — 2026',
+    category: 'Internal platform',
+    tone: 'cream',
+    stack: ['Laravel', 'PHP', 'MySQL', 'Queues / Workers', 'Excel', 'Rich editor'],
+    intro:
+      'A campaign starts with an Excel file. Operators need validation, content prep, test sends, and progress — without blocking the browser on thousands of tasks.',
+    metrics: [
+      { value: '10K+', label: 'Recipient rows', detail: 'Inserted during batch test' },
+      { value: '<4 sec', label: 'Database ingestion', detail: 'Reported benchmark' },
+      { value: 'Pause / resume', label: 'Campaign control', detail: 'Status-aware workers' },
     ],
-    challenge:'Importing spreadsheet data and delivering actual emails are different workloads. I needed to make the import fast, make sending recoverable and let a user see progress or stop the campaign safely.',
-    approach:'I used strict Excel validation and bulk-insert patterns to process 10K+ recipient records in under four seconds during a reported benchmark. Actual emails go through Laravel Queues and Workers asynchronously, with status-aware pause/resume, a rich editor, template placeholders, test sends and error handling.',
-    decisions:[
-      {title:'Batch the database work',body:'Parse and validate structure, columns and formats before writing. Bulk insertion avoids a slow per-recipient query loop during import.'},
-      {title:'Queue sends; never promise instant delivery',body:'The under-four-second result describes MySQL insertion, not 10K messages arriving in recipients’ inboxes. Workers handle delivery separately.'},
-      {title:'Make campaign state visible',body:'An operator can inspect progress (for example, 6,000 of 10,000 sent), pause or resume a campaign and check delivery errors.'},
-      {title:'Keep personalization usable',body:'A rich-text editor, test-mail flow and dynamic {Name}/{Email} placeholders allow campaigns to be checked before a large send.'}
+    challenge:
+      'Importing spreadsheet data and delivering email are different workloads. Import had to be fast; sending had to be recoverable; operators needed progress and a safe stop.',
+    approach:
+      'Strict Excel validation and bulk inserts for 10K+ recipients (reported under four seconds). Actual sends run on Laravel Queues/Workers with pause/resume, rich editor, placeholders, test mail, and error handling.',
+    decisions: [
+      {
+        title: 'Batch the database work',
+        body: 'Problem: per-row inserts stall large imports. Choice: validate structure first, then bulk write. Result: 10K+ rows land quickly without locking the UI on query loops.',
+      },
+      {
+        title: 'Queue sends; never fake instant delivery',
+        body: 'Problem: import speed is easy to confuse with inbox delivery. Choice: workers own sending asynchronously. Result: operators get honest progress — import ≠ send.',
+      },
+      {
+        title: 'Make campaign state visible',
+        body: 'Problem: a silent bulk job is unusable in production. Choice: progress, pause/resume, and error visibility. Result: campaigns can be steered mid-flight.',
+      },
+      {
+        title: 'Keep personalization checkable',
+        body: 'Problem: bad templates waste a whole send. Choice: rich editor, {Name}/{Email} placeholders, and test mail. Result: content is verified before scale.',
+      },
     ],
-    takeaway:'A workable end-to-end campaign pipeline: fast recipient ingestion, asynchronous sending, operational controls and clear progress. The architecture is designed for real workloads; deliverability and emails-per-second were not independently benchmarked.',
-    note:'10K+ rows / under-four-second ingestion is developer-reported. Progress numbers shown are illustrative, not live campaign data.',
-    ctaUrl:null,ctaLabel:null
+    takeaway:
+      'A full campaign pipeline: fast recipient ingestion, asynchronous sending, operator controls, and clear progress. Deliverability and emails-per-second were not independently benchmarked.',
+    note: '10K+ rows / under-four-second ingestion is developer-reported. Progress examples are illustrative, not live campaign analytics.',
+    ctaUrl: null,
+    ctaLabel: null,
   },
   'smart-print-operations': {
-    number:'03',title:'Reliability lives in the small decisions.',
-    subtitle:'Improving a print-operations application without rewriting the whole thing.',
-    period:'May — June 2025',category:'Operational software',tone:'dark',
-    stack:['Laravel','MySQL','Eloquent','Blade','AJAX','RBAC'],
-    intro:'Smart Print was already an established application. My part was to make customer intake, role decisions, task history and print job configuration behave consistently across existing flows.',
-    metrics:[
-      {value:'28',label:'Authored Git commits',detail:'Includes 22 non-merge commits'},
-      {value:'2025',label:'Contribution period',detail:'May to June'}
+    number: '03',
+    title: 'Reliability lives in the small decisions.',
+    subtitle: 'Hardening a print-operations app without a full rewrite.',
+    period: 'May — June 2025',
+    category: 'Operational software',
+    tone: 'dark',
+    stack: ['Laravel', 'MySQL', 'Eloquent', 'Blade', 'AJAX', 'RBAC'],
+    intro:
+      'Smart Print already existed. My job was day-to-day reliability: inquiry intake, role checks, recoverable deletes, and consistent job-sheet fields across existing flows.',
+    metrics: [
+      { value: '28', label: 'Authored Git commits', detail: 'Includes 22 non-merge commits' },
+      { value: '2025', label: 'Contribution window', detail: 'May to June' },
     ],
-    challenge:'An operational tool can feel broken when permissions differ between screens or a delete action permanently removes records people still need. I focused on the behavior users hit every day.',
-    approach:'I built the prospect-inquiry flow end to end, improved role-permission storage, added safe delete behavior and fixed fields affecting print/Web/Other job sheets. I preserved compatibility with the existing blend of Eloquent and Query Builder code.',
-    decisions:[
-      {title:'Prefer recoverable deletion',body:'Soft deletes protect work history while keeping active lists clean.'},
-      {title:'Keep role checks consistent',body:'Scoped joins, safer permission updates and null-safe checks help stop inconsistent actions between backend and UI.'},
-      {title:'Treat job data as a shared contract',body:'Field validations and extra/VAT behavior should match across the different job-sheet paths.'}
+    challenge:
+      'Ops tools feel broken when permissions disagree across screens or a delete wipes history people still need. The work was in the paths users hit every day.',
+    approach:
+      'End-to-end prospect inquiry flow, safer role-permission storage, soft deletes, and job-sheet field fixes — while staying compatible with the existing Eloquent / Query Builder mix.',
+    decisions: [
+      {
+        title: 'Prefer recoverable deletion',
+        body: 'Problem: hard deletes erase operational history. Choice: soft deletes. Result: active lists stay clean without losing work people still reference.',
+      },
+      {
+        title: 'Keep role checks consistent',
+        body: 'Problem: UI and backend disagreed on who could act. Choice: scoped joins, safer permission updates, null-safe checks. Result: fewer inconsistent actions between screens.',
+      },
+      {
+        title: 'Treat job data as a shared contract',
+        body: 'Problem: Web/Other/print sheets drifted on the same fields. Choice: shared validation and VAT/extra behavior. Result: job sheets behave as one system.',
+      },
     ],
-    takeaway:'More reliable day-to-day print administration without claiming sole ownership of the application. The work is supported by the Smart Print Git contribution report.',
-    note:'Code contributions are verified; no invented productivity or revenue statistics.',
-    ctaUrl:null,ctaLabel:null
-  }
+    takeaway:
+      'More reliable day-to-day print administration without claiming sole ownership of the product. Supported by the Smart Print Git contribution record.',
+    note: 'Code contributions are verified; no invented productivity or revenue statistics.',
+    ctaUrl: null,
+    ctaLabel: null,
+  },
 }

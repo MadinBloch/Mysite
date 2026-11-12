@@ -17,19 +17,19 @@ function BlogCard({ post, index }) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.06 }}
       whileHover={{ y: -6 }}
-      className="card group relative h-full overflow-hidden hover:border-accent/30"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/65 p-5 transition-colors hover:border-accent/30 sm:p-6"
     >
       <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
-      <p className="relative mb-2 font-mono text-xs text-zinc-600">{date}</p>
-      <h3 className="relative mb-2 text-sm font-medium leading-snug text-zinc-200 transition-colors group-hover:text-accent">
+      <p className="relative mb-2 font-mono text-[11px] text-zinc-600">{date}</p>
+      <h3 className="relative mb-2 font-display text-[15px] font-semibold leading-snug text-zinc-100 transition-colors group-hover:text-accent">
         {post.title}
       </h3>
       {post.preview && (
-        <p className="relative line-clamp-2 text-xs leading-relaxed text-zinc-500">{post.preview}</p>
+        <p className="relative line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">{post.preview}</p>
       )}
       <Link
         to={`/blog/${post.slug}`}
-        className="relative mt-4 inline-flex items-center gap-1 font-mono text-xs text-zinc-500 transition-colors group-hover:text-accent"
+        className="relative mt-5 inline-flex items-center gap-1 font-mono text-xs text-zinc-500 transition-colors group-hover:text-accent"
       >
         Read article <span aria-hidden="true">→</span>
       </Link>
@@ -46,9 +46,9 @@ export default function Blogs() {
         <SectionReveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="section-label">Writing</p>
-            <h2 className="section-heading mt-2 mb-2">Latest Blog Posts</h2>
+            <h2 className="section-heading mt-2 mb-2">Latest notes</h2>
             <p className="text-sm text-zinc-500">
-              Notes on backend architecture, Laravel workflows, and DevOps learning.
+              Backend architecture, Laravel workflows, and DevOps learning.
             </p>
           </div>
           <Link

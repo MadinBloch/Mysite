@@ -119,10 +119,9 @@ export default function Hackathon() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal>
           <p className="section-label">Competition</p>
-          <h2 className="section-heading mt-2 mb-2">Hackathon Achievement</h2>
+          <h2 className="section-heading mt-2 mb-2">Hackathon finale</h2>
           <p className="mb-8 max-w-3xl text-sm leading-7 text-zinc-500">
-            Grand Finalist at New India Vibrant Hackathon 2023 — from regional qualification to the
-            finale at Pandit Deendayal Energy University (PDEU).
+            Grand Finalist at New India Vibrant Hackathon 2023 — regional round to the PDEU finale under real delivery pressure.
           </p>
         </SectionReveal>
 

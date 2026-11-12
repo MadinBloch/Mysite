@@ -79,11 +79,11 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="section-label">What I work with</p>
-            <h2 className="section-heading mt-2">My tech stack</h2>
+            <p className="section-label">Toolkit</p>
+            <h2 className="section-heading mt-2">What I ship with</h2>
           </div>
           <p className="max-w-xs text-sm leading-7 text-zinc-500">
-            Real tools from production work — not a generic logo wall.
+            Tools from production Laravel work — not a generic logo wall.
           </p>
         </SectionReveal>
 

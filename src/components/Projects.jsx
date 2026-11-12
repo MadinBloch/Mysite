@@ -19,30 +19,31 @@ function ProjectCard({ project, featured }) {
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 18, scale: 0.98 }}
+      initial={{ opacity: 0, y: 16, scale: 0.985 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 12, scale: 0.98 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8 }}
+      exit={{ opacity: 0, y: 10, scale: 0.985 }}
+      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6 }}
       className={
-        'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/70 p-6 sm:p-7 ' +
-        (featured ? 'md:col-span-2 md:flex-row md:items-stretch md:gap-8' : '')
+        'group relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/65 p-6 sm:p-7 ' +
+        (featured ? 'md:col-span-2 md:flex-row md:items-stretch md:gap-8 md:p-8' : '')
       }
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-accent/15 blur-3xl" />
-        <div className="absolute -bottom-24 -left-10 h-40 w-40 rounded-full bg-sky-400/10 blur-3xl" />
+        <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-accent/12 blur-3xl" />
       </div>
 
-      <div className={'relative ' + (featured ? 'md:w-[42%] md:shrink-0' : '')}>
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div className={'relative ' + (featured ? 'md:w-[44%] md:shrink-0' : '')}>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <span className={'inline-flex rounded-full border px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wide ' + badgeClass}>
             {project.type}
           </span>
           <span className="font-mono text-[11px] text-zinc-500">{project.year}</span>
         </div>
 
-        {project.tagline && <p className="mb-2 text-xs font-medium text-zinc-500">{project.tagline}</p>}
+        {project.tagline && (
+          <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">{project.tagline}</p>
+        )}
 
         <div className="mb-3 flex items-center gap-3">
           {project.logo && (
@@ -50,19 +51,22 @@ function ProjectCard({ project, featured }) {
               <img src={project.logo} alt="" className="max-h-full max-w-full object-contain" loading="lazy" />
             </span>
           )}
-          <h3 className="font-display text-[1.4rem] font-semibold tracking-tight text-white transition-colors group-hover:text-accent sm:text-[1.55rem]">
+          <h3 className="font-display text-[1.35rem] font-semibold tracking-tight text-white transition-colors group-hover:text-accent sm:text-[1.5rem]">
             {project.title}
           </h3>
         </div>
 
-        <p className={'text-[13px] leading-7 text-zinc-400 ' + (featured ? '' : 'min-h-[72px]')}>
+        <p className={'text-[13px] leading-7 text-zinc-400 ' + (featured ? 'sm:text-[14px] sm:leading-8' : 'min-h-[64px]')}>
           {project.description}
         </p>
       </div>
 
-      <div className={'relative mt-5 flex flex-1 flex-col ' + (featured ? 'md:mt-0 md:border-l md:border-zinc-800 md:pl-8' : '')}>
+      <div className={'relative mt-5 flex flex-1 flex-col ' + (featured ? 'md:mt-0 md:border-l md:border-zinc-800/90 md:pl-8' : '')}>
         {project.contribution && (
-          <p className="border-l-2 border-accent/50 pl-3 text-xs leading-5 text-zinc-500">{project.contribution}</p>
+          <p className="rounded-xl border border-accent/15 bg-accent/[.04] px-3.5 py-3 text-xs leading-5 text-zinc-300">
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">Outcome</span>
+            <span className="mt-1.5 block">{project.contribution}</span>
+          </p>
         )}
 
         <div className="mt-5 flex flex-wrap gap-2">
@@ -73,13 +77,13 @@ function ProjectCard({ project, featured }) {
           ))}
         </div>
 
-        <div className="mt-auto flex flex-wrap items-center gap-4 border-t border-zinc-800 pt-5">
+        <div className="mt-auto flex flex-wrap items-center gap-4 border-t border-zinc-800/90 pt-5">
           {project.caseStudySlug && (
             <Link
               to={'/projects/' + project.caseStudySlug}
               className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-[12px] font-semibold text-zinc-950 transition-transform group-hover:scale-[1.02]"
             >
-              Explore story <span aria-hidden="true">↗</span>
+              Case study <span aria-hidden="true">↗</span>
             </Link>
           )}
           {project.github && (
@@ -110,11 +114,11 @@ export default function Projects() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal className="mb-8 flex flex-wrap items-end justify-between gap-5">
           <div>
-            <p className="section-label">Things I’ve built</p>
-            <h2 className="section-heading mt-2">Selected projects</h2>
+            <p className="section-label">Selected work</p>
+            <h2 className="section-heading mt-2">Projects that shipped</h2>
           </div>
-          <p className="max-w-[360px] text-sm leading-7 text-zinc-500">
-            Filter by type, hover for depth, and open a story when something catches your eye.
+          <p className="max-w-[340px] text-sm leading-7 text-zinc-500">
+            Filter by type. Open a case study when you want the engineering story.
           </p>
         </SectionReveal>
 
@@ -130,10 +134,10 @@ export default function Projects() {
                 aria-selected={active}
                 onClick={() => setFilter(item)}
                 className={
-                  'rounded-full border px-3.5 py-2 font-mono text-[11px] transition-all ' +
+                  'rounded-full border px-3.5 py-2 font-mono text-[11px] transition-all duration-200 ' +
                   (active
-                    ? 'border-accent/50 bg-accent text-zinc-950 shadow-[0_0_24px_rgba(110,231,183,0.25)]'
-                    : 'border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-white')
+                    ? 'border-accent/50 bg-accent text-zinc-950 shadow-[0_0_20px_rgba(110,231,183,0.22)]'
+                    : 'border-zinc-700/90 bg-zinc-950/30 text-zinc-400 hover:border-zinc-500 hover:text-white')
                 }
               >
                 {item}
@@ -154,17 +158,12 @@ export default function Projects() {
         </motion.div>
 
         {filtered.length === 0 && (
-          <p className="rounded-2xl border border-zinc-800 bg-zinc-900/50 px-5 py-8 text-center text-sm text-zinc-500">
-            No projects in this filter yet.
+          <p className="mt-2 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/40 px-5 py-10 text-center text-sm text-zinc-500">
+            Nothing in this filter yet — try another type.
           </p>
         )}
 
-        <p className="mt-6 text-[11px] leading-6 text-zinc-600">
-          Reported platform and ingestion figures are approximate and reflect developer-provided context.
-          Email import speed is separate from email delivery speed.
-        </p>
-
-        <div className="mt-8 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <a href="https://github.com/MadinBloch" target="_blank" rel="noreferrer" className="btn-outline">
             More on GitHub <span aria-hidden="true">↗</span>
           </a>

@@ -46,38 +46,50 @@ export default function CaseStudyPage() {
 
   const storyTabs = [
     { id: 'overview', label: 'Overview', body: study.intro },
-    { id: 'challenge', label: 'The challenge', body: study.challenge },
-    { id: 'approach', label: 'My approach', body: study.approach },
+    { id: 'challenge', label: 'Challenge', body: study.challenge },
+    { id: 'approach', label: 'Approach', body: study.approach },
   ]
   const activeStory = storyTabs.find((tab) => tab.id === storyTab) || storyTabs[0]
   const activeDecision = study.decisions[decisionIndex] || study.decisions[0]
 
+  const onStoryKeyDown = (event) => {
+    const index = storyTabs.findIndex((tab) => tab.id === storyTab)
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      setStoryTab(storyTabs[(index + 1) % storyTabs.length].id)
+    }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      setStoryTab(storyTabs[(index - 1 + storyTabs.length) % storyTabs.length].id)
+    }
+  }
+
   return (
-    <article className="relative overflow-hidden pb-24 pt-28 sm:pt-36">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_at_top,rgba(110,231,183,0.12),transparent_60%)]" aria-hidden="true" />
+    <article className="relative overflow-hidden pb-24 pt-28 sm:pt-32">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(110,231,183,0.11),transparent_62%)]" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.header initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <Link to="/#projects" className="inline-flex text-xs font-medium text-zinc-400 transition-colors hover:text-accent">
             ← Back to projects
           </Link>
 
-          <div className="mt-8 flex flex-wrap items-center gap-2">
+          <div className="mt-7 flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
               Case study {study.number}
             </span>
-            <span className="rounded-full border border-zinc-700 px-3 py-1 font-mono text-[10px] text-zinc-400">
+            <span className="rounded-full border border-zinc-700/90 px-3 py-1 font-mono text-[10px] text-zinc-400">
               {project.category} · {project.year}
             </span>
           </div>
 
-          <h1 className="mt-5 max-w-4xl font-display text-[clamp(2.4rem,6vw,4.4rem)] font-semibold leading-[1.05] tracking-[-.04em] text-white">
+          <h1 className="mt-5 max-w-4xl font-display text-[clamp(2.3rem,5.5vw,4rem)] font-semibold leading-[1.05] tracking-[-.04em] text-white">
             {project.title}
           </h1>
           <p className="mt-4 max-w-2xl text-lg font-medium leading-8 text-zinc-200">{study.title}</p>
-          <p className="mt-3 max-w-2xl text-base leading-8 text-zinc-400">{study.subtitle}</p>
+          <p className="mt-3 max-w-2xl text-[15px] leading-8 text-zinc-400">{study.subtitle}</p>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             {study.stack.map((stack) => (
               <span key={stack} className="tag">
                 {stack}
@@ -92,7 +104,7 @@ export default function CaseStudyPage() {
               </a>
             )}
             <a href="/Madin_Bloch_Resume.pdf" download className="btn-outline">
-              Download resume ↓
+              Resume ↓
             </a>
             <a
               href={`mailto:madinkhan0633@gmail.com?subject=${encodeURIComponent('About your project - ' + project.title)}`}
@@ -101,30 +113,40 @@ export default function CaseStudyPage() {
               Say hello
             </a>
           </div>
-        </motion.div>
+        </motion.header>
 
         {study.metrics?.length > 0 && (
           <motion.section
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.12, duration: 0.55 }}
-            className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mt-12"
           >
-            {study.metrics.map((metric) => (
-              <div key={metric.label} className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-5">
-                <p className="font-display text-2xl font-bold text-accent">{metric.value}</p>
-                <p className="mt-2 text-sm font-medium text-zinc-200">{metric.label}</p>
-                <p className="mt-1 text-[11px] leading-5 text-zinc-500">{metric.detail}</p>
-              </div>
-            ))}
+            <p className="section-label">Outcomes at a glance</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {study.metrics.map((metric) => (
+                <div key={metric.label} className="rounded-2xl border border-zinc-800/90 bg-zinc-900/50 px-5 py-5">
+                  <p className="font-display text-2xl font-bold tracking-tight text-accent">{metric.value}</p>
+                  <p className="mt-2 text-sm font-medium text-zinc-200">{metric.label}</p>
+                  <p className="mt-1 text-[11px] leading-5 text-zinc-500">{metric.detail}</p>
+                </div>
+              ))}
+            </div>
           </motion.section>
         )}
 
         <section className="mt-14">
           <p className="section-label">Project story</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white">Overview path</h2>
+          <h2 className="mt-2 font-display text-[1.85rem] font-semibold tracking-tight text-white sm:text-3xl">
+            How the work unfolded
+          </h2>
 
-          <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Project story tabs">
+          <div
+            className="mt-6 flex flex-wrap gap-2"
+            role="tablist"
+            aria-label="Project story tabs"
+            onKeyDown={onStoryKeyDown}
+          >
             {storyTabs.map((tab) => {
               const active = storyTab === tab.id
               return (
@@ -133,12 +155,13 @@ export default function CaseStudyPage() {
                   type="button"
                   role="tab"
                   aria-selected={active}
+                  tabIndex={active ? 0 : -1}
                   onClick={() => setStoryTab(tab.id)}
                   className={
-                    'rounded-full border px-4 py-2.5 text-sm font-medium transition-all ' +
+                    'rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200 ' +
                     (active
-                      ? 'border-accent/50 bg-accent text-zinc-950 shadow-[0_0_24px_rgba(110,231,183,0.2)]'
-                      : 'border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-white')
+                      ? 'border-accent/50 bg-accent text-zinc-950 shadow-[0_0_20px_rgba(110,231,183,0.18)]'
+                      : 'border-zinc-700/90 text-zinc-400 hover:border-zinc-500 hover:text-white')
                   }
                 >
                   {tab.label}
@@ -147,28 +170,30 @@ export default function CaseStudyPage() {
             })}
           </div>
 
-          <div className="mt-4 min-h-[160px] rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 sm:p-7">
+          <div className="mt-4 min-h-[150px] border-l-2 border-accent/40 bg-zinc-900/35 py-5 pl-5 pr-4 sm:pl-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStory.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22 }}
               >
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">{activeStory.label}</p>
-                <p className="mt-3 text-sm leading-8 text-zinc-300">{activeStory.body}</p>
+                <p className="mt-3 text-[15px] leading-8 text-zinc-300">{activeStory.body}</p>
               </motion.div>
             </AnimatePresence>
           </div>
         </section>
 
         <section className="mt-14">
-          <p className="section-label">Behind the implementation</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white">Engineering decisions</h2>
-          <p className="mt-2 text-sm text-zinc-500">Click a decision tab — details open below.</p>
+          <p className="section-label">Engineering decisions</p>
+          <h2 className="mt-2 font-display text-[1.85rem] font-semibold tracking-tight text-white sm:text-3xl">
+            Problem → choice → result
+          </h2>
+          <p className="mt-2 text-sm text-zinc-500">Select a decision. Arrow keys work on story tabs above.</p>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap" role="tablist" aria-label="Engineering decisions">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2" role="tablist" aria-label="Engineering decisions">
             {study.decisions.map((decision, index) => {
               const active = decisionIndex === index
               return (
@@ -179,10 +204,10 @@ export default function CaseStudyPage() {
                   aria-selected={active}
                   onClick={() => setDecisionIndex(index)}
                   className={
-                    'rounded-2xl border px-4 py-3 text-left transition-all sm:min-w-[220px] sm:flex-1 ' +
+                    'rounded-2xl border px-4 py-4 text-left transition-all duration-200 ' +
                     (active
-                      ? 'border-accent/45 bg-accent/10 shadow-[0_0_30px_rgba(110,231,183,0.08)]'
-                      : 'border-zinc-800 bg-zinc-900/50 hover:border-zinc-600')
+                      ? 'border-accent/40 bg-accent/[.08]'
+                      : 'border-zinc-800 bg-zinc-900/40 hover:border-zinc-600')
                   }
                 >
                   <span className="font-mono text-[11px] text-accent">0{index + 1}</span>
@@ -194,27 +219,27 @@ export default function CaseStudyPage() {
             })}
           </div>
 
-          <div className="mt-4 rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6 sm:p-7">
+          <div className="mt-4 rounded-2xl border border-zinc-800/90 bg-zinc-900/50 p-6 sm:p-7">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeDecision.title}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.22 }}
               >
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-xs text-accent">0{decisionIndex + 1}</span>
-                  <h3 className="font-display text-xl font-semibold text-accent">{activeDecision.title}</h3>
+                  <h3 className="font-display text-xl font-semibold text-white">{activeDecision.title}</h3>
                 </div>
-                <p className="mt-4 text-sm leading-8 text-zinc-300">{activeDecision.body}</p>
+                <p className="mt-4 text-[15px] leading-8 text-zinc-300">{activeDecision.body}</p>
               </motion.div>
             </AnimatePresence>
           </div>
         </section>
 
-        <section className="mt-12 overflow-hidden rounded-3xl border border-accent/25 bg-gradient-to-br from-accent/[.09] via-zinc-900 to-zinc-950 p-6 sm:p-8">
-          <p className="section-label">Outcome</p>
+        <section className="mt-12 rounded-3xl border border-accent/20 bg-gradient-to-br from-accent/[.08] via-zinc-900/80 to-zinc-950 p-6 sm:p-8">
+          <p className="section-label">Takeaway</p>
           <p className="mt-4 max-w-3xl text-base leading-8 text-zinc-200">{study.takeaway}</p>
           {study.note && <p className="mt-5 border-t border-zinc-800 pt-4 text-[11px] leading-6 text-zinc-500">{study.note}</p>}
         </section>
@@ -222,13 +247,13 @@ export default function CaseStudyPage() {
         {related.length > 0 && (
           <section className="mt-16">
             <p className="section-label">Keep exploring</p>
-            <h2 className="mt-3 font-display text-2xl font-semibold text-white">Related project stories</h2>
+            <h2 className="mt-2 font-display text-2xl font-semibold text-white">Related stories</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {related.map((item) => (
                 <Link
                   key={item.id}
                   to={'/projects/' + item.caseStudySlug}
-                  className="group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5 transition-all hover:-translate-y-1 hover:border-accent/35"
+                  className="group rounded-2xl border border-zinc-800/90 bg-zinc-900/50 p-5 transition-all hover:-translate-y-1 hover:border-accent/35"
                 >
                   <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">{item.type}</p>
                   <h3 className="mt-2 font-display text-xl font-semibold text-white group-hover:text-accent">{item.title}</h3>
@@ -242,14 +267,20 @@ export default function CaseStudyPage() {
           </section>
         )}
 
-        <div className="mt-12 flex flex-wrap items-center gap-3">
-          <Link to="/#projects" className="btn-primary">
-            See more projects ↗
-          </Link>
-          <a href="mailto:madinkhan0633@gmail.com?subject=Let's%20connect" className="btn-outline">
-            Say hello ↗
-          </a>
-        </div>
+        <section className="mt-14 flex flex-col items-start gap-4 rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+          <div>
+            <p className="font-display text-xl font-semibold text-white">Want to talk through a similar problem?</p>
+            <p className="mt-1 text-sm text-zinc-400">Backend roles and production Laravel work — happy to connect.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a href="mailto:madinkhan0633@gmail.com?subject=Let's%20connect" className="btn-primary">
+              Say hello ↗
+            </a>
+            <Link to="/#projects" className="btn-outline">
+              More projects
+            </Link>
+          </div>
+        </section>
       </div>
     </article>
   )

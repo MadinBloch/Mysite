@@ -72,10 +72,9 @@ export default function Workshop() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal>
           <p className="section-label">Teaching</p>
-          <h2 className="section-heading mt-2 mb-2">University Workshop</h2>
-          <p className="mb-8 max-w-2xl text-sm text-zinc-500">
-            Practical hands-on workshop for BCA &amp; MCA students at Dr. Subhash University —
-            covering Git, containers, and Docker with live demos.
+          <h2 className="section-heading mt-2 mb-2">University workshop</h2>
+          <p className="mb-8 max-w-2xl text-sm leading-7 text-zinc-500">
+            Hands-on Git &amp; Docker for BCA &amp; MCA students at Dr. Subhash University — live demos, local setup, and mentoring.
           </p>
         </SectionReveal>
 

@@ -23,10 +23,10 @@ export default function Media() {
     <section id="certificates" className="relative border-y border-zinc-900/80 bg-zinc-900/25 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionReveal>
-          <p className="section-label">Media</p>
-          <h2 className="section-heading mt-2 mb-2">Certificates & Achievements</h2>
+          <p className="section-label">Proof points</p>
+          <h2 className="section-heading mt-2 mb-2">Certificates & moments</h2>
           <p className="mb-8 max-w-2xl text-sm text-zinc-500">
-            Highlights from hackathons, certificates, and team milestones. Click any photo to expand.
+            Hackathon certificates and team milestones — click any photo to expand.
           </p>
         </SectionReveal>
 
@@ -41,7 +41,7 @@ export default function Media() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: Math.min(index * 0.04, 0.28) }}
               whileHover={{ y: -6 }}
-              className="group relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 text-left transition-colors hover:border-accent/35"
+              className="group relative overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-900 text-left transition-colors hover:border-accent/35"
             >
               <img
                 src={item.src}

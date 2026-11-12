@@ -85,7 +85,7 @@ export default function CaseStudyPage() {
     <section className="bg-accent py-20 text-[#132116] sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#4d6c44]">What changed</p>
-        <h2 className="mt-5 max-w-4xl font-display text-[clamp(2.4rem,4.6vw,4.8rem)] font-semibold leading-[1.1] tracking-[-.055em]">{study.takeaway}</h2>
+        <h2 className="mt-5 max-w-5xl font-display text-[clamp(1.65rem,3.5vw,3.5rem)] font-medium leading-[1.35] tracking-[-.045em]">{study.takeaway}</h2>
         <div className="mt-9 flex flex-wrap gap-3">
           <Link to="/#work" className="rounded-full bg-[#122016] px-6 py-3 text-sm font-semibold text-white hover:bg-[#263b2a]">More project stories ↗</Link>
           {study.ctaUrl && <a href={study.ctaUrl} target="_blank" rel="noreferrer" className="rounded-full border border-[#608d57] px-6 py-3 text-sm font-semibold text-[#243924] hover:bg-white/30">{study.ctaLabel} ↗</a>}

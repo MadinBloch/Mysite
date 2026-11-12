@@ -1,34 +1,34 @@
 # Madin Bloch — Backend Developer Portfolio
 
-Portfolio built with React 18, Vite and Tailwind CSS. Dark, responsive layout featuring production backend engineering case studies.
+Personal portfolio, designed as a clean editorial dark-mode site for backend roles. React 18, Vite and Tailwind CSS.
 
-## Development
+## Local development
 
-```bash
+\`\`\`bash
 npm ci
 npm run dev
+node scripts/check-portfolio.mjs
 npm run build
-npm run preview
-```
+\`\`\`
 
-## Content
+## Edit content
 
-- `src/data/projects.json` — featured work and project cards
-- `src/data/caseStudies.js` — technical case study content
-- `src/pages/CaseStudyPage.jsx` — case study page layout
-- `src/components/Hero.jsx`, `About.jsx`, `Experience.jsx` — profile copy
-- `public/Madin_Bloch_Resume.pdf` — downloadable resume; update when experience changes
-- `index.html` — title, description, social meta, canonical URL
-- `public/robots.txt`, `public/sitemap.xml` — crawling metadata
+- \`src/data/siteStats.js\` — clearly labeled reported portfolio statistics
+- \`src/data/projects.json\` — project metadata and feature cards
+- \`src/data/caseStudies.js\` — longer case studies and engineering decisions
+- \`src/components/Hero.jsx\`, \`Projects.jsx\`, \`Experience.jsx\`, \`About.jsx\` — homepage
+- \`src/components/Media.jsx\` — real workshop/hackathon photos and lazy-loaded demo video links
+- \`src/components/AnimatedNumber.jsx\` — IntersectionObserver animation with reduced-motion support
+- \`public/Madin_Bloch_Resume.pdf\` — portfolio PDF download
+- \`scripts/resume.html\` — printable resume source
+- \`src/pages/CaseStudyPage.jsx\` — reusable case-study display
 
-## Routes
+The homepage shows **10K+ total inquiries across the platform**, about **80–100+ new inquiries daily**, and **700–1,000 team users**. These values are developer-reported operational estimates; they are not telemetry from this repository.
 
-`/`, `/projects/kesari-select-backend`, `/projects/email-campaign-engine`, `/blogs`, `/blog/:slug`.
+The email campaign result is **10K+ recipient records inserted into MySQL in under 4 seconds** (reported benchmark). This is an ingestion metric, **not** 10K emails delivered in seconds. Actual delivery uses Laravel queue workers. The 6,000 / 10,000 progress display is an illustrative UI state.
 
-`vercel.json` enables SPA fallback for deep routes. Static assets with file extensions are not rewritten.
+Production client source and internal screenshots are not public; diagram visuals are explicitly labeled as illustrations. Real workshop photographs and hackathon demo videos already in the repository are displayed separately.
 
-## Content accuracy and privacy
+## Deployment
 
-Statements about client work should describe the developer's contributions, not claim full ownership of collaborative projects. Private backend source, internal credentials and customer records must not be published. The ~15s → ~3s observed page-load result is developer-reported and should not be presented as an independently audited benchmark.
-
-The personal projects are deliberately labeled as internal, experimental or learning work where relevant.
+\`vercel.json\` provides SPA route fallback. Pull requests run a content validation script and \`npm run build\`.

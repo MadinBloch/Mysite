@@ -1,86 +1,91 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { SectionReveal } from './motion/SectionReveal'
+
+const events = [
+  {
+    title: 'Dr. Subhash University Workshop',
+    meta: 'Facilitator · Aug 2026 · Junagadh',
+    description:
+      'Conducted a practical hands-on workshop for BCA & MCA students on Git, containers, and Docker.',
+    href: '/#workshop',
+    accent: true,
+  },
+  {
+    title: 'New India Vibrant Hackathon 2023',
+    meta: 'Grand Finalist · PDEU',
+    description:
+      'Qualified from the regional round and presented a backend-focused solution at the Grand Finale.',
+    href: '/#hackathon',
+    accent: false,
+  },
+  {
+    title: 'Laravel Developer Meetups',
+    meta: 'Community · Ongoing',
+    description:
+      'Connecting with developers in the PHP ecosystem to exchange ideas around architecture, deployment, and real project workflows.',
+    href: null,
+    accent: false,
+  },
+]
+
 export default function Community() {
   return (
-    <section id="community" className="py-20 sm:py-24 bg-zinc-900/30">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <p className="section-label">Community</p>
-        <h2 className="section-heading mb-2">Events & Meetups</h2>
+    <section id="community" className="relative border-y border-zinc-900/80 bg-zinc-900/20 py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionReveal>
+          <p className="section-label">Community</p>
+          <h2 className="section-heading mt-2 mb-2">Events & Meetups</h2>
+          <p className="mb-8 max-w-2xl text-sm text-zinc-500">
+            Moments of teaching, competing, and learning alongside other developers.
+          </p>
+        </SectionReveal>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <div className="card mb-4 border-accent/20">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-zinc-200 text-sm font-medium">Dr. Subhash University Workshop</h3>
-                  <p className="text-zinc-500 text-xs mt-1 leading-relaxed">
-                    Conducted a practical hands-on workshop for BCA &amp; MCA students on Git, containers,
-                    and Docker — grateful for the opportunity to teach and mentor.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="card mb-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-zinc-200 text-sm font-medium">Laravel Community Meetup</h3>
-                  <p className="text-zinc-500 text-xs mt-1 leading-relaxed">
-                    Attended local Laravel meetups to connect with other developers working in the PHP ecosystem.
-                    Hearing how others structure their applications and handle real problems taught me more than
-                    any tutorial.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <span className="text-accent text-xs mt-0.5">→</span>
-                <p className="text-zinc-400 text-sm">Teaching Git &amp; Docker to university students.</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-accent text-xs mt-0.5">→</span>
-                <p className="text-zinc-400 text-sm">Networking with developers in production Laravel environments.</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-accent text-xs mt-0.5">→</span>
-                <p className="text-zinc-400 text-sm">Conversations about deployment, scaling, and team workflows.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* "Now" section */}
-          <div className="card border-accent/20 border bg-accent/5">
-            <p className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
-              What I'm doing now
-            </p>
-            <div className="space-y-4">
-              <div>
-                <p className="text-zinc-200 text-sm font-medium">Docker &amp; DevOps</p>
-                <p className="text-zinc-500 text-xs mt-1">Containers, CI/CD pipelines, and production deployment workflows.</p>
-              </div>
-              <div className="h-px bg-zinc-800" />
-              <div>
-                <p className="text-zinc-200 text-sm font-medium">Backend Architecture</p>
-                <p className="text-zinc-500 text-xs mt-1">Improving how I structure Laravel apps — services, repositories, and clean separation.</p>
-              </div>
-              <div className="h-px bg-zinc-800" />
-              <div>
-                <p className="text-zinc-200 text-sm font-medium">Writing & Sharing</p>
-                <p className="text-zinc-500 text-xs mt-1">Documenting what I learn on Hashnode and YouTube.</p>
-              </div>
-            </div>
-          </div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {events.map((event, index) => (
+            <motion.article
+              key={event.title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.06 }}
+              whileHover={{ y: -6 }}
+              className={
+                'card flex h-full flex-col ' +
+                (event.accent ? 'border-accent/25 bg-gradient-to-br from-accent/5 to-transparent' : '')
+              }
+            >
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">{event.meta}</p>
+              <h3 className="mt-3 font-display text-lg font-semibold text-zinc-100">{event.title}</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{event.description}</p>
+              {event.href ? (
+                <Link to={event.href} className="mt-5 inline-flex text-xs font-semibold text-accent hover:text-white">
+                  View section ↗
+                </Link>
+              ) : (
+                <p className="mt-5 font-mono text-[10px] text-zinc-600">Community engagement</p>
+              )}
+            </motion.article>
+          ))}
         </div>
+
+        <SectionReveal delay={0.1} className="mt-8 card border-accent/20 bg-accent/[.04]">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">What I’m doing now</p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div>
+              <p className="text-sm font-medium text-zinc-200">Docker & DevOps</p>
+              <p className="mt-1 text-xs text-zinc-500">Containers, CI/CD, and production deployment workflows.</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-200">Backend Architecture</p>
+              <p className="mt-1 text-xs text-zinc-500">Cleaner Laravel structure — services, boundaries, maintainability.</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-zinc-200">Writing & Sharing</p>
+              <p className="mt-1 text-xs text-zinc-500">Documenting what I learn on Hashnode and YouTube.</p>
+            </div>
+          </div>
+        </SectionReveal>
       </div>
     </section>
   )

@@ -1,24 +1,39 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import blogs from '../data/blogs.json'
+import { SectionReveal } from './motion/SectionReveal'
 
-function BlogCard({ post }) {
+function BlogCard({ post, index }) {
   const date = new Date(post.date).toLocaleDateString('en-IN', {
-    year: 'numeric', month: 'short', day: 'numeric',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   })
 
   return (
-    <article className="card block group hover:border-zinc-600 transition-all">
-      <p className="font-mono text-xs text-zinc-600 mb-1">{date}</p>
-      <h3 className="text-zinc-200 text-sm font-medium leading-snug mb-2 group-hover:text-accent transition-colors">
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06 }}
+      whileHover={{ y: -6 }}
+      className="card group relative h-full overflow-hidden hover:border-accent/30"
+    >
+      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
+      <p className="relative mb-2 font-mono text-xs text-zinc-600">{date}</p>
+      <h3 className="relative mb-2 text-sm font-medium leading-snug text-zinc-200 transition-colors group-hover:text-accent">
         {post.title}
       </h3>
       {post.preview && (
-        <p className="text-zinc-500 text-xs leading-relaxed line-clamp-2">{post.preview}</p>
+        <p className="relative line-clamp-2 text-xs leading-relaxed text-zinc-500">{post.preview}</p>
       )}
-      <Link to={`/blog/${post.slug}`} className="font-mono text-xs text-zinc-600 mt-3 group-hover:text-accent transition-colors inline-block">
-        Read →
+      <Link
+        to={`/blog/${post.slug}`}
+        className="relative mt-4 inline-flex items-center gap-1 font-mono text-xs text-zinc-500 transition-colors group-hover:text-accent"
+      >
+        Read article <span aria-hidden="true">→</span>
       </Link>
-    </article>
+    </motion.article>
   )
 }
 
@@ -27,31 +42,31 @@ export default function Blogs() {
 
   return (
     <section id="blogs" className="py-20 sm:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <p className="section-label">Writing</p>
-        <div className="flex items-center justify-between gap-3 mb-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionReveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="section-heading mb-2">Latest Blog Posts</h2>
-            <p className="text-zinc-500 text-sm">
+            <p className="section-label">Writing</p>
+            <h2 className="section-heading mt-2 mb-2">Latest Blog Posts</h2>
+            <p className="text-sm text-zinc-500">
               Notes on backend architecture, Laravel workflows, and DevOps learning.
             </p>
           </div>
           <Link
             to="/blogs"
-            className="font-mono text-xs border border-zinc-700 rounded-md px-3 py-2 text-zinc-300 hover:text-accent hover:border-zinc-500 transition-colors"
+            className="rounded-full border border-zinc-700 px-3.5 py-2 font-mono text-xs text-zinc-300 transition-colors hover:border-accent/40 hover:text-accent"
           >
             View all blogs
           </Link>
-        </div>
+        </SectionReveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featuredPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredPosts.map((post, index) => (
+            <BlogCard key={post.slug} post={post} index={index} />
           ))}
         </div>
 
-        <p className="text-zinc-600 text-xs font-mono mt-6">
-          Want full writeups? Visit{' '}
+        <p className="mt-6 font-mono text-xs text-zinc-600">
+          Also publishing on{' '}
           <a href="https://madinbloch.hashnode.dev/" target="_blank" rel="noreferrer" className="link-accent">
             Hashnode
           </a>

@@ -1,46 +1,155 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Madin Bloch | Backend Developer Resume</title>
+<head>
+<meta charset="UTF-8">
+<title>Madin Bloch | Laravel Backend Developer Resume</title>
 <style>
-@page{size:A4;margin:12mm 16mm}*{box-sizing:border-box}
-body{font-family:Arial,Helvetica,sans-serif;font-size:9.5pt;line-height:1.4;color:#1e2d36;max-width:850px;margin:auto;padding:8px 15px}
-h1{text-align:center;font-size:22pt;color:#152730;margin:0}
-.title{text-align:center;color:#14746a;font-size:10pt;font-weight:bold;margin:2px}
-.contact{text-align:center;color:#4c5c66;font-size:8.3pt;margin:4px 0 10px}
-h2{font-size:10pt;text-transform:uppercase;letter-spacing:.4px;color:#137069;border-bottom:1px solid #b7d0c7;padding-bottom:3px;margin:9px 0 5px}
-h3{font-size:9.8pt;margin:5px 0 2px}p{margin:3px 0}ul{padding-left:18px;margin:3px 0}li{margin:2px 0}
-.small{font-size:8pt;color:#65717c}.muted{font-weight:normal;color:#647079}
-@media print{body{padding:0}}
-</style></head><body>
-<h1>MADIN BLOCH</h1>
-<p class="title">BACKEND DEVELOPER | PHP / LARAVEL | PRODUCTION SYSTEMS</p>
-<p class="contact">Ahmedabad, India | Open to remote / relocation | +91 9510299312 | madinkhan0633@gmail.com<br>
-madin-bloch.vercel.app | github.com/MadinBloch | linkedin.com/in/madin-bloch</p>
-<h2>Profile</h2>
-<p>Laravel backend developer with production experience since Dec 2024. I build and maintain business-critical workflows, integrate ERP systems and own deployments from setup to release checks. My work supports Kesari Select, a platform with 10K+ <b>total</b> inquiries, roughly 80–100+ new inquiries daily and an estimated 700–1,000 internal users across Sales, Land Ops, Air Ops, Cashier, Product, Finance and other teams.</p>
-<h2>Core skills</h2>
-<p>PHP, Laravel, REST APIs, Frappe/ERP integrations, MySQL, MongoDB, PostgreSQL, Queues &amp; Workers, Artisan Scheduler, Excel imports, DBF exports, AWS S3/SES/EC2, Docker, Nginx, PHP-FPM, Linux, SSL, Git, Blade, AJAX.</p>
-<h2>Professional experience</h2>
-<h3>Laravel Developer — Shine Infosoft, Ahmedabad <span class="muted">| May 2025 – Present</span></h3>
-<ul>
-<li>Own Laravel application releases end to end across Docker, AWS EC2, Nginx, PHP-FPM and SSL; configure environments, deploy changes, verify releases and troubleshoot production issues.</li>
-<li>Improved ERP-to-finance data reliability through scheduled file generation, S3 staging, archives, export logs and recovery checks for missed records.</li>
-<li>Designed approval checks, operational alerts and system integrations supporting cross-functional teams; worked on complex business flows rather than isolated CRUD screens.</li>
-<li>Reduced a production page's observed load time from approximately 15s to 3s (around 80% faster), based on operational before/after observations.</li>
-</ul>
-<h3>PHP Developer — Magecurious, Ahmedabad <span class="muted">| Dec 2024 – May 2025</span></h3>
-<ul><li>Delivered PHP backend enhancements, fixed business-workflow issues and collaborated through review and releases.</li></ul>
-<h2>Selected engineering work</h2>
-<h3>Email Campaign Platform <span class="muted">| Laravel / MySQL / Queues</span></h3>
-<ul>
-<li>Designed batch-optimized Excel ingestion that inserted 10K+ recipient records in under 4 seconds (reported benchmark). Email delivery runs asynchronously through Laravel Queues and Workers; import speed is not send speed.</li>
-<li>Built real-time campaign progress reporting, pause/resume, rich editor, spreadsheet validation, dynamic {Name}/{Email} placeholders, test emails and error handling.</li>
-</ul>
-<h3>Smart Print Operations <span class="muted">| Laravel / MySQL / RBAC</span></h3>
-<ul><li>Improved inquiry intake, permission-aware actions, soft deletes and print-job data consistency in an existing operations platform.</li></ul>
-<h2>Education &amp; achievements</h2>
-<p>MCA — Master of Computer Applications (final year, pursuing) | BCA — Completed</p>
-<p>Workshop Facilitator — Dr. Subhash University, Aug 2026. Conducted a practical Git and Docker session for BCA/MCA students.</p>
-<p><b>Grand Finalist — New India Vibrant Hackathon 2023, Pandit Deendayal Energy University (PDEU).</b> Selected from the regional round for the Grand Finale; built and presented a backend-focused solution under time pressure, defended architecture decisions before judges and mentors, and collaborated through delivery and presentation.</p>
-<p class="small">Platform volumes and performance figures are developer-reported estimates, not independently audited.</p>
-</body></html>
+@page { size: A4; margin: 12mm 14mm; }
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9.6pt;
+  line-height: 1.42;
+  color: #1a2730;
+  max-width: 860px;
+  margin: auto;
+  padding: 10px 16px;
+}
+h1 {
+  text-align: center;
+  font-size: 22pt;
+  color: #12252e;
+  margin: 0;
+  letter-spacing: 0.4px;
+}
+.title {
+  text-align: center;
+  color: #0f766e;
+  font-size: 10.2pt;
+  font-weight: bold;
+  margin: 3px 0 0;
+}
+.contact {
+  text-align: center;
+  color: #4b5b66;
+  font-size: 8.3pt;
+  margin: 6px 0 12px;
+}
+h2 {
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #0f766e;
+  border-bottom: 1px solid #b7d0c7;
+  padding-bottom: 3px;
+  margin: 11px 0 6px;
+}
+h3 {
+  font-size: 9.9pt;
+  margin: 7px 0 2px;
+}
+p { margin: 3px 0; }
+ul { padding-left: 18px; margin: 3px 0; }
+li { margin: 2.5px 0; }
+.small { font-size: 8pt; color: #66727c; }
+.muted { font-weight: normal; color: #647079; }
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+.skills {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 4px 10px;
+  margin-top: 4px;
+}
+.skills b { color: #23404c; }
+@media print {
+  body { padding: 0; }
+}
+</style>
+</head>
+<body>
+  <h1>MADIN BLOCH</h1>
+  <p class="title">Laravel / Backend Developer</p>
+  <p class="contact">
+    Ahmedabad, India · Open to remote / relocation · +91 9510299312 · madinkhan0633@gmail.com<br>
+    madin-bloch.vercel.app · github.com/MadinBloch · linkedin.com/in/madin-bloch
+  </p>
+
+  <h2>Profile</h2>
+  <p>
+    Backend developer focused on PHP and Laravel since December 2024. I build APIs, business workflows,
+    background jobs and production deployments. Comfortable owning delivery from feature work through
+    Docker/AWS release checks. Experience includes live client platforms, internal tools, teaching and
+    hackathon delivery.
+  </p>
+
+  <h2>Core skills</h2>
+  <div class="skills">
+    <b>Backend</b><span>PHP, Laravel, REST APIs, Queues &amp; Workers, Artisan Scheduler, Blade, Livewire, AJAX</span>
+    <b>Data</b><span>MySQL, MongoDB, PostgreSQL, DBF exports, Frappe / ERP APIs</span>
+    <b>DevOps</b><span>Docker, AWS EC2 / S3 / SES, Nginx, PHP-FPM, Linux, SSL, Git</span>
+  </div>
+
+  <h2>Professional experience</h2>
+
+  <div class="row">
+    <h3>Laravel Developer — Shine Infosoft, Ahmedabad</h3>
+    <span class="muted">May 2025 – Present</span>
+  </div>
+  <ul>
+    <li>Build and maintain Laravel backends, APIs and integrations for production business applications.</li>
+    <li>Own application deployments end to end across Docker, AWS EC2, Nginx, PHP-FPM and SSL — including environment setup, release verification and production troubleshooting.</li>
+    <li>Contribute to a live travel-operations platform (Kesari Select): ERP-connected workflows, reliability improvements and operational features used by real teams.</li>
+    <li>Improved ERP-to-finance data reliability with scheduled file generation, S3 staging, export logs and recovery checks for missed records.</li>
+    <li>Observed one production page load improve from about 15s to 3s (~80% faster) after targeted backend performance work.</li>
+  </ul>
+
+  <div class="row">
+    <h3>PHP Developer — Magecurious, Ahmedabad</h3>
+    <span class="muted">Dec 2024 – May 2025</span>
+  </div>
+  <ul>
+    <li>Delivered PHP backend enhancements, fixed business-workflow issues and collaborated through review and releases.</li>
+  </ul>
+
+  <h2>Selected projects</h2>
+
+  <h3>Kesari Select <span class="muted">| Laravel / PHP / ERP APIs / Docker · Client platform</span></h3>
+  <ul>
+    <li>Backend work on a live travel-operations product used across Sales, Land Ops, Air Ops, Cashier, Product, Finance and other teams.</li>
+    <li>Platform context: 10K+ <b>total</b> inquiries, roughly 80–100+ new inquiries daily, and an estimated 700–1,000 internal users. Team-built product — not sole authorship.</li>
+  </ul>
+
+  <h3>Email Campaign Platform <span class="muted">| Laravel / MySQL / Queues</span></h3>
+  <ul>
+    <li>Built Excel-to-campaign workflow with strict validation, rich editor, {Name}/{Email} placeholders, test emails, pause/resume and progress tracking.</li>
+    <li>Batch-optimized ingestion inserted 10K+ recipient rows in under 4 seconds (reported benchmark). Actual sending runs asynchronously via Laravel Queues/Workers — import speed is not email delivery speed.</li>
+  </ul>
+
+  <h3>Smart Print + HRM System <span class="muted">| Laravel / MySQL / RBAC</span></h3>
+  <ul>
+    <li>Smart Print: improved inquiry intake, permission-aware actions, soft deletes and job-sheet data consistency in an existing print-operations app.</li>
+    <li>HRM: internal HR modules covering employee records, attendance, leave workflows and reporting.</li>
+  </ul>
+
+  <h3>DevCommand AI <span class="muted">| TypeScript / React / Express · Experimental</span></h3>
+  <ul>
+    <li>Personal experiment exploring GitHub-connected task planning, isolated worktrees and agent execution workflows. Not a production service.</li>
+  </ul>
+
+  <h2>Education</h2>
+  <p>MCA — Master of Computer Applications (pursuing, final year)</p>
+  <p>BCA — Bachelor of Computer Applications (completed)</p>
+
+  <h2>Achievements &amp; community</h2>
+  <ul>
+    <li><b>Grand Finalist — New India Vibrant Hackathon 2023</b>, Pandit Deendayal Energy University (PDEU). Selected from the regional round; built and presented a backend-focused solution under time pressure; defended architecture decisions before judges and mentors.</li>
+    <li><b>Workshop Facilitator — Dr. Subhash University</b> (Aug 2026, Junagadh). Conducted a practical Git + Docker workshop for BCA &amp; MCA students with live demos and mentoring.</li>
+  </ul>
+
+</body>
+</html>

@@ -1,23 +1,18 @@
 import { useCallback, useState } from 'react'
+import { motion } from 'framer-motion'
 import Lightbox from './Lightbox'
+import { SectionReveal } from './motion/SectionReveal'
 
-const stories = [
-  {
-    title: 'University workshop',
-    eyebrow: 'Sharing knowledge · 2026',
-    description: 'Led a hands-on Git & Docker workshop for BCA and MCA students at Dr. Subhash University.',
-    image: '/workshop/git-docker.jpg',
-    alt: 'Practical university workshop about Git and Docker',
-    video: null
-  },
-  {
-    title: 'Hackathon grand finalist',
-    eyebrow: 'Building with a team · 2023',
-    description: 'Reached the New India Vibrant Hackathon Grand Finale at PDEU after qualifying through the regional round.',
-    image: '/image3hackthone.jpg',
-    alt: 'New India Vibrant Hackathon event',
-    video: 'https://www.youtube.com/watch?v=yLy_fBdOT7M'
-  }
+const CERTIFICATES = [
+  { id: 1, title: 'Grand Finale Hackathon Certificate', src: '/certificateHackthnone.jpg' },
+  { id: 2, title: 'Grand Finale Moment', src: '/image3hackthone.jpg' },
+  { id: 3, title: 'Team Achievement', src: '/image5.jpg' },
+  { id: 4, title: 'Presentation Session', src: '/image2hackthone.jpg' },
+  { id: 5, title: 'Regional Round Certificate', src: '/image9.jpg' },
+  { id: 6, title: 'Regional Round Moment', src: '/image7.jpg' },
+  { id: 7, title: 'Team Working Session', src: '/image6.jpg' },
+  { id: 8, title: 'Grand Finale Backdrop', src: '/imag1hackthone.jpg' },
+  { id: 9, title: 'Hackathon Moment', src: '/image8.jpg' },
 ]
 
 export default function Media() {
@@ -25,31 +20,47 @@ export default function Media() {
   const closeLightbox = useCallback(() => setActiveImage(null), [])
 
   return (
-    <section id="moments" className="border-t border-white/[.07] bg-[#101726] py-20 sm:py-24">
+    <section id="certificates" className="relative border-y border-zinc-900/80 bg-zinc-900/25 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="mb-10">
-          <p className="eyebrow">Outside the editor</p>
-          <h2 className="section-heading mt-3">A few moments<span className="text-accent">.</span></h2>
-          <p className="mt-3 max-w-xl text-sm leading-7 text-[#9eacc7]">Learning, teaching and building alongside other developers matters to me too.</p>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2">
-          {stories.map(story => (
-            <article key={story.title} className="overflow-hidden rounded-[23px] border border-white/10 bg-[#151e2d]">
-              <button type="button" className="group relative block h-[240px] w-full overflow-hidden text-left sm:h-[290px]" onClick={() => setActiveImage({ src: story.image, title: story.title })} aria-label={'View photo: ' + story.title}>
-                <img src={story.image} alt={story.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0e1524]/70 to-transparent" aria-hidden="true" />
-                <span className="absolute bottom-4 right-4 rounded-full border border-white/30 bg-[#0c1222]/65 px-3 py-1.5 text-xs text-white backdrop-blur-md">View photo ↗</span>
-              </button>
-              <div className="p-6">
-                <p className="font-mono text-[11px] text-accent">{story.eyebrow}</p>
-                <h3 className="mt-2 font-display text-[22px] font-semibold text-white">{story.title}</h3>
-                <p className="mt-3 min-h-[57px] text-[13px] leading-7 text-[#acb8d1]">{story.description}</p>
-                {story.video ? <a href={story.video} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-xs font-semibold text-accent hover:text-white">Watch project video ↗</a> : <a href="https://www.youtube.com/@madinbloch0633" target="_blank" rel="noreferrer" className="mt-4 inline-flex text-xs font-semibold text-accent hover:text-white">Visit my YouTube ↗</a>}
+        <SectionReveal>
+          <p className="section-label">Media</p>
+          <h2 className="section-heading mt-2 mb-2">Certificates & Achievements</h2>
+          <p className="mb-8 max-w-2xl text-sm text-zinc-500">
+            Highlights from hackathons, certificates, and team milestones. Click any photo to expand.
+          </p>
+        </SectionReveal>
+
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+          {CERTIFICATES.map((item, index) => (
+            <motion.button
+              type="button"
+              key={item.id}
+              onClick={() => setActiveImage(item)}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: Math.min(index * 0.04, 0.28) }}
+              whileHover={{ y: -6 }}
+              className="group relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 text-left transition-colors hover:border-accent/35"
+            >
+              <img
+                src={item.src}
+                alt={item.title}
+                loading="lazy"
+                className="h-36 w-full object-cover transition-transform duration-500 group-hover:scale-[1.05] sm:h-44"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="font-mono text-[11px] text-zinc-200">{item.title}</p>
+                <p className="mt-1 text-[10px] text-accent opacity-0 transition-opacity group-hover:opacity-100">
+                  View full size ↗
+                </p>
               </div>
-            </article>
+            </motion.button>
           ))}
         </div>
       </div>
+
       <Lightbox image={activeImage} onClose={closeLightbox} />
     </section>
   )

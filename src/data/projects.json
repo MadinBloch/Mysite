@@ -2,80 +2,94 @@
   {
     "id": 4,
     "title": "Kesari Select",
+    "tagline": "Travel operations platform",
     "category": "Client Platform",
     "type": "Production",
     "year": "2025–Present",
-    "description": "Worked on the Laravel backend of a live travel-operations platform, including integrations, performance improvements and end-to-end application deployments.",
+    "description": "Laravel backend work on a live travel-operations platform — APIs, integrations, performance fixes, and end-to-end application deployments.",
     "contribution": "Backend development & production delivery",
-    "tech": [
-      "Laravel",
-      "PHP",
-      "ERP APIs",
-      "Docker"
-    ],
+    "tech": ["Laravel", "PHP", "MySQL", "ERP APIs", "Docker"],
     "caseStudySlug": "kesari-select-backend",
     "logo": "/Footer_logo-new.6076b51f76fa6ba0f5b7.webp",
-    "theme": "blue",
-    "metric": {
-      "value": 10000,
-      "suffix": "+",
-      "label": "total platform inquiries"
-    }
+    "live": "https://www.kesariselect.com/",
+    "theme": "emerald"
   },
   {
     "id": 3,
     "title": "Email Campaign Platform",
+    "tagline": "Queue-powered outreach",
     "category": "Automation",
     "type": "Internal Product",
     "year": "2025–2026",
-    "description": "Built an Excel-to-email workflow with fast recipient imports, rich editing, queue-based delivery, real-time progress and pause/resume controls.",
+    "description": "Excel-to-email workflow with fast recipient imports, rich editing, queue-based delivery, progress tracking, and pause/resume controls.",
     "contribution": "10K+ recipient rows inserted in under 4 seconds",
-    "tech": [
-      "Laravel",
-      "MySQL",
-      "Queues",
-      "Excel"
-    ],
+    "tech": ["Laravel", "MySQL", "Queues", "Excel"],
     "caseStudySlug": "email-campaign-engine",
-    "theme": "purple",
-    "metric": {
-      "value": 10000,
-      "suffix": "+",
-      "label": "recipient rows / <4s import"
-    }
+    "theme": "violet"
   },
   {
     "id": 1,
     "title": "Smart Print",
+    "tagline": "Print operations software",
     "category": "Operations Software",
     "type": "Production",
     "year": "2025",
-    "description": "Helped improve a print-management application by strengthening inquiry handling, access permissions and reliability across day-to-day workflows.",
+    "description": "Improved a print-management application with stronger inquiry handling, access permissions, and day-to-day workflow reliability.",
     "contribution": "Backend improvements in an existing product",
-    "tech": [
-      "Laravel",
-      "MySQL",
-      "RBAC",
-      "AJAX"
-    ],
+    "tech": ["Laravel", "MySQL", "RBAC", "AJAX"],
     "caseStudySlug": "smart-print-operations",
     "theme": "teal"
   },
   {
+    "id": 2,
+    "title": "HRM System",
+    "tagline": "Employee and leave workflows",
+    "category": "Internal Tool",
+    "type": "Production",
+    "year": "2025",
+    "description": "Internal HR administration modules covering employee records, attendance, leave management, and reporting.",
+    "contribution": "Backend architecture & business logic",
+    "tech": ["Laravel", "MySQL", "PHP"],
+    "theme": "sky"
+  },
+  {
     "id": 8,
     "title": "DevCommand AI",
+    "tagline": "Multi-agent development orchestration",
     "category": "Personal Experiment",
     "type": "Experimental",
     "year": "2026",
-    "description": "Exploring AI-assisted development workflows with GitHub integration, isolated workspaces and task verification.",
-    "contribution": "An engineering experiment, not a production service",
-    "tech": [
-      "TypeScript",
-      "React",
-      "Git",
-      "Express"
-    ],
+    "description": "Public experimental project exploring GitHub-connected task planning, isolated worktrees, and agent execution workflows.",
+    "contribution": "Engineering experiment — not a production service",
+    "tech": ["TypeScript", "React", "Express", "PostgreSQL", "Git"],
     "github": "https://github.com/MadinBloch/DevCommand-AI",
-    "theme": "slate"
+    "theme": "amber"
+  },
+  {
+    "id": 6,
+    "title": "Car Web Services",
+    "tagline": "Early PHP CRUD project",
+    "category": "Learning",
+    "type": "Early Work",
+    "year": "2022",
+    "description": "A learning project to track car washing records, service states, and basic admin actions.",
+    "contribution": "Full CRUD system with MySQL",
+    "tech": ["PHP", "MySQL"],
+    "live": "https://youtu.be/EMP0RciGICg",
+    "theme": "zinc"
+  },
+  {
+    "id": 7,
+    "title": "Book Server",
+    "tagline": "Hackathon-era PHP project",
+    "category": "Learning",
+    "type": "Early Work",
+    "year": "2023",
+    "description": "A basic book inventory learning project covering records, availability, and search — built around hackathon timelines.",
+    "contribution": "Inventory CRUD & admin basics",
+    "tech": ["PHP", "MySQL"],
+    "live": "https://youtu.be/yLy_fBdOT7M",
+    "github": "https://github.com/MadinBloch",
+    "theme": "zinc"
   }
 ]

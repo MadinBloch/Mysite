@@ -20,8 +20,10 @@ export default function Hackathon() {
         <p className="section-label">Competition</p>
         <h2 className="section-heading mb-2">Hackathon Achievement</h2>
         <p className="text-zinc-500 text-sm mb-8 max-w-2xl">
-          Grand Finalist at New India Vibrant Hackathon 2023. A high-pressure experience that strengthened
-          technical delivery and communication.
+          Selected from the regional round for the Grand Finale at New India Vibrant Hackathon 2023,
+          hosted at Pandit Deendayal Energy University (PDEU). We built and presented a backend-focused
+          solution under time pressure, defended architecture choices before judges and mentors,
+          and worked as a team through delivery and the final presentation.
         </p>
 
         <div className="grid lg:grid-cols-2 gap-6 items-start">

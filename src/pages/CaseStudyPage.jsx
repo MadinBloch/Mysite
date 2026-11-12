@@ -25,15 +25,19 @@ export default function CaseStudyPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
     const previousTitle = document.title
+    const canonical = document.querySelector('link[rel="canonical"]')
+    const oldCanonical = canonical?.getAttribute('href')
     const description = document.querySelector('meta[name="description"]')
     const originalDescription = description?.getAttribute('content')
     if (study) {
       document.title = study.title + ' | Madin Bloch'
       description?.setAttribute('content', study.subtitle)
+      canonical?.setAttribute('href', 'https://madin-bloch.vercel.app/projects/' + slug)
     }
     return () => {
       document.title = previousTitle
       if (originalDescription) description?.setAttribute('content', originalDescription)
+      if (oldCanonical) canonical?.setAttribute('href', oldCanonical)
     }
   }, [slug, study])
 

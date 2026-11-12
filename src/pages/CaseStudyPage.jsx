@@ -1,96 +1,96 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { CASE_STUDIES } from '../data/caseStudies'
+import projects from '../data/projects.json'
 
 export default function CaseStudyPage() {
   const { slug } = useParams()
   const study = CASE_STUDIES[slug]
+  const project = projects.find(item => item.caseStudySlug === slug)
 
   useEffect(() => {
-    const before = document.title
+    const oldTitle = document.title
     const description = document.querySelector('meta[name="description"]')
-    const original = description?.getAttribute('content')
+    const previousDescription = description?.getAttribute('content')
     const canonical = document.querySelector('link[rel="canonical"]')
-    const beforeCanonical = canonical?.getAttribute('href')
+    const previousCanonical = canonical?.getAttribute('href')
     if (study) {
-      document.title = study.title + ' | Madin Bloch'
+      document.title = (project?.title || 'Project') + ' | Madin Bloch'
       description?.setAttribute('content', study.subtitle)
-      canonical?.setAttribute('href', 'https://madin-bloch.vercel.app/projects/'+slug)
+      canonical?.setAttribute('href', 'https://madin-bloch.vercel.app/projects/' + slug)
     }
     return () => {
-      document.title=before
-      if (original) description?.setAttribute('content',original)
-      if (beforeCanonical) canonical?.setAttribute('href', beforeCanonical)
+      document.title = oldTitle
+      if (previousDescription) description?.setAttribute('content', previousDescription)
+      if (previousCanonical) canonical?.setAttribute('href', previousCanonical)
     }
-  }, [slug,study])
+  }, [slug, study, project])
 
-  if (!study) return <div className="mx-auto max-w-5xl px-5 pb-40 pt-36"><h1 className="font-display text-4xl text-white">That story isn't here.</h1><Link to="/#work" className="mt-5 inline-block text-accent">Explore projects ↗</Link></div>
+  if (!study || !project) {
+    return (
+      <section className="mx-auto max-w-4xl px-5 pb-36 pt-36">
+        <h1 className="font-display text-3xl font-semibold text-white">Project not found</h1>
+        <Link to="/#projects" className="mt-5 inline-flex text-accent">Back to projects ↗</Link>
+      </section>
+    )
+  }
 
-  return <article className="bg-[#0b0d12]">
-    <header className="relative overflow-hidden border-b border-white/10 px-5 pb-20 pt-32 sm:px-8 lg:pb-24 lg:pt-40">
-      <div className="pointer-events-none absolute -right-16 top-24 h-[440px] w-[440px] rounded-full bg-accent/[.08] blur-[100px]" />
-      <div className="relative mx-auto max-w-6xl">
-        <Link to="/#work" className="inline-flex items-center gap-2 font-mono text-[11px] text-[#9aa8b4] hover:text-accent">← All selected work</Link>
-        <div className="mt-14 flex flex-wrap gap-3 font-mono text-[11px] uppercase tracking-[.2em] text-accent"><span>{study.number} / Case study</span><span className="text-[#5a6775]">—</span><span>{study.category}</span><span className="text-[#5a6775]">/ {study.period}</span></div>
-        <h1 className="mt-6 max-w-5xl font-display text-[clamp(3.1rem,7vw,6.8rem)] font-semibold leading-[.99] tracking-[-.075em] text-white">{study.title}</h1>
-        <p className="mt-7 max-w-[780px] text-[18px] leading-[1.65] text-[#b4c1c7] sm:text-[21px]">{study.subtitle}</p>
-        <div className="mt-10 flex flex-wrap gap-2">{study.stack.map(s=><span className="tag" key={s}>{s}</span>)}</div>
-      </div>
-    </header>
+  return (
+    <article className="pb-24 pt-32 sm:pt-40">
+      <div className="mx-auto max-w-4xl px-5 sm:px-8">
+        <Link to="/#projects" className="inline-flex text-xs font-medium text-[#a9b6d2] hover:text-accent">← Back to projects</Link>
+        <p className="eyebrow mt-12">{project.category} / {project.year}</p>
+        <h1 className="mt-4 font-display text-[clamp(2.8rem,6vw,4.5rem)] font-semibold leading-[1.08] tracking-[-.055em] text-white">{project.title}</h1>
+        <p className="mt-5 max-w-2xl text-base leading-8 text-[#b3bed7]">{study.subtitle}</p>
+        <div className="mt-7 flex flex-wrap gap-2">{study.stack.map(stack => <span key={stack} className="tag">{stack}</span>)}</div>
 
-    <section className="border-b border-white/10 bg-[#131820] py-14">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className={'grid gap-4 '+(study.metrics.length===4?'sm:grid-cols-2 lg:grid-cols-4':'sm:grid-cols-3')}>
-          {study.metrics.map(m=><div key={m.label} className="rounded-2xl border border-white/10 bg-[#1c222a] p-6">
-            <p className="font-display text-[clamp(1.8rem,3vw,2.7rem)] font-semibold tracking-[-.06em] text-white">{m.value}</p>
-            <p className="mt-2 text-sm font-medium text-[#d7e1d6]">{m.label}</p>
-            <p className="mt-2 text-[11px] leading-5 text-[#84939d]">{m.detail}</p>
-          </div>)}
+        <div className="my-12 h-px bg-white/10" />
+
+        <section className="grid gap-4 sm:grid-cols-[150px_1fr] sm:gap-12">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-accent">Overview</h2>
+          <p className="text-sm leading-8 text-[#bec7d9]">{study.intro}</p>
+        </section>
+
+        <div className="my-10 h-px bg-white/10" />
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <section className="rounded-[20px] border border-white/10 bg-[#151e2d] p-6 sm:p-7">
+            <h2 className="font-display text-xl font-semibold text-white">The challenge</h2>
+            <p className="mt-4 text-[13px] leading-7 text-[#acb8d0]">{study.challenge}</p>
+          </section>
+          <section className="rounded-[20px] border border-white/10 bg-[#151e2d] p-6 sm:p-7">
+            <h2 className="font-display text-xl font-semibold text-white">My approach</h2>
+            <p className="mt-4 text-[13px] leading-7 text-[#acb8d0]">{study.approach}</p>
+          </section>
         </div>
-        {study.note && <p className="mt-6 max-w-4xl font-mono text-[10px] leading-6 text-[#7f8e96]">{study.note}</p>}
-      </div>
-    </section>
 
-    <section className="bg-[#eef1e9] py-20 text-[#18251c] sm:py-28">
-      <div className="mx-auto grid max-w-6xl gap-14 px-5 sm:px-8 lg:grid-cols-[.8fr_1.2fr]">
-        <div><p className="font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-[#638459]">Context</p><h2 className="mt-5 font-display text-[clamp(2.35rem,4vw,4.1rem)] font-semibold leading-[1.05] tracking-[-.065em]">What's behind the screen?</h2></div>
-        <div>
-          <p className="text-[17px] leading-[1.95] text-[#4b5d50]">{study.intro}</p>
-          <div className="mt-9 border-t border-[#c8d5c9] pt-8">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#6c8e65]">The challenge</p>
-            <p className="mt-4 text-[16px] leading-[1.9] text-[#314636]">{study.challenge}</p>
+        <section className="mt-12">
+          <p className="eyebrow">Behind the implementation</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-white">A few engineering decisions</h2>
+          <div className="mt-6 space-y-3">
+            {study.decisions.slice(0, 4).map((decision, index) => (
+              <div key={decision.title} className="flex gap-5 rounded-2xl border border-white/10 bg-[#141c2b] p-5 sm:p-6">
+                <span className="font-mono text-xs text-accent">0{index + 1}</span>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-white">{decision.title}</h3>
+                  <p className="mt-2 text-[13px] leading-7 text-[#aab6cf]">{decision.body}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="mt-9 border-t border-[#c8d5c9] pt-8">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#6c8e65]">My approach</p>
-            <p className="mt-4 text-[16px] leading-[1.9] text-[#314636]">{study.approach}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section className="bg-[#0c0f14] py-24 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <p className="eyebrow">The engineering part</p>
-        <div className="mb-12 mt-5 flex flex-wrap items-end justify-between gap-6"><h2 className="section-heading max-w-3xl">Decisions, <span className="font-light italic text-accent">not a feature dump.</span></h2><p className="max-w-[300px] text-sm leading-7 text-[#9aa8b1]">The trade-offs that shaped the implementation.</p></div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {study.decisions.map((d,i)=><div key={d.title} className="rounded-[24px] border border-white/10 bg-[#171c23] p-7 sm:p-9">
-            <p className="font-mono text-xs text-accent">0{i+1} / DESIGN DECISION</p>
-            <h3 className="mt-7 font-display text-2xl font-medium tracking-tight text-[#f0f3eb]">{d.title}</h3>
-            <p className="mt-4 text-sm leading-8 text-[#a2afb9]">{d.body}</p>
-          </div>)}
-        </div>
-      </div>
-    </section>
+        <section className="mt-12 rounded-[20px] border border-accent/20 bg-accent/[.065] p-6 sm:p-7">
+          <h2 className="font-display text-xl font-semibold text-white">Outcome</h2>
+          <p className="mt-3 text-[13px] leading-7 text-[#bfcae1]">{study.takeaway}</p>
+          {study.note && <p className="mt-5 border-t border-white/10 pt-4 text-[11px] leading-6 text-[#8393b3]">{study.note}</p>}
+        </section>
 
-    <section className="bg-accent py-20 text-[#132116] sm:py-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <p className="font-mono text-[10px] font-bold uppercase tracking-[.2em] text-[#4d6c44]">What changed</p>
-        <h2 className="mt-5 max-w-5xl font-display text-[clamp(1.65rem,3.5vw,3.5rem)] font-medium leading-[1.35] tracking-[-.045em]">{study.takeaway}</h2>
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link to="/#work" className="rounded-full bg-[#122016] px-6 py-3 text-sm font-semibold text-white hover:bg-[#263b2a]">More project stories ↗</Link>
-          {study.ctaUrl && <a href={study.ctaUrl} target="_blank" rel="noreferrer" className="rounded-full border border-[#608d57] px-6 py-3 text-sm font-semibold text-[#243924] hover:bg-white/30">{study.ctaLabel} ↗</a>}
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <Link to="/#projects" className="btn-primary">See more projects ↗</Link>
+          <a href="/Madin_Bloch_Resume.pdf" download className="btn-outline">Download resume ↓</a>
         </div>
       </div>
-    </section>
-  </article>
+    </article>
+  )
 }

@@ -2,113 +2,80 @@
   {
     "id": 4,
     "title": "Kesari Select",
-    "type": "Production platform",
-    "eyebrow": "01 / CLIENT SYSTEM",
-    "tagline": "Travel operations, not just another dashboard.",
-    "description": "Backend delivery for a busy travel business: keeping ERP data, approvals, alerts and releases dependable as teams work across the same platform.",
-    "note": "My work on a team-built product; not sole platform ownership.",
-    "category": "client",
-    "featured": true,
-    "spotlight": true,
-    "logo": "/Footer_logo-new.6076b51f76fa6ba0f5b7.webp",
-    "live": "https://www.kesariselect.com/",
-    "caseStudySlug": "kesari-select-backend",
+    "category": "Client Platform",
+    "type": "Production",
     "year": "2025–Present",
+    "description": "Worked on the Laravel backend of a live travel-operations platform, including integrations, performance improvements and end-to-end application deployments.",
+    "contribution": "Backend development & production delivery",
     "tech": [
-      "PHP / Laravel",
+      "Laravel",
+      "PHP",
       "ERP APIs",
-      "AWS",
-      "Docker",
-      "Nginx"
+      "Docker"
     ],
-    "metrics": [
-      "10K+ total inquiries",
-      "80–100+ new daily",
-      "700–1,000 team users"
-    ]
+    "caseStudySlug": "kesari-select-backend",
+    "logo": "/Footer_logo-new.6076b51f76fa6ba0f5b7.webp",
+    "theme": "blue",
+    "metric": {
+      "value": 10000,
+      "suffix": "+",
+      "label": "total platform inquiries"
+    }
   },
   {
     "id": 3,
     "title": "Email Campaign Platform",
-    "type": "Internal product",
-    "eyebrow": "02 / HIGH-VOLUME PROCESSING",
-    "tagline": "From Excel upload to queue-powered delivery.",
-    "description": "Built for marketing teams who need to import, validate, send, monitor and pause campaigns without locking up the request or losing visibility.",
-    "note": "10K+ recipient records inserted under 4 seconds; sending happens asynchronously.",
-    "category": "production",
-    "featured": true,
-    "caseStudySlug": "email-campaign-engine",
+    "category": "Automation",
+    "type": "Internal Product",
     "year": "2025–2026",
+    "description": "Built an Excel-to-email workflow with fast recipient imports, rich editing, queue-based delivery, real-time progress and pause/resume controls.",
+    "contribution": "10K+ recipient rows inserted in under 4 seconds",
     "tech": [
       "Laravel",
       "MySQL",
-      "Queues / Workers",
-      "Excel",
-      "Rich editor"
+      "Queues",
+      "Excel"
     ],
-    "metrics": [
-      "10K+ recipient rows",
-      "<4s import benchmark",
-      "Pause / resume"
-    ]
+    "caseStudySlug": "email-campaign-engine",
+    "theme": "purple",
+    "metric": {
+      "value": 10000,
+      "suffix": "+",
+      "label": "recipient rows / <4s import"
+    }
   },
   {
     "id": 1,
     "title": "Smart Print",
-    "type": "Operational software",
-    "eyebrow": "03 / WORKFLOW RELIABILITY",
-    "tagline": "Making everyday print operations less fragile.",
-    "description": "Strengthened prospect intake, access checks, safe record retention and job-sheet consistency inside an existing print-management application.",
-    "note": "Evidence-backed work in an existing multi-developer codebase.",
-    "category": "production",
-    "featured": true,
-    "caseStudySlug": "smart-print-operations",
+    "category": "Operations Software",
+    "type": "Production",
     "year": "2025",
+    "description": "Helped improve a print-management application by strengthening inquiry handling, access permissions and reliability across day-to-day workflows.",
+    "contribution": "Backend improvements in an existing product",
     "tech": [
       "Laravel",
       "MySQL",
-      "Role permissions",
+      "RBAC",
       "AJAX"
     ],
-    "metrics": [
-      "Role-aware operations",
-      "Safer record lifecycle",
-      "Consistent print jobs"
-    ]
+    "caseStudySlug": "smart-print-operations",
+    "theme": "teal"
   },
   {
     "id": 8,
     "title": "DevCommand AI",
-    "type": "Independent experiment",
-    "eyebrow": "04 / EXPLORATION",
-    "tagline": "Experimenting with GitHub-connected coding workflows.",
-    "description": "Exploring repository scanning, task breakdown, isolated worktrees and verification gates. An engineering experiment—not a production claim.",
-    "note": "See README for implementation limits.",
-    "category": "engineering",
-    "featured": false,
-    "github": "https://github.com/MadinBloch/DevCommand-AI",
+    "category": "Personal Experiment",
+    "type": "Experimental",
     "year": "2026",
+    "description": "Exploring AI-assisted development workflows with GitHub integration, isolated workspaces and task verification.",
+    "contribution": "An engineering experiment, not a production service",
     "tech": [
       "TypeScript",
       "React",
-      "Express",
-      "PostgreSQL"
-    ]
-  },
-  {
-    "id": 2,
-    "title": "HRM System",
-    "type": "Internal operations",
-    "eyebrow": "OTHER WORK",
-    "tagline": "Practical people-operations workflows.",
-    "description": "Contributed to internal employee, attendance and leave-management features.",
-    "category": "production",
-    "featured": false,
-    "year": "2025",
-    "tech": [
-      "Laravel",
-      "PHP",
-      "MySQL"
-    ]
+      "Git",
+      "Express"
+    ],
+    "github": "https://github.com/MadinBloch/DevCommand-AI",
+    "theme": "slate"
   }
 ]

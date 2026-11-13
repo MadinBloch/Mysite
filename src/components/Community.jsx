@@ -102,7 +102,7 @@ export default function Community() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="media-tile"
+                className="media-tile group"
               >
                 <img
                   src={photo.src}

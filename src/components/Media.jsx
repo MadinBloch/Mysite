@@ -52,7 +52,7 @@ function MediaTile({ item, index, tall, onOpen }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ delay: Math.min(index * 0.04, 0.28) }}
       whileHover={{ y: -6 }}
-      className="media-tile"
+      className="media-tile group"
     >
       <img
         src={item.src}

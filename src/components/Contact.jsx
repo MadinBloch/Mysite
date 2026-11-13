@@ -45,7 +45,7 @@ export default function Contact() {
                 key={link.label}
                 href={link.href}
                 {...(link.download ? { download: true } : { target: '_blank', rel: 'noreferrer' })}
-                className="min-w-[7.5rem] rounded-full border border-zinc-700/90 bg-zinc-900/50 px-5 py-2.5 text-center text-[13px] font-medium text-zinc-300 transition-all hover:border-accent/40 hover:text-accent"
+                className="min-w-[7.5rem] rounded-full border border-zinc-700/90 bg-zinc-900/60 px-5 py-2.5 text-center text-[13px] font-medium text-zinc-300 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-[0_0_24px_rgba(110,231,183,0.12)]"
               >
                 {link.label} {link.download ? '↓' : '↗'}
               </a>

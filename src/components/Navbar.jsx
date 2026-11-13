@@ -80,10 +80,10 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
       <nav
         className={
-          'mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border px-3 py-2.5 shadow-lg shadow-black/20 backdrop-blur-xl transition-colors duration-200 sm:px-4 ' +
+          'mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border px-3 py-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-all duration-200 sm:px-4 ' +
           (isScrolled || menuOpen
-            ? 'border-zinc-700/80 bg-zinc-950/90'
-            : 'border-zinc-800/80 bg-zinc-950/70')
+            ? 'border-zinc-700/80 bg-zinc-950/92 shadow-[0_12px_48px_rgba(0,0,0,0.45)]'
+            : 'border-zinc-800/70 bg-zinc-950/65')
         }
         aria-label="Main navigation"
       >

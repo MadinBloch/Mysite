@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { SectionReveal } from './motion/SectionReveal'
 
 const highlights = [
-  { label: 'Education', title: 'MCA · Pursuing', detail: 'BCA completed' },
+  { label: 'Education', title: 'MCA · Final year', detail: 'BCA completed · 8.63 CGPA' },
   { label: 'What I enjoy', title: 'Building & teaching', detail: 'Backend work, Git and Docker workshops' },
   { label: 'Focus', title: 'Laravel backends', detail: 'APIs, queues, deployments' },
   { label: 'Base', title: 'Ahmedabad, India', detail: 'Open to remote-friendly roles' },

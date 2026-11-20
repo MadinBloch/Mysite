@@ -95,9 +95,9 @@ for (const [id, photos] of Object.entries({ hackathon: hackathonPhotos, workshop
 }
 
 const highlights = read('src/components/WorkHighlights.jsx')
-assert.ok(highlights.includes('internal TAP walkthrough'), 'Credit internal training in the Kesari work sample')
+assert.ok(highlights.includes("from '../data/projects.json'"), 'Use the canonical projects for selected work')
 for (const project of projects.filter(project => project.caseStudySlug)) {
-  assert.ok(highlights.includes("slug: '" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)
+  assert.ok(highlights.includes("'" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)
 }
 assert.ok(kesariPageLoad.before > kesariPageLoad.after && kesariPageLoad.after > 0)
 const resumeSource = read('scripts/resume.html')

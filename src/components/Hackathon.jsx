@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight } from 'react-icons/fi'
 import PhotoPrint from './PhotoPrint'
 import Lightbox from './Lightbox'
 import { hackathonPhotos } from '../data/photos'
@@ -27,7 +26,7 @@ export default function Hackathon() {
             onOpen={() => setPreview(index)} />
         ))}
       </div>
-      <Link to="/gallery?album=hackathon" className="journal-link">Full hackathon album <FiArrowUpRight aria-hidden="true" /></Link>
+      <Link to="/gallery?album=hackathon" className="journal-link">Full hackathon album</Link>
       {preview !== null && <Lightbox photos={highlights} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
     </article>
   )

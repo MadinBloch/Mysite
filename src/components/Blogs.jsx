@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 import blogs from '../data/blogs.json'
 import { SectionReveal } from './motion/SectionReveal'
 
@@ -25,7 +24,6 @@ export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
               <Heading>{post.title}</Heading>
               {!compact && post.preview && <p>{post.preview}</p>}
             </div>
-            {compact && <FiArrowUpRight aria-hidden="true" />}
           </Link>
         </li>
       ))}
@@ -39,7 +37,7 @@ export default function Blogs() {
       <div className="portfolio-shell">
         <SectionReveal className="spread-heading">
           <h2 id="writing-title" className="editorial-heading">Latest <em>writing.</em></h2>
-          <Link to="/blogs" className="quiet-link">All posts <FiArrowRight aria-hidden="true" /></Link>
+          <Link to="/blogs" className="quiet-link">All posts</Link>
         </SectionReveal>
         <SectionReveal>
           <BlogList compact posts={blogs.slice(0, 3)} />

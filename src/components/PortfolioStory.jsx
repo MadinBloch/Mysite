@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FiArrowRight, FiArrowUpRight, FiGrid } from 'react-icons/fi'
+import { FiArrowRight, FiGrid } from 'react-icons/fi'
 import Hackathon from './Hackathon'
 import Workshop from './Workshop'
 import Impact from './Impact'
@@ -52,7 +52,7 @@ export default function PortfolioStory() {
               </ol>
               <Impact />
               <p className="chapter-prose">After release, I recorded internal TAP walkthroughs for the Sales and Operations teams.</p>
-              <Link to="/projects/kesari-select-backend" className="journal-link">Read the case study <FiArrowUpRight aria-hidden="true" /></Link>
+              <Link to="/projects/kesari-select-backend" className="journal-link">Read the case study</Link>
             </article>
           </Chapter>
           <Chapter date="2026-08" month="Aug"><Workshop /></Chapter>

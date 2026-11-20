@@ -24,7 +24,7 @@ export default function About() {
           </SectionReveal>
           <SectionReveal className="bio-photo" delay={0.06}>
             <Link to="/gallery?album=meetups">
-              <img src={meetup.src} alt={meetup.title} decoding="async" width="1200" height="800" style={{ objectPosition: meetup.position }} />
+              <img src={meetup.src} alt={meetup.title} loading="lazy" decoding="async" width="1200" height="800" style={{ objectPosition: meetup.position }} />
               <span><FiCamera aria-hidden="true" />Laravel meetup photos</span>
             </Link>
           </SectionReveal>

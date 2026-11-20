@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowDown, FiDownload, FiTerminal } from 'react-icons/fi'
+import { FiBookOpen, FiDownload, FiTerminal } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 import PhotoPrint from './PhotoPrint'
 import { profile } from '../data/profile'
@@ -36,7 +36,7 @@ export default function Hero() {
             At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.
           </p>
           <div className="hero-actions">
-            <Link to="/#story" className="btn-primary">Read my story <FiArrowDown aria-hidden="true" /></Link>
+            <Link to="/#story" className="btn-primary"><FiBookOpen aria-hidden="true" />Read my story</Link>
             <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" />Resume</a>
           </div>
         </div>

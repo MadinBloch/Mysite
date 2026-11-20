@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 import { SectionReveal } from './motion/SectionReveal'
 
@@ -33,8 +32,7 @@ export const jobs = [
 ]
 
 export default function Experience() {
-  const [openId, setOpenId] = useState(jobs[0].id)
-  const reduce = useReducedMotion()
+  const [openId, setOpenId] = useState('mage')
 
   return (
     <section id="experience" className="section-shell" aria-labelledby="experience-title">
@@ -70,27 +68,13 @@ export default function Experience() {
                   </button>
                 </h3>
 
-                <div id={detailId} aria-hidden={!open}>
-                  <AnimatePresence initial={false}>
-                    {open && (
-                      <motion.div
-                        initial={reduce ? false : { height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={reduce ? undefined : { height: 0, opacity: 0 }}
-                        transition={{ duration: reduce ? 0 : 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mx-5 border-t border-line py-4 sm:mx-6">
-                          <ul className="portfolio-copy list-disc space-y-2 pl-5 text-sm marker:text-accent">
-                            {job.points.map((point) => <li key={point}>{point}</li>)}
-                          </ul>
-                          <ul aria-label="Tools and responsibilities" className="mt-4 flex flex-wrap gap-1.5">
-                            {job.focus.map((item) => <li key={item} className="tag">{item}</li>)}
-                          </ul>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div id={detailId} hidden={!open} className="mx-5 border-t border-line py-4 sm:mx-6">
+                  <ul className="portfolio-copy list-disc space-y-2 pl-5 text-sm marker:text-accent">
+                    {job.points.map(point => <li key={point}>{point}</li>)}
+                  </ul>
+                  <ul aria-label="Tools and responsibilities" className="mt-4 flex flex-wrap gap-1.5">
+                    {job.focus.map(item => <li key={item} className="tag">{item}</li>)}
+                  </ul>
                 </div>
               </article>
             )

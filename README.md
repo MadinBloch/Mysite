@@ -13,7 +13,7 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx` introduces Madin with his portrait, two event photos and a resume download.
+- `src/components/Hero.jsx` introduces Madin with his portrait, a workshop photo, four hackathon highlights and a resume download.
 - `src/components/WorkHighlights.jsx` connects three engineering examples to their full case studies.
 - `src/components/PortfolioStory.jsx` connects the hackathon, Kesari Select and university workshop chapters.
 - `src/components/About.jsx`: Short biography.

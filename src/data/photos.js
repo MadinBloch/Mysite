@@ -11,6 +11,7 @@ export const workshopPhotos = [
     src: '/workshop/git-docker.jpg',
     title: 'Git & Docker workshop',
     caption: 'Version control and containers with BCA and MCA students',
+    alt: 'Students watching the Git and Docker workshop at Dr. Subhash University',
     position: 'center 32%',
   },
   {
@@ -46,7 +47,9 @@ export const hackathonPhotos = [
   {
     id: 'team-certificates',
     src: '/image5.jpg',
+    printSrc: '/photos/hackathon-certificates.webp',
     title: 'Team certificate presentation',
+    position: 'center 34%',
   },
   {
     id: 'presentation',
@@ -58,6 +61,7 @@ export const hackathonPhotos = [
   {
     id: 'regional',
     src: '/image7.jpg',
+    printSrc: '/photos/hackathon-regional.webp',
     title: 'Regional round',
     position: 'center 42%',
   },

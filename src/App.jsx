@@ -4,6 +4,7 @@ import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
+import WorkHighlights from './components/WorkHighlights'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
@@ -79,6 +80,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <WorkHighlights />
       <PortfolioStory />
       <Blogs />
     </>

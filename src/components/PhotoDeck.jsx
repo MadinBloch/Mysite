@@ -4,12 +4,13 @@ import { useReducedMotion } from 'framer-motion'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 
-export default function PhotoDeck({ photos, label, priority = false, className = '' }) {
+export default function PhotoDeck({ photos, label, priority = false, className = '', appearance = 'album' }) {
   const reduce = useReducedMotion()
   const [viewportRef, carousel] = useEmblaCarousel({ loop: true, duration: 24 })
   const [selected, setSelected] = useState(0)
   const [preview, setPreview] = useState(null)
   const current = photos[selected]
+  const isCover = appearance === 'cover'
 
   useEffect(() => {
     if (!carousel) return
@@ -35,7 +36,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
   }
 
   return (
-    <div className={className}>
+    <div className={(isCover ? 'cover-deck ' : '') + className}>
       <section className="photo-deck" aria-label={label} aria-roledescription="carousel" onKeyDown={handleKeyDown}>
         <div className="photo-viewport" ref={viewportRef}>
           <div className="flex touch-pan-y">
@@ -50,7 +51,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                 onClick={() => setPreview(index)}
               >
                 <img
-                  src={photo.src}
+                  src={isCover ? photo.printSrc || photo.src : photo.src}
                   alt={photo.alt || photo.title}
                   loading={priority && index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={priority && index === 0 ? 'high' : 'auto'}
@@ -64,7 +65,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
           </div>
         </div>
 
-        <div className="flex min-h-[4.5rem] items-center justify-between gap-3 px-1 py-2">
+        <div className="deck-caption flex min-h-[4.5rem] items-center justify-between gap-3 px-1 py-2">
           <div className="min-w-0" aria-live="polite">
             <p className="font-display text-[1.05rem] font-semibold leading-snug sm:text-lg">{current.title}</p>
             {current.caption && <p className="portfolio-meta mt-0.5">{current.caption}</p>}
@@ -79,7 +80,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
           </div>
         </div>
 
-        <div className="grid auto-cols-fr grid-flow-col gap-1.5 sm:gap-2" role="group" aria-label="Choose a photo">
+        <div className="deck-thumbs grid auto-cols-fr grid-flow-col gap-1.5 sm:gap-2" role="group" aria-label="Choose a photo">
           {photos.map((photo, index) => (
             <button
               key={photo.id}
@@ -90,13 +91,14 @@ export default function PhotoDeck({ photos, label, priority = false, className =
               onClick={() => carousel?.scrollTo(index, Boolean(reduce))}
             >
               <img
-                src={photo.src}
+                src={photo.printSrc || photo.src}
                 alt=""
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover"
                 style={{ objectPosition: photo.position }}
               />
+              {isCover && <span className="thumb-label">{photo.shortLabel}</span>}
             </button>
           ))}
         </div>

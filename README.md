@@ -13,7 +13,8 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx`: Photographic cover, story entry point and resume download.
+- `src/components/Hero.jsx`: Recruiter introduction, portrait gallery, selected work and resume download.
+- `src/components/WorkHighlights.jsx` connects three engineering examples to their full case studies.
 - `src/components/PortfolioStory.jsx` connects the hackathon, Kesari Select and university workshop chapters.
 - `src/components/About.jsx`: Short biography.
 - `src/components/Skills.jsx`: Backend, data and deployment skills.

@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs'
 import assert from 'node:assert/strict'
 import { CASE_STUDIES } from '../src/data/caseStudies.js'
-import { kesariStats } from '../src/data/siteStats.js'
+import { kesariPageLoad, kesariStats } from '../src/data/siteStats.js'
 import { certificatePhotos, hackathonPhotos, meetupPhotos, workshopPhotos } from '../src/data/photos.js'
 
 const read = path => readFileSync(path, 'utf8')
@@ -38,7 +38,7 @@ const hero = read('src/components/Hero.jsx')
 const gallery = read('src/pages/GalleryPage.jsx')
 const sitemap = read('public/sitemap.xml')
 
-assert.match(app, /<Hero \/>[\s\S]*<PortfolioStory \/>[\s\S]*<Blogs \/>/, 'Home should open with the story and end with writing')
+assert.match(app, /<Hero \/>[\s\S]*<WorkHighlights \/>[\s\S]*<PortfolioStory \/>[\s\S]*<Blogs \/>/, 'Introduce Madin, show selected work, then open the personal chapters')
 assert.ok(!app.includes('<Impact />'), 'Figures belong inside the project story')
 assert.match(story, /<Hackathon \/>[\s\S]*<ProductionChapter \/>[\s\S]*<Workshop \/>/, 'Check the order of the chapters')
 for (const [page, id] of [[hackathon, 'hackathon'], [story, 'production'], [workshop, 'workshop']]) {
@@ -67,6 +67,16 @@ for (const [id, photos] of Object.entries({ hackathon: hackathonPhotos, workshop
   }
 }
 assert.ok(story.includes('internal TAP walkthrough'), 'Credit the internal training in the TAP chapter')
+
+const highlights = read('src/components/WorkHighlights.jsx')
+for (const project of projects.filter(project => project.caseStudySlug)) {
+  assert.ok(highlights.includes("slug: '" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)
+}
+assert.ok(kesariPageLoad.before > kesariPageLoad.after && kesariPageLoad.after > 0)
+const resumeSource = read('scripts/resume.html')
+for (const phrase of ['200+ daily inquiries', '30K+ customer records', '10K+ visitors']) {
+  assert.ok(resumeSource.includes(phrase), 'Portfolio resume should match website: ' + phrase)
+}
 
 const resume = readFileSync('public/Madin_Bloch_Resume.pdf')
 assert.equal(resume.subarray(0, 5).toString(), '%PDF-', 'Resume download must be an actual PDF')

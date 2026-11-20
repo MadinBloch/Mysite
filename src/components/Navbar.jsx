@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { FiArrowUpRight, FiDownload, FiMenu, FiX } from 'react-icons/fi'
+import { profile } from '../data/profile'
+import { FiMail, FiDownload, FiMenu, FiX } from 'react-icons/fi'
 
 const links = [
-  ['/', 'Story'],
+  ['/', 'Home'],
   ['/projects', 'Work'],
   ['/about', 'Profile'],
   ['/gallery', 'Gallery'],
@@ -67,8 +68,8 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-1 lg:flex">{navLinks}</div>
 
-          <Link to="/#contact" className="nav-link hidden gap-2 border border-[#466756] bg-[#21372a] text-[#d6f6e3] lg:inline-flex">
-            Let’s talk <FiArrowUpRight size={16} aria-hidden="true" />
+          <Link to="/#contact" className="nav-link hidden gap-2 border border-[#466756] bg-[#192722] text-[#d6f6e3] lg:inline-flex">
+            Let’s talk <FiMail size={16} aria-hidden="true" />
           </Link>
 
           <button
@@ -86,12 +87,12 @@ export default function Navbar() {
 
         <nav
           id="mobile-navigation"
-          className={'site-nav pointer-events-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-auto rounded-3xl p-3 lg:hidden ' + (open ? 'grid' : 'hidden')}
+          className={'site-nav pointer-events-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-auto rounded-3xl p-3 lg:hidden ' + (open ? 'menu-enter grid' : 'hidden')}
           aria-label="Mobile navigation"
         >
           {navLinks}
           <Link to="/#contact" className="nav-link" onClick={() => setOpen(false)}>Contact</Link>
-          <a href="/Madin_Bloch_Resume.pdf" download className="btn-primary mt-2" onClick={() => setOpen(false)}>
+          <a href={profile.resume} download className="btn-primary mt-2" onClick={() => setOpen(false)}>
             Download resume <FiDownload size={17} aria-hidden="true" />
           </a>
         </nav>

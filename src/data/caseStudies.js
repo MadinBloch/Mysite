@@ -1,4 +1,4 @@
-import { formatCount, kesariStats } from './siteStats.js'
+import { formatCount, kesariPageLoad, kesariStats } from './siteStats.js'
 
 // Case studies distinguish user-reported measurements from verified code-level contributions.
 export const CASE_STUDIES = {
@@ -15,7 +15,7 @@ export const CASE_STUDIES = {
     metrics: [
       ...kesariStats.map(({ count, label, detail }) => ({ value: formatCount(count) + '+', label, detail })),
       { value: '700–1,000', label: 'Internal users', detail: 'Team-wide estimate' },
-      { value: '15s → 3s', label: 'Observed page load', detail: 'Developer-reported' },
+      { value: kesariPageLoad.before + 's → ' + kesariPageLoad.after + 's', label: 'Observed page load', detail: 'Developer-reported' },
     ],
     challenge:
       'Late ERP records could miss a scheduled export, and an approval shown in the interface still needed to be enforced in the backend. Teams needed to see what had happened and recover a missed record.',

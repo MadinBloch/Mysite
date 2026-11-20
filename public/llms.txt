@@ -1,0 +1,23 @@
+# Madin Bloch
+
+> Portfolio of Madin Bloch, a Laravel backend developer in Ahmedabad, India. His work includes Laravel APIs, ERP integrations, and deployments with Docker and AWS.
+
+At Shine Infosoft, Madin builds backend features for Kesari Select's Travel Assist Platform. He added export logs and recovery checks for ERP records that arrived after scheduled finance exports. He observed page load drop from around 15 seconds to 3 seconds on one production page.
+
+## Portfolio
+
+- [Home](https://madin-bloch.vercel.app/)
+- [Profile and experience](https://madin-bloch.vercel.app/about)
+- [Project directory](https://madin-bloch.vercel.app/projects)
+- [Resume PDF](https://madin-bloch.vercel.app/Madin_Bloch_Resume.pdf)
+
+## Case studies
+
+- [Kesari Select](https://madin-bloch.vercel.app/projects/kesari-select-backend)
+- [Email Campaign Platform](https://madin-bloch.vercel.app/projects/email-campaign-engine)
+- [Smart Print](https://madin-bloch.vercel.app/projects/smart-print-operations)
+
+## Optional
+
+- [Writing](https://madin-bloch.vercel.app/blogs)
+- [Workshop, hackathon, and meetup photos](https://madin-bloch.vercel.app/gallery)

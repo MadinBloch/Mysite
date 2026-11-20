@@ -14,7 +14,7 @@ export default function PhotoPrint({ photo, caption, className = '', priority = 
         />
         <span className="print-zoom" aria-hidden="true"><FiMaximize2 size={15} /></span>
       </button>
-      <figcaption>{caption}</figcaption>
+      {caption && <figcaption>{caption}</figcaption>}
     </figure>
   )
 }

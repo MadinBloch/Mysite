@@ -83,12 +83,12 @@ export default function Hero() {
             {...motionProps(0.18)}
             className="mt-4 max-w-[34rem] text-[15px] leading-[1.8] text-zinc-400 sm:text-[15.5px]"
           >
-            I build APIs, business workflows, and production backends — from Laravel features to Docker and AWS releases that actually ship.
+            I build and deploy Laravel backends for Kesari Select, supporting the TAP workflows behind 200+ daily inquiries and 30K+ customer records.
           </motion.p>
 
           <motion.div {...motionProps(0.24)} className="mt-7 flex flex-wrap gap-3">
             <Link to="/#projects" className="btn-primary">
-              View Projects <span aria-hidden="true">↗</span>
+              Explore Kesari Select <span aria-hidden="true">↗</span>
             </Link>
             <a href="/Madin_Bloch_Resume.pdf" download className="btn-outline">
               Resume <span aria-hidden="true">↓</span>

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
+import Impact from './components/Impact'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
@@ -38,9 +39,10 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <Impact />
+      <Projects />
       <About />
       <Skills />
-      <Projects />
       <Experience />
       <Workshop />
       <Hackathon />

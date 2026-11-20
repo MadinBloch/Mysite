@@ -1,85 +1,122 @@
-import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { MotionConfig, useReducedMotion } from 'framer-motion'
+import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
-import Impact from './components/Impact'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
-import Workshop from './components/Workshop'
-import Hackathon from './components/Hackathon'
-import Media from './components/Media'
+import PortfolioStory from './components/PortfolioStory'
+import GalleryPage from './pages/GalleryPage'
 import Blogs from './components/Blogs'
-import Community from './components/Community'
 import Contact from './components/Contact'
 import BlogsPage from './pages/BlogsPage'
 import BlogPostPage from './pages/BlogPostPage'
 import CaseStudyPage from './pages/CaseStudyPage'
 
-function ScrollToSection() {
-  const { pathname, hash } = useLocation()
+const legacySections = {
+  '#projects': '/projects',
+  '#about': '/about',
+  '#skills': '/about#skills',
+  '#experience': '/about#experience',
+  '#certificates': '/gallery?album=certificates',
+  '#community': '/gallery?album=meetups',
+}
+
+const pageTitles = {
+  '/projects': 'Selected work',
+  '/gallery': 'Photo archive',
+  '/about': 'Profile and experience',
+}
+
+function PageLocation() {
+  const { key, pathname, search, hash } = useLocation()
+  const previous = useRef(null)
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0)
-      return
-    }
+    const last = previous.current
+    previous.current = { pathname, search, hash }
+    if (last?.pathname === pathname && last.hash === hash && last.search !== search) return
     const frame = requestAnimationFrame(() => {
-      document.getElementById(hash.substring(1))?.scrollIntoView({ block: 'start', behavior: 'instant' })
+      if (!hash) {
+        window.scrollTo(0, 0)
+        return
+      }
+
+      const target = document.getElementById(hash.slice(1))
+      if (!target) return
+      target.scrollIntoView({ block: 'start' })
+      const readingStart = hash === '#story' ? target.querySelector('nav a') : target.querySelector('h1, h2, h3')
+      if (readingStart) {
+        if (!readingStart.matches('a')) readingStart.tabIndex = -1
+        readingStart.focus({ preventScroll: true })
+      }
     })
     return () => cancelAnimationFrame(frame)
-  }, [pathname, hash])
+  }, [key, pathname, search, hash])
+
+  useEffect(() => {
+    if (!pageTitles[pathname]) return
+    const oldTitle = document.title
+    const canonical = document.querySelector('link[rel="canonical"]')
+    const oldCanonical = canonical?.href
+    document.title = pageTitles[pathname] + ' | Madin Bloch'
+    if (canonical) canonical.href = 'https://madin-bloch.vercel.app' + pathname
+    return () => {
+      document.title = oldTitle
+      if (canonical) canonical.href = oldCanonical
+    }
+  }, [pathname])
 
   return null
 }
 
 function HomePage() {
+  const { hash } = useLocation()
+  if (legacySections[hash]) return <Navigate to={legacySections[hash]} replace />
   return (
     <>
       <Hero />
-      <Impact />
-      <Projects />
-      <About />
-      <Skills />
-      <Experience />
-      <Workshop />
-      <Hackathon />
-      <Media />
+      <PortfolioStory />
       <Blogs />
-      <Community />
-      <Contact />
     </>
   )
 }
 
 export default function App() {
+  const reduce = useReducedMotion()
+
   return (
-    <div className="noise-overlay min-h-screen bg-zinc-950 text-zinc-100">
-      <ScrollProgress />
-      <ScrollToSection />
+    <MotionConfig reducedMotion="user">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-[#10251b]">
+        Skip to content
+      </a>
+      {!reduce && <ScrollProgress />}
+      <PageLocation />
       <Navbar />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<><About /><Experience /><Skills /></>} />
+          <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/projects/:slug" element={<CaseStudyPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route
             path="*"
             element={
-              <div className="mx-auto max-w-4xl px-6 pb-36 pt-40">
-                <p className="section-label">404 / Page not found</p>
-                <h1 className="mt-4 font-display text-5xl font-semibold text-white">Nothing here, unfortunately.</h1>
-                <a href="/" className="mt-8 inline-flex text-accent hover:text-white">
-                  Back to portfolio ↗
-                </a>
-              </div>
+              <section className="portfolio-shell pb-28 pt-36">
+                <h1 className="section-heading">Page not found</h1>
+                <Link to="/" className="btn-primary mt-8">Back to portfolio</Link>
+              </section>
             }
           />
         </Routes>
       </main>
-    </div>
+      <Contact />
+    </MotionConfig>
   )
 }

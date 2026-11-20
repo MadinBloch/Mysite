@@ -1,63 +1,105 @@
-import { useEffect } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { FiArrowLeft, FiArrowRight, FiX, FiZoomIn, FiZoomOut } from 'react-icons/fi'
 
-export default function Lightbox({ image, onClose }) {
+export default function Lightbox({ photos, index, onChange, onClose }) {
+  const [zoomed, setZoomed] = useState(false)
+  const dialogRef = useRef(null)
+  const closeRef = useRef(null)
+  const titleId = useId()
+  const photo = photos[index]
+  const hasMultiple = photos.length > 1
+
   useEffect(() => {
-    if (!image) return undefined
+    const dialog = dialogRef.current
+    const trigger = document.activeElement
+    const previousOverflow = document.body.style.overflow
 
-    const prevOverflow = document.body.style.overflow
+    dialog.showModal()
     document.body.style.overflow = 'hidden'
-
-    const onKey = (event) => {
-      if (event.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKey)
+    closeRef.current.focus({ preventScroll: true })
 
     return () => {
-      document.body.style.overflow = prevOverflow
-      window.removeEventListener('keydown', onKey)
+      dialog.close()
+      document.body.style.overflow = previousOverflow
+      if (trigger instanceof HTMLElement && trigger.isConnected) {
+        trigger.focus({ preventScroll: true })
+      }
     }
-  }, [image, onClose])
+  }, [])
 
-  if (!image) return null
+  function move(direction) {
+    setZoomed(false)
+    onChange((index + direction + photos.length) % photos.length)
+  }
+
+  function handleKeyDown(event) {
+    if (!hasMultiple || event.target.dataset.zoomed === 'true') return
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+    event.preventDefault()
+    move(event.key === 'ArrowLeft' ? -1 : 1)
+  }
 
   return (
-    <div
-      className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-8"
-      role="dialog"
-      aria-modal="true"
-      aria-label={image.title || 'Image preview'}
+    <dialog
+      ref={dialogRef}
+      aria-labelledby={titleId}
+      className="gallery-dialog"
+      onCancel={(event) => {
+        event.preventDefault()
+        onClose()
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose()
+      }}
+      onKeyDown={handleKeyDown}
     >
-      <button
-        type="button"
-        className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-zoom-out"
-        aria-label="Close image"
-        onClick={onClose}
-      />
-
-      <div className="relative z-10 w-full max-w-5xl pointer-events-none">
-        <button
-          type="button"
-          onClick={onClose}
-          className="pointer-events-auto absolute -top-2 right-0 sm:-top-3 sm:-right-3 z-20 w-10 h-10 rounded-full bg-zinc-100 text-zinc-950 flex items-center justify-center shadow-lg hover:bg-white transition-colors"
-          aria-label="Close"
+      <div>
+        <div className="flex min-h-16 items-center justify-between gap-3 px-4 py-2 sm:px-5">
+          <div className="min-w-0" aria-live="polite">
+            <p id={titleId} className="font-display text-base font-semibold sm:text-lg">{photo.title}</p>
+            {photo.caption && <p className="portfolio-meta mt-0.5">{photo.caption}</p>}
+          </div>
+          <div className="flex shrink-0 gap-1.5 sm:gap-2">
+            <button
+              type="button"
+              className="icon-button"
+              onClick={() => setZoomed((value) => !value)}
+              aria-label="Zoom in"
+              aria-pressed={zoomed}
+            >
+              {zoomed ? <FiZoomOut size={19} aria-hidden="true" /> : <FiZoomIn size={19} aria-hidden="true" />}
+            </button>
+            <button ref={closeRef} type="button" className="icon-button" onClick={onClose} aria-label="Close photo">
+              <FiX size={20} aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        <div
+          key={photo.id + (zoomed ? '-zoomed' : '')}
+          className="gallery-dialog-stage"
+          data-zoomed={zoomed}
+          tabIndex={zoomed ? 0 : undefined}
+          role={zoomed ? 'region' : undefined}
+          aria-label={zoomed ? 'Zoomed photo' : undefined}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <img
-          src={image.src}
-          alt={image.title || ''}
-          className="pointer-events-auto w-full max-h-[80vh] object-contain rounded-xl mx-auto shadow-2xl"
-        />
-        {(image.title || image.caption) && (
-          <div className="pointer-events-none mt-4 text-center">
-            {image.title && <p className="text-zinc-200 text-sm">{image.title}</p>}
-            {image.caption && <p className="text-zinc-500 text-xs mt-1">{image.caption}</p>}
+          <img
+            src={photo.src}
+            alt={photo.alt || photo.title}
+            className="gallery-dialog-image"
+          />
+        </div>
+        {hasMultiple && (
+          <div className="flex items-center justify-center gap-4 px-4 py-3">
+            <button type="button" className="icon-button" aria-label="Previous full photo" onClick={() => move(-1)}>
+              <FiArrowLeft size={18} aria-hidden="true" />
+            </button>
+            <p className="portfolio-meta tabular-nums">{index + 1} / {photos.length}</p>
+            <button type="button" className="icon-button" aria-label="Next full photo" onClick={() => move(1)}>
+              <FiArrowRight size={18} aria-hidden="true" />
+            </button>
           </div>
         )}
       </div>
-    </div>
+    </dialog>
   )
 }

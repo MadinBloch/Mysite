@@ -1,47 +1,47 @@
+import { formatCount, kesariStats } from './siteStats.js'
+
 // Case studies distinguish user-reported measurements from verified code-level contributions.
 export const CASE_STUDIES = {
   'kesari-select-backend': {
     number: '01',
-    title: 'Keep operations moving when the backend cannot pause.',
-    subtitle: 'Laravel work on an ERP-connected travel platform — APIs, reliability, and releases.',
+    title: 'Shipping Laravel features for day-to-day travel operations.',
+    subtitle: 'Laravel APIs, ERP integrations, and production releases for the Travel Assist Platform.',
     period: '2025 — Present',
     category: 'Client platform',
     tone: 'green',
     stack: ['PHP', 'Laravel', 'Frappe / ERP', 'AWS S3', 'Docker', 'MySQL', 'Nginx'],
     intro:
-      'Kesari Select connects Sales, Land Ops, Air Ops, Cashier, Product, Finance and more into one operational flow. I own Laravel application work and production deployment. It is a team-built product — not sole authorship.',
+      'Kesari Select’s Travel Assist Platform (TAP) connects Sales, Land and Air Operations, Cashier, Product, and Finance. I build Laravel features and ERP integrations and handle production deployments.',
     metrics: [
-      { value: '200+', label: 'Inquiries handled daily', detail: 'Approximate day-to-day platform volume' },
-      { value: '30K+', label: 'Customer records handled', detail: 'Customer data managed through the platform' },
-      { value: '10K+', label: 'Website visitors', detail: 'Website reach, separate from operational records' },
+      ...kesariStats.map(({ count, label, detail }) => ({ value: formatCount(count) + '+', label, detail })),
       { value: '700–1,000', label: 'Internal users', detail: 'Team-wide estimate' },
       { value: '15s → 3s', label: 'Observed page load', detail: 'Developer-reported' },
     ],
     challenge:
-      'Live ops systems fail quietly: late ERP records, fragile finance exports, and approvals that look fine in the UI but break business rules. The need was predictable recovery — not another one-off patch.',
+      'Late ERP records could miss a scheduled export, and an approval shown in the interface still needed to be enforced in the backend. Teams needed to see what had happened and recover a missed record.',
     approach:
-      'I focused on the paths that connect ERP data to day-to-day ops: scheduled exports with staging, export logs, lookback checks for missed records, guarded approval flows, and the release path from Docker/AWS setup through verification. I also created internal training videos to help Kesari teams learn the TAP system and follow its workflows.',
+      'I staged scheduled exports before delivery, added export logs and lookback checks for late records, and enforced approval rules in the backend. I handled releases from Docker and AWS setup through production verification. I also recorded an internal TAP walkthrough to help Kesari’s Sales and Operations teams learn the system.',
     decisions: [
       {
         title: 'Make failures recoverable',
-        body: 'Problem: a scheduled export can miss late records with no signal. Choice: export logs + lookback windows. Result: missed records can be found and re-delivered instead of vanishing.',
+        body: 'I added export logs and lookback windows so the team could find ERP records that arrived late and include them in a later delivery.',
       },
       {
         title: 'Separate prep from publish',
-        body: 'Problem: a half-ready file can look “done” to finance. Choice: stage output before publishing. Result: incomplete exports never become trusted business files.',
+        body: 'Staging finishes file generation before publishing the export to Finance. That keeps partially generated files out of the delivery path.',
       },
       {
         title: 'Enforce approvals in the workflow',
-        body: 'Problem: hiding a button is not a business rule. Choice: check approvals inside the workflow path. Result: finance-sensitive changes stay explicit under load.',
+        body: 'I check approvals in the workflow itself so finance-sensitive actions follow the same rule across entry points.',
       },
       {
-        title: 'Own the release, not only the PR',
-        body: 'Problem: features that never reach production carefully still fail users. Choice: own Docker, EC2, Nginx/PHP-FPM, SSL, and post-release checks. Result: fixes land with accountability.',
+        title: 'Verify each production release',
+        body: 'I handle Docker, EC2, Nginx, PHP-FPM, and SSL for releases and check the affected workflows after deployment.',
       },
     ],
     takeaway:
-      'Operational confidence: scheduled work can be inspected and recovered, approvals stay explicit, and production changes ship with ownership. On one slow path, observed load improved from ~15s to ~3s.',
-    note: 'Platform figures and load-time measurements are developer-reported operational estimates. Website visitors, customer records, and daily inquiries are separate measures. Training videos were created for internal team learning.',
+      'Teams can inspect and recover scheduled exports and see where approvals are enforced. On one workflow I optimized, observed page load dropped from about 15 seconds to 3 seconds.',
+    note: 'Platform volumes and page-load times are approximate figures reported by the developer.',
     ctaUrl: 'https://www.kesariselect.com/',
     ctaLabel: 'View public client website',
   },

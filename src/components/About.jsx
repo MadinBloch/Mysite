@@ -1,60 +1,39 @@
-import { motion } from 'framer-motion'
+import { FiArrowRight } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import { SectionReveal } from './motion/SectionReveal'
-
-const highlights = [
-  { label: 'Education', title: 'MCA · Final year', detail: 'BCA completed · 8.63 CGPA' },
-  { label: 'What I enjoy', title: 'Building & teaching', detail: 'Backend work, Git and Docker workshops' },
-  { label: 'Focus', title: 'Laravel backends', detail: 'APIs, queues, deployments' },
-  { label: 'Base', title: 'Ahmedabad, India', detail: 'Open to remote-friendly roles' },
-]
 
 export default function About() {
   return (
-    <section id="about" className="relative border-t border-zinc-900/80 bg-zinc-900/20 py-20 sm:py-24">
-      <div className="pointer-events-none absolute inset-0 grid-fade opacity-40" aria-hidden="true" />
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
+    <section id="about" className="section-shell destination-section bg-[#101814]" aria-labelledby="about-title">
+      <div className="portfolio-shell grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-start lg:gap-16">
         <SectionReveal>
-          <p className="section-label">A little about me</p>
-          <h2 className="section-heading mt-3">
-            More than <span className="text-accent">just code.</span>
-          </h2>
-          <p className="mt-5 text-[15px] leading-8 text-zinc-400">
-            I like understanding the problem before writing the solution — clear APIs, maintainable Laravel code, and software that stays easy to ship as it grows.
+          <h1 id="about-title" className="destination-title">My <em>profile.</em></h1>
+          <p className="portfolio-copy mt-5 max-w-[34rem] text-base">
+            I’ve worked on PHP and Laravel applications since December 2024. At Shine Infosoft, I build APIs and ERP integrations, fix production issues, and deploy updates for travel operations software and internal tools.
           </p>
-          <div className="mt-6 divider-glow" />
-          <p className="mt-6 text-[15px] leading-8 text-zinc-400">
-            Outside work I teach Git & Docker, write notes, and keep learning through real projects — not tutorials alone.
+          <p className="portfolio-copy mt-4 max-w-[34rem] text-base">
+            I enjoy working through tricky workflows with the people who use them. Outside work, I teach Git and Docker and write about what I’m learning.
           </p>
+          <Link to="/about#experience" className="link-accent mt-6 min-h-10 text-sm">
+            My experience <FiArrowRight size={16} aria-hidden="true" />
+          </Link>
         </SectionReveal>
 
         <SectionReveal delay={0.08}>
-          <div className="space-y-5 text-sm leading-8 text-zinc-300">
-            <p>
-              Since December 2024, I’ve been working on PHP and Laravel applications — writing backend logic,
-              integrating APIs, handling production fixes, and deploying real projects.
-            </p>
-            <p>
-              At Shine Infosoft, I’ve contributed to travel operations software and internal business tools.
-              Outside work, I explore new engineering tools and enjoy sharing what I learn through workshops and writing.
-            </p>
-            <div className="grid gap-3 pt-2 sm:grid-cols-2">
-              {highlights.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  whileHover={{ y: -4, borderColor: 'rgba(110,231,183,0.35)' }}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="rounded-2xl border border-zinc-800/90 bg-zinc-950/55 px-5 py-5 transition-colors"
-                >
-                  <p className="mb-2 font-mono text-[11px] uppercase tracking-wider text-accent">{item.label}</p>
-                  <p className="text-sm font-semibold text-white">{item.title}</p>
-                  <p className="mt-1 text-xs text-zinc-500">{item.detail}</p>
-                </motion.div>
-              ))}
+          <dl className="overflow-hidden rounded-[1.5rem] border border-[#33443a] bg-[#18221c]">
+            <div className="grid gap-1.5 px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
+              <dt className="portfolio-meta">Education</dt>
+              <dd className="font-display text-lg font-medium">MCA · Final year<br /><span className="portfolio-copy text-sm">BCA completed · 8.63 CGPA</span></dd>
             </div>
-          </div>
+            <div className="grid gap-1.5 border-t border-[#33443a] px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
+              <dt className="portfolio-meta">Based in</dt>
+              <dd className="font-display text-lg font-medium">Ahmedabad, India</dd>
+            </div>
+            <div className="grid gap-1.5 border-t border-[#33443a] px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
+              <dt className="portfolio-meta">Availability</dt>
+              <dd className="font-display text-lg font-medium">Open to remote backend roles</dd>
+            </div>
+          </dl>
         </SectionReveal>
       </div>
     </section>

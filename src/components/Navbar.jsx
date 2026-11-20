@@ -1,198 +1,101 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { FiArrowUpRight, FiDownload, FiMenu, FiX } from 'react-icons/fi'
 
-const primaryLinks = [
-  ['home', 'Home'],
-  ['about', 'About'],
-  ['projects', 'Projects'],
-  ['experience', 'Experience'],
+const links = [
+  ['/', 'Story'],
+  ['/projects', 'Work'],
+  ['/about', 'Profile'],
+  ['/gallery', 'Gallery'],
+  ['/blogs', 'Writing'],
 ]
-
-const moreLinks = [
-  ['workshop', 'University Workshop'],
-  ['hackathon', 'Hackathon'],
-  ['certificates', 'Certificates'],
-  ['blogs', 'Blogs'],
-  ['community', 'Events & Meetups'],
-]
-
-const allLinks = [...primaryLinks, ...moreLinks, ['contact', 'Contact']]
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [moreOpen, setMoreOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeId, setActiveId] = useState('home')
-  const moreRef = useRef(null)
+  const [open, setOpen] = useState(false)
+  const header = useRef(null)
+  const menuButton = useRef(null)
   const location = useLocation()
+  const { pathname } = location
 
   useEffect(() => {
-    setMenuOpen(false)
-    setMoreOpen(false)
-  }, [location.pathname, location.hash])
+    setOpen(false)
+  }, [location.key])
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 12)
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    if (!open) return
 
-  useEffect(() => {
-    if (location.pathname !== '/') return undefined
-
-    const sectionIds = allLinks.map(([id]) => id)
-    const elements = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean)
-
-    const syncActive = () => {
-      const marker = window.scrollY + 120
-      let current = 'home'
-      for (const el of elements) {
-        if (el.offsetTop <= marker) current = el.id
-      }
-      setActiveId(current)
-    }
-
-    syncActive()
-    window.addEventListener('scroll', syncActive, { passive: true })
-    return () => window.removeEventListener('scroll', syncActive)
-  }, [location.pathname])
-
-  useEffect(() => {
     const onPointerDown = (event) => {
-      if (moreRef.current && !moreRef.current.contains(event.target)) {
-        setMoreOpen(false)
-      }
+      if (!header.current.contains(event.target)) setOpen(false)
     }
-    document.addEventListener('pointerdown', onPointerDown)
-    return () => document.removeEventListener('pointerdown', onPointerDown)
-  }, [])
+    const onKeyDown = (event) => {
+      if (event.key !== 'Escape') return
+      setOpen(false)
+      menuButton.current?.focus()
+    }
 
-  const linkClass = (id) =>
-    'rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ' +
-    (activeId === id
-      ? 'bg-white/5 text-accent'
-      : 'text-zinc-400 hover:bg-white/5 hover:text-white')
+    document.addEventListener('pointerdown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  const activePath = pathname.startsWith('/projects/') ? '/projects'
+    : pathname.startsWith('/blog/') ? '/blogs' : pathname
+
+  const navLinks = links.map(([path, label]) => (
+    <Link
+      key={path}
+      to={path}
+      className="nav-link"
+      aria-current={activePath === path ? 'page' : undefined}
+      onClick={() => setOpen(false)}
+    >
+      {label}
+    </Link>
+  ))
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
-      <nav
-        className={
-          'mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border px-3 py-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-all duration-200 sm:px-4 ' +
-          (isScrolled || menuOpen
-            ? 'border-zinc-700/80 bg-zinc-950/92 shadow-[0_12px_48px_rgba(0,0,0,0.45)]'
-            : 'border-zinc-800/70 bg-zinc-950/65')
-        }
-        aria-label="Main navigation"
-      >
-        <Link to="/" className="group flex shrink-0 items-center gap-2.5 pl-1" aria-label="Madin Bloch home">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-accent/35 bg-accent/15 font-display text-[13px] font-bold tracking-[-.06em] text-accent transition-colors group-hover:bg-accent group-hover:text-zinc-950">
-            MB
-          </span>
-          <span className="hidden font-display text-[14px] font-semibold tracking-tight text-white sm:inline">
-            Madin Bloch
-          </span>
-        </Link>
-
-        <div className="hidden items-center gap-1 xl:flex">
-          {primaryLinks.map(([id, label]) => (
-            <Link key={id} to={'/#' + id} className={linkClass(id)}>
-              {label}
-            </Link>
-          ))}
-
-          <div className="relative" ref={moreRef}>
-            <button
-              type="button"
-              className={
-                'inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ' +
-                (moreLinks.some(([id]) => id === activeId)
-                  ? 'bg-white/5 text-accent'
-                  : 'text-zinc-400 hover:bg-white/5 hover:text-white')
-              }
-              aria-expanded={moreOpen}
-              aria-haspopup="true"
-              onClick={() => setMoreOpen((value) => !value)}
-            >
-              More
-              <span aria-hidden="true" className="text-[10px]">{moreOpen ? '▴' : '▾'}</span>
-            </button>
-            {moreOpen && (
-              <div className="absolute left-1/2 top-[calc(100%+10px)] z-50 w-56 -translate-x-1/2 rounded-2xl border border-zinc-700/80 bg-zinc-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl">
-                {moreLinks.map(([id, label]) => (
-                  <Link
-                    key={id}
-                    to={'/#' + id}
-                    className="block rounded-xl px-3 py-2.5 text-[12px] text-zinc-300 transition-colors hover:bg-white/5 hover:text-accent"
-                    onClick={() => setMoreOpen(false)}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Link to="/#contact" className={linkClass('contact')}>
-            Contact
+    <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
+      <div className="portfolio-shell">
+        <nav className="site-nav pointer-events-auto flex h-[3.9rem] items-center justify-between gap-3 rounded-full px-2.5 sm:px-3.5" aria-label="Main navigation">
+          <Link to="/" className="inline-flex shrink-0 items-center gap-2.5 rounded-full font-display text-base font-semibold" aria-label="Madin Bloch home">
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-accent text-sm font-bold tracking-tight text-[#13251b]" aria-hidden="true">MB</span>
+            <span>Madin Bloch</span>
           </Link>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <a
-            href="/Madin_Bloch_Resume.pdf"
-            download
-            className="hidden rounded-full border border-zinc-700 px-3.5 py-2 text-[11px] font-semibold text-zinc-200 transition-colors hover:border-accent/50 hover:text-accent sm:inline-flex"
-          >
-            Resume ↓
-          </a>
-          <a
-            href="mailto:madinkhan0633@gmail.com"
-            className="hidden rounded-full bg-accent px-3.5 py-2 text-[11px] font-semibold text-zinc-950 transition-colors hover:bg-accent-dim md:inline-flex"
-          >
-            Hire me
-          </a>
+          <div className="hidden items-center gap-1 lg:flex">{navLinks}</div>
+
+          <Link to="/#contact" className="nav-link hidden gap-2 border border-[#466756] bg-[#21372a] text-[#d6f6e3] lg:inline-flex">
+            Let’s talk <FiArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+
           <button
+            ref={menuButton}
             type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 text-base text-white transition-colors hover:bg-white/10 xl:hidden"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
+            className="icon-button lg:hidden"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
             aria-controls="mobile-navigation"
-            onClick={() => setMenuOpen((value) => !value)}
+            onClick={() => setOpen((value) => !value)}
           >
-            {menuOpen ? '×' : '☰'}
+            {open ? <FiX size={20} aria-hidden="true" /> : <FiMenu size={20} aria-hidden="true" />}
           </button>
-        </div>
-      </nav>
+        </nav>
 
-      {menuOpen && (
-        <div
+        <nav
           id="mobile-navigation"
-          className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-950/95 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl xl:hidden"
+          className={'site-nav pointer-events-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-auto rounded-3xl p-3 lg:hidden ' + (open ? 'grid' : 'hidden')}
+          aria-label="Mobile navigation"
         >
-          <div className="grid gap-1">
-            {allLinks.map(([id, label]) => (
-              <Link
-                key={id}
-                to={'/#' + id}
-                onClick={() => setMenuOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm text-zinc-300 transition-colors hover:bg-white/5 hover:text-accent"
-              >
-                {label}
-              </Link>
-            ))}
-            <a
-              href="/Madin_Bloch_Resume.pdf"
-              download
-              className="mt-2 rounded-2xl bg-accent px-4 py-3 text-center text-sm font-semibold text-zinc-950"
-            >
-              Download resume
-            </a>
-          </div>
-        </div>
-      )}
+          {navLinks}
+          <Link to="/#contact" className="nav-link" onClick={() => setOpen(false)}>Contact</Link>
+          <a href="/Madin_Bloch_Resume.pdf" download className="btn-primary mt-2" onClick={() => setOpen(false)}>
+            Download resume <FiDownload size={17} aria-hidden="true" />
+          </a>
+        </nav>
+      </div>
     </header>
   )
 }

@@ -159,58 +159,6 @@
   color: var(--text);
   font: 500 1.05rem / 1.38 var(--display);
 }
-.platform-impact {
-  display: grid;
-  grid-template-columns: 0.78fr 3fr;
-  align-items: center;
-  gap: 1.5rem;
-  padding-block: clamp(1.35rem, 2.3vw, 2.05rem);
-}
-.impact-source h2 {
-  font: 500 clamp(1.05rem, 1.6vw, 1.4rem) / 1.3 var(--display);
-  color: var(--text);
-}
-.impact-source h2 a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
-}
-.impact-source p {
-  margin-top: 0.25rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-.platform-impact dl {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.platform-impact dl div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  border-left: 1px solid var(--line);
-  padding-inline: clamp(1rem, 3.3vw, 3.25rem) 0.5rem;
-}
-.platform-impact dt {
-  color: var(--muted);
-  font-size: clamp(0.86rem, 1.1vw, 0.98rem);
-  line-height: 1.4;
-}
-.platform-impact dd {
-  order: -1;
-  color: var(--mint);
-  font: 500 clamp(2rem, 3.4vw, 3.35rem) / 1 var(--display);
-  letter-spacing: -0.045em;
-}
-.project-feature .platform-impact {
-  border-top: 1px solid var(--line);
-  padding-inline: clamp(1.25rem, 3vw, 2.5rem);
-}
-
-/* Photographs and captions sit directly on the page in two editorial spreads. */
-.journal-section {
-  padding-block: var(--section-space);
-  background: var(--panel);
-}
 .spread-heading {
   display: flex;
   justify-content: space-between;
@@ -220,82 +168,19 @@
   padding-bottom: clamp(1.2rem, 2.5vw, 2rem);
   border-bottom: 1px solid var(--line);
 }
-.workshop-spread {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.9fr);
-  grid-template-areas: 'photo heading' 'photo note';
-  align-items: start;
-  align-content: center;
-  gap: 0 clamp(1.6rem, 5vw, 5rem);
-  padding-block: clamp(1.7rem, 3.7vw, 3.3rem);
-}
-.workshop-heading {
-  grid-area: heading;
-  align-self: end;
-}
-.workshop-note { grid-area: note; }
-.workshop-lead {
-  grid-area: photo;
-  align-self: center;
-}
-.workshop-lead button { aspect-ratio: 1.95; }
-.journal-date {
-  gap: 0.7rem;
-  color: var(--mint);
-  font-size: 0.78rem;
-  letter-spacing: 0.055em;
-}
-.journal-date span {
-  padding-left: 0.7rem;
-  border-left: 1px solid var(--deep-green);
-}
-.spread-title {
-  margin-block: 0.8rem 0;
-  font-size: clamp(2.45rem, 4.1vw, 4.3rem);
-}
-.spread-title em { display: inline-block; }
-.workshop-deck {
-  margin-top: 0.95rem;
-  color: var(--text);
-  font-size: 1.05rem;
-  line-height: 1.55;
-}
-.workshop-note p + p, .hackathon-note p {
-  color: var(--muted);
-  line-height: 1.65;
-}
-.workshop-note p + p { margin-top: 0.65rem; }
-.journal-link { margin-top: 0.45rem; }
-.hackathon-spread {
-  padding-top: clamp(2.1rem, 4.1vw, 4.25rem);
-  border-top: 1px solid var(--line);
-}
-.hackathon-heading {
-  display: grid;
-  grid-template-columns: 1.25fr 0.85fr;
-  align-items: end;
-  gap: 1.3rem 2rem;
-  margin-bottom: clamp(1.4rem, 2.8vw, 2.6rem);
-}
-.hackathon-heading .spread-title { max-width: 14ch; }
-.hackathon-note {
-  align-self: end;
-  max-width: 44ch;
-}
-.journal-photos, .album-prints {
+.album-prints {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(1.1rem, 2.3vw, 2rem) clamp(0.9rem, 2.15vw, 1.9rem);
 }
-.journal-photos figure, .album-prints figure { grid-column: span 5; }
-.journal-photos figure:is(:first-child, :last-child), .album-prints figure:is(:nth-child(4n + 1), :nth-child(4n)) { grid-column: span 7; }
-.journal-photos button { height: clamp(13.75rem, 27.8vw, 23.3rem); }
+.album-prints figure { grid-column: span 5; }
+.album-prints figure:is(:nth-child(4n + 1), :nth-child(4n)) { grid-column: span 7; }
 .album-prints button { height: clamp(13.75rem, 34vw, 28rem); }
 .album-prints figcaption strong { font-weight: 500; }
 .album-prints figcaption span {
   display: block;
   padding-top: 0.2rem;
-  font: 400 0.88rem / 1.55 'Plus Jakarta Sans', system-ui, sans-serif;
+  font: 400 0.88rem / 1.55 var(--display);
   color: var(--muted);
 }
 .archive-page .album-menu {
@@ -522,17 +407,7 @@
     from { transform: scaleX(0); }
     to { transform: scaleX(1); }
   }
-  @supports (animation-timeline: view()) {
-    .journal-photos .photo-print, .workshop-lead {
-      animation: print-arrive linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 85%;
-    }
-    @keyframes print-arrive {
-      from { translate: 0 12px; }
-      to { translate: 0 0; }
-    }
-  }
+
 }
 
 @media (max-width: 1000px) {
@@ -543,32 +418,6 @@
 
 @media (max-width: 760px) {
   :root { --masthead-height: 3.9rem; }
-  .platform-impact {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .impact-source {
-    display: flex;
-    gap: 0.7rem;
-    align-items: baseline;
-  }
-  .impact-source p { margin: 0; }
-  .platform-impact dl div { padding-left: clamp(0.65rem, 3vw, 1.4rem); }
-  .platform-impact dl div:first-child {
-    padding-left: 0;
-    border-left: 0;
-  }
-  .workshop-spread {
-    grid-template-columns: 1fr;
-    grid-template-areas: 'heading' 'photo' 'note';
-    gap: 1rem;
-  }
-  .workshop-deck { margin: 0; }
-  .hackathon-heading {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-  .hackathon-heading .spread-title, .hackathon-note { max-width: none; }
   .album-content {
     grid-template-columns: 1fr;
     align-items: start;
@@ -582,10 +431,9 @@
 }
 
 @media (max-width: 520px) {
-  .platform-impact dt { font-size: 0.82rem; }
-  .journal-photos, .album-prints { grid-template-columns: minmax(0, 1fr); }
-  :is(.journal-photos, .album-prints) figure:nth-child(n) { grid-column: 1; }
-  .journal-photos button, .album-prints button {
+  .album-prints { grid-template-columns: minmax(0, 1fr); }
+  .album-prints figure:nth-child(n) { grid-column: 1; }
+  .album-prints button {
     height: auto;
     aspect-ratio: 4 / 3;
   }
@@ -691,4 +539,71 @@
 @media (max-width: 639px) {
   .tech-strip ul { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0.65rem; }
   .tech-strip li:nth-child(5) { border-left: 0; }
+}
+
+.timeline-section { padding-block: var(--section-space); }
+.timeline-chapter {
+  --gutter: clamp(1.4rem, 4vw, 3.5rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(5.5rem, 14vw, 12rem) minmax(0, 1fr);
+  gap: var(--gutter);
+  padding-block: clamp(2rem, 4.5vw, 4.2rem);
+  border-bottom: 1px solid var(--line);
+}
+.timeline-chapter:last-child { padding-bottom: 0; border-bottom: 0; }
+.chapter-date {
+  position: relative;
+  align-self: start;
+  padding-left: clamp(1.35rem, 2.7vw, 2.5rem);
+  color: var(--mint);
+  font: italic 400 clamp(2.4rem, 5.1vw, 4.5rem)/0.98 var(--serif);
+  letter-spacing: -0.04em;
+}
+.chapter-date span, .chapter-label {
+  font: 500 0.74rem/1.5 var(--mono);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.chapter-date span { display: block; margin-bottom: 0.18rem; color: var(--muted); }
+.chapter-date::before {
+  content: '';
+  position: absolute;
+  left: 0.18rem;
+  top: 0.31em;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--mint) 10%, transparent), 0 0 12px color-mix(in srgb, var(--mint) 35%, transparent);
+}
+.chapter-label { color: var(--muted); }
+.chapter-heading { width: fit-content; margin-top: 0.45rem; color: var(--text); font: 500 clamp(2.05rem, 3.6vw, 3.5rem)/1.04 var(--display); letter-spacing: -0.045em; }
+.chapter-heading em { color: var(--mint); font-family: var(--serif); font-weight: 400; }
+.chapter-prose { max-width: 67ch; margin-top: 0.9rem; color: var(--muted); font-size: 1rem; line-height: 1.65; }
+.chapter-content .journal-link { margin-top: 0.7rem; }
+.chapter-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 1.4rem; gap: 1.2rem clamp(0.75rem, 2vw, 1.5rem); }
+.chapter-photos button, .chapter-workshop button { aspect-ratio: 4/3; border-radius: 0.7rem; }
+.chapter-photos figcaption, .chapter-workshop figcaption { padding-top: 0.55rem; font: 400 0.875rem/1.45 var(--display); color: var(--muted); }
+.chapter-workshop { width: min(100%, 48rem); margin-top: 1.3rem; }
+.chapter-workshop button { aspect-ratio: 1.95; }
+.kesari-chapter { padding: clamp(1.15rem, 3.2vw, 2.7rem); background: radial-gradient(ellipse at right top, color-mix(in srgb, var(--mint) 7%, transparent), transparent 75%), var(--panel); border: 1px solid color-mix(in srgb, var(--line) 86%, var(--mint)); border-radius: var(--radius-card); }
+.kesari-chapter .chapter-label { color: var(--mint); }
+.workflow-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin-block: 1.35rem; }
+.workflow-chips li { display: flex; align-items: center; gap: 0.45rem; color: var(--mint); font: 400 0.76rem/1.5 var(--mono); }
+.workflow-chips li span { color: var(--text); padding: 0.36rem 0.7rem; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--ink); }
+.chapter-impact { padding-block: 1.25rem; border-block: 1px solid var(--line); }
+.chapter-impact dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.7rem; }
+.chapter-impact dl > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+.chapter-impact dd { color: var(--mint); font: 500 clamp(2.2rem, 3.4vw, 3.15rem)/1 var(--display); letter-spacing: -0.05em; }
+.chapter-impact dt { margin-top: 0.4rem; color: var(--text); font-size: 0.9rem; }
+.chapter-impact > p { margin-top: 1rem; color: var(--muted); font: 400 0.72rem/1.5 var(--mono); }
+@media (max-width: 639px) {
+  .timeline-chapter { grid-template-columns: minmax(0, 1fr); gap: 0.8rem; }
+  .chapter-date { display: flex; align-items: baseline; gap: 0.4rem; font-size: 2.65rem; }
+  .chapter-date span { margin: 0; }
+  .chapter-heading { font-size: clamp(2.1rem, 8vw, 2.9rem); }
+  .chapter-photos figcaption { font-size: 0.8rem; }
+  .chapter-impact dt { font-size: 0.8rem; }
+  .chapter-impact dd { font-size: clamp(1.8rem, 7.8vw, 2.5rem); }
 }

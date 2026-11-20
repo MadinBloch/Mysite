@@ -56,8 +56,12 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<TechTicker \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the photo journal on the landing page')
-assert.match(story, /<Workshop \/>[\s\S]*<Hackathon \/>/, 'Open the journal with the Git and Docker workshop')
+assert.match(app, /<Hero \/>[\s\S]*<TechTicker \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
+assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
+  ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
+assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
+assert.ok(story.includes('internal TAP walkthroughs'), 'Credit the internal training in the Kesari chapter')
+assert.ok(read('src/components/Impact.jsx').includes('*developer-reported estimates'))
 for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
   assert.ok(page.includes('id="' + id + '"'), 'Missing journal anchor: ' + id)
 }

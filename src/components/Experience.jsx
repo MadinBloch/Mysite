@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { FiMinus, FiPlus } from 'react-icons/fi'
 import { SectionReveal } from './motion/SectionReveal'
 
-const jobs = [
+export const jobs = [
   {
     id: 'shine',
     title: 'Laravel Developer',

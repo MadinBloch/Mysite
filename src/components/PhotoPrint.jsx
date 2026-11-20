@@ -7,7 +7,7 @@ export function spreadImageSize(index) {
     : '(max-width: 520px) calc(100vw - 2.25rem), (max-width: 1232px) 39vw, 30rem'
 }
 
-export default function PhotoPrint({ photo, caption, className = '', priority = false, sizes, onOpen }) {
+export default function PhotoPrint({ photo, caption, className = '', priority = false, sizes, width = photo.width, height = photo.height, onOpen }) {
   return (
     <figure className={'photo-print ' + className}>
       <button type="button" onClick={onOpen} aria-label={'Open full photo: ' + photo.title}>
@@ -15,8 +15,8 @@ export default function PhotoPrint({ photo, caption, className = '', priority = 
           src={photo.printSrc || photo.src}
           srcSet={photo.previewWidth && `${photo.printSrc} ${photo.previewWidth}w, ${photo.src} ${photo.width}w`}
           sizes={sizes}
-          width={photo.width}
-          height={photo.height}
+          width={width}
+          height={height}
           alt={photo.alt || photo.title}
           style={{ objectPosition: photo.position, objectFit: photo.fit }}
           loading={priority ? 'eager' : 'lazy'}

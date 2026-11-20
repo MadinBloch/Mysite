@@ -11,15 +11,16 @@ export const CASE_STUDIES = {
     intro:
       'Kesari Select connects Sales, Land Ops, Air Ops, Cashier, Product, Finance and more into one operational flow. I own Laravel application work and production deployment. It is a team-built product — not sole authorship.',
     metrics: [
-      { value: '10K+', label: 'Total inquiries', detail: 'Historical accumulated count' },
-      { value: '80–100+', label: 'New inquiries / day', detail: 'Approximate daily volume' },
+      { value: '200+', label: 'Inquiries handled daily', detail: 'Approximate day-to-day platform volume' },
+      { value: '30K+', label: 'Customer records handled', detail: 'Customer data managed through the platform' },
+      { value: '10K+', label: 'Website visitors', detail: 'Website reach, separate from operational records' },
       { value: '700–1,000', label: 'Internal users', detail: 'Team-wide estimate' },
       { value: '15s → 3s', label: 'Observed page load', detail: 'Developer-reported' },
     ],
     challenge:
       'Live ops systems fail quietly: late ERP records, fragile finance exports, and approvals that look fine in the UI but break business rules. The need was predictable recovery — not another one-off patch.',
     approach:
-      'I focused on the paths that connect ERP data to day-to-day ops: scheduled exports with staging, export logs, lookback checks for missed records, guarded approval flows, and the release path from Docker/AWS setup through verification.',
+      'I focused on the paths that connect ERP data to day-to-day ops: scheduled exports with staging, export logs, lookback checks for missed records, guarded approval flows, and the release path from Docker/AWS setup through verification. I also created internal training videos to help Kesari teams learn the TAP system and follow its workflows.',
     decisions: [
       {
         title: 'Make failures recoverable',
@@ -40,7 +41,7 @@ export const CASE_STUDIES = {
     ],
     takeaway:
       'Operational confidence: scheduled work can be inspected and recovered, approvals stay explicit, and production changes ship with ownership. On one slow path, observed load improved from ~15s to ~3s.',
-    note: 'Platform figures and load-time measurements are developer-reported operational estimates; Git authorship supports work categories but does not independently verify these KPIs.',
+    note: 'Platform figures and load-time measurements are developer-reported operational estimates. Website visitors, customer records, and daily inquiries are separate measures. Training videos were created for internal team learning.',
     ctaUrl: 'https://www.kesariselect.com/',
     ctaLabel: 'View public client website',
   },

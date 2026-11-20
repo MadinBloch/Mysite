@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { FiArrowUpRight } from 'react-icons/fi'
+import { FiFilm, FiGrid } from 'react-icons/fi'
 import PhotoDeck from '../components/PhotoDeck'
 import PhotoGrid from '../components/PhotoGrid'
 import { certificatePhotos, hackathonPhotos, meetupPhotos, workshopPhotos } from '../data/photos'
@@ -29,7 +30,6 @@ const albums = [
     title: 'Certificates & achievements',
     description: 'Certificates from the hackathon, backend training and national-level cricket.',
     photos: certificatePhotos,
-    grid: true,
   },
   {
     id: 'meetups',
@@ -37,16 +37,16 @@ const albums = [
     title: 'Laravel meetups',
     description: 'Meeting other PHP and Laravel developers and comparing how we build and deploy our applications.',
     photos: meetupPhotos,
-    grid: true,
   },
 ]
 
 export default function GalleryPage() {
   const [params] = useSearchParams()
+  const [slideshow, setSlideshow] = useState(false)
   const album = albums.find(({ id }) => id === params.get('album')) || albums[0]
 
   return (
-    <div className="portfolio-shell destination-page">
+    <div className="portfolio-shell destination-page archive-page">
       <h1 className="destination-title">Photo <em>archive.</em></h1>
       <nav className="album-menu" aria-label="Photo albums">
         {albums.map(({ id, name, photos }) => (
@@ -60,14 +60,18 @@ export default function GalleryPage() {
           <h2 id="album-title">{album.title}</h2>
           <p>{album.description}</p>
           {album.recordings?.map(([label, href]) => (
-            <a key={href} href={href} target="_blank" rel="noreferrer" className="story-link">{label}<FiArrowUpRight aria-hidden="true" /></a>
+            <a key={href} href={href} target="_blank" rel="noreferrer" className="journal-link">{label}</a>
           ))}
         </div>
-        {album.grid ? (
-          <PhotoGrid photos={album.photos} className="grid gap-4 min-[480px]:grid-cols-2" />
-        ) : (
-          <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
-        )}
+        <div className="album-view-switch" role="group" aria-label="Album layout">
+          <button type="button" aria-pressed={!slideshow} onClick={() => setSlideshow(false)}><FiGrid aria-hidden="true" />All photos</button>
+          <button type="button" aria-pressed={slideshow} onClick={() => setSlideshow(true)}><FiFilm aria-hidden="true" />Slideshow</button>
+        </div>
+        <div className="album-collection">
+          {slideshow
+            ? <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
+            : <PhotoGrid photos={album.photos} />}
+        </div>
       </section>
     </div>
   )

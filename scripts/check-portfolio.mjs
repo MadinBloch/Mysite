@@ -56,11 +56,16 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<WorkHighlights \/>[\s\S]*<PortfolioStory \/>[\s\S]*<Blogs \/>/, 'Introduce Madin, show selected work, then open the personal chapters')
-assert.ok(!app.includes('<Impact />'), 'Figures belong inside the project story')
-assert.match(story, /<Hackathon \/>[\s\S]*<ProductionChapter \/>[\s\S]*<Workshop \/>/, 'Check the order of the chapters')
-for (const [page, id] of [[hackathon, 'hackathon'], [story, 'production'], [workshop, 'workshop']]) {
-  assert.ok(page.includes('id="' + id + '"') && story.includes("id: '" + id + "'"), 'Missing chapter anchor: ' + id)
+assert.match(app, /<Hero \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the photo journal on the landing page')
+assert.match(story, /<Workshop \/>[\s\S]*<Hackathon \/>/, 'Open the journal with the Git and Docker workshop')
+for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
+  assert.ok(page.includes('id="' + id + '"'), 'Missing journal anchor: ' + id)
+}
+assert.ok(app.includes("'#production': '/projects/kesari-select-backend'"), 'Preserve the production story deep link')
+assert.match(workshop, /findIndex\(photo => photo.id === 'git-docker'\)/)
+assert.equal(workshopPhotos.find(photo => photo.id === 'git-docker')?.src, '/workshop/git-docker.jpg')
+for (const id of ['regional', 'presentation', 'finale-team', 'team-certificates']) {
+  assert.ok(hackathon.includes("'" + id + "'") && hackathonPhotos.some(photo => photo.id === id), 'Missing landing photo: ' + id)
 }
 for (const path of ['/projects', '/about', '/gallery', '/blogs']) {
   assert.ok(app.includes('path="' + path + '"'), 'Missing page: ' + path)
@@ -84,9 +89,9 @@ for (const [id, photos] of Object.entries({ hackathon: hackathonPhotos, workshop
     if (printSrc) assert.ok(existsSync('public' + printSrc), 'Reading preview missing: ' + printSrc)
   }
 }
-assert.ok(story.includes('internal TAP walkthrough'), 'Credit the internal training in the TAP chapter')
 
 const highlights = read('src/components/WorkHighlights.jsx')
+assert.ok(highlights.includes('internal TAP walkthrough'), 'Credit internal training in the Kesari work sample')
 for (const project of projects.filter(project => project.caseStudySlug)) {
   assert.ok(highlights.includes("slug: '" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)
 }

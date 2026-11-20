@@ -19,6 +19,7 @@ import CaseStudyPage from './pages/CaseStudyPage'
 
 const legacySections = {
   '#projects': '/projects',
+  '#production': '/projects/kesari-select-backend',
   '#about': '/about',
   '#skills': '/about#skills',
   '#experience': '/about#experience',
@@ -49,9 +50,9 @@ function PageLocation() {
       const target = document.getElementById(hash.slice(1))
       if (!target) return
       target.scrollIntoView({ block: 'start' })
-      const readingStart = hash === '#story' ? target.querySelector('nav a') : target.querySelector('h1, h2, h3')
+      const readingStart = target.querySelector('h1, h2, h3')
       if (readingStart) {
-        if (!readingStart.matches('a')) readingStart.tabIndex = -1
+        readingStart.tabIndex = -1
         readingStart.focus({ preventScroll: true })
       }
     })
@@ -80,8 +81,8 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <WorkHighlights />
       <PortfolioStory />
+      <WorkHighlights />
       <Blogs />
     </>
   )

@@ -1,32 +1,34 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowRight } from 'react-icons/fi'
-import PhotoPrint from './PhotoPrint'
+import PhotoPrint, { spreadImageSize } from './PhotoPrint'
 import Lightbox from './Lightbox'
 import { hackathonPhotos } from '../data/photos'
 
-const teamIndex = hackathonPhotos.findIndex(photo => photo.id === 'finale-team')
+const highlights = ['regional', 'presentation', 'finale-team', 'team-certificates'].map(
+  id => hackathonPhotos.find(photo => photo.id === id),
+)
 
 export default function Hackathon() {
   const [preview, setPreview] = useState(null)
+
   return (
-    <section id="hackathon" className="story-chapter" aria-labelledby="hackathon-title">
-      <p className="chapter-date">2023 <span>/</span> PDEU</p>
-      <h2 id="hackathon-title" className="chapter-title">Explaining the backend<br /><em>to the judges.</em></h2>
-      <div className="chapter-prose">
-        <p>At the New India Vibrant Hackathon, our team made it from the regional round to the Grand Finale at PDEU. I worked on the backend. When we presented, my part was to trace the data through our application and explain why we’d designed it that way.</p>
+    <article id="hackathon" className="hackathon-spread" aria-labelledby="hackathon-title">
+      <div id="landing-hackathon" className="hackathon-heading">
+        <div>
+          <p className="journal-date"><time dateTime="2023">2023</time><span>Grand Finalist · PDEU</span></p>
+          <h3 id="hackathon-title" className="spread-title">New India Vibrant <em>Hackathon.</em></h3>
+        </div>
+        <div className="hackathon-note">
+          <p>Our team went from the regional round to the Grand Finale. I built the backend and walked the judges through how data moved across our application.</p>
+          <Link to="/gallery?album=hackathon" className="journal-link">Full hackathon album</Link>
+        </div>
       </div>
-      <PhotoPrint
-        photo={hackathonPhotos[teamIndex]}
-        caption="With my teammates at the New India Vibrant Hackathon Grand Finale."
-        className="chapter-photo"
-        onOpen={() => setPreview(teamIndex)}
-      />
-      <div className="chapter-prose">
-        <p>In December 2024, I started working with PHP at Magecurious. The following May, I joined Shine Infosoft and began building software for Kesari Select.</p>
+      <div className="journal-photos">
+        {highlights.map((photo, index) => (
+          <PhotoPrint key={photo.id} photo={photo} caption={photo.title} sizes={spreadImageSize(index)} onOpen={() => setPreview(index)} />
+        ))}
       </div>
-      <Link to="/gallery?album=hackathon" className="story-link">Hackathon photos and recordings <FiArrowRight aria-hidden="true" /></Link>
-      {preview !== null && <Lightbox photos={hackathonPhotos} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
-    </section>
+      {preview !== null && <Lightbox photos={highlights} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
+    </article>
   )
 }

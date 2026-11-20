@@ -21,7 +21,7 @@ export function BlogList({ posts, heading: Heading = 'h3' }) {
         <li key={post.slug}>
           <Link
             to={'/blog/' + post.slug}
-            className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-2xl p-4 transition-colors hover:bg-[#1d2d23] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:gap-5 sm:px-6 sm:py-5"
+            className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-2xl p-4 transition-colors hover:bg-[#22272a] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:gap-5 sm:px-6 sm:py-5"
           >
             <time dateTime={post.date} className="portfolio-meta col-start-1 sm:col-auto">{formatPostDate(post.date)}</time>
             <div className="col-start-1 row-start-2 sm:col-auto sm:row-auto">
@@ -42,7 +42,7 @@ export function BlogList({ posts, heading: Heading = 'h3' }) {
 
 export default function Blogs() {
   return (
-    <section id="blogs" className="section-shell bg-[#101814]" aria-labelledby="writing-title">
+    <section id="blogs" className="section-shell bg-[#101114]" aria-labelledby="writing-title">
       <div className="portfolio-shell">
         <SectionReveal className="mb-7 flex flex-wrap items-end justify-between gap-4 sm:mb-9">
           <h2 id="writing-title" className="section-heading">Latest writing</h2>

@@ -53,9 +53,9 @@ function FeaturedProject({ project }) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#426051] bg-[#14231b] p-5 sm:p-6">
+        <div className="rounded-2xl border border-[#426051] bg-[#191d20] p-5 sm:p-6">
           <div className="flex items-center gap-3.5">
-            <div className="grid min-h-[3.2rem] w-24 shrink-0 place-items-center rounded-xl bg-[#0b130e] px-2.5">
+            <div className="grid min-h-[3.2rem] w-24 shrink-0 place-items-center rounded-xl bg-[#0d0f11] px-2.5">
               <img src={project.logo} alt="" width="258" height="113" loading="lazy" decoding="async" />
             </div>
             <div>

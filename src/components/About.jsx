@@ -1,40 +1,39 @@
-import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { FiBookOpen, FiCamera } from 'react-icons/fi'
 import { SectionReveal } from './motion/SectionReveal'
+import { meetupPhotos } from '../data/photos'
 
 export default function About() {
-  return (
-    <section id="about" className="section-shell destination-section bg-[#101814]" aria-labelledby="about-title">
-      <div className="portfolio-shell grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-start lg:gap-16">
-        <SectionReveal>
-          <h1 id="about-title" className="destination-title">My <em>profile.</em></h1>
-          <p className="portfolio-copy mt-5 max-w-[34rem] text-base">
-            I’ve worked on PHP and Laravel applications since December 2024. At Shine Infosoft, I build APIs and ERP integrations, fix production issues, and deploy updates for travel operations software and internal tools.
-          </p>
-          <p className="portfolio-copy mt-4 max-w-[34rem] text-base">
-            I enjoy working through tricky workflows with the people who use them. Outside work, I teach Git and Docker and write about what I’m learning.
-          </p>
-          <Link to="/about#experience" className="link-accent mt-6 min-h-10 text-sm">
-            My experience <FiArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </SectionReveal>
+  const meetup = meetupPhotos[0]
 
-        <SectionReveal delay={0.08}>
-          <dl className="overflow-hidden rounded-[1.5rem] border border-[#33443a] bg-[#18221c]">
-            <div className="grid gap-1.5 px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
-              <dt className="portfolio-meta">Education</dt>
-              <dd className="font-display text-lg font-medium">MCA · Final year<br /><span className="portfolio-copy text-sm">BCA completed · 8.63 CGPA</span></dd>
+  return (
+    <section id="about" className="destination-section about-profile" aria-labelledby="about-title">
+      <div className="portfolio-shell">
+        <div className="bio-layout">
+          <SectionReveal>
+            <h1 id="about-title" className="destination-title">About <em>me.</em></h1>
+            <div className="bio-copy">
+              <p>I’m Madin, a Laravel developer in Ahmedabad. My first PHP role was at Magecurious in December 2024. I joined Shine Infosoft in May 2025, where I build and release software for Kesari Select’s travel teams.</p>
+              <p>I like following a problem all the way through a system. For a missing finance export, that means tracing the record back to the ERP, changing the Laravel job and checking the next delivery after deployment.</p>
+              <p>Outside work, I’ve taught Git and Docker to university students, presented a hackathon project to judges, and played cricket at national level.</p>
             </div>
-            <div className="grid gap-1.5 border-t border-[#33443a] px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
-              <dt className="portfolio-meta">Based in</dt>
-              <dd className="font-display text-lg font-medium">Ahmedabad, India</dd>
+            <div className="bio-links">
+              <Link to="/about#experience" className="sample-link">My experience</Link>
+              <Link to="/#story" className="quiet-link"><FiBookOpen aria-hidden="true" />Read my story</Link>
             </div>
-            <div className="grid gap-1.5 border-t border-[#33443a] px-5 py-4 sm:grid-cols-[.55fr_1fr] sm:items-baseline sm:px-6">
-              <dt className="portfolio-meta">Availability</dt>
-              <dd className="font-display text-lg font-medium">Open to remote backend roles</dd>
-            </div>
-          </dl>
-        </SectionReveal>
+          </SectionReveal>
+          <SectionReveal className="bio-photo" delay={0.06}>
+            <Link to="/gallery?album=meetups">
+              <img src={meetup.src} alt={meetup.title} decoding="async" width="1200" height="800" style={{ objectPosition: meetup.position }} />
+              <span><FiCamera aria-hidden="true" />Laravel meetup photos</span>
+            </Link>
+          </SectionReveal>
+        </div>
+        <dl className="profile-facts">
+          <div><dt>Current role</dt><dd>Laravel Developer · Shine Infosoft</dd></div>
+          <div><dt>Education</dt><dd>MCA final year · BCA, 8.63 CGPA</dd></div>
+          <div><dt>Work preferences</dt><dd>Ahmedabad · Remote or relocation</dd></div>
+        </dl>
       </div>
     </section>
   )

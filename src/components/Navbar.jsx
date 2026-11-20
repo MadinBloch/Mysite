@@ -2,19 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { FiArrowUpRight, FiDownload, FiMenu, FiX } from 'react-icons/fi'
 
-const galleryIds = ['workshop', 'hackathon', 'certificates', 'community']
 const links = [
-  ['projects', 'Work'],
-  ['about', 'About'],
-  ['experience', 'Experience'],
-  ['workshop', 'Gallery'],
-  ['blogs', 'Writing'],
+  ['/', 'Story'],
+  ['/projects', 'Work'],
+  ['/about', 'Profile'],
+  ['/gallery', 'Gallery'],
+  ['/blogs', 'Writing'],
 ]
-const sectionIds = ['home', 'projects', 'about', 'skills', 'experience', ...galleryIds, 'blogs', 'contact']
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [section, setSection] = useState('home')
   const header = useRef(null)
   const menuButton = useRef(null)
   const location = useLocation()
@@ -23,34 +20,6 @@ export default function Navbar() {
   useEffect(() => {
     setOpen(false)
   }, [location.key])
-
-  useEffect(() => {
-    if (pathname !== '/') return
-
-    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean)
-    const syncSection = () => {
-      let active = 'home'
-      let closest = -Infinity
-
-      for (const element of sections) {
-        const top = element.getBoundingClientRect().top
-        if (top <= 115 && top > closest) {
-          active = element.id
-          closest = top
-        }
-      }
-
-      setSection(active)
-    }
-
-    syncSection()
-    window.addEventListener('scroll', syncSection, { passive: true })
-    window.addEventListener('resize', syncSection)
-    return () => {
-      window.removeEventListener('scroll', syncSection)
-      window.removeEventListener('resize', syncSection)
-    }
-  }, [pathname])
 
   useEffect(() => {
     if (!open) return
@@ -72,19 +41,15 @@ export default function Navbar() {
     }
   }, [open])
 
-  let active = section
-  if (pathname.startsWith('/projects/')) active = 'projects'
-  else if (pathname.startsWith('/blog')) active = 'blogs'
-  else if (pathname !== '/') active = null
-  else if (galleryIds.includes(section)) active = 'workshop'
-  else if (section === 'skills') active = 'about'
+  const activePath = pathname.startsWith('/projects/') ? '/projects'
+    : pathname.startsWith('/blog/') ? '/blogs' : pathname
 
-  const navLinks = links.map(([id, label]) => (
+  const navLinks = links.map(([path, label]) => (
     <Link
-      key={id}
-      to={'/#' + id}
+      key={path}
+      to={path}
       className="nav-link"
-      aria-current={active === id ? 'location' : undefined}
+      aria-current={activePath === path ? 'page' : undefined}
       onClick={() => setOpen(false)}
     >
       {label}

@@ -39,8 +39,9 @@ export const hackathonPhotos = [
   {
     id: 'finale-team',
     src: '/image3hackthone.jpg',
+    printSrc: '/photos/hackathon-team.webp',
     title: 'With the team at the Grand Finale',
-    position: 'center 38%',
+    position: 'center 12%',
   },
   {
     id: 'team-certificates',
@@ -50,6 +51,7 @@ export const hackathonPhotos = [
   {
     id: 'presentation',
     src: '/image2hackthone.jpg',
+    printSrc: '/photos/hackathon-presentation.webp',
     title: 'Presenting the solution',
     caption: 'Discussing the backend with the judges',
   },

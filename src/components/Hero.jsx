@@ -1,68 +1,48 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiDownload, FiGithub, FiLinkedin, FiMapPin } from 'react-icons/fi'
-import PhotoDeck from './PhotoDeck'
-import { hackathonPhotos, meetupPhotos, workshopPhotos } from '../data/photos'
+import { FiArrowDown, FiDownload, FiMapPin } from 'react-icons/fi'
+import PhotoPrint from './PhotoPrint'
+import Lightbox from './Lightbox'
+import { hackathonPhotos } from '../data/photos'
 
-const photos = [
-  {
-    id: 'portrait',
-    src: '/profile-portrait.png',
-    title: 'Madin Bloch',
-    alt: 'Formal portrait of Madin Bloch',
-    caption: 'Ahmedabad, India',
-    position: 'center 30%',
-  },
-  workshopPhotos[1],
-  hackathonPhotos[0],
-  meetupPhotos[0],
-]
+const portrait = {
+  id: 'portrait',
+  src: '/profile-portrait.png',
+  printSrc: '/photos/madin-portrait.webp',
+  title: 'Madin Bloch',
+  alt: 'Madin Bloch in a navy suit',
+  caption: 'Laravel backend developer · Ahmedabad, India',
+  position: 'center 34%',
+}
+const coverPhotos = [portrait, hackathonPhotos.find(photo => photo.id === 'presentation')]
 
 export default function Hero() {
+  const [preview, setPreview] = useState(null)
+
   return (
-    <section id="home" className="hero" aria-labelledby="home-title">
-      <div className="portfolio-shell grid items-center gap-7 sm:gap-10 lg:grid-cols-[1.08fr_.92fr] lg:gap-14">
-        <div className="hero-enter min-w-0">
-          <p className="mb-5 flex items-center gap-2.5 text-sm font-medium text-[#c1e3ce] sm:mb-8">
-            <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_#6ee7b77a]" aria-hidden="true" />
-            Open to backend roles
-          </p>
-          <h1 id="home-title" className="hero-title">Madin Bloch<span className="text-accent">.</span></h1>
-          <p className="mt-4 font-display text-2xl font-medium tracking-tight text-[#b8efd2] sm:mt-5 sm:text-[2rem]">
-            Laravel Backend Developer
-          </p>
-          <p className="portfolio-copy mt-4 max-w-[29rem] text-base sm:text-[1.04rem]">
-            I build and deploy Laravel APIs, ERP integrations, and background jobs for Kesari Select’s travel operations platform.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-9 sm:gap-3">
-            <Link to="/projects/kesari-select-backend" className="btn-primary">
-              Kesari Select case study <FiArrowUpRight size={17} aria-hidden="true" />
-            </Link>
-            <a href="/Madin_Bloch_Resume.pdf" download className="btn-outline">
-              Resume <FiDownload size={16} aria-hidden="true" />
-            </a>
+    <section id="home" className="story-cover" aria-labelledby="home-title">
+      <div className="portfolio-shell">
+        <div className="cover-layout">
+          <div className="hero-enter">
+            <p className="cover-byline"><span aria-hidden="true" />Madin Bloch <span className="byline-divider" aria-hidden="true">/</span> Laravel developer</p>
+            <h1 id="home-title" className="cover-title">From a <br />hackathon<br /><em>to production.</em></h1>
+            <p className="cover-intro">In 2023, I explained our team’s backend to a room of hackathon judges. Today I build and deploy the Laravel software that Kesari Select uses to run travel operations.</p>
+            <div className="cover-actions">
+              <Link to="/#story" className="btn-primary">Read my story <FiArrowDown size={16} aria-hidden="true" /></Link>
+              <a href="/Madin_Bloch_Resume.pdf" download className="cover-resume">Resume <FiDownload size={16} aria-hidden="true" /></a>
+            </div>
           </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[#385044] pt-4 text-sm text-[#a9b8ad] sm:mt-10">
-            <span className="inline-flex items-center gap-2">
-              <FiMapPin className="text-accent" aria-hidden="true" /> Ahmedabad, India
-            </span>
-            <a href="https://github.com/MadinBloch" target="_blank" rel="noreferrer" className="link-accent">
-              <FiGithub aria-hidden="true" /> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/madin-bloch/" target="_blank" rel="noreferrer" className="link-accent">
-              <FiLinkedin aria-hidden="true" /> LinkedIn
-            </a>
+          <div className="cover-photos hero-enter">
+            <PhotoPrint photo={portrait} caption="Madin Bloch" className="cover-portrait" priority onOpen={() => setPreview(0)} />
+            <PhotoPrint photo={coverPhotos[1]} caption="Hackathon, 2023" className="cover-snapshot" onOpen={() => setPreview(1)} />
           </div>
         </div>
-
-        <PhotoDeck
-          photos={photos}
-          label="Portrait and highlights"
-          priority
-          className="hero-enter mx-auto w-full max-w-[36rem] [--enter-delay:110ms]"
-        />
+        <div className="cover-footer">
+          <span><FiMapPin size={14} aria-hidden="true" />Ahmedabad, India</span>
+          <span><i aria-hidden="true" />Open to backend roles</span>
+        </div>
       </div>
+      {preview !== null && <Lightbox photos={coverPhotos} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
     </section>
   )
 }

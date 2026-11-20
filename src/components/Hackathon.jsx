@@ -1,39 +1,32 @@
-import { FiArrowUpRight, FiPlay } from 'react-icons/fi'
-import PhotoDeck from './PhotoDeck'
-import { SectionReveal } from './motion/SectionReveal'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FiArrowRight } from 'react-icons/fi'
+import PhotoPrint from './PhotoPrint'
+import Lightbox from './Lightbox'
 import { hackathonPhotos } from '../data/photos'
 
-const recordings = [
-  { label: 'Regional round recording', href: 'https://www.youtube.com/watch?v=N-U6c92QPeA' },
-  { label: 'Project walkthrough', href: 'https://www.youtube.com/watch?v=yLy_fBdOT7M' },
-]
+const teamIndex = hackathonPhotos.findIndex(photo => photo.id === 'finale-team')
 
 export default function Hackathon() {
+  const [preview, setPreview] = useState(null)
   return (
-    <section id="hackathon" className="section-shell" aria-labelledby="hackathon-title">
-      <div className="portfolio-shell grid items-center gap-7 lg:grid-cols-[1.28fr_.72fr] lg:gap-14">
-        <SectionReveal>
-          <p className="section-label">Grand Finalist · PDEU · 2023</p>
-          <h2 id="hackathon-title" className="mt-3 font-display text-[clamp(2.1rem,4.5vw,3.65rem)] font-semibold leading-[1.03] tracking-tight">
-            New India Vibrant Hackathon
-          </h2>
-          <p className="portfolio-copy mt-4 max-w-xl text-sm sm:text-base">
-            Our team advanced from the regional round to the Grand Finale. I worked on the backend, presented the data flow, and explained our architecture choices to the judges.
-          </p>
-          <ul className="mt-6 space-y-2 border-t border-[#34483c] pt-4">
-            {recordings.map(({ label, href }) => (
-              <li key={href}>
-                <a href={href} target="_blank" rel="noreferrer" className="link-accent min-h-10 text-sm">
-                  <FiPlay size={16} aria-hidden="true" /> {label} <FiArrowUpRight size={15} aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </SectionReveal>
-        <SectionReveal className="lg:order-first">
-          <PhotoDeck photos={hackathonPhotos} label="Hackathon photos" />
-        </SectionReveal>
+    <section id="hackathon" className="story-chapter" aria-labelledby="hackathon-title">
+      <p className="chapter-date">2023 <span>/</span> PDEU</p>
+      <h2 id="hackathon-title" className="chapter-title">Explaining the backend<br /><em>to the judges.</em></h2>
+      <div className="chapter-prose">
+        <p>At the New India Vibrant Hackathon, our team made it from the regional round to the Grand Finale at PDEU. I worked on the backend. When we presented, my part was to trace the data through our application and explain why we’d designed it that way.</p>
       </div>
+      <PhotoPrint
+        photo={hackathonPhotos[teamIndex]}
+        caption="With my teammates at the New India Vibrant Hackathon Grand Finale."
+        className="chapter-photo"
+        onOpen={() => setPreview(teamIndex)}
+      />
+      <div className="chapter-prose">
+        <p>In December 2024, I started working with PHP at Magecurious. The following May, I joined Shine Infosoft and began building software for Kesari Select.</p>
+      </div>
+      <Link to="/gallery?album=hackathon" className="story-link">Hackathon photos and recordings <FiArrowRight aria-hidden="true" /></Link>
+      {preview !== null && <Lightbox photos={hackathonPhotos} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
     </section>
   )
 }

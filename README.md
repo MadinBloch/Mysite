@@ -13,12 +13,13 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx`: Personal introduction, portrait carousel, and links to work and the resume.
+- `src/components/Hero.jsx`: Photographic cover, story entry point and resume download.
+- `src/components/PortfolioStory.jsx` connects the hackathon, Kesari Select and university workshop chapters.
 - `src/components/About.jsx`: Short biography.
 - `src/components/Skills.jsx`: Backend, data and deployment skills.
 - `src/components/Projects.jsx`: Filterable project cards with a featured Kesari Select case study and its operating figures.
 - `src/components/Experience.jsx`: Employment history.
-- `src/components/Media.jsx`: Certificates and awards. Workshop, hackathon, and meetup photos are shown in their own sections.
+- `src/pages/GalleryPage.jsx` holds the four photo albums, full-size photos and public hackathon recordings.
 - `src/components/Contact.jsx`: Contact and social links.
 - `src/pages/CaseStudyPage.jsx`: Optional details after clicking a project.
 - `src/data/projects.json`: Project card content.
@@ -34,4 +35,4 @@ The photo carousels support swipe, thumbnails, and arrow keys. The full-size vie
 
 ## Deployment
 
-Vercel deploys the default `main` branch. The project CI runs content validation and a Vite production build. The `vercel.json` rewrite supports case-study deep links.
+Vercel deploys the default `main` branch. The project CI runs content validation and a Vite production build. The `vercel.json` rewrite supports direct links to projects, the profile, gallery albums and individual stories.

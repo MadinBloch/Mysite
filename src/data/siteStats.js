@@ -4,8 +4,6 @@ export const kesariStats = [
   { count: 10000, label: 'Website visitors', detail: 'Visitors to the public Kesari Select site' },
 ]
 
-export const statsNote = 'Approximate figures reported by the developer.'
-
 const compactNumber = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
 
 export function formatCount(count) {

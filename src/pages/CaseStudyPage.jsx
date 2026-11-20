@@ -1,86 +1,24 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
 import { FiArrowLeft, FiArrowUpRight, FiPlus } from 'react-icons/fi'
 import { CASE_STUDIES } from '../data/caseStudies'
 import projects from '../data/projects.json'
 
 function ProjectStory({ study }) {
-  const [active, setActive] = useState(0)
-  const buttons = useRef([])
-  const reduce = useReducedMotion()
-  const tabs = [
-    { id: 'overview', label: 'Overview', body: study.intro },
-    { id: 'challenge', label: 'Challenge', body: study.challenge },
-    { id: 'approach', label: 'Approach', body: study.approach },
+  const sections = [
+    ['Overview', study.intro],
+    ['Challenge', study.challenge],
+    ['Approach', study.approach],
   ]
 
-  function handleKeyDown(event) {
-    let next
-    switch (event.key) {
-      case 'ArrowRight':
-        next = (active + 1) % tabs.length
-        break
-      case 'ArrowLeft':
-        next = (active - 1 + tabs.length) % tabs.length
-        break
-      case 'Home':
-        next = 0
-        break
-      case 'End':
-        next = tabs.length - 1
-        break
-      default:
-        return
-    }
-
-    event.preventDefault()
-    setActive(next)
-    buttons.current[next]?.focus()
-  }
-
   return (
-    <section className="portfolio-panel p-5 sm:p-7" aria-labelledby="story-title">
-      <h2 id="story-title" className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Project story</h2>
-      <div className="mb-4 mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Project story" onKeyDown={handleKeyDown}>
-        {tabs.map((tab, index) => (
-          <button
-            key={tab.id}
-            ref={(node) => { buttons.current[index] = node }}
-            id={'story-tab-' + tab.id}
-            type="button"
-            role="tab"
-            aria-controls={'story-panel-' + tab.id}
-            aria-selected={active === index}
-            tabIndex={active === index ? 0 : -1}
-            className="filter-button"
-            onClick={() => setActive(index)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      {tabs.map((tab, index) => (
-        <div
-          key={tab.id}
-          id={'story-panel-' + tab.id}
-          role="tabpanel"
-          aria-labelledby={'story-tab-' + tab.id}
-          tabIndex={0}
-          hidden={active !== index}
-          className="border-t border-[#385043] pt-4"
-        >
-          {active === index && (
-            <motion.p
-              initial={reduce ? false : { opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduce ? 0 : 0.24 }}
-              className="portfolio-copy max-w-3xl text-sm sm:text-base"
-            >
-              {tab.body}
-            </motion.p>
-          )}
-        </div>
+    <section className="case-reading" aria-labelledby="story-title">
+      <h2 id="story-title" className="font-display text-3xl font-semibold tracking-tight">Project story</h2>
+      {sections.map(([label, body]) => (
+        <section key={label} className="case-paragraph">
+          <h3>{label}</h3>
+          <p className="portfolio-copy">{body}</p>
+        </section>
       ))}
     </section>
   )
@@ -116,14 +54,14 @@ export default function CaseStudyPage() {
     return (
       <section className="portfolio-shell pb-24 pt-36">
         <h1 className="section-heading">Project not found</h1>
-        <Link to="/#projects" className="btn-primary mt-6">Back to work</Link>
+        <Link to="/projects" className="btn-primary mt-6">Back to work</Link>
       </section>
     )
   }
 
   return (
     <article className="portfolio-shell pb-20 pt-28 sm:pb-28 sm:pt-36">
-      <Link to="/#projects" className="link-accent mb-5 min-h-10 text-sm">
+      <Link to="/projects" className="link-accent mb-5 min-h-10 text-sm">
         <FiArrowLeft size={17} aria-hidden="true" /> Selected work
       </Link>
       <header className="project-feature hero-enter grid items-end gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.43fr] lg:p-10">

@@ -4,17 +4,17 @@ import { SectionReveal } from './motion/SectionReveal'
 
 export default function About() {
   return (
-    <section id="about" className="section-shell bg-[#101814]" aria-labelledby="about-title">
+    <section id="about" className="section-shell destination-section bg-[#101814]" aria-labelledby="about-title">
       <div className="portfolio-shell grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-start lg:gap-16">
         <SectionReveal>
-          <h2 id="about-title" className="section-heading">About me</h2>
+          <h1 id="about-title" className="destination-title">My <em>profile.</em></h1>
           <p className="portfolio-copy mt-5 max-w-[34rem] text-base">
             I’ve worked on PHP and Laravel applications since December 2024. At Shine Infosoft, I build APIs and ERP integrations, fix production issues, and deploy updates for travel operations software and internal tools.
           </p>
           <p className="portfolio-copy mt-4 max-w-[34rem] text-base">
             I enjoy working through tricky workflows with the people who use them. Outside work, I teach Git and Docker and write about what I’m learning.
           </p>
-          <Link to="/#experience" className="link-accent mt-6 min-h-10 text-sm">
+          <Link to="/about#experience" className="link-accent mt-6 min-h-10 text-sm">
             My experience <FiArrowRight size={16} aria-hidden="true" />
           </Link>
         </SectionReveal>

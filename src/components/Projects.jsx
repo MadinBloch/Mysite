@@ -118,10 +118,10 @@ export default function Projects() {
   const otherProjects = visibleProjects.filter((project) => project !== featured)
 
   return (
-    <section id="projects" className="section-shell" aria-labelledby="projects-title">
+    <section id="projects" className="section-shell destination-section" aria-labelledby="projects-title">
       <div className="portfolio-shell">
         <SectionReveal className="mb-7 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 sm:mb-9">
-          <h2 id="projects-title" className="section-heading">Selected work</h2>
+          <h1 id="projects-title" className="destination-title">Selected <em>work.</em></h1>
           <a href="https://github.com/MadinBloch" target="_blank" rel="noreferrer" className="btn-outline">
             <FiGithub size={17} aria-hidden="true" /> GitHub profile <FiArrowUpRight size={15} aria-hidden="true" />
           </a>

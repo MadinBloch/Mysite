@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useReducedMotion } from 'framer-motion'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
@@ -23,6 +23,14 @@ export default function PhotoDeck({ photos, label, priority = false, className =
       carousel.off('reInit', syncSelected)
     }
   }, [carousel])
+
+  useLayoutEffect(() => {
+    const slides = carousel?.slideNodes()
+    const focused = document.activeElement
+    if (slides?.includes(focused) && focused !== slides[selected]) {
+      slides[selected]?.focus({ preventScroll: true })
+    }
+  }, [carousel, selected])
 
   function move(direction) {
     if (direction === -1) carousel?.scrollPrev(Boolean(reduce))
@@ -66,9 +74,11 @@ export default function PhotoDeck({ photos, label, priority = false, className =
         </div>
 
         <div className="deck-caption flex min-h-[4.5rem] items-center justify-between gap-3 px-1 py-2">
-          <div className="min-w-0" aria-live="polite">
-            <p className="font-display text-[1.05rem] font-semibold leading-snug sm:text-lg">{current.title}</p>
-            {current.caption && <p className="portfolio-meta mt-0.5">{current.caption}</p>}
+          <div className="min-w-0" aria-live="polite" aria-atomic="true">
+            <div key={current.id} className="deck-photo-detail">
+              <p className="font-display text-[1.05rem] font-semibold leading-snug sm:text-lg">{current.title}</p>
+              {current.caption && <p className="portfolio-meta mt-0.5">{current.caption}</p>}
+            </div>
           </div>
           <div className="flex shrink-0 gap-1.5 sm:gap-2">
             <button type="button" className="icon-button" aria-label="Previous photo" onClick={() => move(-1)}>
@@ -96,7 +106,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover"
-                style={{ objectPosition: photo.position }}
+                style={{ objectPosition: photo.thumbPosition || photo.position }}
               />
               {isCover && <span className="thumb-label">{photo.shortLabel}</span>}
             </button>

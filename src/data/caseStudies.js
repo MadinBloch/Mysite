@@ -4,8 +4,8 @@ import { formatCount, kesariPageLoad, kesariStats } from './siteStats.js'
 export const CASE_STUDIES = {
   'kesari-select-backend': {
     number: '01',
-    title: 'Shipping Laravel features for day-to-day travel operations.',
-    subtitle: 'Laravel APIs, ERP integrations, and production releases for the Travel Assist Platform.',
+    title: 'Laravel APIs and reliable ERP exports',
+    subtitle: 'Backend engineering and production releases for Kesari Select’s Travel Assist Platform.',
     period: '2025 — Present',
     category: 'Client platform',
     tone: 'green',
@@ -47,8 +47,8 @@ export const CASE_STUDIES = {
   },
   'email-campaign-engine': {
     number: '02',
-    title: '10,000 rows in. The browser stays responsive.',
-    subtitle: 'Laravel campaign tooling for fast imports and controlled background delivery.',
+    title: 'Excel imports and queued email campaigns',
+    subtitle: 'Laravel workers send campaigns in the background and give operators control over delivery.',
     period: '2025 — 2026',
     category: 'Internal platform',
     tone: 'cream',
@@ -90,8 +90,8 @@ export const CASE_STUDIES = {
   },
   'smart-print-operations': {
     number: '03',
-    title: 'Reliability lives in the small decisions.',
-    subtitle: 'Hardening a print-operations app without a full rewrite.',
+    title: 'Consistent job sheets for print teams',
+    subtitle: 'Improvements to inquiry intake, permissions and record recovery in an existing Laravel app.',
     period: 'May — June 2025',
     category: 'Operational software',
     tone: 'dark',

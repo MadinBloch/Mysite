@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiBriefcase, FiLayers, FiMail, FiPrinter } from 'react-icons/fi'
+import { FiArchive, FiBriefcase, FiLayers, FiMail, FiPrinter, FiShield } from 'react-icons/fi'
 import projects from '../data/projects.json'
 import { CASE_STUDIES } from '../data/caseStudies'
 import { kesariPageLoad } from '../data/siteStats'
@@ -9,20 +9,20 @@ const samples = [
   {
     slug: 'kesari-select-backend',
     icon: FiBriefcase,
-    heading: 'Less waiting on a travel workflow.',
-    contribution: 'I optimized a slow page in Kesari Select’s Travel Assist Platform. My work also covers the Laravel APIs, ERP exports and production releases used by Sales, Operations and Finance.',
+    heading: 'Laravel backend for travel operations',
+    contribution: 'I added export logs and recovery checks for late ERP records. Finance can trace which records went out and include missed ones in a later export.',
   },
   {
     slug: 'email-campaign-engine',
     icon: FiMail,
-    heading: 'From spreadsheet to a queued campaign.',
-    contribution: 'I built an Excel import that validates recipients and writes them in batches. Laravel workers handle delivery separately, so operators can check progress and pause or resume sending.',
+    heading: 'Excel imports and queued email campaigns',
+    contribution: 'I built an Excel import that validates recipients and saves them in batches. Laravel workers send the campaign in the background while operators track progress, pause or resume sending.',
   },
   {
     slug: 'smart-print-operations',
     icon: FiPrinter,
-    heading: 'Safer changes to live print jobs.',
-    contribution: 'I worked on a running print-operations app. I aligned role checks across screens, added recoverable deletes and made job sheets use the same validation rules.',
+    heading: 'Consistent job sheets for print teams',
+    contribution: 'I updated inquiry intake and made print, web and other job sheets use the same VAT and validation rules.',
   },
 ].map(sample => ({ ...sample, project: projects.find(project => project.caseStudySlug === sample.slug) }))
 
@@ -30,34 +30,51 @@ function Evidence({ slug }) {
   if (slug === 'kesari-select-backend') {
     const { before, after } = kesariPageLoad
     return (
-      <figure className="work-evidence" aria-label="Observed load time on one TAP page">
-        <figcaption>Observed page load</figcaption>
+      <figure className="work-evidence" aria-label="Before and after page load times">
+        <figcaption>Production page load</figcaption>
         <dl className="load-times">
           {[['Before', before], ['After', after]].map(([label, seconds]) => (
             <div key={label}>
               <dt>{label}</dt>
               <dd>
-                <strong>≈ {seconds} s</strong>
+                <strong>{seconds}<span> s</span></strong>
                 <span className="load-track" aria-hidden="true"><i style={{ width: (seconds / before * 100) + '%' }} /></span>
               </dd>
             </div>
           ))}
         </dl>
-        <p>One production page, timed by me.</p>
+        <p>Approximate times I observed on one Travel Assist Platform page.</p>
       </figure>
     )
   }
 
-  const study = CASE_STUDIES[slug]
+  if (slug === 'smart-print-operations') {
+    return (
+      <div className="work-evidence">
+        <p className="evidence-label">Changes in Smart Print</p>
+        <ul className="work-changes">
+          <li>
+            <FiShield aria-hidden="true" />
+            <div><strong>Role checks</strong><p>Apply the same permissions across screens.</p></div>
+          </li>
+          <li>
+            <FiArchive aria-hidden="true" />
+            <div><strong>Soft deletes</strong><p>Keep deleted records available for recovery.</p></div>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
   return (
     <div className="work-evidence">
-      <p className="evidence-label">{slug === 'email-campaign-engine' ? 'Database import test' : 'Contribution record'}</p>
+      <p className="evidence-label">Recipient import benchmark</p>
       <dl className="work-measures">
-        {study.metrics.slice(0, 2).map(({ label, value }) => (
+        {CASE_STUDIES[slug].metrics.slice(0, 2).map(({ label, value }) => (
           <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
         ))}
       </dl>
-      <p>{slug === 'email-campaign-engine' ? 'Timed from insertion to completion of the database batch.' : 'May–June 2025, including 22 non-merge commits.'}</p>
+      <p>I measured the database insert for the batch.</p>
     </div>
   )
 }
@@ -104,10 +121,12 @@ export default function WorkHighlights() {
         <div id="work-sample" role="tabpanel" aria-labelledby={'tab-' + sample.slug} tabIndex={0} className="work-sample">
           <div className="sample-layout" key={sample.slug}>
             <div className="sample-story">
-              <p className="sample-context">{sample.project.category} <span>·</span> {sample.project.year}</p>
+              <p className="sample-context">{sample.project.title} <span aria-hidden="true">·</span> {sample.project.year}</p>
               <h3>{sample.heading}</h3>
               <p>{sample.contribution}</p>
-              <Link to={'/projects/' + sample.slug} className="sample-link">Read the case study<span className="sr-only"> for {sample.project.title}</span></Link>
+              <Link to={'/projects/' + sample.slug} className="sample-link">
+                Read the case study<span className="sr-only"> for {sample.project.title}</span>
+              </Link>
             </div>
             <Evidence slug={sample.slug} />
           </div>

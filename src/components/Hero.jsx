@@ -11,21 +11,23 @@ const photos = [
     printSrc: '/photos/madin-portrait.webp',
     title: 'Madin Bloch',
     alt: 'Portrait of Madin Bloch in a navy suit',
-    caption: 'Ahmedabad, India',
-    position: 'center 12%',
+    position: 'center 7%',
+    thumbPosition: 'center 6%',
     shortLabel: 'Portrait',
   },
   {
-    ...hackathonPhotos.find(photo => photo.id === 'presentation'),
+    ...hackathonPhotos.find(photo => photo.id === 'finale-team'),
     shortLabel: 'Hackathon',
-    title: 'Presenting our backend',
+    title: 'With my team at the Grand Finale',
     caption: 'New India Vibrant Hackathon · 2023',
+    thumbPosition: 'center 15%',
   },
   {
-    ...workshopPhotos[0],
+    ...workshopPhotos.find(photo => photo.id === 'workshop-certificate'),
     shortLabel: 'Workshop',
-    title: 'Teaching Git and Docker',
+    title: 'After the Git and Docker workshop',
     caption: 'Dr. Subhash University · August 2026',
+    fit: 'contain',
   },
 ]
 
@@ -34,29 +36,26 @@ export default function Hero() {
     <section id="home" className="profile-cover" aria-labelledby="home-title">
       <div className="portfolio-shell cover-layout">
         <div className="cover-copy">
-          <p className="availability"><span aria-hidden="true" />Open to backend roles</p>
+          <div className="cover-context">
+            <p className="availability"><span aria-hidden="true" />Open to backend roles</p>
+            <p className="cover-location"><FiMapPin aria-hidden="true" />Ahmedabad, India</p>
+          </div>
           <h1 id="home-title" className="cover-title">Madin <em>Bloch.</em></h1>
           <p className="cover-role">Laravel Backend Developer</p>
           <p className="cover-intro">
-            I build the software Kesari Select’s teams use to take a travel inquiry through to a booking. At Shine Infosoft, I write the Laravel APIs, connect them to the ERP, and deploy the changes on AWS.
+            At Shine Infosoft, I build Laravel APIs and ERP integrations for Kesari Select’s booking and finance teams. I deploy with Docker and verify releases on AWS.
           </p>
           <div className="cover-actions">
             <Link to="/#selected-work" className="btn-primary">Explore my work</Link>
             <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" /> Download resume</a>
           </div>
           <div className="cover-links">
-            <span><FiMapPin aria-hidden="true" />Ahmedabad, India</span>
             <a href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" />GitHub</a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" />LinkedIn</a>
+            <Link to="/#story" className="cover-story-link"><FiBookOpen aria-hidden="true" />My story</Link>
           </div>
         </div>
         <PhotoDeck photos={photos} label="Madin in photos" appearance="cover" priority />
-      </div>
-      <div className="portfolio-shell">
-        <div className="cover-note">
-          <p>Outside client work, I teach Git and Docker and meet other Laravel developers.</p>
-          <Link to="/#story"><FiBookOpen aria-hidden="true" />Read my story</Link>
-        </div>
       </div>
     </section>
   )

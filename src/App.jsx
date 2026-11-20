@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { MotionConfig, useReducedMotion } from 'framer-motion'
+import { Link, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
-import Impact from './components/Impact'
 import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
@@ -19,18 +19,15 @@ import BlogPostPage from './pages/BlogPostPage'
 import CaseStudyPage from './pages/CaseStudyPage'
 
 function ScrollToSection() {
-  const { pathname, hash } = useLocation()
+  const { key, hash } = useLocation()
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0)
-      return
-    }
     const frame = requestAnimationFrame(() => {
-      document.getElementById(hash.substring(1))?.scrollIntoView({ block: 'start', behavior: 'instant' })
+      if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' })
+      else window.scrollTo(0, 0)
     })
     return () => cancelAnimationFrame(frame)
-  }, [pathname, hash])
+  }, [key, hash])
 
   return null
 }
@@ -39,7 +36,6 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Impact />
       <Projects />
       <About />
       <Skills />
@@ -47,20 +43,24 @@ function HomePage() {
       <Workshop />
       <Hackathon />
       <Media />
-      <Blogs />
       <Community />
-      <Contact />
+      <Blogs />
     </>
   )
 }
 
 export default function App() {
+  const reduce = useReducedMotion()
+
   return (
-    <div className="noise-overlay min-h-screen bg-zinc-950 text-zinc-100">
-      <ScrollProgress />
+    <MotionConfig reducedMotion="user">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-[#10251b]">
+        Skip to content
+      </a>
+      {!reduce && <ScrollProgress />}
       <ScrollToSection />
       <Navbar />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects/:slug" element={<CaseStudyPage />} />
@@ -69,17 +69,15 @@ export default function App() {
           <Route
             path="*"
             element={
-              <div className="mx-auto max-w-4xl px-6 pb-36 pt-40">
-                <p className="section-label">404 / Page not found</p>
-                <h1 className="mt-4 font-display text-5xl font-semibold text-white">Nothing here, unfortunately.</h1>
-                <a href="/" className="mt-8 inline-flex text-accent hover:text-white">
-                  Back to portfolio ↗
-                </a>
-              </div>
+              <section className="portfolio-shell pb-28 pt-36">
+                <h1 className="section-heading">Page not found</h1>
+                <Link to="/" className="btn-primary mt-8">Back to portfolio</Link>
+              </section>
             }
           />
         </Routes>
       </main>
-    </div>
+      <Contact />
+    </MotionConfig>
   )
 }

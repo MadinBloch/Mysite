@@ -1,77 +1,56 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { FiArrowUpRight } from 'react-icons/fi'
 import blogs from '../data/blogs.json'
 import { SectionReveal } from './motion/SectionReveal'
 
-function BlogCard({ post, index }) {
-  const date = new Date(post.date).toLocaleDateString('en-IN', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
+const postDate = new Intl.DateTimeFormat('en-IN', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+})
 
+export function formatPostDate(date) {
+  return postDate.format(new Date(date))
+}
+
+export function BlogList({ posts, heading: Heading = 'h3' }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.06 }}
-      whileHover={{ y: -6 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-900/65 p-5 transition-colors hover:border-accent/30 sm:p-6"
-    >
-      <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
-      <p className="relative mb-2 font-mono text-[11px] text-zinc-600">{date}</p>
-      <h3 className="relative mb-2 font-display text-[15px] font-semibold leading-snug text-zinc-100 transition-colors group-hover:text-accent">
-        {post.title}
-      </h3>
-      {post.preview && (
-        <p className="relative line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">{post.preview}</p>
-      )}
-      <Link
-        to={`/blog/${post.slug}`}
-        className="relative mt-5 inline-flex items-center gap-1 font-mono text-xs text-zinc-500 transition-colors group-hover:text-accent"
-      >
-        Read article <span aria-hidden="true">→</span>
-      </Link>
-    </motion.article>
+    <ul className="portfolio-panel divide-y divide-[#34443a]">
+      {posts.map((post) => (
+        <li key={post.slug}>
+          <Link
+            to={'/blog/' + post.slug}
+            className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 rounded-2xl p-4 transition-colors hover:bg-[#1d2d23] sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:gap-5 sm:px-6 sm:py-5"
+          >
+            <time dateTime={post.date} className="portfolio-meta col-start-1 sm:col-auto">{formatPostDate(post.date)}</time>
+            <div className="col-start-1 row-start-2 sm:col-auto sm:row-auto">
+              <Heading className="font-display text-[1.25rem] font-semibold leading-tight transition-colors group-hover:text-accent sm:text-[1.4rem]">
+                {post.title}
+              </Heading>
+              {post.preview && <p className="portfolio-copy mt-1 text-sm">{post.preview}</p>}
+            </div>
+            <span className="icon-button col-start-2 row-span-2 row-start-1 self-center group-hover:border-accent/60 group-hover:text-accent sm:col-auto sm:row-auto">
+              <FiArrowUpRight size={18} aria-hidden="true" />
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }
 
 export default function Blogs() {
-  const featuredPosts = blogs.slice(0, 3)
-
   return (
-    <section id="blogs" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionReveal className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="section-label">Writing</p>
-            <h2 className="section-heading mt-2 mb-2">Latest notes</h2>
-            <p className="text-sm text-zinc-500">
-              Backend architecture, Laravel workflows, and DevOps learning.
-            </p>
-          </div>
-          <Link
-            to="/blogs"
-            className="rounded-full border border-zinc-700 px-3.5 py-2 font-mono text-xs text-zinc-300 transition-colors hover:border-accent/40 hover:text-accent"
-          >
-            View all blogs
-          </Link>
+    <section id="blogs" className="section-shell bg-[#101814]" aria-labelledby="writing-title">
+      <div className="portfolio-shell">
+        <SectionReveal className="mb-7 flex flex-wrap items-end justify-between gap-4 sm:mb-9">
+          <h2 id="writing-title" className="section-heading">Latest writing</h2>
+          <Link to="/blogs" className="btn-outline">All posts <FiArrowUpRight size={17} aria-hidden="true" /></Link>
         </SectionReveal>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredPosts.map((post, index) => (
-            <BlogCard key={post.slug} post={post} index={index} />
-          ))}
-        </div>
-
-        <p className="mt-6 font-mono text-xs text-zinc-600">
-          Also publishing on{' '}
-          <a href="https://madinbloch.hashnode.dev/" target="_blank" rel="noreferrer" className="link-accent">
-            Hashnode
-          </a>
-          .
-        </p>
+        <SectionReveal>
+          <BlogList posts={blogs.slice(0, 3)} />
+        </SectionReveal>
       </div>
     </section>
   )

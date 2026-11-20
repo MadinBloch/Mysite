@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { FiMinus, FiPlus } from 'react-icons/fi'
 import { SectionReveal } from './motion/SectionReveal'
 
 const jobs = [
@@ -9,13 +10,12 @@ const jobs = [
     company: 'Shine Infosoft',
     period: 'May 2025 — Present',
     location: 'Ahmedabad, India',
-    current: true,
     focus: ['Laravel APIs', 'Queues', 'Docker Deployments'],
-    summary: 'Building and shipping production backend systems for live business platforms.',
     points: [
       'Own Laravel backend features, integrations, and production fixes for travel operations software.',
       'Improve reliability with validation, background jobs, and careful release checks.',
       'Deploy and troubleshoot with Docker, AWS EC2, Nginx, PHP-FPM, and SSL.',
+      'Recorded an internal TAP training walkthrough for Kesari’s Sales and Operations teams.',
     ],
   },
   {
@@ -24,9 +24,7 @@ const jobs = [
     company: 'Magecurious',
     period: 'Dec 2024 — May 2025',
     location: 'Ahmedabad, India',
-    current: false,
     focus: ['PHP', 'Business workflows', 'Bug fixes'],
-    summary: 'Grew into professional PHP development through real product workflows.',
     points: [
       'Delivered PHP features and business workflow updates in a collaborative team.',
       'Fixed production bugs and learned how maintainable backend code looks day to day.',
@@ -36,126 +34,68 @@ const jobs = [
 
 export default function Experience() {
   const [openId, setOpenId] = useState(jobs[0].id)
+  const reduce = useReducedMotion()
 
   return (
-    <section id="experience" className="relative overflow-hidden py-20 sm:py-24">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionReveal className="mb-10 flex flex-wrap items-end justify-between gap-5">
-          <div>
-            <p className="section-label">Career so far</p>
-            <h2 className="section-heading mt-2">Experience</h2>
-          </div>
-          <p className="max-w-sm text-sm leading-7 text-zinc-500">
-            Expand a role for the day-to-day ownership — short, clear, impact-first.
-          </p>
+    <section id="experience" className="section-shell" aria-labelledby="experience-title">
+      <div className="portfolio-shell grid gap-8 lg:grid-cols-[.52fr_1fr] lg:gap-12">
+        <SectionReveal>
+          <h2 id="experience-title" className="section-heading">Experience</h2>
         </SectionReveal>
+        <SectionReveal className="grid gap-3">
+          {jobs.map((job) => {
+            const open = openId === job.id
+            const detailId = job.id + '-experience'
 
-        <div className="relative grid gap-6 lg:grid-cols-[220px_1fr]">
-          <div className="relative hidden lg:block">
-            <div className="absolute bottom-6 left-[11px] top-6 w-px bg-gradient-to-b from-accent via-zinc-700 to-transparent" />
-            <div className="space-y-8 pt-2">
-              {jobs.map((job) => (
-                <button
-                  key={job.id}
-                  type="button"
-                  onClick={() => setOpenId(job.id)}
-                  className="relative flex w-full items-start gap-4 text-left"
-                >
-                  <span
-                    className={
-                      'mt-1 h-3 w-3 shrink-0 rounded-full border-2 transition-all ' +
-                      (openId === job.id
-                        ? 'border-accent bg-accent shadow-[0_0_16px_rgba(110,231,183,.6)]'
-                        : 'border-zinc-600 bg-zinc-950')
-                    }
-                  />
-                  <span>
-                    <span className={'block font-mono text-[11px] ' + (openId === job.id ? 'text-accent' : 'text-zinc-500')}>
-                      {job.period}
-                    </span>
-                    <span className={'mt-1 block text-sm font-semibold ' + (openId === job.id ? 'text-white' : 'text-zinc-400')}>
-                      {job.company}
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {jobs.map((job) => {
-              const open = openId === job.id
-              return (
-                <motion.article
-                  key={job.id}
-                  layout
-                  className={
-                    'overflow-hidden rounded-2xl border transition-colors ' +
-                    (open
-                      ? 'border-accent/35 bg-zinc-900/80 shadow-[0_0_36px_rgba(110,231,183,0.07)]'
-                      : 'border-zinc-800/90 bg-zinc-900/45 hover:border-zinc-700')
-                  }
-                >
-
+            return (
+              <article key={job.id} className="portfolio-panel min-w-0">
+                <h3>
                   <button
                     type="button"
-                    onClick={() => setOpenId(job.id)}
-                    className="flex w-full items-start justify-between gap-4 p-5 text-left sm:p-6"
+                    aria-expanded={open}
+                    aria-controls={detailId}
+                    onClick={() => setOpenId(open ? null : job.id)}
+                    className="group flex w-full items-center justify-between gap-3 rounded-[1.5rem] px-5 py-4 text-left sm:px-6 sm:py-5"
                   >
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-display text-xl font-semibold text-white">{job.title}</h3>
-                        {job.current && (
-                          <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[10px] font-medium text-accent">
-                            Current
-                          </span>
-                        )}
-                      </div>
-                      <p className="mt-1 text-sm font-medium text-zinc-300">
-                        {job.company} · <span className="text-zinc-500">{job.location}</span>
-                      </p>
-                      <p className="mt-3 text-sm leading-6 text-zinc-400">{job.summary}</p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {job.focus.map((item) => (
-                          <span key={item} className="rounded-full border border-zinc-700 bg-zinc-950/60 px-2.5 py-1 font-mono text-[10px] text-zinc-400">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <span className={'mt-1 font-mono text-xs text-accent transition-transform ' + (open ? 'rotate-45' : '')}>+</span>
+                    <span className="min-w-0">
+                      <span className="portfolio-meta block">{job.period} · {job.location}</span>
+                      <span className="mt-1.5 block font-display text-[1.35rem] font-semibold leading-tight transition-colors group-hover:text-accent sm:text-2xl">
+                        {job.title}
+                      </span>
+                      <span className="mt-1 block text-sm text-[#b9d9c5]">{job.company}</span>
+                    </span>
+                    <span className="icon-button" aria-hidden="true">
+                      {open ? <FiMinus size={17} /> : <FiPlus size={17} />}
+                    </span>
                   </button>
+                </h3>
 
+                <div id={detailId} aria-hidden={!open}>
                   <AnimatePresence initial={false}>
                     {open && (
                       <motion.div
-                        key="details"
-                        initial={{ height: 0, opacity: 0 }}
+                        initial={reduce ? false : { height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                        exit={reduce ? undefined : { height: 0, opacity: 0 }}
+                        transition={{ duration: reduce ? 0 : 0.25 }}
                         className="overflow-hidden"
                       >
-                        <div className="border-t border-zinc-800 px-5 pb-6 pt-2 sm:px-6">
-                          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">What I did</p>
-                          <ul className="space-y-3">
-                            {job.points.map((point) => (
-                              <li key={point} className="flex items-start gap-3 text-[13px] leading-7 text-zinc-300">
-                                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                                <span>{point}</span>
-                              </li>
-                            ))}
+                        <div className="mx-5 border-t border-[#33443a] py-4 sm:mx-6">
+                          <ul className="portfolio-copy list-disc space-y-2 pl-5 text-sm marker:text-accent">
+                            {job.points.map((point) => <li key={point}>{point}</li>)}
+                          </ul>
+                          <ul aria-label="Tools and responsibilities" className="mt-4 flex flex-wrap gap-1.5">
+                            {job.focus.map((item) => <li key={item} className="tag">{item}</li>)}
                           </ul>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.article>
-              )
-            })}
-          </div>
-        </div>
+                </div>
+              </article>
+            )
+          })}
+        </SectionReveal>
       </div>
     </section>
   )

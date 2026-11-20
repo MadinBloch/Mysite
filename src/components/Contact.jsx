@@ -1,65 +1,41 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { FiArrowUpRight, FiDownload, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { SectionReveal } from './motion/SectionReveal'
 
-const actions = [
-  { href: 'mailto:madinkhan0633@gmail.com?subject=Hello%20Madin%20-%20Let%27s%20connect&body=Hi%20Madin%2C%0A%0A', label: 'Say hello', primary: true },
-  { href: '/Madin_Bloch_Resume.pdf', label: 'Resume', download: true },
-  { href: 'https://www.linkedin.com/in/madin-bloch/', label: 'LinkedIn', external: true },
-  { href: 'https://github.com/MadinBloch', label: 'GitHub', external: true },
-]
+const email = 'madinkhan0633@gmail.com'
 
 export default function Contact() {
-  const reduce = useReducedMotion()
-
   return (
-    <footer id="contact" className="relative overflow-hidden border-t border-zinc-900 py-20 sm:py-24">
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-[radial-gradient(ellipse_at_bottom,rgba(110,231,183,.11),transparent_70%)]"
-        aria-hidden="true"
-      />
-      <div className="pointer-events-none absolute inset-0 grid-fade opacity-25" aria-hidden="true" />
-
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionReveal className="flex flex-col items-center text-center">
-          <p className="section-label">Let’s connect</p>
-          <h2 className="section-heading mt-3 max-w-2xl">
-            Building something that needs a solid backend<span className="text-accent">?</span>
-          </h2>
-          <p className="mt-5 max-w-lg text-[15px] leading-8 text-zinc-400">
-            I’m based in Ahmedabad and open to remote-friendly Laravel / backend roles.
-            If you have a product, a messy workflow, or a production problem — say hello.
-          </p>
-
-          <motion.a
-            href={actions[0].href}
-            className="btn-primary mt-9 px-9 py-4 text-base"
-            whileHover={reduce ? undefined : { scale: 1.03 }}
-            whileTap={reduce ? undefined : { scale: 0.98 }}
-          >
-            Say hello <span aria-hidden="true">↗</span>
-          </motion.a>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {actions.slice(1).map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                {...(link.download ? { download: true } : { target: '_blank', rel: 'noreferrer' })}
-                className="min-w-[7.5rem] rounded-full border border-zinc-700/90 bg-zinc-900/60 px-5 py-2.5 text-center text-[13px] font-medium text-zinc-300 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-[0_0_24px_rgba(110,231,183,0.12)]"
-              >
-                {link.label} {link.download ? '↓' : '↗'}
-              </a>
-            ))}
+    <footer id="contact" className="section-shell" aria-labelledby="contact-title">
+      <div className="portfolio-shell">
+        <SectionReveal className="project-feature grid items-end gap-6 p-6 sm:p-9 lg:grid-cols-[1fr_auto] lg:p-11">
+          <div>
+            <h2 id="contact-title" className="section-heading">Let’s talk Laravel.</h2>
+            <p className="portfolio-copy mt-4 max-w-xl text-base">I’m based in Ahmedabad and open to backend roles, including remote opportunities.</p>
           </div>
-
-          <p className="mt-8 font-mono text-[11px] tracking-[0.12em] text-zinc-600">
-            madinkhan0633@gmail.com
-          </p>
+          <div className="flex flex-wrap gap-2 sm:gap-3">
+            <a href={'mailto:' + email} className="btn-primary">
+              <FiMail size={17} aria-hidden="true" /> Email me
+            </a>
+            <a href="/Madin_Bloch_Resume.pdf" download className="btn-outline">
+              Resume <FiDownload size={17} aria-hidden="true" />
+            </a>
+          </div>
         </SectionReveal>
 
-        <div className="mt-16 flex flex-wrap justify-between gap-3 border-t border-zinc-800/90 pt-6 text-[11px] text-zinc-600">
-          <span>© {new Date().getFullYear()} Madin Bloch</span>
-          <span>Built with React, Vite & Tailwind CSS</span>
+        <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[#314137] pt-5">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <Link to="/" className="font-display text-base font-semibold">Madin Bloch</Link>
+            <a href={'mailto:' + email} className="portfolio-meta break-all hover:text-accent">{email}</a>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <a href="https://github.com/MadinBloch" target="_blank" rel="noreferrer" className="link-accent">
+              <FiGithub size={16} aria-hidden="true" /> GitHub <FiArrowUpRight size={14} aria-hidden="true" />
+            </a>
+            <a href="https://www.linkedin.com/in/madin-bloch/" target="_blank" rel="noreferrer" className="link-accent">
+              <FiLinkedin size={16} aria-hidden="true" /> LinkedIn <FiArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

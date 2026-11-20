@@ -1,8 +1,13 @@
-// These values come from developer-reported operational context, not analytics exports.
-export const siteStats = [
-  { id:'daily-inquiries', a:200, suffix:'+', label:'inquiries handled daily', note:'Typical platform workload across the Kesari Select team' },
-  { id:'customer-records', a:30000, suffix:'+', label:'customer records handled', note:'Customer data managed through the platform' },
-  { id:'site-visitors', a:10000, suffix:'+', label:'website visitors', note:'Website reach, shown separately from customer records and inquiries' },
-  { id:'team-users', a:700, b:1000, label:'internal team users', note:'Sales, Land/Air Ops, Cashier, Product, Finance & more' },
+export const kesariStats = [
+  { count: 200, label: 'Daily inquiries', detail: 'Inquiries handled in TAP each day' },
+  { count: 30000, label: 'Customer records', detail: 'Customer records managed through TAP' },
+  { count: 10000, label: 'Website visitors', detail: 'Visitors to the public Kesari Select site' },
 ]
-export const statsDisclaimer = 'Operational figures are approximate and developer-reported. Website visitors, customer records, and daily inquiries are separate measures.'
+
+export const statsNote = 'Approximate figures reported by the developer.'
+
+const compactNumber = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 })
+
+export function formatCount(count) {
+  return compactNumber.format(count)
+}

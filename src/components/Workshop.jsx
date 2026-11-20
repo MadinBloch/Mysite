@@ -11,17 +11,12 @@ export default function Workshop() {
   const [preview, setPreview] = useState(null)
 
   return (
-    <article id="workshop" className="workshop-spread" aria-labelledby="workshop-title">
-      <div className="workshop-heading">
-        <p className="journal-date"><time dateTime="2026-08">Aug 2026</time><span>Junagadh</span></p>
-        <h3 id="workshop-title" className="spread-title">Git &amp; Docker <em>workshop.</em></h3>
-      </div>
-      <PhotoPrint photo={workshop} className="workshop-lead" onOpen={() => setPreview(workshopIndex)} />
-      <div className="workshop-note">
-        <p className="workshop-deck">{workshop.caption}.</p>
-        <p>I took my everyday Git workflow to Dr. Subhash University, then helped students run Docker on their own machines.</p>
-        <Link to="/gallery?album=workshop" className="journal-link">View the workshop album</Link>
-      </div>
+    <article id="workshop" aria-labelledby="workshop-title">
+      <p className="chapter-label">Junagadh</p>
+      <h3 id="workshop-title" className="chapter-heading">Git &amp; Docker <em>workshop.</em></h3>
+      <p className="chapter-prose">I took my everyday Git workflow to Dr. Subhash University, then helped students run Docker on their own machines.</p>
+      <PhotoPrint photo={workshop} width={800} height={600} className="chapter-workshop" caption={workshop.caption} onOpen={() => setPreview(workshopIndex)} />
+      <Link to="/gallery?album=workshop" className="journal-link">View the workshop album</Link>
       {preview !== null && <Lightbox photos={workshopPhotos} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}
     </article>
   )

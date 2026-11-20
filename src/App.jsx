@@ -4,6 +4,7 @@ import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
+import TechTicker from './components/TechTicker'
 import WorkHighlights from './components/WorkHighlights'
 import About from './components/About'
 import Skills from './components/Skills'
@@ -81,6 +82,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <TechTicker />
       <PortfolioStory />
       <WorkHighlights />
       <Blogs />
@@ -93,7 +95,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-[#10251b]">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-ink">
         Skip to content
       </a>
       {!reduce && <ScrollProgress />}

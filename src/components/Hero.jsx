@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiCamera, FiDownload, FiMapPin } from 'react-icons/fi'
-import Impact from './Impact'
+import { FiBookOpen, FiDownload, FiTerminal } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 import PhotoPrint from './PhotoPrint'
 import { profile } from '../data/profile'
@@ -12,39 +11,47 @@ const portrait = {
   printSrc: '/photos/madin-portrait.webp',
   title: 'Madin Bloch',
   alt: 'Madin Bloch in a navy suit',
-  position: '50% 10%',
+  width: 800,
+  height: 800,
 }
+
+const trace = [
+  ['inquiry', 'received'],
+  ['laravel', 'validated'],
+  ['erp', 'export queued'],
+  ['finance', 'file ready'],
+]
 
 export default function Hero() {
   const [showPortrait, setShowPortrait] = useState(false)
 
   return (
-    <section id="home" className="profile-cover" aria-labelledby="home-title">
-      <div className="cover-stage">
-        <div className="portfolio-shell">
-          <div className="cover-heading">
-            <p className="cover-role">Laravel Backend Developer</p>
-            <h1 id="home-title" className="cover-title">Madin <em>Bloch.</em></h1>
-          </div>
-          <div className="cover-copy">
-            <p className="cover-intro">
-              At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.
-            </p>
-            <div className="cover-actions">
-              <Link to="/#selected-work" className="btn-primary">Explore my work</Link>
-              <a href={profile.resume} download className="resume-link"><FiDownload aria-hidden="true" />Download resume</a>
-            </div>
-            <div className="cover-details">
-              <p className="availability"><span aria-hidden="true" />Open to backend roles</p>
-              <p className="cover-location"><FiMapPin aria-hidden="true" />Ahmedabad, India</p>
-            </div>
+    <section id="home" className="story-cover" aria-labelledby="home-title">
+      <div className="portfolio-shell hero-grid">
+        <div className="hero-copy">
+          <p className="hero-status"><span aria-hidden="true" />Open to backend roles · Ahmedabad</p>
+          <p className="hero-role">Laravel Backend Developer</p>
+          <h1 id="home-title">From hackathon <span>to <em>production.</em></span></h1>
+          <p className="hero-intro">
+            At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.
+          </p>
+          <div className="hero-actions">
+            <Link to="/#story" className="btn-primary"><FiBookOpen aria-hidden="true" />Read my story</Link>
+            <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" />Resume</a>
           </div>
         </div>
-        <PhotoPrint photo={portrait} priority className="cover-portrait" onOpen={() => setShowPortrait(true)} />
-        <Link to="/#story" className="cover-journal-link"><FiCamera aria-hidden="true" />Photo journal</Link>
-      </div>
-      <div className="cover-impact">
-        <div className="portfolio-shell"><Impact /></div>
+
+        <div className="portrait-stage">
+          <PhotoPrint photo={portrait} priority className="portrait-print" caption={portrait.title} onOpen={() => setShowPortrait(true)} />
+          <figure className="trace-card">
+            <figcaption><FiTerminal aria-hidden="true" />trace · illustrative</figcaption>
+            <ul>
+              {trace.map(([event, message]) => (
+                <li key={event}><code>{event}</code><span>{message}</span></li>
+              ))}
+            </ul>
+          </figure>
+        </div>
       </div>
       {showPortrait && <Lightbox photos={[portrait]} index={0} onClose={() => setShowPortrait(false)} />}
     </section>

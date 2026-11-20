@@ -13,16 +13,16 @@ export function formatPostDate(date) {
   return postDate.format(new Date(date))
 }
 
-export function BlogList({ posts, heading: Heading = 'h3' }) {
+export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
   return (
-    <ul className="writing-list">
+    <ul className={compact ? 'writing-list writing-rows' : 'writing-list'}>
       {posts.map(post => (
         <li key={post.slug}>
           <Link to={'/blog/' + post.slug}>
             <time dateTime={post.date}>{formatPostDate(post.date)}</time>
             <div>
               <Heading>{post.title}</Heading>
-              {post.preview && <p>{post.preview}</p>}
+              {!compact && post.preview && <p>{post.preview}</p>}
             </div>
           </Link>
         </li>
@@ -40,7 +40,7 @@ export default function Blogs() {
           <Link to="/blogs" className="quiet-link">All posts</Link>
         </SectionReveal>
         <SectionReveal>
-          <BlogList posts={blogs.slice(0, 3)} />
+          <BlogList compact posts={blogs.slice(0, 3)} />
         </SectionReveal>
       </div>
     </section>

@@ -56,7 +56,7 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the photo journal on the landing page')
+assert.match(app, /<Hero \/>[\s\S]*<TechTicker \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the photo journal on the landing page')
 assert.match(story, /<Workshop \/>[\s\S]*<Hackathon \/>/, 'Open the journal with the Git and Docker workshop')
 for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
   assert.ok(page.includes('id="' + id + '"'), 'Missing journal anchor: ' + id)

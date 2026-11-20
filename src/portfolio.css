@@ -683,3 +683,12 @@
   .masthead { width: calc(100% - 1.5rem); top: 0.5rem; }
   .masthead-bar { height: 3.2rem; }
 }
+
+.tech-strip { border-block: 1px solid var(--line); background: var(--panel); }
+.tech-strip ul { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); padding-block: 0.95rem; }
+.tech-strip li { padding: 0.2rem; text-align: center; color: var(--muted); font: 500 clamp(0.72rem, 1.1vw, 0.9rem)/1.5 var(--mono); letter-spacing: 0.07em; text-transform: uppercase; }
+.tech-strip li + li { border-left: 1px solid var(--line); }
+@media (max-width: 639px) {
+  .tech-strip ul { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0.65rem; }
+  .tech-strip li:nth-child(5) { border-left: 0; }
+}

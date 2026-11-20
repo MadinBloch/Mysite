@@ -510,3 +510,22 @@
   .paper-card h3 { max-width: none; margin-top: 1rem; }
   .paper-card p { max-width: 68ch; }
 }
+
+.writing-section { background: var(--ink); }
+.writing-rows li > a { align-items: center; grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1.7fr) auto; }
+.writing-rows li > a > svg { color: var(--muted); font-size: 1.22rem; }
+.writing-list li > a:is(:hover, :focus-visible) :is(h2, h3, svg) { color: var(--mint); }
+.closing-cta { background: radial-gradient(ellipse at 13% 100%, color-mix(in srgb, var(--mint) 8%, transparent), transparent 63%), var(--panel); }
+.closing-cta .contact-layout { padding-block: var(--section-space); grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.closing-cta h2 { max-width: 17ch; text-wrap: balance; }
+.closing-cta .contact-actions { justify-self: end; min-width: 0; }
+@media (max-width: 700px) {
+  .closing-cta .contact-layout { grid-template-columns: minmax(0, 1fr); }
+  .closing-cta .contact-actions { justify-self: start; }
+}
+@media (max-width: 639px) {
+  .writing-rows li > a { grid-template-columns: minmax(0, 1fr) auto; gap: 0.35rem 0.8rem; }
+  .writing-rows time { grid-column: 1; }
+  .writing-rows li > a div { grid-column: 1; }
+  .writing-rows li > a > svg { grid-area: 1/2/3/3; }
+}

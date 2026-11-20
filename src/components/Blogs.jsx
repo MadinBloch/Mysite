@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 import blogs from '../data/blogs.json'
 import { SectionReveal } from './motion/SectionReveal'
 
@@ -13,17 +14,18 @@ export function formatPostDate(date) {
   return postDate.format(new Date(date))
 }
 
-export function BlogList({ posts, heading: Heading = 'h3' }) {
+export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
   return (
-    <ul className="writing-list">
+    <ul className={compact ? 'writing-list writing-rows' : 'writing-list'}>
       {posts.map(post => (
         <li key={post.slug}>
           <Link to={'/blog/' + post.slug}>
             <time dateTime={post.date}>{formatPostDate(post.date)}</time>
             <div>
               <Heading>{post.title}</Heading>
-              {post.preview && <p>{post.preview}</p>}
+              {!compact && post.preview && <p>{post.preview}</p>}
             </div>
+            {compact && <FiArrowUpRight aria-hidden="true" />}
           </Link>
         </li>
       ))}
@@ -37,10 +39,10 @@ export default function Blogs() {
       <div className="portfolio-shell">
         <SectionReveal className="spread-heading">
           <h2 id="writing-title" className="editorial-heading">Latest <em>writing.</em></h2>
-          <Link to="/blogs" className="quiet-link">All posts</Link>
+          <Link to="/blogs" className="quiet-link">All posts <FiArrowRight aria-hidden="true" /></Link>
         </SectionReveal>
         <SectionReveal>
-          <BlogList posts={blogs.slice(0, 3)} />
+          <BlogList compact posts={blogs.slice(0, 3)} />
         </SectionReveal>
       </div>
     </section>

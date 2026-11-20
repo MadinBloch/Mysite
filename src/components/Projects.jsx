@@ -33,7 +33,7 @@ function FeaturedProject({ project }) {
       <div className="grid gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.7fr] lg:items-center lg:gap-12 lg:p-10">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#b7edcd]">
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
               {project.type}
             </span>
@@ -53,9 +53,9 @@ function FeaturedProject({ project }) {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#426051] bg-[#191d20] p-5 sm:p-6">
+        <div className="rounded-2xl border border-line bg-panel p-5 sm:p-6">
           <div className="flex items-center gap-3.5">
-            <div className="grid min-h-[3.2rem] w-24 shrink-0 place-items-center rounded-xl bg-[#0d0f11] px-2.5">
+            <div className="grid min-h-[3.2rem] w-24 shrink-0 place-items-center rounded-xl bg-ink px-2.5">
               <img src={project.logo} alt="" width="258" height="113" loading="lazy" decoding="async" />
             </div>
             <div>
@@ -63,7 +63,7 @@ function FeaturedProject({ project }) {
               <p className="portfolio-meta mt-1">Laravel · ERP · AWS</p>
             </div>
           </div>
-          <p className="portfolio-copy my-4 border-y border-[#345043] py-4 text-sm">{project.contribution}</p>
+          <p className="portfolio-copy my-4 border-y border-line py-4 text-sm">{project.contribution}</p>
           <Stack technologies={project.tech} />
         </div>
       </div>
@@ -76,20 +76,20 @@ function ProjectCard({ project }) {
   const Icon = icons[project.id] || FiCpu
 
   return (
-    <article className="portfolio-panel group flex h-full min-w-0 flex-col p-5 transition-colors hover:border-[#527c67] sm:p-6">
+    <article className="portfolio-panel group flex h-full min-w-0 flex-col p-5 transition-colors hover:border-line sm:p-6">
       <div className="flex items-center justify-between gap-3">
-        <span className="grid h-11 w-11 place-items-center rounded-xl border border-[#3a5847] bg-[#213529] text-accent">
+        <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-line text-accent">
           <Icon size={20} aria-hidden="true" />
         </span>
         <p className="portfolio-meta text-right">{project.type} · {project.year}</p>
       </div>
       <h3 className="mt-5 font-display text-[1.55rem] font-semibold leading-tight tracking-tight">{project.title}</h3>
       <p className="portfolio-copy mt-2 flex-1 text-sm">{project.description}</p>
-      <p className="mb-4 mt-4 text-sm font-medium leading-relaxed text-[#cee9d8]">{project.contribution}</p>
+      <p className="mb-4 mt-4 text-sm font-medium leading-relaxed text-foreground">{project.contribution}</p>
       <Stack technologies={project.tech} />
 
       {(project.caseStudySlug || project.github || project.live) && (
-        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-[#33443a] pt-4 text-sm">
+        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-line pt-4 text-sm">
           {project.caseStudySlug && (
             <Link to={'/projects/' + project.caseStudySlug} className="link-accent" aria-label={'Read ' + project.title + ' case study'}>
               Case study <FiArrowUpRight size={16} aria-hidden="true" />

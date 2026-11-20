@@ -12,10 +12,10 @@ export function SectionReveal({ children, className = '', delay = 0 }) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.65, delay, ease }}
+      transition={{ duration: 0.42, delay, ease }}
     >
       {children}
     </motion.div>
@@ -58,7 +58,7 @@ export function StaggerItem({ children, className = '' }) {
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 22 },
+        hidden: { opacity: 0, y: 9 },
         show: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
       }}
     >

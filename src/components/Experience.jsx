@@ -62,7 +62,7 @@ export default function Experience() {
                       <span className="mt-1.5 block font-display text-[1.35rem] font-semibold leading-tight transition-colors group-hover:text-accent sm:text-2xl">
                         {job.title}
                       </span>
-                      <span className="mt-1 block text-sm text-[#b9d9c5]">{job.company}</span>
+                      <span className="mt-1 block text-sm text-accent">{job.company}</span>
                     </span>
                     <span className="icon-button" aria-hidden="true">
                       {open ? <FiMinus size={17} /> : <FiPlus size={17} />}
@@ -80,7 +80,7 @@ export default function Experience() {
                         transition={{ duration: reduce ? 0 : 0.25 }}
                         className="overflow-hidden"
                       >
-                        <div className="mx-5 border-t border-[#33443a] py-4 sm:mx-6">
+                        <div className="mx-5 border-t border-line py-4 sm:mx-6">
                           <ul className="portfolio-copy list-disc space-y-2 pl-5 text-sm marker:text-accent">
                             {job.points.map((point) => <li key={point}>{point}</li>)}
                           </ul>

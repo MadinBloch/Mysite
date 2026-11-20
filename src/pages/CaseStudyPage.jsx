@@ -68,7 +68,7 @@ export default function CaseStudyPage() {
         <div>
           <p className="section-label">{project.category} · {project.year}</p>
           <h1 className="section-heading mt-3">{project.title}</h1>
-          <p className="mt-4 max-w-2xl font-display text-[1.45rem] font-medium leading-tight text-[#d1f4df] sm:text-3xl">{study.title}</p>
+          <p className="mt-4 max-w-2xl font-display text-[1.45rem] font-medium leading-tight text-accent sm:text-3xl">{study.title}</p>
           <p className="portfolio-copy mt-3 max-w-xl text-base">{study.subtitle}</p>
           {study.ctaUrl && (
             <a href={study.ctaUrl} target="_blank" rel="noreferrer" className="btn-outline mt-6">
@@ -76,7 +76,7 @@ export default function CaseStudyPage() {
             </a>
           )}
         </div>
-        <div className="rounded-xl border border-[#365345] bg-[#142219] p-4">
+        <div className="rounded-xl border border-line bg-panel p-4">
           <p className="portfolio-meta mb-3">Tech stack</p>
           <ul className="flex flex-wrap gap-1.5">
             {study.stack.map((technology) => <li className="tag" key={technology}>{technology}</li>)}
@@ -90,7 +90,7 @@ export default function CaseStudyPage() {
             {study.metrics.map((metric) => (
               <div key={metric.label} className="portfolio-panel p-4 sm:p-5">
                 <dt className="portfolio-copy text-xs font-semibold sm:text-sm">{metric.label}</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold leading-tight tracking-tight text-[#a8f3cb] sm:text-3xl">
+                <dd className="mt-1 font-display text-2xl font-semibold leading-tight tracking-tight text-accent sm:text-3xl">
                   {metric.value}
                 </dd>
                 <dd className="portfolio-meta mt-2">{metric.detail}</dd>
@@ -129,7 +129,7 @@ export default function CaseStudyPage() {
           <h2 id="related-title" className="font-display text-2xl font-semibold tracking-tight">More case studies</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {related.map((item) => (
-              <Link key={item.id} to={'/projects/' + item.caseStudySlug} className="portfolio-panel group flex items-center justify-between gap-3 p-5 transition-colors hover:border-accent/55">
+              <Link key={item.id} to={'/projects/' + item.caseStudySlug} className="portfolio-panel group flex items-center justify-between gap-3 p-5 transition-colors hover:border-accent">
                 <div>
                   <p className="portfolio-meta">{item.category}</p>
                   <h3 className="mt-1 font-display text-xl font-semibold transition-colors group-hover:text-accent">{item.title}</h3>

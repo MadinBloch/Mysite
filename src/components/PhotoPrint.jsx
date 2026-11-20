@@ -15,6 +15,8 @@ export default function PhotoPrint({ photo, caption, className = '', priority = 
           src={photo.printSrc || photo.src}
           srcSet={photo.previewWidth && `${photo.printSrc} ${photo.previewWidth}w, ${photo.src} ${photo.width}w`}
           sizes={sizes}
+          width={photo.width}
+          height={photo.height}
           alt={photo.alt || photo.title}
           style={{ objectPosition: photo.position, objectFit: photo.fit }}
           loading={priority ? 'eager' : 'lazy'}

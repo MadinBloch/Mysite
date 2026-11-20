@@ -115,93 +115,15 @@
   text-decoration: underline;
   text-underline-offset: 0.36em;
 }
-.profile-cover {
-  padding-top: var(--masthead-height);
-  background: var(--panel);
-}
-.cover-stage {
-  position: relative;
-  isolation: isolate;
-  background: radial-gradient(ellipse at 41% 38%, var(--line) 0%, var(--panel) 35%, var(--panel) 72%);
-}
-.cover-stage > .portfolio-shell { padding-block: clamp(2.8rem, 4.2vw, 4.4rem) clamp(1.5rem, 3.2vw, 3.1rem); }
-.cover-heading, .cover-copy { width: 49%; }
-.cover-role, .journal-date {
-  display: flex;
-  align-items: center;
-  gap: 0.62rem;
-  color: var(--mint);
-  font: 500 0.8rem / 1.45 var(--mono);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-.cover-role {
-  font-size: clamp(0.94rem, 1.18vw, 1.08rem);
-  letter-spacing: 0.055em;
-}
-.cover-role::before {
-  content: '';
-  width: 1.8rem;
-  height: 2px;
-  flex: none;
-  background: var(--mint);
-}
-.cover-title {
-  margin: 1.2rem 0 1.1rem;
-  color: var(--text);
-  font: 550 clamp(5rem, 8.2vw, 8.5rem) / 0.82 var(--display);
-  letter-spacing: -0.065em;
-}
-.cover-title em {
-  display: block;
-  width: fit-content;
-  margin-top: 0.04em;
-  font-size: 1.1em;
-  line-height: 0.97;
-}
-.cover-intro {
-  max-width: 30rem;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.18vw, 1.1rem);
-  line-height: 1.65;
-  text-wrap: pretty;
-}
-.cover-actions, .cover-details, .availability, .cover-location {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.cover-actions {
-  gap: 0.35rem 1.35rem;
-  margin-top: 1.45rem;
-}
-.cover-actions .btn-primary {
-  min-height: 46px;
-  padding-inline: 1.4rem;
-  border-radius: var(--radius-pill);
-  background: var(--mint);
-}
-.cover-actions .btn-primary:hover { background: var(--mint); }
-.resume-link { color: var(--text); }
-.resume-link svg { color: var(--mint); }
-.cover-details {
-  gap: 0.5rem 1.2rem;
-  margin-top: 1.45rem;
-}
-.availability, .cover-location {
-  gap: 0.48rem;
-  color: var(--muted);
-  font-size: 0.83rem;
-}
-.availability > span {
-  width: 0.5rem;
-  height: 0.5rem;
+.availability { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.85rem; }
+.availability > span, .hero-status > span {
+  width: 0.48rem;
+  height: 0.48rem;
   border-radius: 50%;
   background: var(--mint);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--mint) 12%, transparent);
 }
-.cover-location svg { color: var(--muted); }
 
-/* Full-bleed portrait with a single diagonal edge, continuous into the masthead. */
 .photo-print {
   margin: 0;
   min-width: 0;
@@ -236,61 +158,6 @@
   padding-block: 0.65rem 0.15rem;
   color: var(--text);
   font: 500 1.05rem / 1.38 var(--display);
-}
-.cover-portrait {
-  --cut: clamp(2.1rem, 7vw, 7.5rem);
-  position: absolute;
-  inset: 0 0 0 50%;
-  background: var(--mint);
-  clip-path: polygon(var(--cut) 0, 100% 0, 100% 100%, 0 100%);
-}
-.cover-portrait button {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  background: var(--muted);
-  clip-path: polygon(calc(var(--cut) + 2px) 0, 100% 0, 100% 100%, 2px 100%);
-}
-.cover-portrait img { max-width: 64rem; }
-.cover-portrait button::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, color-mix(in srgb, var(--panel) 30%, transparent), transparent 24%), linear-gradient(100deg, color-mix(in srgb, var(--mint) 18%, transparent), transparent 45%);
-  pointer-events: none;
-}
-.cover-portrait .print-zoom {
-  z-index: 1;
-  right: max(1.1rem, calc((100vw - 72rem) / 2));
-  top: 1.15rem;
-  bottom: auto;
-}
-.cover-journal-link {
-  position: absolute;
-  right: max(1.1rem, calc((100vw - 72rem) / 2));
-  bottom: 1.25rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  min-height: 44px;
-  padding-inline: 1rem;
-  border: 1px solid color-mix(in srgb, var(--text) 53%, transparent);
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--panel) 91%, transparent);
-  color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-.cover-journal-link:hover { background: var(--line); }
-.gallery-dialog-stage[data-zoomed='false'] { touch-action: pan-y pinch-zoom; }
-.cover-portrait button:focus-visible { outline: 0; }
-.cover-portrait button:focus-visible .print-zoom {
-  outline: 3px solid white;
-  outline-offset: 4px;
-}
-.cover-impact {
-  background: var(--panel);
-  border-block: 1px solid var(--line);
 }
 .platform-impact {
   display: grid;
@@ -648,8 +515,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .cover-heading, .cover-copy, .sample-layout, .menu-enter { animation: enter 440ms var(--ease-out) backwards; }
-  .cover-copy { animation-delay: 70ms; }
+  .sample-layout, .menu-enter { animation: enter 440ms var(--ease-out) backwards; }
   .menu-enter { animation-duration: 160ms; }
   .load-track i { animation: grow-bar 490ms var(--ease-out); }
   @keyframes grow-bar {
@@ -669,10 +535,6 @@
   }
 }
 
-@media (min-width: 1850px) {
-  .cover-portrait img { mask-image: linear-gradient(90deg, transparent, black 12%, black 80%, transparent); }
-}
-
 @media (max-width: 1000px) {
   .sample-layout { grid-template-columns: minmax(0, 1fr); }
   .work-evidence { max-width: 36rem; }
@@ -681,47 +543,6 @@
 
 @media (max-width: 760px) {
   :root { --masthead-height: 3.9rem; }
-  .cover-stage { --photo-height: clamp(14rem, 62vw, 24rem); }
-  .cover-stage > .portfolio-shell { padding-block: 0 clamp(1.6rem, 5vw, 2.4rem); }
-  .cover-heading {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 48%;
-    min-height: var(--photo-height);
-    padding-block: 1rem;
-  }
-  .cover-role {
-    max-width: 20ch;
-    font-size: 0.84rem;
-  }
-  .cover-role::before { display: none; }
-  .cover-title {
-    margin: 0.95rem 0 0;
-    font-size: clamp(3.35rem, 15vw, 6.1rem);
-  }
-  .cover-portrait {
-    inset: 0 0 auto 48%;
-    height: var(--photo-height);
-  }
-  .cover-portrait .print-zoom {
-    right: 0.7rem;
-    top: 0.65rem;
-  }
-  .cover-journal-link {
-    right: 0.7rem;
-    top: calc(var(--photo-height) - 3.25rem);
-    bottom: auto;
-    padding-inline: 0.68rem;
-    font-size: 0.8rem;
-  }
-  .cover-copy {
-    width: 100%;
-    padding-top: 1.3rem;
-  }
-  .cover-intro { max-width: 52ch; }
-  .cover-actions { margin-top: 0.9rem; }
-  .cover-details { margin-top: 0.9rem; }
   .platform-impact {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -761,9 +582,6 @@
 }
 
 @media (max-width: 520px) {
-  .cover-actions { column-gap: 1rem; }
-  .cover-details { column-gap: 0.9rem; }
-  .availability, .cover-location { font-size: 0.81rem; }
   .platform-impact dt { font-size: 0.82rem; }
   .journal-photos, .album-prints { grid-template-columns: minmax(0, 1fr); }
   :is(.journal-photos, .album-prints) figure:nth-child(n) { grid-column: 1; }
@@ -779,4 +597,89 @@
 
 @media (forced-colors: active) {
   .masthead-bar .nav-link[aria-current], .work-tabs button[aria-selected=true], .album-view-switch button[aria-pressed=true] { outline: 2px solid Highlight; }
+}
+
+/* A floating masthead echoes the original portfolio's compact navigation. */
+.masthead {
+  top: 0.7rem;
+  width: min(calc(100% - 2.25rem), 76rem);
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+}
+.masthead:has(.mobile-menu.grid) { border-radius: var(--radius-card); }
+.masthead > .portfolio-shell { padding-inline: clamp(0.72rem, 2vw, 1.55rem); }
+.masthead-bar { height: 3.45rem; }
+.brand-monogram { border-radius: 50%; font: italic 1.35rem / 1 var(--serif); }
+.masthead-bar .nav-link { border-radius: var(--radius-pill); }
+.masthead-bar .nav-link:is(:hover, [aria-current]) { background: var(--line); color: var(--text); }
+.masthead-bar .nav-link[aria-current]::after { content: none; }
+.masthead-contact { border: 1px solid var(--line); border-radius: var(--radius-pill); padding-inline: 0.95rem; min-height: 38px; }
+
+.story-cover {
+  padding-block: calc(var(--masthead-height) + var(--section-space)) var(--section-space);
+  background: radial-gradient(ellipse at 22% 66%, color-mix(in srgb, var(--line) 31%, transparent), transparent 57%), var(--ink);
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); align-items: center; gap: clamp(1.25rem, 4.5vw, 5rem); }
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  background: var(--panel);
+  font: 500 0.72rem / 1.4 var(--mono);
+}
+.hero-role { margin-block: clamp(1.4rem, 2.8vw, 2.5rem) 0.8rem; color: var(--muted); font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; }
+.hero-copy h1 { font: 500 clamp(3.45rem, 6.3vw, 8rem)/0.99 var(--display); letter-spacing: -0.065em; }
+.hero-copy h1 span { display: block; }
+.hero-copy h1 em { color: var(--mint); font: italic 400 1.1em/0.98 var(--serif); letter-spacing: -0.045em; }
+.hero-intro { margin-top: clamp(1.1rem, 2vw, 1.6rem); max-width: 66ch; font-size: clamp(1rem, 1.15vw, 1.1rem); line-height: 1.65; color: var(--muted); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: clamp(1.3rem, 2.4vw, 2rem); }
+.hero-actions a { padding-inline: 1.35rem; }
+.portrait-stage { position: relative; isolation: isolate; min-width: 0; padding: 0.9rem 0.85rem 3.75rem 2.4rem; }
+.portrait-stage::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -8% -3%;
+  background: radial-gradient(var(--line) 0.8px, transparent 1px) 0 0/10px 10px, radial-gradient(ellipse at 55% 50%, color-mix(in srgb, var(--mint) 23%, transparent), transparent 70%);
+  mask-image: radial-gradient(ellipse at center, black 23%, transparent 73%);
+}
+.portrait-print {
+  position: relative;
+  padding: clamp(0.5rem, 1vw, 0.75rem);
+  transform: rotate(3deg);
+  border-radius: 3px;
+  background: var(--paper);
+  box-shadow: 0 18px 38px color-mix(in srgb, var(--ink) 70%, transparent);
+}
+.portrait-print button { aspect-ratio: 1.08; }
+.portrait-print img { object-position: center 25%; }
+.portrait-print figcaption { padding: 0.65rem 0.3rem 0.25rem; text-align: right; color: var(--paper-text); font: italic 400 clamp(1.55rem, 2.4vw, 2.3rem)/1.1 var(--serif); }
+.portrait-print button:focus-visible { outline-color: var(--deep-green); }
+.trace-card { position: absolute; left: 0; bottom: 0; min-width: 12rem; padding: 0.75rem 1rem 0.85rem; background: var(--panel); border: 1px solid color-mix(in srgb, var(--mint) 32%, var(--line)); border-radius: 0.9rem; box-shadow: 0 12px 28px color-mix(in srgb, var(--ink) 60%, transparent); font: 400 0.72rem/1.5 var(--mono); }
+.trace-card figcaption { display: flex; align-items: center; gap: 0.55rem; border-bottom: 1px solid var(--line); padding-bottom: 0.4rem; margin-bottom: 0.45rem; color: var(--text); }
+.trace-card figcaption svg, .trace-card code { color: var(--mint); }
+.trace-card li { display: grid; grid-template-columns: 6.7ch 1fr; gap: 0.65rem; color: var(--muted); }
+.trace-card code { font: inherit; }
+
+@media (min-width: 640px) and (max-width: 950px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .hero-copy h1 { font-size: clamp(2.8rem, 6.6vw, 4.4rem); }
+  .portrait-stage { padding-left: 1rem; padding-bottom: 6.3rem; }
+}
+@media (max-width: 639px) {
+  .story-cover { padding-top: calc(var(--masthead-height) + 2.5rem); }
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .hero-copy h1 { font-size: clamp(2.8rem, 13vw, 4.8rem); }
+  .hero-role { margin-block: 1.4rem 0.6rem; }
+  .portrait-stage { display: grid; gap: 1.1rem; width: min(100%, 26rem); justify-self: center; padding: 0.6rem clamp(0.6rem, 3vw, 1.1rem) 0; }
+  .portrait-print { transform: rotate(2deg); }
+  .trace-card { position: static; width: 100%; min-width: 0; }
+  .masthead { width: calc(100% - 1.5rem); top: 0.5rem; }
+  .masthead-bar { height: 3.2rem; }
 }

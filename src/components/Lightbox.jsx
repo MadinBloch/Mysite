@@ -5,6 +5,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
   const [zoomed, setZoomed] = useState(false)
   const dialogRef = useRef(null)
   const closeRef = useRef(null)
+  const swipeStart = useRef(null)
   const titleId = useId()
   const photo = photos[index]
   const hasMultiple = photos.length > 1
@@ -30,6 +31,22 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
   function move(direction) {
     setZoomed(false)
     onChange((index + direction + photos.length) % photos.length)
+  }
+
+  function startSwipe(event) {
+    swipeStart.current = null
+    if (!hasMultiple || zoomed || !event.isPrimary || event.button !== 0) return
+    swipeStart.current = { id: event.pointerId, x: event.clientX, y: event.clientY }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  function endSwipe(event) {
+    const start = swipeStart.current
+    swipeStart.current = null
+    if (!start || start.id !== event.pointerId) return
+    const dx = event.clientX - start.x
+    const dy = event.clientY - start.y
+    if (Math.abs(dx) >= 48 && Math.abs(dx) > Math.abs(dy) * 1.5) move(dx < 0 ? 1 : -1)
   }
 
   function handleKeyDown(event) {
@@ -78,6 +95,9 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
           key={photo.id + (zoomed ? '-zoomed' : '')}
           className="gallery-dialog-stage"
           data-zoomed={zoomed}
+          onPointerDown={startSwipe}
+          onPointerUp={endSwipe}
+          onPointerCancel={() => { swipeStart.current = null }}
           tabIndex={zoomed ? 0 : undefined}
           role={zoomed ? 'region' : undefined}
           aria-label={zoomed ? 'Zoomed photo' : undefined}
@@ -85,6 +105,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
           <img
             src={photo.src}
             alt={photo.alt || photo.title}
+            draggable={false}
             className="gallery-dialog-image"
           />
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { profile } from '../data/profile'
-import { FiMail, FiDownload, FiMenu, FiX } from 'react-icons/fi'
+import { FiMail, FiDownload, FiGithub, FiLinkedin, FiMenu, FiX } from 'react-icons/fi'
 
 const links = [
   ['/', 'Home'],
@@ -10,6 +10,15 @@ const links = [
   ['/gallery', 'Gallery'],
   ['/blogs', 'Writing'],
 ]
+
+const profileLinks = [
+  [profile.github, 'GitHub', FiGithub],
+  [profile.linkedin, 'LinkedIn', FiLinkedin],
+].map(([href, label, Icon]) => (
+  <a key={href} href={href} target="_blank" rel="noreferrer" className="masthead-profile" aria-label={label + ' profile'} title={label}>
+    <Icon size={17} aria-hidden="true" /><span className="lg:hidden">{label}</span>
+  </a>
+))
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -58,19 +67,22 @@ export default function Navbar() {
   ))
 
   return (
-    <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
+    <header ref={header} className="masthead fixed inset-x-0 top-0 z-50">
       <div className="portfolio-shell">
-        <nav className="site-nav pointer-events-auto flex h-[3.9rem] items-center justify-between gap-3 rounded-full px-2.5 sm:px-3.5" aria-label="Main navigation">
-          <Link to="/" className="inline-flex shrink-0 items-center gap-2.5 rounded-full font-display text-base font-semibold" aria-label="Madin Bloch home">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-accent text-sm font-bold tracking-tight text-[#13251b]" aria-hidden="true">MB</span>
+        <nav className="masthead-bar" aria-label="Main navigation">
+          <Link to="/" className="masthead-brand" aria-label="Madin Bloch home">
+            <span className="brand-monogram" aria-hidden="true">mb.</span>
             <span>Madin Bloch</span>
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">{navLinks}</div>
 
-          <Link to="/#contact" className="nav-link hidden gap-2 border border-[#466756] bg-[#192722] text-[#d6f6e3] lg:inline-flex">
-            Let’s talk <FiMail size={16} aria-hidden="true" />
-          </Link>
+          <div className="hidden items-center gap-1 lg:flex">
+            {profileLinks}
+            <Link to="/#contact" className="masthead-contact ml-3 inline-flex">
+              Let’s talk <FiMail size={16} aria-hidden="true" />
+            </Link>
+          </div>
 
           <button
             ref={menuButton}
@@ -87,11 +99,12 @@ export default function Navbar() {
 
         <nav
           id="mobile-navigation"
-          className={'site-nav pointer-events-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-auto rounded-3xl p-3 lg:hidden ' + (open ? 'menu-enter grid' : 'hidden')}
+          className={'mobile-menu max-h-[calc(100dvh-5rem)] overflow-auto lg:hidden ' + (open ? 'menu-enter grid' : 'hidden')}
           aria-label="Mobile navigation"
         >
           {navLinks}
           <Link to="/#contact" className="nav-link" onClick={() => setOpen(false)}>Contact</Link>
+          <div className="mobile-profiles">{profileLinks}</div>
           <a href={profile.resume} download className="btn-primary mt-2" onClick={() => setOpen(false)}>
             Download resume <FiDownload size={17} aria-hidden="true" />
           </a>

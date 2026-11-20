@@ -13,7 +13,7 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx`: Recruiter introduction, portrait gallery, selected work and resume download.
+- `src/components/Hero.jsx` introduces Madin with his portrait, two event photos and a resume download.
 - `src/components/WorkHighlights.jsx` connects three engineering examples to their full case studies.
 - `src/components/PortfolioStory.jsx` connects the hackathon, Kesari Select and university workshop chapters.
 - `src/components/About.jsx`: Short biography.
@@ -32,8 +32,10 @@ This is a personal site first, not a business metrics dashboard. Kesari Select f
 
 The portfolio uses real workshop/hackathon photos. No confidential client screenshots or invented product UIs are shown.
 
-The photo carousels support swipe, thumbnails, and arrow keys. The full-size viewer supports zoom, arrow keys, and Escape.
+The photo archive carousel supports swipe, thumbnails and arrow keys. Open any homepage photo to zoom or move between the originals in the full-size viewer.
 
 ## Deployment
 
 Vercel deploys the default `main` branch. The project CI runs content validation and a Vite production build. The `vercel.json` rewrite supports direct links to projects, the profile, gallery albums and individual stories.
+
+`/robots.txt` advertises `/sitemap_index.xml`, which points to the canonical page list at `/sitemap.xml`. `/llms.txt` provides a short profile and links to the case studies and resume.

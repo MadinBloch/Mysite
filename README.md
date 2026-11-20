@@ -26,7 +26,7 @@ node scripts/check-portfolio.mjs
 - `public/Madin_Bloch_Resume.pdf`: Downloadable resume.
 - `scripts/resume.html`: Printable resume source.
 
-This is a personal site first, not a business metrics dashboard. Operational numbers are limited to relevant project details. The Kesari Select figures are 10K+ **total** inquiries and approximately 80–100+ **new inquiries daily**, not 10K per day. The email campaign benchmark concerns database insertion rather than email delivery speed. These figures are developer-reported, not independent analytics.
+This is a personal site first, not a business metrics dashboard. Kesari Select figures shown in the portfolio are approximately 200+ daily inquiries, 30K+ customer records handled, and 10K+ website visitors. These are separate measures and are developer-reported estimates, not independent analytics. The email campaign benchmark concerns database insertion rather than email delivery speed. Training videos were created for internal Kesari team learning and are not shared publicly.
 
 The portfolio uses real workshop/hackathon photos. No confidential client screenshots or invented product UIs are shown.
 

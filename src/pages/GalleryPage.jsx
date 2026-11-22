@@ -60,12 +60,12 @@ export default function GalleryPage() {
           <h2 id="album-title">{album.title}</h2>
           <p>{album.description}</p>
           {album.recordings?.map(([label, href]) => (
-            <a key={href} href={href} target="_blank" rel="noreferrer" className="journal-link">{label}</a>
+            <a key={href} href={href} target="_blank" rel="noreferrer" className="story-link">{label}</a>
           ))}
-        </div>
-        <div className="album-view-switch" role="group" aria-label="Album layout">
-          <button type="button" aria-pressed={!slideshow} onClick={() => setSlideshow(false)}><FiGrid aria-hidden="true" />All photos</button>
-          <button type="button" aria-pressed={slideshow} onClick={() => setSlideshow(true)}><FiFilm aria-hidden="true" />Slideshow</button>
+          <div className="album-view-switch" role="group" aria-label="Album layout">
+            <button type="button" aria-pressed={!slideshow} onClick={() => setSlideshow(false)}><FiGrid aria-hidden="true" />All photos</button>
+            <button type="button" aria-pressed={slideshow} onClick={() => setSlideshow(true)}><FiFilm aria-hidden="true" />Slideshow</button>
+          </div>
         </div>
         <div className="album-collection">
           {slideshow

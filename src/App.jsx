@@ -4,7 +4,6 @@ import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
-import TechTicker from './components/TechTicker'
 import WorkHighlights from './components/WorkHighlights'
 import About from './components/About'
 import Skills from './components/Skills'
@@ -51,9 +50,11 @@ function PageLocation() {
       const target = document.getElementById(hash.slice(1))
       if (!target) return
       target.scrollIntoView({ block: 'start' })
-      const readingStart = target.querySelector('h1, h2, h3')
+      const readingStart = hash === '#story'
+        ? target.querySelector('nav a')
+        : target.querySelector('h1, h2, h3') || target.querySelector('button, a[href]')
       if (readingStart) {
-        readingStart.tabIndex = -1
+        if (readingStart.matches('h1, h2, h3')) readingStart.tabIndex = -1
         readingStart.focus({ preventScroll: true })
       }
     })
@@ -82,9 +83,8 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <TechTicker />
-      <PortfolioStory />
       <WorkHighlights />
+      <PortfolioStory />
       <Blogs />
     </>
   )

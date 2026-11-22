@@ -5,26 +5,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['var(--mono)'],
-        sans: ['var(--display)'],
-        display: ['var(--display)'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Outfit"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        ink: 'var(--ink)',
-        panel: 'var(--panel)',
+        ink: 'var(--page)',
         line: 'var(--line)',
-        foreground: 'var(--text)',
+        foreground: 'var(--ink)',
+        panel: 'var(--panel)',
         muted: 'var(--muted)',
         zinc: {
-          950: 'var(--ink)',
+          950: '#09090b',
         },
         accent: {
-          DEFAULT: 'var(--mint)',
-          dim: 'var(--deep-green)',
+          DEFAULT: '#6ee7b7',
+          dim: '#34d399',
         },
       },
       boxShadow: {
-        glow: '0 0 40px color-mix(in srgb, var(--mint) 15%, transparent)',
+        glow: '0 0 40px rgba(110, 231, 183, 0.15)',
       },
     },
   },

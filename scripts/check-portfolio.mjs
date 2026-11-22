@@ -56,10 +56,10 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<TechTicker \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
-assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
-  ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
-assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
+assert.match(app, /<Hero \/>[\s\S]*<WorkHighlights \/>[\s\S]*<PortfolioStory \/>[\s\S]*<Blogs \/>/, 'Show selected work immediately after the profile cover')
+assert.match(hero, /<h1[^>]*>Madin <em>Bloch\.<\/em><\/h1>/, 'Use the original name-led cover')
+assert.ok(hero.includes('appearance="cover"'), 'Restore the cover photo selector')
+assert.match(story, /<Hackathon \/>[\s\S]*<ProductionChapter \/>[\s\S]*<Workshop \/>/, 'Preserve the chapter order')
 assert.ok(story.includes('internal TAP walkthroughs'), 'Credit the internal training in the Kesari chapter')
 assert.ok(read('src/components/Impact.jsx').includes('*developer-reported estimates'))
 for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
@@ -95,6 +95,7 @@ for (const [id, photos] of Object.entries({ hackathon: hackathonPhotos, workshop
 }
 
 const highlights = read('src/components/WorkHighlights.jsx')
+assert.ok(highlights.includes('role="tablist"') && highlights.includes('role="tabpanel"'), 'Keep the case studies keyboard-selectable')
 assert.ok(highlights.includes("from '../data/projects.json'"), 'Use the canonical projects for selected work')
 for (const project of projects.filter(project => project.caseStudySlug)) {
   assert.ok(highlights.includes("'" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)

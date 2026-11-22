@@ -4,12 +4,13 @@ import { useReducedMotion } from 'framer-motion'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 
-export default function PhotoDeck({ photos, label, priority = false, className = '' }) {
+export default function PhotoDeck({ photos, label, priority = false, className = '', appearance = 'album' }) {
   const reduce = useReducedMotion()
   const [viewportRef, carousel] = useEmblaCarousel({ loop: true, duration: 24 })
   const [selected, setSelected] = useState(0)
   const [preview, setPreview] = useState(null)
   const current = photos[selected]
+  const isCover = appearance === 'cover'
 
   useEffect(() => {
     if (!carousel) return
@@ -43,7 +44,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
   }
 
   return (
-    <div className={className}>
+    <div className={(isCover ? 'cover-deck ' : '') + className}>
       <section className="photo-deck" aria-label={label} aria-roledescription="carousel" onKeyDown={handleKeyDown}>
         <div className="photo-viewport" ref={viewportRef}>
           <div className="flex touch-pan-y">
@@ -58,7 +59,9 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                 onClick={() => setPreview(index)}
               >
                 <img
-                  src={photo.src}
+                  src={isCover ? photo.printSrc || photo.src : photo.src}
+                  width={photo.width}
+                  height={photo.height}
                   alt={photo.alt || photo.title}
                   loading={priority && index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={priority && index === 0 ? 'high' : 'auto'}
@@ -99,12 +102,15 @@ export default function PhotoDeck({ photos, label, priority = false, className =
             >
               <img
                 src={photo.printSrc || photo.src}
+                width={photo.width}
+                height={photo.height}
                 alt=""
                 loading="lazy"
                 decoding="async"
                 className="h-full w-full object-cover"
                 style={{ objectPosition: photo.position }}
               />
+              {isCover && <span className="thumb-label">{photo.shortLabel}</span>}
             </button>
           ))}
         </div>

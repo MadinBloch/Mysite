@@ -17,7 +17,7 @@ function ProjectCard({ project }) {
   const liveLabel = project.live?.includes('youtu') ? 'Watch demo' : project.logo ? 'Public website' : 'Live site'
 
   return (
-    <article className="portfolio-panel project-card">
+    <article id={'project-' + project.id} className="portfolio-panel project-card">
       <div className="project-meta">
         {project.logo ? (
           <img src={project.logo} alt="" width="258" height="113" loading="lazy" decoding="async" />

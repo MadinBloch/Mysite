@@ -82,8 +82,8 @@ function HomePage() {
     <>
       <Hero />
       <PhotoStrip />
-      <PortfolioStory />
       <WorkHighlights />
+      <PortfolioStory />
       <Blogs />
     </>
   )

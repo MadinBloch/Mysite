@@ -43,7 +43,7 @@ export default function PhotoStrip() {
         <div id="photo-track" className="strip-track" data-paused={paused}>
           {[false, true].map(duplicate => (
             <ul className="strip-group" key={String(duplicate)} aria-hidden={duplicate || undefined}>
-              {strip.map(photo => <li key={photo.id}><figure><EventPhoto photo={photo} sizes="190px" /><figcaption>{photo.title}</figcaption></figure></li>)}
+              {strip.map(photo => <li key={photo.id}><figure><EventPhoto photo={photo} sizes={photo.width / photo.height > 2.5 ? "800px" : "205px"} /><figcaption>{photo.title}</figcaption></figure></li>)}
             </ul>
           ))}
         </div>

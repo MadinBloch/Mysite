@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FiArrowUpRight } from 'react-icons/fi'
-import { EventPhoto, frames } from './BoardingPhotos'
+import { EventPhoto, frames } from './EventPhotos'
 
 const stops = [
   { id: 'hackathon', date: '2023', place: 'PDEU', title: 'Grand Finalist', photo: frames.team,

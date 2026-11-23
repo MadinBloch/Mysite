@@ -1,38 +1,65 @@
 import { Link } from 'react-router-dom'
-import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowRight, FiArrowUpRight, FiMail } from 'react-icons/fi'
 import projects from '../data/projects.json'
 import { CASE_STUDIES } from '../data/caseStudies'
-import { kesariStats, formatCount } from '../data/siteStats'
+import { kesariPageLoad } from '../data/siteStats'
 
 const cases = ['kesari-select-backend', 'email-campaign-engine', 'smart-print-operations']
 const more = ['HRM System', 'DevCommand AI', 'Book Server'].map(title => projects.find(project => project.title === title))
 
+function CaseFigure({ slug, study }) {
+  if (slug === 'kesari-select-backend') {
+    return (
+      <figure className="case-figure load-study">
+        <figcaption>Kesari Select <span>/ Performance</span></figcaption>
+        <div className="load-plot">
+          {Object.entries(kesariPageLoad).map(([label, seconds]) => (
+            <div className="load-series" key={label}>
+              <span>{label}</span><strong>≈ {seconds}<small>s</small></strong>
+              <i aria-hidden="true" style={{ width: (seconds / kesariPageLoad.before * 100) + '%' }} />
+            </div>
+          ))}
+        </div>
+        <p>One production page · developer-reported</p>
+      </figure>
+    )
+  }
+  if (slug === 'email-campaign-engine') {
+    const [rows, ingestion] = study.metrics
+    return (
+      <figure className="case-figure import-study">
+        <figcaption>Campaign engine <span>/ Batch import</span></figcaption>
+        <div className="import-art">
+          <strong>{rows.value}<small> rows</small></strong>
+          <span className="mail-stack" aria-hidden="true"><FiMail /><FiMail /><FiMail /></span>
+        </div>
+        <p>{ingestion.value} database ingestion · reported benchmark</p>
+      </figure>
+    )
+  }
+  return (
+    <figure className="case-figure print-study">
+      <figcaption>Smart Print <span>/ Operations</span></figcaption>
+      <div className="print-art" aria-hidden="true"><div className="proof-paper">
+        <span>Smart Print</span><strong>Job sheet</strong><i /><i /><i />
+      </div></div>
+      <p>Inquiry intake · role checks · record recovery</p>
+    </figure>
+  )
+}
+
 function CaseCard({ slug }) {
   const project = projects.find(item => item.caseStudySlug === slug)
   const study = CASE_STUDIES[slug]
-  const kesari = slug === 'kesari-select-backend'
-  const problem = {
-    'kesari-select-backend': 'Late ERP records could miss a scheduled export.',
-    'email-campaign-engine': 'Operators needed to import a spreadsheet, track delivery and safely pause a campaign.',
-    'smart-print-operations': 'Permissions disagreed across screens, and deleting a record could erase operational history.',
-  }[slug]
-  const built = kesari ? study.decisions[0].body : project.description
-  const result = kesari ? study.takeaway : project.contribution
   return (
-    <article className="work-case">
-      <div className="case-top"><p className="bp-label">{project.type} · {project.year}</p><span className="case-no">Case {study.number}</span></div>
-      <h3>{project.title}</h3>
-      <dl className="case-columns">
-        <div><dt>Problem</dt><dd>{problem}</dd></div>
-        <div><dt>What I built</dt><dd>{built}</dd></div>
-        <div className="case-result"><dt>Result</dt><dd>{result}</dd></div>
-      </dl>
-      {kesari && <div className="case-scale" id="impact">
-        <ul>{kesariStats.map(({ count, contextLabel }) => <li key={contextLabel}><strong>{formatCount(count)}+</strong> {contextLabel}</li>)}</ul>
-        <p>*developer-reported estimates</p>
-      </div>}
-      <div className="case-foot"><ul className="bp-chips" aria-label="Technologies">{project.tech.map(tech => <li key={tech}>{tech}</li>)}</ul>
-        <Link to={'/projects/' + slug} className="bp-text-link" aria-label={'Read the ' + project.title + ' case study'}>Read case study <FiArrowUpRight aria-hidden="true" /></Link>
+    <article className="case-spread">
+      <CaseFigure slug={slug} study={study} />
+      <div className="spread-copy">
+        <p className="bp-label"><span>{study.number}</span> / {project.category} · {project.year}</p>
+        <h3><Link to={'/projects/' + slug}>{project.title}</Link></h3>
+        <p>{project.description}</p>
+        <ul className="bp-chips" aria-label="Technologies">{project.tech.map(tech => <li key={tech}>{tech}</li>)}</ul>
+        <Link to={'/projects/' + slug} aria-label={'Read the ' + project.title + ' case study'} className="bp-text-link">Read case study <FiArrowUpRight aria-hidden="true" /></Link>
       </div>
     </article>
   )
@@ -40,17 +67,17 @@ function CaseCard({ slug }) {
 
 export default function WorkHighlights() {
   return (
-    <section id="selected-work" className="bp-shell bp-section bp-work" aria-labelledby="work-title">
-      <p className="bp-kicker">01 · Projects</p>
-      <h2 className="bp-section-title" id="work-title">Proof of <mark className="hl">work.</mark></h2>
-      <div id="work-sample" className="case-stack">{cases.map(slug => <CaseCard slug={slug} key={slug} />)}</div>
+    <section id="selected-work" className="bp-shell bp-section work-section" aria-labelledby="work-title">
+      <p className="bp-kicker">02 / Selected work</p>
+      <div className="bp-heading-row">
+        <h2 className="bp-section-title" id="work-title">Systems in <em>production.</em></h2>
+        <Link to="/projects" className="bp-text-link">All projects <FiArrowUpRight aria-hidden="true" /></Link>
+      </div>
+      <div id="work-sample">{cases.map(slug => <CaseCard slug={slug} key={slug} />)}</div>
       <h3 className="bp-kicker more-label">More builds</h3>
-      <div className="build-tags">{more.map(project => <article className="build-tag" key={project.id}>
-        <p className="bp-label">{project.type} · {project.year}</p><h4>{project.title}</h4><p>{project.description}</p>
-        {!project.live && !project.github ? <Link className="bp-text-link" to={'/projects#project-' + project.id}>Project details <FiArrowRight aria-hidden="true" /></Link> :
-          <a className="bp-text-link" href={project.live || project.github} target="_blank" rel="noreferrer">{project.live ? 'Watch demo' : 'View on GitHub'} <FiArrowUpRight aria-hidden="true" /></a>}
-      </article>)}</div>
-      <Link className="bp-button all-projects" to="/projects">All projects <FiArrowRight aria-hidden="true" /></Link>
+      <div className="more-builds">{more.map(project => <Link key={project.id} to={'/projects#project-' + project.id}>
+        <span className="bp-label">{project.type}</span><span>{project.title}</span><FiArrowRight aria-hidden="true" />
+      </Link>)}</div>
     </section>
   )
 }

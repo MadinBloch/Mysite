@@ -56,7 +56,7 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<PhotoStrip \/>[\s\S]*<WorkHighlights \/>[\s\S]*<About home \/>[\s\S]*<StatBand \/>[\s\S]*<Journey \/>[\s\S]*<Skills home \/>[\s\S]*<HomeAlbum \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
+assert.match(app, /<Hero \/>[\s\S]*<Impact home \/>[\s\S]*<About home \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Journey \/>[\s\S]*<Skills home \/>[\s\S]*<HomeAlbum \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
 assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
   ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
 assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
@@ -114,8 +114,8 @@ assert.ok(app.includes('<PortfolioStory />'), 'The full event and production sto
 assert.match(highlights, /const cases = \['kesari-select-backend', 'email-campaign-engine', 'smart-print-operations'\]/,
   'Lead with Kesari Select and keep each engineering case distinct')
 
-const photoStrip = read('src/components/BoardingPhotos.jsx')
-const frameIds = [...photoStrip.matchAll(/:\s*frame\('([^']+)'/g)].map(match => match[1])
+const photos = read('src/components/EventPhotos.jsx')
+const frameIds = [...photos.matchAll(/:\s*frame\('([^']+)'/g)].map(match => match[1])
 assert.equal(new Set(frameIds).size, 11, 'Use the eleven reviewed source photographs')
 for (const id of frameIds) {
   for (const suffix of ['.webp', '-sm.webp']) {

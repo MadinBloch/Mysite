@@ -3,9 +3,9 @@ import { MotionProvider } from './components/motion/MotionPreferences'
 import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import PhotoStrip from './components/BoardingPhotos'
+import Impact from './components/Impact'
 import WorkHighlights from './components/WorkHighlights'
-import About, { StatBand } from './components/About'
+import About from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
@@ -20,6 +20,8 @@ import BlogPostPage from './pages/BlogPostPage'
 import CaseStudyPage from './pages/CaseStudyPage'
 
 const legacySections = {
+  '#boarding-pass': '/#home',
+  '#photo-strip': '/#album',
   '#projects': '/projects',
   '#production': '/projects/kesari-select-backend',
   '#about': '/about',
@@ -83,10 +85,9 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <PhotoStrip />
-      <WorkHighlights />
+      <Impact home />
       <About home />
-      <StatBand />
+      <WorkHighlights />
       <Journey />
       <Skills home />
       <HomeAlbum />

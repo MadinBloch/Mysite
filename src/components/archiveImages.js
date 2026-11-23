@@ -1,4 +1,4 @@
-import { frames } from './BoardingPhotos'
+import { frames } from './EventPhotos'
 
 const extras = {
   presenting: ['workshop-presenting', 800, 419, 'Madin demonstrating Git and local setup at the university'],

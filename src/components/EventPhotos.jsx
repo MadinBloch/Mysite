@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { FiPause, FiPlay } from 'react-icons/fi'
-
 // Display-only renditions. Full-screen views use the same reviewed crops.
 function frame(id, width, height, title, alt, position = 'center') {
   const src = '/photos/boarding/' + id
@@ -25,29 +22,4 @@ export function EventPhoto({ photo, sizes, className = '' }) {
   return <img className={className} src={photo.small} srcSet={photo.small + ' 360w, ' + photo.src + ' ' + photo.width + 'w'}
     sizes={sizes} width={photo.width} height={photo.height} alt={photo.alt} style={{ objectPosition: photo.position }}
     loading="lazy" decoding="async" />
-}
-
-const strip = [frames.team, frames.regional, frames.workshop, frames.meetup, frames.finalist, frames.presentation, frames.classroom, frames.working]
-
-export default function PhotoStrip() {
-  const [paused, setPaused] = useState(false)
-  return (
-    <section id="photo-strip" className="polaroids" aria-label="Photos from the hackathon, workshop and community">
-      <div className="strip-controls bp-shell">
-        <button type="button" className="strip-toggle" aria-controls="photo-track" aria-pressed={paused} onClick={() => setPaused(!paused)}>
-          {paused ? <FiPlay aria-hidden="true" /> : <FiPause aria-hidden="true" />}
-          {paused ? 'Play photo strip' : 'Pause photo strip'}
-        </button>
-      </div>
-      <div className="strip-window">
-        <div id="photo-track" className="strip-track" data-paused={paused}>
-          {[false, true].map(duplicate => (
-            <ul className="strip-group" key={String(duplicate)} aria-hidden={duplicate || undefined}>
-              {strip.map(photo => <li key={photo.id}><figure><EventPhoto photo={photo} sizes={photo.width / photo.height > 2.5 ? "800px" : "205px"} /><figcaption>{photo.title}</figcaption></figure></li>)}
-            </ul>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
-import { EventPhoto, frames } from './BoardingPhotos'
+import { EventPhoto, frames } from './EventPhotos'
 import Lightbox from './Lightbox'
 
 const album = [

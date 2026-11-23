@@ -105,6 +105,8 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
           <img
             src={photo.src}
             alt={photo.alt || photo.title}
+            width={photo.width}
+            height={photo.height}
             draggable={false}
             className="gallery-dialog-image"
           />

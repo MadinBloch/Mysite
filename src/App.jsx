@@ -11,6 +11,7 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Journey from './components/Journey'
 import PortfolioStory from './components/PortfolioStory'
+import HomeAlbum from './components/HomeAlbum'
 import GalleryPage from './pages/GalleryPage'
 import Blogs from './components/Blogs'
 import Contact from './components/Contact'
@@ -88,6 +89,7 @@ function HomePage() {
       <StatBand />
       <Journey />
       <Skills home />
+      <HomeAlbum />
       <Blogs />
     </>
   )

@@ -56,7 +56,7 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<TechTicker \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
+assert.match(app, /<Hero \/>[\s\S]*<PhotoStrip \/>[\s\S]*<PortfolioStory \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
 assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
   ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
 assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)

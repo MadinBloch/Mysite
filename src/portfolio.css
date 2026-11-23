@@ -621,3 +621,23 @@
 
 @media (min-width: 820px) { .bp-intro { max-width: 49rem; } }
 @media (max-width: 480px) { .bp-actions .bp-button { padding-inline: 1.05rem; } .bp-actions { gap: .6rem; } }
+
+.polaroids { padding-bottom: clamp(2.6rem,4vw,3.5rem); }
+.strip-controls { display: flex; justify-content: flex-end; }
+.strip-toggle { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; font: 500 .72rem var(--mono); color: var(--body); }
+.strip-toggle:hover { text-decoration: underline; }
+.strip-window { overflow: hidden; padding-block: .8rem 1.65rem; }
+.strip-track, .strip-group { display: flex; width: max-content; }
+.strip-track { animation: photo-travel 60s linear infinite; }
+.strip-group { align-items: flex-start; gap: 20px; padding-right: 20px; }
+.strip-group li { flex: none; width: 190px; padding: 9px 9px 12px; border: var(--stroke); border-radius: 6px; box-shadow: 5px 5px 0 var(--ink); background: var(--white); transform: rotate(-2.5deg); }
+.strip-group li:nth-child(even) { transform: rotate(2deg) translateY(8px); }
+.strip-group img { width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; }
+.strip-group figcaption { font: 500 .7rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; margin-top: .5rem; }
+.strip-window:hover .strip-track,.strip-track[data-paused=true] { animation-play-state: paused; }
+@keyframes photo-travel { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .strip-controls,.strip-group[aria-hidden=true] { display: none; }
+  .strip-track { animation: none; }
+  .strip-window { overflow-x: auto; }
+}

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { archiveImage } from './archiveImages'
 import PhotoPrint from './PhotoPrint'
 import Lightbox from './Lightbox'
 import { hackathonPhotos } from '../data/photos'
 
 const highlights = ['regional', 'presentation', 'finale-team', 'team-certificates'].map(
-  id => hackathonPhotos.find(photo => photo.id === id),
+  id => archiveImage(hackathonPhotos.find(photo => photo.id === id)),
 )
 
 export default function Hackathon() {
@@ -16,12 +17,11 @@ export default function Hackathon() {
       <div id="landing-hackathon">
         <p className="chapter-label">Grand Finalist · PDEU</p>
         <h3 id="hackathon-title" className="chapter-heading">New India Vibrant <em>Hackathon.</em></h3>
-        <p className="chapter-prose">Our team went from the regional round to the Grand Finale. I built the backend and walked the judges through how data moved across our application.</p>
+        <p className="chapter-prose">At the New India Vibrant Hackathon, our team made it from the regional round to the Grand Finale at PDEU. I worked on the backend. When we presented, my part was to trace the data through our application and explain why we’d designed it that way.</p>
       </div>
       <div className="chapter-photos">
         {highlights.map((photo, index) => (
           <PhotoPrint key={photo.id} photo={photo} caption={photo.title}
-            height={photo.id === 'team-certificates' ? 1204 : photo.width * 3 / 4}
             sizes="(max-width: 639px) 41vw, (max-width: 1232px) 37vw, 27rem"
             onOpen={() => setPreview(index)} />
         ))}

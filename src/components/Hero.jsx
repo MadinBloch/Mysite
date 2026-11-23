@@ -10,7 +10,7 @@ const fields = [
 ]
 const portrait = {
   id: 'portrait', title: 'Madin Bloch', alt: 'Madin Bloch in a navy suit',
-  src: '/profile-portrait.png', printSrc: '/photos/madin-portrait.webp',
+  src: '/photos/madin-portrait.webp', width: 720, height: 720,
 }
 
 export default function Hero() {
@@ -24,7 +24,7 @@ export default function Hero() {
         <Link to="/#selected-work" className="bp-button bp-primary">See my projects <FiArrowDown aria-hidden="true" /></Link>
         <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Resume</a>
       </div>
-      <div className="boarding-pass">
+      <div id="boarding-pass" className="boarding-pass">
         <div className="pass-body">
           <div className="pass-heading"><span className="bp-label">Boarding pass</span><span className="pass-status">Open to backend roles</span></div>
           <dl className="pass-fields">{fields.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
@@ -32,7 +32,7 @@ export default function Hero() {
         </div>
         <div className="pass-stub">
           <button type="button" className="pass-portrait" onClick={() => setPreview(true)} aria-label="Open Madin Bloch’s portrait">
-            <img src={portrait.printSrc} width="720" height="720" alt={portrait.alt} decoding="async" />
+            <img src={portrait.src} width="720" height="720" alt={portrait.alt} fetchPriority="high" />
           </button>
           <div><p className="bp-label">Seat</p><p className="seat-number">01A</p>
             <a className="bp-button bp-black" href={profile.resume} download>Resume <FiArrowDown aria-hidden="true" /></a>

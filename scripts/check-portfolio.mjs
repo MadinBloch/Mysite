@@ -56,7 +56,7 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<PhotoStrip \/>[\s\S]*<WorkHighlights \/>[\s\S]*<About home \/>[\s\S]*<StatBand \/>[\s\S]*<Journey \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
+assert.match(app, /<Hero \/>[\s\S]*<PhotoStrip \/>[\s\S]*<WorkHighlights \/>[\s\S]*<About home \/>[\s\S]*<StatBand \/>[\s\S]*<Journey \/>[\s\S]*<Skills home \/>[\s\S]*<HomeAlbum \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
 assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
   ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
 assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
@@ -78,7 +78,7 @@ for (const path of ['/projects', '/about', '/gallery', '/blogs']) {
 for (const section of ['About', 'Experience', 'Skills', 'Projects']) {
   assert.ok(app.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
 }
-assert.ok(hero.includes('Madin Bloch') && hero.includes('/profile-portrait.png'), 'The cover should introduce Madin with his portrait')
+assert.ok(hero.includes('Madin Bloch') && hero.includes('/photos/madin-portrait.webp'), 'The cover should introduce Madin with his portrait')
 assert.ok(existsSync('public/profile-portrait.png') && existsSync('public/photos/madin-portrait.webp'), 'Formal portrait missing')
 assert.ok(!hero.includes('10000') && !hero.includes('pipeline'), 'No platform dashboard in the hero')
 assert.deepEqual(kesariStats.map(({ count, label }) => [count, label]), [
@@ -107,5 +107,24 @@ for (const phrase of ['200+ daily inquiries', '30K+ customer records', '10K+ vis
 
 const resume = readFileSync('public/Madin_Bloch_Resume.pdf')
 assert.equal(resume.subarray(0, 5).toString(), '%PDF-', 'Resume download must be an actual PDF')
+
+const home = app.slice(app.indexOf('function HomePage()'), app.indexOf('export default function App()'))
+assert.ok(home.includes('<Journey />') && !home.includes('<PortfolioStory />'))
+assert.ok(app.includes('<PortfolioStory />'), 'The full event and production stories must remain accessible')
+assert.match(highlights, /const cases = \['kesari-select-backend', 'email-campaign-engine', 'smart-print-operations'\]/,
+  'Lead with Kesari Select and keep each engineering case distinct')
+
+const photoStrip = read('src/components/BoardingPhotos.jsx')
+const frameIds = [...photoStrip.matchAll(/:\s*frame\('([^']+)'/g)].map(match => match[1])
+assert.equal(new Set(frameIds).size, 11, 'Use the eleven reviewed source photographs')
+for (const id of frameIds) {
+  for (const suffix of ['.webp', '-sm.webp']) {
+    const image = readFileSync('public/photos/boarding/' + id + suffix)
+    assert.equal(image.toString('ascii', 8, 12), 'WEBP')
+  }
+}
+assert.ok(read('src/components/HomeAlbum.jsx').includes('<Lightbox photos={album}'),
+  'Opening an album photo must use the reviewed image')
+assert.ok(read('src/components/Experience.jsx').includes("useState('mage')"))
 
 console.log('Portfolio content validation passed')

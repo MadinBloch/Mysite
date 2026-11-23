@@ -13,7 +13,7 @@ export default function PhotoPrint({ photo, caption, className = '', priority = 
       <button type="button" onClick={onOpen} aria-label={'Open full photo: ' + photo.title}>
         <img
           src={photo.printSrc || photo.src}
-          srcSet={photo.previewWidth && `${photo.printSrc} ${photo.previewWidth}w, ${photo.src} ${photo.width}w`}
+          srcSet={photo.previewWidth && photo.printSrc && `${photo.printSrc} ${photo.previewWidth}w, ${photo.src} ${photo.width}w`}
           sizes={sizes}
           width={width}
           height={height}

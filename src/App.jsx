@@ -52,9 +52,9 @@ function PageLocation() {
       const target = document.getElementById(hash.slice(1))
       if (!target) return
       target.scrollIntoView({ block: 'start' })
-      const readingStart = target.querySelector('h1, h2, h3')
+      const readingStart = target.querySelector('h1, h2, h3') || target.querySelector('button, a[href]')
       if (readingStart) {
-        readingStart.tabIndex = -1
+        if (readingStart.matches('h1, h2, h3')) readingStart.tabIndex = -1
         readingStart.focus({ preventScroll: true })
       }
     })
@@ -98,7 +98,7 @@ function HomePage() {
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-ink">
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-panel focus:p-3 focus:text-ink">
         Skip to content
       </a>
       <PageLocation />

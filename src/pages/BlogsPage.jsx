@@ -4,8 +4,8 @@ import blogs from '../data/blogs.json'
 
 export default function BlogsPage() {
   return (
-    <section className="portfolio-shell pb-20 pt-32 sm:pb-28 sm:pt-40">
-      <header className="hero-enter mb-8 flex flex-wrap items-end justify-between gap-5 sm:mb-11">
+    <section className="portfolio-shell destination-page">
+      <header className="mb-8 flex flex-wrap items-end justify-between gap-5 sm:mb-11">
         <div>
           <h1 className="section-heading">Writing</h1>
           <p className="portfolio-copy mt-4 max-w-xl text-base">

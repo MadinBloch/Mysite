@@ -19,12 +19,9 @@ export default {
           950: 'var(--ink)',
         },
         accent: {
-          DEFAULT: 'var(--mint)',
-          dim: 'var(--deep-green)',
+          DEFAULT: 'var(--accent-text)',
+          dim: 'var(--accent-text)',
         },
-      },
-      boxShadow: {
-        glow: '0 0 40px color-mix(in srgb, var(--mint) 15%, transparent)',
       },
     },
   },

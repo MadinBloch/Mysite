@@ -60,11 +60,11 @@ export default function CaseStudyPage() {
   }
 
   return (
-    <article className="portfolio-shell pb-20 pt-28 sm:pb-28 sm:pt-36">
+    <article className="portfolio-shell destination-page">
       <Link to="/projects" className="link-accent mb-5 min-h-10 text-sm">
         <FiArrowLeft size={17} aria-hidden="true" /> Selected work
       </Link>
-      <header className="project-feature hero-enter grid items-end gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.43fr] lg:p-10">
+      <header className="project-feature grid items-end gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.43fr] lg:p-10">
         <div>
           <p className="section-label">{project.category} · {project.year}</p>
           <h1 className="section-heading mt-3">{project.title}</h1>

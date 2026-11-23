@@ -16,8 +16,8 @@ function CaseCard({ slug }) {
     'email-campaign-engine': 'Operators needed to import a spreadsheet, track delivery and safely pause a campaign.',
     'smart-print-operations': 'Permissions disagreed across screens, and deleting a record could erase operational history.',
   }[slug]
-  const built = kesari ? study.decisions[0].body : study.approach
-  const result = kesari ? 'Finance only receives finished files.' : project.contribution
+  const built = kesari ? study.decisions[0].body : project.description
+  const result = kesari ? study.takeaway : project.contribution
   return (
     <article className="work-case">
       <div className="case-top"><p className="bp-label">{project.type} · {project.year}</p><span className="case-no">Case {study.number}</span></div>
@@ -43,11 +43,11 @@ export default function WorkHighlights() {
     <section id="selected-work" className="bp-shell bp-section bp-work" aria-labelledby="work-title">
       <p className="bp-kicker">01 · Projects</p>
       <h2 className="bp-section-title" id="work-title">Proof of <mark className="hl">work.</mark></h2>
-      <div className="case-stack">{cases.map(slug => <CaseCard slug={slug} key={slug} />)}</div>
+      <div id="work-sample" className="case-stack">{cases.map(slug => <CaseCard slug={slug} key={slug} />)}</div>
       <h3 className="bp-kicker more-label">More builds</h3>
       <div className="build-tags">{more.map(project => <article className="build-tag" key={project.id}>
         <p className="bp-label">{project.type} · {project.year}</p><h4>{project.title}</h4><p>{project.description}</p>
-        {project.title === 'HRM System' ? <Link className="bp-text-link" to="/projects#project-2">Project details <FiArrowRight aria-hidden="true" /></Link> :
+        {!project.live && !project.github ? <Link className="bp-text-link" to={'/projects#project-' + project.id}>Project details <FiArrowRight aria-hidden="true" /></Link> :
           <a className="bp-text-link" href={project.live || project.github} target="_blank" rel="noreferrer">{project.live ? 'Watch demo' : 'View on GitHub'} <FiArrowUpRight aria-hidden="true" /></a>}
       </article>)}</div>
       <Link className="bp-button all-projects" to="/projects">All projects <FiArrowRight aria-hidden="true" /></Link>

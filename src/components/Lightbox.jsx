@@ -81,7 +81,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
               type="button"
               className="icon-button"
               onClick={() => setZoomed((value) => !value)}
-              aria-label="Zoom in"
+              aria-label={zoomed ? 'Zoom out' : 'Zoom in'}
               aria-pressed={zoomed}
             >
               {zoomed ? <FiZoomOut size={19} aria-hidden="true" /> : <FiZoomIn size={19} aria-hidden="true" />}

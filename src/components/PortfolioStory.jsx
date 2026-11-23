@@ -42,7 +42,8 @@ export default function PortfolioStory() {
             <article id="kesari-chapter" className="kesari-chapter" aria-labelledby="kesari-title">
               <p className="chapter-label">Shine Infosoft · Travel Assist Platform</p>
               <h3 id="kesari-title" className="chapter-heading">Kesari <em>Select.</em></h3>
-              <p className="chapter-prose">Finance could miss an ERP record that arrived after the nightly export. I changed the Laravel job to pick it up on the next run and log each delivery.</p>
+              <p className="chapter-prose">At Kesari Select, Sales, Operations and Finance work in the same Travel Assist Platform (TAP). I build its Laravel features, connect them to the ERP and handle deployments.</p>
+              <p className="chapter-prose">A scheduled export could finish before the ERP sent a record. Finance would receive a complete file with a record missing. I added logs to show what went out and a lookback check to pick up late records in a later delivery. I also staged each file before publishing it, so Finance only received finished files.</p>
               <ol className="workflow-chips" aria-label="Travel inquiry workflow">
                 {flow.map((step, index) => (
                   <li key={step}>

@@ -13,12 +13,12 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx` introduces Madin with his portrait, a workshop photo, four hackathon highlights and a resume download.
-- `src/components/WorkHighlights.jsx` connects three engineering examples to their full case studies.
-- `src/components/PortfolioStory.jsx` connects the hackathon, Kesari Select and university workshop chapters.
+- `src/components/Hero.jsx` introduces Madin with a boarding pass, portrait and résumé download.
+- `src/components/WorkHighlights.jsx` leads with Kesari Select and links all three engineering examples to their case studies.
+- `src/components/PortfolioStory.jsx` connects four hackathon photos, the Kesari Select operating figures and the university workshop.
 - `src/components/About.jsx`: Short biography.
 - `src/components/Skills.jsx`: Backend, data and deployment skills.
-- `src/components/Projects.jsx`: Filterable project cards with a featured Kesari Select case study and its operating figures.
+- `src/components/Projects.jsx` groups filterable project cards and puts the early projects in an expandable list.
 - `src/components/Experience.jsx`: Employment history.
 - `src/pages/GalleryPage.jsx` holds the four photo albums, full-size photos and public hackathon recordings.
 - `src/components/Contact.jsx`: Contact and social links.
@@ -32,7 +32,7 @@ This is a personal site first, not a business metrics dashboard. Kesari Select f
 
 The portfolio uses real workshop/hackathon photos. No confidential client screenshots or invented product UIs are shown.
 
-The photo archive carousel supports swipe, thumbnails and arrow keys. Open any homepage photo to zoom or move between the originals in the full-size viewer.
+The photo archive carousel supports swipe, thumbnails and arrow keys. Open a photo in the homepage album to zoom or move between the reviewed WebP images.
 
 ## Deployment
 

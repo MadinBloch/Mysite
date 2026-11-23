@@ -18,3 +18,25 @@ jobs:
       - name: Validate portfolio content
         run: node scripts/check-portfolio.mjs
       - run: npm run build
+      - name: Verify the public Vercel beta
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'portfolio/boarding-pass' && github.event.pull_request.head.repo.full_name == github.repository
+        run: node scripts/check-beta.mjs
+      - name: Measure mobile and desktop delivery
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'portfolio/boarding-pass' && github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/portfolio-audits"
+          mobile="$RUNNER_TEMP/portfolio-audits/mobile-390.json"
+          desktop="$RUNNER_TEMP/portfolio-audits/desktop-1440.json"
+          audit=(npx --yes lighthouse@13.5.0 https://beta.madinbloch.online/ --only-categories=performance,seo --chrome-flags="--headless --no-sandbox" --output=json --quiet)
+          "${audit[@]}" --screenEmulation.width=390 --screenEmulation.height=844 --output-path="$mobile"
+          node scripts/report-lighthouse.mjs "$mobile"
+          "${audit[@]}" --preset=desktop --screenEmulation.width=1440 --screenEmulation.height=900 --output-path="$desktop"
+          node scripts/report-lighthouse.mjs "$desktop"
+      - name: Save Lighthouse reports and viewport captures
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'portfolio/boarding-pass' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-beta-audits
+          path: ${{ runner.temp }}/portfolio-audits/
+          retention-days: 7

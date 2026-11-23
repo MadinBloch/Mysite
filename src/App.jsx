@@ -1,3 +1,4 @@
+import { applyPageMeta, getPageMeta } from './pageMeta'
 import { useEffect, useRef } from 'react'
 import { MotionProvider } from './components/motion/MotionPreferences'
 import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
@@ -32,12 +33,6 @@ const legacySections = {
   '#community': '/gallery?album=meetups',
 }
 
-const pageTitles = {
-  '/projects': 'Selected work',
-  '/gallery': 'Photo archive',
-  '/about': 'Profile and experience',
-}
-
 function PageLocation() {
   const { key, pathname, search, hash } = useLocation()
   const previous = useRef(null)
@@ -64,18 +59,7 @@ function PageLocation() {
     return () => cancelAnimationFrame(frame)
   }, [key, pathname, search, hash])
 
-  useEffect(() => {
-    if (!pageTitles[pathname]) return
-    const oldTitle = document.title
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const oldCanonical = canonical?.href
-    document.title = pageTitles[pathname] + ' | Madin Bloch'
-    if (canonical) canonical.href = 'https://madin-bloch.vercel.app' + pathname
-    return () => {
-      document.title = oldTitle
-      if (canonical) canonical.href = oldCanonical
-    }
-  }, [pathname])
+  useEffect(() => { applyPageMeta(getPageMeta(pathname)) }, [pathname])
 
   return null
 }

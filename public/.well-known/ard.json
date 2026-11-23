@@ -1,0 +1,39 @@
+{
+  "specVersion": "1.0",
+  "entries": [
+    {
+      "identifier": "urn:air:madinbloch.online:portfolio:documents",
+      "displayName": "Madin Bloch’s public portfolio documents",
+      "type": "application/ai-catalog+json",
+      "representativeQueries": [
+        "Where can I find Madin Bloch’s résumé?",
+        "Where is the index of Madin Bloch’s portfolio and case studies?"
+      ],
+      "data": {
+        "specVersion": "1.0",
+        "entries": [
+          {
+            "identifier": "urn:air:madinbloch.online:portfolio:resume",
+            "displayName": "Madin Bloch’s résumé",
+            "type": "application/pdf",
+            "url": "https://www.madinbloch.online/Madin_Bloch_Resume.pdf",
+            "representativeQueries": [
+              "Where can I download Madin Bloch’s résumé?",
+              "What backend development experience does Madin Bloch list on his résumé?"
+            ]
+          },
+          {
+            "identifier": "urn:air:madinbloch.online:portfolio:sitemap",
+            "displayName": "Portfolio page index",
+            "type": "application/xml",
+            "url": "https://www.madinbloch.online/sitemap.xml",
+            "representativeQueries": [
+              "Which public pages are part of Madin Bloch’s portfolio?",
+              "Where can I find the URLs for Madin Bloch’s project case studies?"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

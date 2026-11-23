@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://madin-bloch.vercel.app/</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/projects</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/about</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/gallery</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/projects/kesari-select-backend</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/projects/email-campaign-engine</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/projects/smart-print-operations</loc></url>
-  <url><loc>https://madin-bloch.vercel.app/blogs</loc></url>
+  <url><loc>https://www.madinbloch.online/</loc></url>
+  <url><loc>https://www.madinbloch.online/projects</loc></url>
+  <url><loc>https://www.madinbloch.online/about</loc></url>
+  <url><loc>https://www.madinbloch.online/gallery</loc></url>
+  <url><loc>https://www.madinbloch.online/projects/kesari-select-backend</loc></url>
+  <url><loc>https://www.madinbloch.online/projects/email-campaign-engine</loc></url>
+  <url><loc>https://www.madinbloch.online/projects/smart-print-operations</loc></url>
+  <url><loc>https://www.madinbloch.online/blogs</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/shipping-laravel-apps-on-ec2</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/database-design-lessons-from-real-projects</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/queue-jobs-for-email-campaigns</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/backend-focused-hackathon-takeaways</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/docker-for-laravel-beginners</loc></url>
+  <url><loc>https://www.madinbloch.online/blog/from-raw-php-to-maintainable-laravel</loc></url>
 </urlset>

@@ -36,7 +36,7 @@ const hackathon = read('src/components/Hackathon.jsx')
 const workshop = read('src/components/Workshop.jsx')
 const hero = read('src/components/Hero.jsx')
 const gallery = read('src/pages/GalleryPage.jsx')
-const origin = 'https://madin-bloch.vercel.app'
+const origin = 'https://www.madinbloch.online'
 const sitemap = read('public/sitemap.xml')
 const sitemapIndex = read('public/sitemap_index.xml')
 const sitemapLocations = xml => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url)

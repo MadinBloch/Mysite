@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/check-delivery.mjs && node scripts/check-discovery.mjs",
     "preview": "vite preview",
     "predev": "node scripts/prepare-photos.mjs",
     "prebuild": "node scripts/prepare-photos.mjs"

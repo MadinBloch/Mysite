@@ -689,3 +689,25 @@
 .achievement-band dd { font: 800 clamp(3rem,7vw,6.5rem)/1 var(--display); letter-spacing: -.06em; }
 .achievement-band dt { margin-top: .45rem; font: 500 .77rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .1em; }
 @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } .about-print { margin-right: .5rem; } }
+
+.journey-section { background: var(--ink); color: var(--paper); }
+.journey-section .bp-section { color: inherit; }
+.journey-section .bp-kicker,.journey-stop .bp-label { color: var(--on-dark); }
+.journey-section h2 em { color: var(--vermilion); font-style: normal; }
+.journey-route { width: 100%; margin-bottom: .5rem; }
+.journey-route circle { fill: var(--ink); stroke: var(--paper); stroke-width: 3px; }
+.journey-route .current-stop,.journey-route text { fill: var(--vermilion); stroke: var(--vermilion); }
+.journey-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap: 1rem; }
+.journey-stop { display: flex; flex-direction: column; height: 100%; overflow: hidden; border: 2px solid var(--body); border-radius: 22px; }
+.journey-stop > img,.journey-type { width: 100%; aspect-ratio: 4/3; }
+.journey-stop > img { object-fit: cover; height: auto; }
+.journey-type { display: grid; place-items: center; background: color-mix(in srgb,var(--body) 30%,var(--ink)); color: var(--vermilion); font: 800 clamp(2.7rem,5vw,4.5rem)/1 var(--display); letter-spacing: -.055em; }
+.journey-copy { padding: 1.25rem; }
+.journey-copy h3 { font: 800 clamp(1.4rem,2vw,1.75rem)/1 var(--display); letter-spacing: -.04em; margin: .7rem 0; }
+.journey-copy h3 svg { display: inline; width: .65em; vertical-align: top; }
+.journey-copy > p:last-child { color: var(--paper-2); line-height: 1.55; }
+.journey-stop.current { background: var(--vermilion); border-color: var(--vermilion); color: var(--ink); }
+.journey-stop.current .journey-type { background: var(--ink); }
+.journey-stop.current p { color: var(--ink); }
+.journey-stop:hover h3 { text-decoration: underline; text-underline-offset: .16em; }
+@media (max-width: 699px) { .journey-route { display: none; } }

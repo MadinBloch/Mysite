@@ -9,6 +9,7 @@ import About, { StatBand } from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
+import Journey from './components/Journey'
 import PortfolioStory from './components/PortfolioStory'
 import GalleryPage from './pages/GalleryPage'
 import Blogs from './components/Blogs'
@@ -85,7 +86,7 @@ function HomePage() {
       <WorkHighlights />
       <About home />
       <StatBand />
-      <PortfolioStory />
+      <Journey />
       <Blogs />
     </>
   )
@@ -103,7 +104,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<><About /><Experience /><Skills /></>} />
+          <Route path="/about" element={<><About /><Experience /><PortfolioStory /><Skills /></>} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/projects/:slug" element={<CaseStudyPage />} />
           <Route path="/blogs" element={<BlogsPage />} />

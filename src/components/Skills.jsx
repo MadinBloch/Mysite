@@ -1,4 +1,4 @@
-import { SectionReveal } from './motion/SectionReveal'
+import { FiPlus } from 'react-icons/fi'
 
 const groups = [
   {
@@ -21,18 +21,18 @@ const groups = [
 export default function Skills({ home = false }) {
   return (
     <section id={home ? 'tech-stack' : 'skills'} className="bp-shell bp-section tool-section" aria-labelledby="skills-title">
-      {home && <p className="bp-kicker">04 · Tools</p>}
-      <h2 className="bp-section-title" id="skills-title">
-        {home ? <>Tools I <mark className="hl">reach for.</mark></> : <>Technical <mark className="hl">toolkit.</mark></>}
-      </h2>
-      <div className="tool-grid">
-        {groups.map(({ title, description, skills }) => (
-          <SectionReveal className="tool-card" key={title}>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <ul className="bp-chips">{skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
-          </SectionReveal>
-        ))}
+      {home && <p className="bp-kicker">04 / Toolkit</p>}
+      <div className="tools-layout">
+        <h2 className="bp-section-title" id="skills-title">Tools of the <em>trade.</em></h2>
+        <div className="tool-list">
+          {groups.map(({ title, description, skills }, index) => (
+            <details className="tool-entry" name="toolkit" key={title} open={index === 0}>
+              <summary>{title} <FiPlus aria-hidden="true" /></summary>
+              <p>{description}</p>
+              <ul className="bp-chips">{skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   )

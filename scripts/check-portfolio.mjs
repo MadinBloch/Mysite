@@ -127,4 +127,13 @@ assert.ok(read('src/components/HomeAlbum.jsx').includes('<Lightbox photos={album
   'Opening an album photo must use the reviewed image')
 assert.ok(read('src/components/Experience.jsx').includes("useState('mage')"))
 
+const journal = read('src/components/HomeAlbum.jsx')
+const allPhotos = journal.match(/const allPhotos = \[([^\]]+)\]/)?.[1] || ''
+const homePhotos = [...allPhotos.matchAll(/frames\.(\w+)/g)].map(match => match[1])
+const reviewedPhotos = [...photos.matchAll(/(\w+): frame\(/g)].map(match => match[1])
+assert.deepEqual([...homePhotos].sort(), [...reviewedPhotos].sort(), 'Keep every reviewed photograph in the home journal')
+assert.equal(homePhotos[0], 'workshop', 'Lead the photo journal with the Git and Docker classroom')
+assert.ok(highlights.includes('Object.entries(kesariPageLoad)'), 'Chart the observed times from the canonical data')
+assert.ok(app.includes("import { MotionProvider }") && app.includes('<MotionProvider>'))
+
 console.log('Portfolio content validation passed')

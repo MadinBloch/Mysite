@@ -24,11 +24,11 @@ export default function Contact() {
   }
 
   return (
-    <footer id="contact" className="boarding-contact" aria-labelledby="contact-title">
+    <footer id="contact" className="contact-section" aria-labelledby="contact-title">
       <div className="bp-shell">
-        <p className="bp-kicker">Gate open · Ahmedabad · Remote or relocation</p>
-        <h2 id="contact-title">Ready for <em>boarding?</em></h2>
-        <div className="boarding-email">
+        <p className="bp-kicker">Open to backend roles · Remote or relocation</p>
+        <h2 id="contact-title">Let’s work <em>together.</em></h2>
+        <div className="contact-email">
           <a href={'mailto:' + profile.email} ref={email}>{profile.email}</a>
           <button type="button" onClick={copyEmail} aria-label="Copy email address">
             {copyResult === 'Email address copied.' ? <FiCheck aria-hidden="true" /> : <FiCopy aria-hidden="true" />}
@@ -37,9 +37,9 @@ export default function Contact() {
         <p role="status" className="email-feedback">{copyResult}</p>
         <div className="bp-actions">
           <a href={'mailto:' + profile.email} className="bp-button bp-primary"><FiMail aria-hidden="true" />Email me</a>
-          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Resume</a>
+          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Download résumé</a>
         </div>
-        <div className="boarding-signoff">
+        <div className="contact-signoff">
           <Link to="/">© Madin Bloch</Link>
           <a href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" />GitHub</a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" />LinkedIn</a>

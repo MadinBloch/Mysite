@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import blogs from '../data/blogs.json'
-import { FiArrowRight } from 'react-icons/fi'
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 
 const postDate = new Intl.DateTimeFormat('en-IN', {
   year: 'numeric',
@@ -24,6 +24,7 @@ export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
               <Heading>{post.title}</Heading>
               {!compact && post.preview && <p>{post.preview}</p>}
             </div>
+            <FiArrowUpRight className="post-arrow" aria-hidden="true" />
           </Link>
         </li>
       ))}
@@ -33,10 +34,10 @@ export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
 
 export default function Blogs() {
   return (
-    <section id="blogs" className="bp-shell bp-section boarding-writing" aria-labelledby="writing-title">
-      <p className="bp-kicker">06 · Writing</p>
+    <section id="blogs" className="bp-shell bp-section" aria-labelledby="writing-title">
+      <p className="bp-kicker">06 / Writing</p>
       <div className="bp-heading-row">
-        <h2 id="writing-title" className="bp-section-title">Notes from <mark className="hl">production.</mark></h2>
+        <h2 id="writing-title" className="bp-section-title">Notes from <em>production.</em></h2>
         <Link to="/blogs" className="bp-text-link">All posts <FiArrowRight aria-hidden="true" /></Link>
       </div>
       <BlogList compact posts={blogs.slice(0, 3)} />

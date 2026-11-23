@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import blogs from '../data/blogs.json'
-import { SectionReveal } from './motion/SectionReveal'
+import { FiArrowRight } from 'react-icons/fi'
 
 const postDate = new Intl.DateTimeFormat('en-IN', {
   year: 'numeric',
@@ -33,16 +33,13 @@ export function BlogList({ posts, heading: Heading = 'h3', compact = false }) {
 
 export default function Blogs() {
   return (
-    <section id="blogs" className="section-shell writing-section" aria-labelledby="writing-title">
-      <div className="portfolio-shell">
-        <SectionReveal className="spread-heading">
-          <h2 id="writing-title" className="editorial-heading">Latest <em>writing.</em></h2>
-          <Link to="/blogs" className="quiet-link">All posts</Link>
-        </SectionReveal>
-        <SectionReveal>
-          <BlogList compact posts={blogs.slice(0, 3)} />
-        </SectionReveal>
+    <section id="blogs" className="bp-shell bp-section boarding-writing" aria-labelledby="writing-title">
+      <p className="bp-kicker">06 · Writing</p>
+      <div className="bp-heading-row">
+        <h2 id="writing-title" className="bp-section-title">Notes from <mark className="hl">production.</mark></h2>
+        <Link to="/blogs" className="bp-text-link">All posts <FiArrowRight aria-hidden="true" /></Link>
       </div>
+      <BlogList compact posts={blogs.slice(0, 3)} />
     </section>
   )
 }

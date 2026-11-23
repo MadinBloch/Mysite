@@ -734,3 +734,27 @@
   .album-tile img { transition: transform .25s var(--ease-out); }
   .album-tile:hover img { transform: scale(1.035); }
 }
+
+.boarding-writing .bp-section-title { font-size: clamp(2.35rem,5vw,4.5rem); }
+.writing-list { border-block: var(--stroke); }
+.writing-list li + li { border-top: var(--stroke); }
+.writing-list li > a { display: grid; grid-template-columns: minmax(8rem,12%) 1fr; align-items: baseline; gap: 1.25rem; padding-block: 1.3rem; }
+.writing-list time { font: 500 .8rem/1.4 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.writing-list :is(h2,h3) { font: 800 1.5rem/1.15 var(--display); letter-spacing: -.03em; color: var(--ink); }
+.writing-list li > a:is(:hover,:focus-visible) :is(h2,h3) { color: var(--accent-text); text-decoration: underline; text-decoration-color: var(--vermilion); text-underline-offset: .2em; }
+.writing-list p { margin-top: .5rem; color: var(--body); }
+.boarding-contact { padding-block: clamp(56px,8vw,120px); text-align: center; color: var(--paper); background: var(--ink); }
+.boarding-contact .bp-kicker { color: var(--on-dark); }
+.boarding-contact h2 { font: 800 clamp(3.3rem,10vw,10.5rem)/.9 var(--display); letter-spacing: -.065em; }
+.boarding-contact h2 em { font-style: normal; color: var(--vermilion); }
+.boarding-email,.boarding-signoff,.boarding-contact .bp-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; }
+.boarding-email { margin-top: 1.6rem; color: var(--paper-2); font-size: clamp(1rem,1.5vw,1.25rem); }
+.boarding-email button { display: grid; place-items: center; width: 44px; height: 44px; }
+.email-feedback { min-height: 1.35rem; color: var(--on-dark); font-size: .82rem; }
+.boarding-contact .bp-button { border-color: var(--paper); color: var(--paper); }
+.boarding-contact .bp-primary { border-color: var(--vermilion); color: var(--ink); }
+.boarding-contact .bp-button:hover { box-shadow: 3px 3px 0 var(--paper); }
+.boarding-signoff { gap: .5rem 1.2rem; margin-top: clamp(2.2rem,4vw,3.5rem); font: 500 .75rem var(--mono); color: var(--paper-2); }
+.boarding-signoff a { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; }
+.boarding-signoff a:hover,.boarding-email a:hover { text-decoration: underline; }
+@media (max-width: 620px) { .writing-list li > a { grid-template-columns: 1fr; gap: .45rem; } }

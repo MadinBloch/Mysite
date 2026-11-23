@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { FiMenu, FiX } from 'react-icons/fi'
+import { FiArrowUpRight, FiMenu, FiPause, FiPlay, FiX } from 'react-icons/fi'
+import { useMotionPreference } from './motion/MotionPreferences'
 
 const sections = [
-  ['Projects', 'selected-work'], ['About', 'profile'], ['Journey', 'story'],
-  ['Album', 'album'], ['Writing', 'blogs'],
+  ['Work', 'selected-work'], ['About', 'profile'], ['Journey', 'story'],
+  ['Photos', 'album'], ['Writing', 'blogs'],
 ]
 
 export default function Navbar() {
   const { key, hash, pathname } = useLocation()
   const [open, setOpen] = useState(false)
+  const { reduced, systemReduced, toggleMotion } = useMotionPreference()
   const header = useRef(null)
   const toggle = useRef(null)
   useEffect(() => { setOpen(false) }, [key])
@@ -31,18 +33,26 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header className="bp-nav" ref={header}>
-      <nav className="bp-shell bp-nav-bar" aria-label="Main navigation">
-        <Link to="/" className="bp-brand" aria-label="Madin Bloch home">mb.</Link>
-        <div id="boarding-menu" className={'bp-menu' + (open ? ' is-open' : '')}>
-          {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}>{title}</Link>)}
-        </div>
-        <div className="nav-actions"><Link to="/#contact" className="bp-button bp-black">Book a chat</Link>
-          <button ref={toggle} className="bp-menu-toggle" type="button" aria-controls="boarding-menu" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
-            {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
-          </button>
-        </div>
-      </nav>
-    </header>
+    <>
+      <header className="masthead" ref={header}>
+        <nav className="main-nav" aria-label="Main navigation">
+          <Link to="/" className="wordmark" aria-label="Madin Bloch home">Madin <em>Bloch.</em></Link>
+          <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
+            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}>{title}</Link>)}
+          </div>
+          <div className="nav-actions">
+            <Link to="/#contact" className="nav-contact">Let’s talk <FiArrowUpRight aria-hidden="true" /></Link>
+            <button ref={toggle} className="menu-toggle" type="button" aria-controls="main-menu" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
+              {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+            </button>
+          </div>
+        </nav>
+      </header>
+      <button type="button" className="motion-toggle" aria-label="Animations" aria-pressed={!reduced} disabled={systemReduced}
+        title={systemReduced ? 'Reduced motion is enabled on your device' : 'Toggle animations'} onClick={toggleMotion}>
+        {reduced ? <FiPlay aria-hidden="true" /> : <FiPause aria-hidden="true" />}
+        Motion {reduced ? 'off' : 'on'}
+      </button>
+    </>
   )
 }

@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { useReducedMotion } from 'framer-motion'
+import { useMotionPreference } from './motion/MotionPreferences'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 
 export default function PhotoDeck({ photos, label, priority = false, className = '', appearance = 'album' }) {
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
   const [viewportRef, carousel] = useEmblaCarousel({ loop: true, duration: 24 })
   const [selected, setSelected] = useState(0)
   const [preview, setPreview] = useState(null)

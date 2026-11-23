@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { MotionConfig } from 'framer-motion'
+import { MotionProvider } from './components/motion/MotionPreferences'
 import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -97,7 +97,7 @@ function HomePage() {
 
 export default function App() {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionProvider>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-panel focus:p-3 focus:text-ink">
         Skip to content
       </a>
@@ -124,6 +124,6 @@ export default function App() {
         </Routes>
       </main>
       <Contact />
-    </MotionConfig>
+    </MotionProvider>
   )
 }

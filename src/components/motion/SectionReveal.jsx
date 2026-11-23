@@ -1,9 +1,10 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useMotionPreference } from './MotionPreferences'
 
 const ease = [0.22, 1, 0.36, 1]
 
 export function SectionReveal({ children, className = '', delay = 0 }) {
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
 
   if (reduce) {
     return <div className={className}>{children}</div>
@@ -23,7 +24,7 @@ export function SectionReveal({ children, className = '', delay = 0 }) {
 }
 
 export function Stagger({ children, className = '', delay = 0 }) {
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
 
   if (reduce) {
     return <div className={className}>{children}</div>
@@ -48,7 +49,7 @@ export function Stagger({ children, className = '', delay = 0 }) {
 }
 
 export function StaggerItem({ children, className = '' }) {
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
 
   if (reduce) {
     return <div className={className}>{children}</div>

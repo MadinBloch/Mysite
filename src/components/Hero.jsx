@@ -1,45 +1,37 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowDown, FiDownload } from 'react-icons/fi'
-import Lightbox from './Lightbox'
+import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/profile'
 
-const fields = [
-  ['Passenger', 'Madin Bloch'], ['Role', 'Laravel Dev'], ['From', 'Hackathon ’23'],
-  ['To', 'Production'], ['Base', 'Ahmedabad'], ['Stack', 'Laravel · AWS'],
-]
-const portrait = {
-  id: 'portrait', title: 'Madin Bloch', alt: 'Madin Bloch in a navy suit',
-  src: '/photos/madin-portrait.webp', width: 720, height: 720,
-}
-
 export default function Hero() {
-  const [preview, setPreview] = useState(false)
   return (
-    <section id="home" className="bp-hero bp-shell" aria-labelledby="home-title">
-      <p className="bp-kicker">Madin Bloch · Laravel backend developer · Ahmedabad</p>
-      <h1 id="home-title">Backend that <mark className="hl">works</mark> when it matters.</h1>
-      <p className="bp-intro">At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.</p>
-      <div className="bp-actions">
-        <Link to="/#selected-work" className="bp-button bp-primary">See my projects <FiArrowDown aria-hidden="true" /></Link>
-        <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Resume</a>
-      </div>
-      <div id="boarding-pass" className="boarding-pass">
-        <div className="pass-body">
-          <div className="pass-heading"><span className="bp-label">Boarding pass</span><span className="pass-status">Open to backend roles</span></div>
-          <dl className="pass-fields">{fields.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
-          <div className="pass-barcode" aria-hidden="true" />
+    <section id="home" className="portrait-cover" aria-labelledby="home-title">
+      <div className="cover-inner">
+        <div className="cover-top meta-line">
+          <span className="availability">Open to backend roles</span>
+          <span>Ahmedabad, India</span>
         </div>
-        <div className="pass-stub">
-          <button type="button" className="pass-portrait" onClick={() => setPreview(true)} aria-label="Open Madin Bloch’s portrait">
-            <img src={portrait.src} width="720" height="720" alt={portrait.alt} fetchPriority="high" />
-          </button>
-          <div><p className="bp-label">Seat</p><p className="seat-number">01A</p>
-            <a className="bp-button bp-black" href={profile.resume} download>Resume <FiArrowDown aria-hidden="true" /></a>
+        <div className="portrait-light" aria-hidden="true" />
+        <div className="cover-photo">
+          <img src="/photos/madin-portrait.webp" width="720" height="720" alt="Madin Bloch" fetchPriority="high" />
+        </div>
+        <div className="cover-margin" aria-hidden="true">
+          <span className="margin-tick" />
+          <span>Laravel<br />ERP integrations<br />AWS deployments</span>
+        </div>
+        <div className="cover-title">
+          <p className="cover-role">Laravel backend developer</p>
+          <h1 id="home-title">Madin <em>Bloch.</em></h1>
+          <p className="cover-intro">I build the Laravel APIs behind Kesari Select’s travel bookings and take them from development to production on AWS.</p>
+          <div className="cover-actions">
+            <Link to="/#selected-work" className="action-pill">Explore my work <FiArrowDown aria-hidden="true" /></Link>
+            <a href={profile.resume} download className="action-line"><FiDownload aria-hidden="true" /> Download résumé</a>
           </div>
         </div>
+        <div className="cover-foot meta-line">
+          <Link to="/#profile">Meet the developer <FiArrowDown aria-hidden="true" /></Link>
+          <Link to="/projects/kesari-select-backend">Kesari Select case study <FiArrowUpRight aria-hidden="true" /></Link>
+        </div>
       </div>
-      {preview && <Lightbox photos={[portrait]} index={0} onClose={() => setPreview(false)} />}
     </section>
   )
 }

@@ -1,10 +1,12 @@
 import { useEffect, useId, useRef, useState } from 'react'
+import './photo-viewer.css'
 import { FiArrowLeft, FiArrowRight, FiX, FiZoomIn, FiZoomOut } from 'react-icons/fi'
 
 export default function Lightbox({ photos, index, onChange, onClose }) {
   const [zoomed, setZoomed] = useState(false)
   const dialogRef = useRef(null)
   const closeRef = useRef(null)
+  const stageRef = useRef(null)
   const swipeStart = useRef(null)
   const titleId = useId()
   const photo = photos[index]
@@ -28,6 +30,10 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
     }
   }, [])
 
+  useEffect(() => {
+    if (zoomed) stageRef.current?.focus({ preventScroll: true })
+  }, [zoomed])
+
   function move(direction) {
     setZoomed(false)
     onChange((index + direction + photos.length) % photos.length)
@@ -50,7 +56,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
   }
 
   function handleKeyDown(event) {
-    if (!hasMultiple || event.target.dataset.zoomed === 'true') return
+    if (!hasMultiple || zoomed) return
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
     event.preventDefault()
     move(event.key === 'ArrowLeft' ? -1 : 1)
@@ -70,8 +76,8 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
       }}
       onKeyDown={handleKeyDown}
     >
-      <div>
-        <div className="flex min-h-16 items-center justify-between gap-3 px-4 py-2 sm:px-5">
+      <div className="viewer-layout">
+        <div className="viewer-toolbar flex min-h-16 items-center justify-between gap-3 px-4 py-2 sm:px-5">
           <div className="min-w-0" aria-live="polite">
             <p id={titleId} className="font-display text-base font-semibold sm:text-lg">{photo.title}</p>
             {photo.caption && <p className="portfolio-meta mt-0.5">{photo.caption}</p>}
@@ -93,6 +99,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
         </div>
         <div
           key={photo.id + (zoomed ? '-zoomed' : '')}
+          ref={stageRef}
           className="gallery-dialog-stage"
           data-zoomed={zoomed}
           onPointerDown={startSwipe}
@@ -104,6 +111,8 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
         >
           <img
             src={photo.src}
+            srcSet={zoomed ? undefined : photo.srcSet}
+            sizes={zoomed ? undefined : 'min(100vw, ' + Math.round(100 * photo.width / photo.height) + 'dvh)'}
             alt={photo.alt || photo.title}
             width={photo.width}
             height={photo.height}
@@ -112,7 +121,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
           />
         </div>
         {hasMultiple && (
-          <div className="flex items-center justify-center gap-4 px-4 py-3">
+          <div className="viewer-footer flex items-center justify-center gap-4 px-4 py-3">
             <button type="button" className="icon-button" aria-label="Previous full photo" onClick={() => move(-1)}>
               <FiArrowLeft size={18} aria-hidden="true" />
             </button>

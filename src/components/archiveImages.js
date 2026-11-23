@@ -1,3 +1,4 @@
+import { photoSources } from '../photoRenditions'
 import { frames } from './EventPhotos'
 
 const extras = {
@@ -16,14 +17,17 @@ const eventFrames = {
   'meetup-group': frames.meetup, meetup: frames.developers,
 }
 
-// The archive keeps its original records and titles. Both grid and full-screen views use the reviewed photograph.
 export function archiveImage(photo) {
   const event = eventFrames[photo.id]
-  if (event) return { ...photo, src: event.src, printSrc: event.small, previewWidth: 360,
-    width: event.width, height: event.height, position: event.position, alt: event.alt }
+  if (event) {
+    return { ...photo, src: event.src, printSrc: event.small, thumb: event.thumb, srcSet: event.srcSet,
+      width: event.width, height: event.height, position: event.position, alt: event.alt }
+  }
+
   const extra = extras[photo.id]
   if (!extra) return photo
   const [file, width, height, alt] = extra
-  return { ...photo, src: '/photos/boarding/' + file + '.webp', printSrc: undefined,
-    previewWidth: undefined, width, height, alt }
+  const sources = photoSources(file, width)
+  return { ...photo, src: sources.src, srcSet: sources.srcSet, printSrc: sources.small,
+    thumb: sources.thumb, width, height, alt }
 }

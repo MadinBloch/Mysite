@@ -31,18 +31,16 @@ export default function HomeAlbum() {
             key={name} aria-pressed={filter === name} onClick={() => setFilter(name)}>{name}</button>)}
         </div>
         <div className="contact-sheet" data-filter={filter} id="landing-hackathon">
-          {album.map((photo, index) => {
-            const wide = photo.width / photo.height > 1.8
-            return (
-              <button type="button" key={photo.id} className={'journal-photo' + (wide ? ' wide' : '')}
-                aria-label={'Open full photo: ' + photo.title} onClick={() => setPreview(index)}>
-                <span className="journal-image">
-                  <EventPhoto photo={photo} sizes={wide ? '(max-width: 640px) 92vw, 55vw' : '(max-width: 640px) 44vw, 29vw'} />
-                </span>
-                <span className="journal-caption">{photo.title}<FiMaximize2 aria-hidden="true" /></span>
-              </button>
-            )
-          })}
+          {album.map((photo, index) => (
+            <button type="button" key={photo.id} className="journal-photo"
+              style={{ '--frame-ratio': photo.width / photo.height }}
+              aria-label={'Open full photo: ' + photo.title} onClick={() => setPreview(index)}>
+              <span className="journal-image">
+                <EventPhoto photo={photo} sizes="(max-width: 580px) 92vw, (max-width: 950px) 48vw, 36vw" />
+              </span>
+              <span className="journal-caption">{photo.title}<FiMaximize2 aria-hidden="true" /></span>
+            </button>
+          ))}
         </div>
       </div>
       {preview !== null && <Lightbox photos={album} index={preview} onChange={setPreview} onClose={() => setPreview(null)} />}

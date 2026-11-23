@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useMotionPreference } from './motion/MotionPreferences'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
@@ -24,7 +24,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
     }
   }, [carousel])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const slides = carousel?.slideNodes()
     const focused = document.activeElement
     if (slides?.includes(focused) && focused !== slides[selected]) {
@@ -59,7 +59,9 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                 onClick={() => setPreview(index)}
               >
                 <img
-                  src={isCover ? photo.printSrc || photo.src : photo.src}
+                  src={photo.printSrc || photo.src}
+                  srcSet={photo.srcSet}
+                  sizes={(priority && index === 0 ? '' : 'auto, ') + '(max-width: 1024px) 92vw, 60rem'}
                   width={photo.width}
                   height={photo.height}
                   alt={photo.alt || photo.title}
@@ -101,7 +103,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
               onClick={() => carousel?.scrollTo(index, Boolean(reduce))}
             >
               <img
-                src={photo.printSrc || photo.src}
+                src={photo.thumb || photo.printSrc || photo.src}
                 width={photo.width}
                 height={photo.height}
                 alt=""

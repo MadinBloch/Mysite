@@ -1,0 +1,114 @@
+/* Each row allocates width in proportion to the photographs' native shapes. */
+.home-album .contact-sheet {
+  --row-height: clamp(152px, 17vw, 230px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: clamp(1.2rem, 2.7vw, 2.5rem) clamp(.8rem, 1.6vw, 1.5rem);
+}
+
+.home-album .contact-sheet .journal-photo {
+  flex: var(--frame-ratio) 1 calc(var(--frame-ratio) * var(--row-height));
+  min-width: min(100%, 9rem);
+  max-width: min(100%, calc(var(--frame-ratio) * 390px));
+}
+
+.home-album .journal-photo .journal-image,
+.album-prints .photo-print button,
+.chapter-photos .photo-print button,
+.chapter-workshop.photo-print button {
+  aspect-ratio: var(--frame-ratio);
+  height: auto;
+}
+
+.home-album .journal-photo .journal-image img,
+.album-prints .photo-print img,
+.chapter-photos .photo-print img,
+.chapter-workshop.photo-print img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+:root[data-motion] .home-album .journal-photo:hover .journal-image img { transform: none; }
+
+@media (max-width: 580px) {
+  .home-album .contact-sheet { --row-height: 126px; }
+  .home-album .contact-sheet .journal-photo { min-width: min(100%, 7.4rem); }
+}
+
+dialog.gallery-dialog[open] {
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.viewer-layout {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.viewer-layout .viewer-toolbar,
+.viewer-layout .viewer-footer {
+  min-height: 0;
+  padding: .45rem clamp(.6rem, 2.4vw, 2rem);
+}
+
+.viewer-layout .gallery-dialog-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  touch-action: pan-y pinch-zoom;
+}
+
+.viewer-layout .gallery-dialog-image {
+  display: block;
+  flex: none;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0;
+  object-fit: contain;
+}
+
+.viewer-layout .gallery-dialog-stage[data-zoomed=true] {
+  display: block;
+  overflow: auto;
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+.viewer-layout .gallery-dialog-stage[data-zoomed=true] .gallery-dialog-image {
+  width: max(160%, 42rem);
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-motion=on] .viewer-layout .gallery-dialog-stage[data-zoomed=false] img {
+    animation: photo-settle .24s ease-out both;
+  }
+  @keyframes photo-settle {
+    from { opacity: .45; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

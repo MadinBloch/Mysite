@@ -5,7 +5,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import PhotoStrip from './components/BoardingPhotos'
 import WorkHighlights from './components/WorkHighlights'
-import About from './components/About'
+import About, { StatBand } from './components/About'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Experience from './components/Experience'
@@ -83,6 +83,8 @@ function HomePage() {
       <Hero />
       <PhotoStrip />
       <WorkHighlights />
+      <About home />
+      <StatBand />
       <PortfolioStory />
       <Blogs />
     </>

@@ -674,3 +674,18 @@
   .work-case:hover { transform: translate(-3px,-3px); }
   .build-tag:hover { transform: rotate(-1.5deg) translateY(-3px); }
 }
+
+.about-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: center; gap: clamp(1.8rem,4vw,3rem); }
+.bp-about .bp-section-title { font-size: clamp(2.4rem,5vw,4.75rem); }
+.about-grid > div > p:not(.bp-kicker) { color: var(--body); font-size: clamp(1.05rem,1.45vw,1.19rem); line-height: 1.65; margin-bottom: 1rem; }
+.about-grid .bp-chips { margin-top: 1.3rem; }
+.about-grid .bp-text-link { margin-top: .45rem; }
+.about-print { position: relative; display: block; overflow: hidden; aspect-ratio: 5/4; border: var(--stroke); border-radius: var(--radius-card); box-shadow: 10px 10px 0 var(--vermilion); }
+.about-print img { width: 100%; height: 100%; object-fit: cover; }
+.photo-cap { position: absolute; left: 12px; bottom: 12px; max-width: calc(100% - 24px); border-radius: var(--radius-pill); padding: .36rem .76rem; background: var(--vermilion); color: var(--ink); font: 500 .7rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.achievement-band { padding-block: clamp(36px,5vw,72px); color: var(--ink); background: var(--vermilion); }
+.achievement-band dl { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1.5rem 2rem; }
+.achievement-band dl > div { display: flex; flex-direction: column-reverse; }
+.achievement-band dd { font: 800 clamp(3rem,7vw,6.5rem)/1 var(--display); letter-spacing: -.06em; }
+.achievement-band dt { margin-top: .45rem; font: 500 .77rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } .about-print { margin-right: .5rem; } }

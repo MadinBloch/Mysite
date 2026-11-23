@@ -2,38 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face { font-family: 'Bricolage Grotesque'; src: url('/fonts/bricolage-grotesque-latin.woff2') format('woff2'); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'DM Mono'; src: url('/fonts/dm-mono-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'DM Mono'; src: url('/fonts/dm-mono-medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+
 :root {
-  color-scheme: dark;
-  --ink: #0a100d;
-  --panel: #0f1a15;
-  --line: #243a2f;
-  --text: #eef3ee;
-  --muted: #c0d0c7;
-  --mint: #6ee7b7;
-  --paper: #ecf2ec;
-  --paper-text: #10201a;
-  --deep-green: #0f7a55;
-  --radius-card: 24px;
+  color-scheme: light;
+  --paper: #f2ede2;
+  --paper-2: #e6dfd0;
+  --ink: #14130f;
+  --vermilion: #ff5a36;
+  --blush: #ffd9cf;
+  --muted: #6b665a;
+  --body: #3a362d;
+  --on-dark: #ff8a6e;
+  --accent-text: #a62e15;
+  --white: #fff;
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'DM Mono', ui-monospace, monospace;
+  --section-space: clamp(56px, 7vw, 112px);
+  --gutter: clamp(20px, 5vw, 72px);
+  --radius-card: 28px;
   --radius-pill: 999px;
-  --section-space: clamp(48px, 7vw, 104px);
-  --display: 'Outfit', system-ui, sans-serif;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --stroke: 2px solid var(--ink);
+  --shadow: 8px 8px 0 var(--ink);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --text: var(--ink);
+  --panel: var(--white);
+  --line: var(--ink);
+  --mint: var(--accent-text);
+  --paper-text: var(--ink);
+  --deep-green: var(--accent-text);
+  --serif: var(--display);
 }
 
 @layer base {
   html {
     scroll-padding-top: 92px;
     scrollbar-gutter: stable;
-    scrollbar-color: var(--deep-green) var(--ink);
+    scrollbar-color: var(--muted) var(--paper);
   }
 
   body {
     @apply font-sans antialiased;
     margin: 0;
-    background: var(--ink);
-    color: var(--text);
+    background: var(--paper);
+    color: var(--ink);
   }
 
   ::selection {
@@ -42,16 +56,17 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--mint);
-    outline-offset: 4px;
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 7px var(--vermilion);
   }
 }
 
 @layer components {
   .portfolio-shell {
-    width: min(100%, 77rem);
+    width: min(100%, 1440px);
     margin-inline: auto;
-    padding-inline: clamp(1.125rem, 4vw, 2.5rem);
+    padding-inline: var(--gutter);
   }
 
   .section-shell {

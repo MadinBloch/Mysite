@@ -555,3 +555,8 @@
 @media (max-width: 639px) {
   .project-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+.story-cover, .story-timeline, .writing-section, .closing-cta {
+  --text: var(--paper);
+  --mint: var(--on-dark);
+}

@@ -711,3 +711,8 @@
 .journey-stop.current p { color: var(--ink); }
 .journey-stop:hover h3 { text-decoration: underline; text-underline-offset: .16em; }
 @media (max-width: 699px) { .journey-route { display: none; } }
+
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,16.5rem),1fr)); gap: 1.25rem; }
+.tool-card { padding: clamp(20px,2.1vw,30px); border: var(--stroke); border-radius: 22px; background: var(--white); }
+.tool-card h3 { font: 800 clamp(1.5rem,2.1vw,1.8rem)/1.06 var(--display); letter-spacing: -.045em; }
+.tool-card p { margin: .5rem 0 1rem; color: var(--body); line-height: 1.55; }

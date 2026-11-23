@@ -87,6 +87,7 @@ function HomePage() {
       <About home />
       <StatBand />
       <Journey />
+      <Skills home />
       <Blogs />
     </>
   )

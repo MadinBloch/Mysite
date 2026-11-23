@@ -1,115 +1,48 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { profile } from '../data/profile'
-import { FiMail, FiDownload, FiGithub, FiLinkedin, FiMenu, FiX } from 'react-icons/fi'
+import { FiMenu, FiX } from 'react-icons/fi'
 
-const links = [
-  ['/', 'Home'],
-  ['/projects', 'Work'],
-  ['/about', 'Profile'],
-  ['/gallery', 'Gallery'],
-  ['/blogs', 'Writing'],
+const sections = [
+  ['Projects', 'selected-work'], ['About', 'profile'], ['Journey', 'story'],
+  ['Album', 'album'], ['Writing', 'blogs'],
 ]
 
-const profileLinks = [
-  [profile.github, 'GitHub', FiGithub],
-  [profile.linkedin, 'LinkedIn', FiLinkedin],
-].map(([href, label, Icon]) => (
-  <a key={href} href={href} target="_blank" rel="noreferrer" className="masthead-profile" aria-label={label + ' profile'} title={label}>
-    <Icon size={17} aria-hidden="true" /><span className="lg:hidden">{label}</span>
-  </a>
-))
-
 export default function Navbar() {
+  const { key, hash, pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const header = useRef(null)
-  const menuButton = useRef(null)
-  const location = useLocation()
-  const { pathname } = location
-
-  useEffect(() => {
-    setOpen(false)
-  }, [location.key])
-
+  const toggle = useRef(null)
+  useEffect(() => { setOpen(false) }, [key])
   useEffect(() => {
     if (!open) return
-
-    const onPointerDown = (event) => {
-      if (!header.current.contains(event.target)) setOpen(false)
-    }
-    const onKeyDown = (event) => {
-      if (event.key !== 'Escape') return
+    function dismiss(event) {
+      if (event.type === 'keydown') {
+        if (event.key !== 'Escape') return
+        toggle.current?.focus()
+      } else if (header.current?.contains(event.target)) return
       setOpen(false)
-      menuButton.current?.focus()
     }
-
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('keydown', dismiss)
+    document.addEventListener('pointerdown', dismiss)
     return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('keydown', dismiss)
+      document.removeEventListener('pointerdown', dismiss)
     }
   }, [open])
 
-  const activePath = pathname.startsWith('/projects/') ? '/projects'
-    : pathname.startsWith('/blog/') ? '/blogs' : pathname
-
-  const navLinks = links.map(([path, label]) => (
-    <Link
-      key={path}
-      to={path}
-      className="nav-link"
-      aria-current={activePath === path ? 'page' : undefined}
-      onClick={() => setOpen(false)}
-    >
-      {label}
-    </Link>
-  ))
-
   return (
-    <header ref={header} className="masthead fixed inset-x-0 top-0 z-50">
-      <div className="portfolio-shell">
-        <nav className="masthead-bar" aria-label="Main navigation">
-          <Link to="/" className="masthead-brand" aria-label="Madin Bloch home">
-            <span className="brand-monogram" aria-hidden="true">mb.</span>
-            <span>Madin Bloch</span>
-          </Link>
-
-          <div className="hidden items-center gap-1 lg:flex">{navLinks}</div>
-
-          <div className="hidden items-center gap-1 lg:flex">
-            {profileLinks}
-            <Link to="/#contact" className="masthead-contact ml-3 inline-flex">
-              Let’s talk <FiMail size={16} aria-hidden="true" />
-            </Link>
-          </div>
-
-          <button
-            ref={menuButton}
-            type="button"
-            className="icon-button lg:hidden"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <FiX size={20} aria-hidden="true" /> : <FiMenu size={20} aria-hidden="true" />}
+    <header className="bp-nav" ref={header}>
+      <nav className="bp-shell bp-nav-bar" aria-label="Main navigation">
+        <Link to="/" className="bp-brand" aria-label="Madin Bloch home">mb.</Link>
+        <div id="boarding-menu" className={'bp-menu' + (open ? ' is-open' : '')}>
+          {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}>{title}</Link>)}
+        </div>
+        <div className="nav-actions"><Link to="/#contact" className="bp-button bp-black">Book a chat</Link>
+          <button ref={toggle} className="bp-menu-toggle" type="button" aria-controls="boarding-menu" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
+            {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
           </button>
-        </nav>
-
-        <nav
-          id="mobile-navigation"
-          className={'mobile-menu max-h-[calc(100dvh-5rem)] overflow-auto lg:hidden ' + (open ? 'menu-enter grid' : 'hidden')}
-          aria-label="Mobile navigation"
-        >
-          {navLinks}
-          <Link to="/#contact" className="nav-link" onClick={() => setOpen(false)}>Contact</Link>
-          <div className="mobile-profiles">{profileLinks}</div>
-          <a href={profile.resume} download className="btn-primary mt-2" onClick={() => setOpen(false)}>
-            Download resume <FiDownload size={17} aria-hidden="true" />
-          </a>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   )
 }

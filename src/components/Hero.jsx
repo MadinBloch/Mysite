@@ -1,59 +1,45 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiBookOpen, FiDownload, FiTerminal } from 'react-icons/fi'
+import { FiArrowDown, FiDownload } from 'react-icons/fi'
 import Lightbox from './Lightbox'
-import PhotoPrint from './PhotoPrint'
 import { profile } from '../data/profile'
 
+const fields = [
+  ['Passenger', 'Madin Bloch'], ['Role', 'Laravel Dev'], ['From', 'Hackathon ’23'],
+  ['To', 'Production'], ['Base', 'Ahmedabad'], ['Stack', 'Laravel · AWS'],
+]
 const portrait = {
-  id: 'portrait',
-  src: '/profile-portrait.png',
-  printSrc: '/photos/madin-portrait.webp',
-  title: 'Madin Bloch',
-  alt: 'Madin Bloch in a navy suit',
-  width: 800,
-  height: 800,
+  id: 'portrait', title: 'Madin Bloch', alt: 'Madin Bloch in a navy suit',
+  src: '/profile-portrait.png', printSrc: '/photos/madin-portrait.webp',
 }
 
-const trace = [
-  ['inquiry', 'received'],
-  ['laravel', 'validated'],
-  ['erp', 'export queued'],
-  ['finance', 'file ready'],
-]
-
 export default function Hero() {
-  const [showPortrait, setShowPortrait] = useState(false)
-
+  const [preview, setPreview] = useState(false)
   return (
-    <section id="home" className="story-cover" aria-labelledby="home-title">
-      <div className="portfolio-shell hero-grid">
-        <div className="hero-copy">
-          <p className="hero-status"><span aria-hidden="true" />Open to backend roles · Ahmedabad</p>
-          <p className="hero-role">Laravel Backend Developer</p>
-          <h1 id="home-title">From hackathon <span>to <em>production.</em></span></h1>
-          <p className="hero-intro">
-            At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.
-          </p>
-          <div className="hero-actions">
-            <Link to="/#story" className="btn-primary"><FiBookOpen aria-hidden="true" />Read my story</Link>
-            <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" />Resume</a>
+    <section id="home" className="bp-hero bp-shell" aria-labelledby="home-title">
+      <p className="bp-kicker">Madin Bloch · Laravel backend developer · Ahmedabad</p>
+      <h1 id="home-title">Backend that <mark className="hl">works</mark> when it matters.</h1>
+      <p className="bp-intro">At Shine Infosoft, I build the Laravel APIs that take a Kesari Select inquiry from quote to booking. I connect them to the ERP and deploy releases on AWS.</p>
+      <div className="bp-actions">
+        <Link to="/#selected-work" className="bp-button bp-primary">See my projects <FiArrowDown aria-hidden="true" /></Link>
+        <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Resume</a>
+      </div>
+      <div className="boarding-pass">
+        <div className="pass-body">
+          <div className="pass-heading"><span className="bp-label">Boarding pass</span><span className="pass-status">Open to backend roles</span></div>
+          <dl className="pass-fields">{fields.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl>
+          <div className="pass-barcode" aria-hidden="true" />
+        </div>
+        <div className="pass-stub">
+          <button type="button" className="pass-portrait" onClick={() => setPreview(true)} aria-label="Open Madin Bloch’s portrait">
+            <img src={portrait.printSrc} width="720" height="720" alt={portrait.alt} decoding="async" />
+          </button>
+          <div><p className="bp-label">Seat</p><p className="seat-number">01A</p>
+            <a className="bp-button bp-black" href={profile.resume} download>Resume <FiArrowDown aria-hidden="true" /></a>
           </div>
         </div>
-
-        <div className="portrait-stage">
-          <PhotoPrint photo={portrait} priority className="portrait-print" caption={portrait.title} onOpen={() => setShowPortrait(true)} />
-          <figure className="trace-card">
-            <figcaption><FiTerminal aria-hidden="true" />trace · illustrative</figcaption>
-            <ul>
-              {trace.map(([event, message]) => (
-                <li key={event}><code>{event}</code><span>{message}</span></li>
-              ))}
-            </ul>
-          </figure>
-        </div>
       </div>
-      {showPortrait && <Lightbox photos={[portrait]} index={0} onClose={() => setShowPortrait(false)} />}
+      {preview && <Lightbox photos={[portrait]} index={0} onClose={() => setPreview(false)} />}
     </section>
   )
 }

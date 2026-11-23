@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { MotionConfig, useReducedMotion } from 'framer-motion'
+import { MotionConfig } from 'framer-motion'
 import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import ScrollProgress from './components/ScrollProgress'
 import Hero from './components/Hero'
 import TechTicker from './components/TechTicker'
 import WorkHighlights from './components/WorkHighlights'
@@ -91,14 +90,11 @@ function HomePage() {
 }
 
 export default function App() {
-  const reduce = useReducedMotion()
-
   return (
     <MotionConfig reducedMotion="user">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-accent focus:p-3 focus:text-ink">
         Skip to content
       </a>
-      {!reduce && <ScrollProgress />}
       <PageLocation />
       <Navbar />
       <main id="main-content" tabIndex={-1}>

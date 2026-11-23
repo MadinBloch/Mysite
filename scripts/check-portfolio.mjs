@@ -78,7 +78,7 @@ for (const path of ['/projects', '/about', '/gallery', '/blogs']) {
 for (const section of ['About', 'Experience', 'Skills', 'Projects']) {
   assert.ok(app.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
 }
-assert.ok(hero.includes('Madin Bloch') && hero.includes('/photos/madin-portrait.webp'), 'The cover should introduce Madin with his portrait')
+assert.ok(hero.includes('Madin Bloch') && hero.includes('src={portrait.src}') && read('src/portrait.js').includes('/photos/madin-portrait.webp'), 'The cover should introduce Madin with his portrait')
 assert.ok(existsSync('public/profile-portrait.png') && existsSync('public/photos/madin-portrait.webp'), 'Formal portrait missing')
 assert.ok(!hero.includes('10000') && !hero.includes('pipeline'), 'No platform dashboard in the hero')
 assert.deepEqual(kesariStats.map(({ count, label }) => [count, label]), [

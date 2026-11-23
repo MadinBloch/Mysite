@@ -38,7 +38,7 @@ export default function Navbar() {
         <nav className="main-nav" aria-label="Main navigation">
           <Link to="/" className="wordmark" aria-label="Madin Bloch home">Madin <em>Bloch.</em></Link>
           <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
-            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}>{title}</Link>)}
+            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><span className="nav-label"><span>{title}</span><span aria-hidden="true">{title}</span></span></Link>)}
           </div>
           <div className="nav-actions">
             <Link to="/#contact" className="nav-contact">Let’s talk <FiArrowUpRight aria-hidden="true" /></Link>

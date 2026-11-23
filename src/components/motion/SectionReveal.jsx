@@ -1,69 +1,55 @@
-import { motion } from 'framer-motion'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useMotionPreference } from './MotionPreferences'
 
-const ease = [0.22, 1, 0.36, 1]
+const targets = '.section-reveal, .bp-section-title, .case-figure, .spread-copy h3, .journey-stop, .journal-photo, .writing-list li'
 
 export function SectionReveal({ children, className = '', delay = 0 }) {
-  const { reduced: reduce } = useMotionPreference()
-
-  if (reduce) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.42, delay, ease }}
-    >
-      {children}
-    </motion.div>
-  )
+  return <div className={'section-reveal ' + className} data-delay={delay || undefined}>{children}</div>
 }
 
-export function Stagger({ children, className = '', delay = 0 }) {
-  const { reduced: reduce } = useMotionPreference()
+export function PageReveals() {
+  const { pathname, search } = useLocation()
+  const { ready, reduced } = useMotionPreference()
+  useEffect(() => {
+    if (!ready || reduced || !window.IntersectionObserver || !Element.prototype.animate) return
+    const main = document.getElementById('main-content')
+    const seen = new WeakSet()
+    const playing = new Set()
+    const observer = new IntersectionObserver(entries => {
+      const entering = entries.filter(entry => entry.isIntersecting)
+      entering.forEach(({ target }, index) => {
+        observer.unobserve(target)
+        const heading = target.matches('h2,h3')
+        const animation = target.animate([
+          { opacity: .28, transform: heading ? 'translateY(.37em)' : 'translateY(22px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], { duration: heading ? 640 : 520, delay: Math.min(index, 3) * 48 + 1000 * Number(target.dataset.delay || 0),
+          easing: 'cubic-bezier(.2,.75,.25,1)', fill: 'backwards' })
+        playing.add(animation)
+        animation.onfinish = () => playing.delete(animation)
+      })
+    }, { threshold: 0.06 })
 
-  if (reduce) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: { staggerChildren: 0.08, delayChildren: delay },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-export function StaggerItem({ children, className = '' }) {
-  const { reduced: reduce } = useMotionPreference()
-
-  if (reduce) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 9 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
-      }}
-    >
-      {children}
-    </motion.div>
-  )
+    function watch(element) {
+      if (seen.has(element)) return
+      seen.add(element)
+      if (element.getBoundingClientRect().top > window.innerHeight * .9) observer.observe(element)
+    }
+    main.querySelectorAll(targets).forEach(watch)
+    const added = new MutationObserver(records => {
+      for (const record of records) for (const node of record.addedNodes) {
+        if (node.nodeType !== 1) continue
+        if (node.matches(targets)) watch(node)
+        node.querySelectorAll(targets).forEach(watch)
+      }
+    })
+    added.observe(main, { childList: true, subtree: true })
+    return () => {
+      added.disconnect()
+      observer.disconnect()
+      for (const animation of playing) animation.cancel()
+    }
+  }, [ready, reduced, pathname, search])
+  return null
 }

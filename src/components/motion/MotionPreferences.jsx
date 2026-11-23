@@ -1,44 +1,47 @@
-import { createContext, useContext, useLayoutEffect, useState, useSyncExternalStore } from 'react'
-import { MotionConfig } from 'framer-motion'
+import { createContext, useContext, useEffect, useSyncExternalStore } from 'react'
 
 const MotionPreference = createContext(null)
 const preferenceKey = 'portfolio-motion'
 const query = '(prefers-reduced-motion: reduce)'
+let sessionPaused
 
-function subscribe(listener) {
-  const media = window.matchMedia(query)
-  media.addEventListener('change', listener)
-  return () => media.removeEventListener('change', listener)
+function snapshot() {
+  let paused = sessionPaused || false
+  try { paused = window.localStorage.getItem(preferenceKey) === 'off' } catch { /* Use the session setting. */ }
+  return (window.matchMedia(query).matches ? 2 : 0) | (paused ? 1 : 0)
 }
 
-function readPaused() {
-  try { return window.localStorage.getItem(preferenceKey) === 'off' } catch { return false }
+function subscribe(notify) {
+  const media = window.matchMedia(query)
+  media.addEventListener('change', notify)
+  window.addEventListener('portfolio-motion-change', notify)
+  window.addEventListener('storage', notify)
+  return () => {
+    media.removeEventListener('change', notify)
+    window.removeEventListener('portfolio-motion-change', notify)
+    window.removeEventListener('storage', notify)
+  }
+}
+
+function toggleMotion() {
+  sessionPaused = !(snapshot() & 1)
+  try {
+    if (sessionPaused) window.localStorage.setItem(preferenceKey, 'off')
+    else window.localStorage.removeItem(preferenceKey)
+  } catch { /* Private windows can still change the setting for this session. */ }
+  window.dispatchEvent(new Event('portfolio-motion-change'))
 }
 
 export function MotionProvider({ children }) {
-  const [paused, setPaused] = useState(readPaused)
-  const systemReduced = useSyncExternalStore(subscribe, () => window.matchMedia(query).matches, () => false)
-  const reduced = systemReduced || paused
-
-  useLayoutEffect(() => {
-    document.documentElement.dataset.motion = reduced ? 'off' : 'on'
+  const flags = useSyncExternalStore(subscribe, snapshot, () => -1)
+  const ready = flags >= 0
+  const reduced = ready && flags !== 0
+  const systemReduced = ready && Boolean(flags & 2)
+  useEffect(() => {
+    document.documentElement.dataset.motion = ready && !reduced ? 'on' : 'off'
     return () => { delete document.documentElement.dataset.motion }
-  }, [reduced])
-
-  function toggleMotion() {
-    const next = !paused
-    setPaused(next)
-    try {
-      if (next) window.localStorage.setItem(preferenceKey, 'off')
-      else window.localStorage.removeItem(preferenceKey)
-    } catch { /* The setting still applies for this session. */ }
-  }
-
-  return (
-    <MotionPreference.Provider value={{ reduced, systemReduced, toggleMotion }}>
-      <MotionConfig reducedMotion={reduced ? 'always' : 'user'}>{children}</MotionConfig>
-    </MotionPreference.Provider>
-  )
+  }, [ready, reduced])
+  return <MotionPreference.Provider value={{ ready, reduced, systemReduced, toggleMotion }}>{children}</MotionPreference.Provider>
 }
 
 export function useMotionPreference() {

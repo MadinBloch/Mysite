@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { MotionProvider } from './components/motion/MotionPreferences'
 import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { PageReveals } from './components/motion/SectionReveal'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Impact from './components/Impact'
@@ -104,6 +105,7 @@ export default function App() {
       </a>
       <PageLocation />
       <Navbar />
+      <PageReveals />
       <main id="main-content" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<HomePage />} />

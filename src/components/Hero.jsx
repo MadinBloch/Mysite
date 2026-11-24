@@ -1,13 +1,30 @@
+import { useEffect, useRef } from 'react'
+import { useMotionPreference } from './motion/MotionPreferences'
 import { portrait } from '../portrait'
 import { Link } from 'react-router-dom'
 import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/profile'
 
 export default function Hero() {
+  const stage = useRef(null)
+  const img = useRef(null)
+  const field = useRef(null)
+  const { reduced } = useMotionPreference()
+
+  useEffect(() => {
+    if (reduced) return
+    let cancelled = false
+    let dispose
+    Promise.all([img.current.decode(), import('./motion/portraitDissolve')])
+      .then(([, module]) => {
+        if (!cancelled) dispose = module.mountDissolve(stage.current, img.current, field.current)
+      }).catch(() => { /* The photograph remains visible if sampling fails. */ })
+    return () => { cancelled = true; dispose?.() }
+  }, [reduced])
 
   return (
     <section id="home" className="portrait-cover" aria-labelledby="home-title">
-      <div className="cover-inner">
+      <div className="cover-inner" ref={stage}>
         <div className="cover-top meta-line">
           <span className="availability">Open to backend roles</span>
           <span>Ahmedabad, India</span>
@@ -16,8 +33,9 @@ export default function Hero() {
         <div className="portrait-track">
           <div className="portrait-pin">
             <div className="cover-photo">
-              <img src={portrait.src} srcSet={portrait.srcSet} sizes={portrait.sizes}
+              <img ref={img} src={portrait.src} srcSet={portrait.srcSet} sizes={portrait.sizes}
                 width="720" height="720" alt="Madin Bloch" loading="eager" fetchpriority="high" />
+              <canvas ref={field} aria-hidden="true" style={{ position: 'absolute', insetBlockStart: 0, left: '-50%', width: '200%', height: '100%', pointerEvents: 'none' }} />
             </div>
           </div>
         </div>

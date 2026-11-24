@@ -47,7 +47,7 @@ function samplePortrait(image, columns) {
 export function mountDissolve(stage, image, canvas) {
   const ctx = canvas.getContext('2d')
   if (!ctx || !image.naturalWidth) return null
-  let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples
+  let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples, titleOffset, navBottom
   let frame = 0
   let lastProgress = -1
   let introStart = 0
@@ -71,11 +71,9 @@ export function mountDissolve(stage, image, canvas) {
         requestDraw()
       }
     }
-    const nav = document.querySelector('.main-nav')
-    const title = stage.querySelector('#home-title')
-    const navBottom = nav?.getBoundingClientRect().bottom ?? 72
-    const titleGap = title ? title.getBoundingClientRect().top - navBottom : height * .36
-    const arrival = clamp(scrollProgress + Math.max(0, titleGap) / distance)
+    // Freeze the crossing point from layout geometry. Measuring the title's
+    // live screen position here would move the threshold along with the scroll.
+    const arrival = clamp((titleOffset - navBottom) / distance)
     if (Math.abs(p - lastProgress) < .0004) return
     lastProgress = p
     ctx.clearRect(0, 0, width, height)
@@ -86,12 +84,12 @@ export function mountDissolve(stage, image, canvas) {
     write('--portrait-y', portraitDrift.toFixed(2) + 'px')
     if (!samples) samples = samplePortrait(image, columns)
     if (!samples) return
-    write('--type-shift', (-Math.min(92, height * .13) * smooth(arrival - .4, arrival + .48, p)).toFixed(2) + 'px')
-    write('--name-spacing', (12 * smooth(arrival - .12, arrival + .25, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - smooth(arrival + .02, arrival + .2, p)).toFixed(3))
-    write('--portrait-opacity', (.26 * (1 - smooth(arrival + .03, arrival + .32, p) * .9)).toFixed(3))
+    write('--type-shift', (-Math.min(92, height * .13) * smooth(arrival - .3, arrival + .42, p)).toFixed(2) + 'px')
+    write('--name-spacing', (12 * smooth(arrival - .1, arrival + .2, p)).toFixed(2) + 'px')
+    write('--name-alpha', (1 - smooth(arrival - .04, arrival + .12, p)).toFixed(3))
+    write('--portrait-opacity', (.26 * (1 - smooth(arrival - .04, arrival + .26, p) * .9)).toFixed(3))
     const spread = smooth(arrival - .02, arrival + .5, p)
-    const envelope = 1 - smooth(arrival - .03, arrival + .28, p)
+    const envelope = 1 - smooth(arrival - .05, arrival + .24, p)
     const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
     const waveCenter = height * .28 + scrollProgress * distance * .65
     const strength = Math.min(width * .12, height * .13)
@@ -122,6 +120,10 @@ export function mountDissolve(stage, image, canvas) {
     width = bounds.width
     height = bounds.height
     top = bounds.top + window.scrollY
+    const title = stage.querySelector('#home-title')
+    const nav = document.querySelector('.main-nav')
+    titleOffset = title ? title.offsetTop + title.parentElement.offsetTop : height * .36
+    navBottom = nav?.getBoundingClientRect().bottom ?? 72
     left = photo.left - bounds.left
     imageTop = photo.top - bounds.top
     imageWidth = photo.width

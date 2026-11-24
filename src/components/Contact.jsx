@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiCheck, FiCopy, FiDownload, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { profile } from '../data/profile'
+import RollingLabel from './RollingLabel'
 
 export default function Contact() {
   const email = useRef(null)
@@ -27,7 +28,9 @@ export default function Contact() {
     <footer id="contact" className="contact-section" aria-labelledby="contact-title">
       <div className="bp-shell">
         <p className="bp-kicker">Open to backend roles · Remote or relocation</p>
-        <h2 id="contact-title">Let’s work <em>together.</em></h2>
+        <h2 id="contact-title">Something great starts with{' '}
+          <em><a href={'mailto:' + profile.email}><RollingLabel>a hello.</RollingLabel></a></em>
+        </h2>
         <div className="contact-email">
           <a href={'mailto:' + profile.email} ref={email}>{profile.email}</a>
           <button type="button" onClick={copyEmail} aria-label="Copy email address">
@@ -36,8 +39,8 @@ export default function Contact() {
         </div>
         <p role="status" className="email-feedback">{copyResult}</p>
         <div className="bp-actions">
-          <a href={'mailto:' + profile.email} className="bp-button bp-primary"><FiMail aria-hidden="true" />Email me</a>
-          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Download résumé</a>
+          <a href={'mailto:' + profile.email} className="bp-button bp-primary"><FiMail aria-hidden="true" /><RollingLabel>Email me</RollingLabel></a>
+          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" /><RollingLabel>Download Resume</RollingLabel></a>
         </div>
         <div className="contact-signoff">
           <Link to="/">© Madin Bloch</Link>

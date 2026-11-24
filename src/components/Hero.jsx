@@ -4,6 +4,7 @@ import { portrait } from '../portrait'
 import { Link } from 'react-router-dom'
 import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/profile'
+import RollingLabel from './RollingLabel'
 
 export default function Hero() {
   const stage = useRef(null)
@@ -48,8 +49,8 @@ export default function Hero() {
           <h1 id="home-title"><span className="cover-heading-mask"><span className="cover-heading-word">Madin</span></span>{' '}<span className="cover-heading-mask"><em className="cover-heading-word">Bloch.</em></span></h1>
           <p className="cover-intro">I build the Laravel APIs behind Kesari Select’s travel bookings and take them from development to production on AWS.</p>
           <div className="cover-actions">
-            <Link to="/#selected-work" className="action-pill">Explore my work <FiArrowDown aria-hidden="true" /></Link>
-            <a href={profile.resume} download className="action-line"><FiDownload aria-hidden="true" /> Download résumé</a>
+            <Link to="/#selected-work" className="action-pill"><RollingLabel>Explore my work</RollingLabel> <FiArrowDown aria-hidden="true" /></Link>
+            <a href={profile.resume} download className="action-line"><FiDownload aria-hidden="true" /><RollingLabel>Download Resume</RollingLabel></a>
           </div>
         </div>
         <div className="cover-foot meta-line">

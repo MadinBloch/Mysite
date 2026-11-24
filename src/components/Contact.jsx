@@ -27,7 +27,7 @@ export default function Contact() {
     <footer id="contact" className="contact-section" aria-labelledby="contact-title">
       <div className="bp-shell">
         <p className="bp-kicker">Open to backend roles · Remote or relocation</p>
-        <h2 id="contact-title">Let’s work <em>together.</em></h2>
+        <h2 id="contact-title">Something great starts with <em>a hello.</em></h2>
         <div className="contact-email">
           <a href={'mailto:' + profile.email} ref={email}>{profile.email}</a>
           <button type="button" onClick={copyEmail} aria-label="Copy email address">
@@ -37,7 +37,7 @@ export default function Contact() {
         <p role="status" className="email-feedback">{copyResult}</p>
         <div className="bp-actions">
           <a href={'mailto:' + profile.email} className="bp-button bp-primary"><FiMail aria-hidden="true" />Email me</a>
-          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Download résumé</a>
+          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Download Resume</a>
         </div>
         <div className="contact-signoff">
           <Link to="/">© Madin Bloch</Link>

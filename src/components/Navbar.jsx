@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { FiArrowUpRight, FiMenu, FiPause, FiPlay, FiX } from 'react-icons/fi'
 import { useMotionPreference } from './motion/MotionPreferences'
+import RollingLabel from './RollingLabel'
 
 const sections = [
   ['Work', 'selected-work'], ['About', 'profile'], ['Journey', 'story'],
@@ -71,10 +72,10 @@ export default function Navbar() {
         <nav className="main-nav" aria-label="Main navigation">
           <Link to="/" className="wordmark" aria-label="Madin Bloch home"><span>Madin <em>Bloch.</em></span></Link>
           <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
-            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><span className="nav-label"><span>{title}</span><span aria-hidden="true">{title}</span></span></Link>)}
+            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><RollingLabel>{title}</RollingLabel></Link>)}
           </div>
           <div className="nav-actions">
-            <Link to="/#contact" className="nav-contact">Let’s talk <FiArrowUpRight aria-hidden="true" /></Link>
+            <Link to="/#contact" className="nav-contact"><RollingLabel>Let’s talk</RollingLabel> <FiArrowUpRight aria-hidden="true" /></Link>
             <button ref={toggle} className="menu-toggle" type="button" aria-controls="main-menu" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
               {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
             </button>

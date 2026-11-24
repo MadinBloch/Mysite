@@ -104,12 +104,12 @@
 
 /* Platform figures and profile */
 .impact-band { background:var(--paper-2); border-block:var(--stroke); }
-.impact-inner { padding-block:clamp(24px,3.8vw,55px); display:grid; grid-template-columns:minmax(9rem,.6fr) minmax(0,2.5fr); column-gap:clamp(1rem,3vw,4rem); align-items:center; }
+.impact-inner { padding-block:clamp(24px,3.8vw,55px); display:grid; grid-template-columns:minmax(9rem,.6fr) minmax(0,2.5fr); column-gap:clamp(.8rem,1.8vw,2rem); align-items:center; }
 .impact-credit { display:inline-flex; align-items:center; gap:.5rem; width:fit-content; min-height:44px; font:400 clamp(1.5rem,2.6vw,2.7rem)/1 var(--serif); }
 .impact-credit svg { color:var(--accent-text); width:.55em; }
-.impact-inner dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.impact-inner dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.25rem,.8vw,.8rem); }
 .impact-inner dl > div,.chapter-impact dl > div { display:flex; flex-direction:column-reverse; }
-.impact-inner dl > div { border-left:var(--stroke); padding-left:clamp(.75rem,2.2vw,2.3rem); }
+.impact-inner dl > div { border-left:var(--stroke); padding-left:clamp(.6rem,1.2vw,1.2rem); }
 .impact-inner dd { font:400 clamp(2.4rem,5vw,5.2rem)/1 var(--serif); letter-spacing:-.055em; }
 .impact-inner dd span { color:var(--accent-text); font-size:.6em; vertical-align:super; }
 .impact-inner dt,.estimate-note { color:var(--muted); font:400 .73rem/1.45 var(--mono); }
@@ -187,13 +187,14 @@
   .case-spread:nth-child(even) .case-figure { order:0; }
   .case-figure { max-width:100%; }
   .impact-inner { display:block; } .impact-credit { margin-bottom:.5rem; }
-  .impact-inner .estimate-note { margin-left:0; }
   .impact-inner dl > div:first-child { border-left:0; padding-left:0; }
   .profile-figure { max-width:36rem; }
   .more-builds { grid-template-columns:1fr; gap:.45rem; }
 }
 @media (max-width:480px) {
-  .impact-inner dt { font-size:.65rem; } .impact-inner dl { gap:.35rem; }
+  .impact-inner dd { font-size:clamp(1.8rem,7.2vw,2.25rem); }
+  .impact-inner dt { font-size:.59rem; line-height:1.35; } .impact-inner dl { gap:.25rem; }
+
   .case-figure { aspect-ratio:auto; min-height:218px; }
 }
 

@@ -62,7 +62,7 @@ assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => ma
   ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
 assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
 assert.ok(story.includes('internal TAP walkthroughs'), 'Credit the internal training in the Kesari chapter')
-assert.ok(read('src/components/Impact.jsx').includes('*developer-reported estimates'))
+assert.ok(!read('src/components/Impact.jsx').includes('*developer-reported estimates'))
 for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
   assert.ok(page.includes('id="' + id + '"'), 'Missing journal anchor: ' + id)
 }
@@ -83,7 +83,7 @@ assert.ok(hero.includes('Madin Bloch') && hero.includes('src={portrait.src}') &&
 assert.ok(existsSync('public/profile-portrait.png') && existsSync('public/photos/madin-portrait.webp'), 'Formal portrait missing')
 assert.ok(!hero.includes('10000') && !hero.includes('pipeline'), 'No platform dashboard in the hero')
 assert.deepEqual(kesariStats.map(({ count, label }) => [count, label]), [
-  [200, 'Daily inquiries'], [30000, 'Customer records'], [10000, 'Website visitors'],
+  [200, 'Daily inquiries'], [100000, 'Customer records'], [10000, 'Website visitors'],
 ], 'Keep the three Kesari measures distinct')
 assert.ok(!/10K\+\s+(daily|per day|\/day)\s+inquiries/i.test([hero, story, read('src/data/projects.json')].join('\n')), 'Incorrect daily inquiry claim')
 assert.ok(read('src/components/Projects.jsx').includes('id="projects"'), 'Projects anchor missing')
@@ -102,7 +102,7 @@ for (const project of projects.filter(project => project.caseStudySlug)) {
 }
 assert.ok(kesariPageLoad.before > kesariPageLoad.after && kesariPageLoad.after > 0)
 const resumeSource = read('scripts/resume.html')
-for (const phrase of ['200+ daily inquiries', '30K+ customer records', '10K+ visitors']) {
+for (const phrase of ['200+ daily inquiries', '100K+ customer records', '10K+ daily visitors']) {
   assert.ok(resumeSource.includes(phrase), 'Portfolio resume should match website: ' + phrase)
 }
 

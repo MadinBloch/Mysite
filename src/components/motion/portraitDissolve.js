@@ -72,19 +72,24 @@ export function mountDissolve(stage, image, canvas) {
     if (Math.abs(p - lastProgress) < .0004) return
     lastProgress = p
     ctx.clearRect(0, 0, width, height)
-    write('--type-shift', (-38 * smooth(.04, .86, p)).toFixed(2) + 'px')
+    // Let the page carry the title toward the sticky nav, while the portrait
+    // lags behind like a pinned backdrop. Keep the reveal tied to scroll so it
+    // stays predictable on trackpads, touch screens, and keyboard scrolling.
+    const portraitDrift = Math.min(distance * .46, height * .48) * scrollProgress
+    write('--portrait-y', portraitDrift.toFixed(2) + 'px')
+    write('--type-shift', (-Math.min(92, height * .13) * smooth(.04, .94, p)).toFixed(2) + 'px')
     write('--name-spacing', (16 * smooth(.04, .82, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - .75 * smooth(.28, .94, p)).toFixed(3))
+    write('--name-alpha', (1 - smooth(.72, .94, p)).toFixed(3))
     if (p < .008) {
       write('--portrait-opacity', 1)
       return
     }
     if (!samples) samples = samplePortrait(image, columns)
     if (!samples) return
-    write('--portrait-opacity', (1 - smooth(.015, .39, p)).toFixed(3))
+    write('--portrait-opacity', (1 - smooth(.80, .99, p)).toFixed(3))
     if (p >= .998) return
-    const spread = smooth(.12, .91, p)
-    const envelope = smooth(.012, .19, p) * (1 - smooth(.63, 1, p))
+    const spread = smooth(.72, .99, p)
+    const envelope = smooth(.74, .84, p) * (1 - smooth(.96, 1, p))
     const dot = Math.max(1.25, Math.min(3.7, imageWidth / columns * .65))
     const waveCenter = height * .24 + scrollProgress * distance * .65
     const strength = Math.min(width * .13, height * .14)
@@ -97,7 +102,7 @@ export function mountDissolve(stage, image, canvas) {
         const wave = Math.sin(10.5 * u + 1.9 * v + 5 * p) + .38 * Math.sin(18 * u - 3.3 * v - 2.5 * p)
         const targetY = waveCenter + strength * wave + (v - .42) * height * .24 + (noise - .5) * height * .045
         const x = mix(left + u * imageWidth, targetX, drift)
-        const y = mix(imageTop + v * imageHeight, targetY, spread)
+        const y = mix(imageTop + portraitDrift + v * imageHeight, targetY, spread)
         const size = dot * (.63 + .034 * level)
         ctx.fillRect(x, y, size * (1 + .47 * spread), size)
       }
@@ -150,7 +155,7 @@ export function mountDissolve(stage, image, canvas) {
     document.removeEventListener('visibilitychange', requestDraw)
     cancelAnimationFrame(frame)
     canvas.width = canvas.height = 1
-    for (const key of ['--portrait-opacity', '--type-shift', '--name-spacing', '--name-alpha']) stage.style.removeProperty(key)
+    for (const key of ['--portrait-opacity', '--portrait-y', '--type-shift', '--name-spacing', '--name-alpha']) stage.style.removeProperty(key)
   }
   return { replay, dispose }
 }

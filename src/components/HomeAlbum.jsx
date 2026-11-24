@@ -15,6 +15,23 @@ const allPhotos = [
   frames.certificates, frames.developers, frames.classroom, frames.meetup, frames.workshopGroup, frames.finalist,
 ]
 
+function trackPhotoPointer(event) {
+  if (event.pointerType !== 'mouse' || document.documentElement.dataset.motion !== 'on') return
+  const bounds = event.currentTarget.getBoundingClientRect()
+  const x = (event.clientX - bounds.left) / bounds.width
+  const y = (event.clientY - bounds.top) / bounds.height
+  event.currentTarget.style.setProperty('--photo-tilt-y', ((x - .5) * 3.2).toFixed(2) + 'deg')
+  event.currentTarget.style.setProperty('--photo-tilt-x', ((.5 - y) * 2.4).toFixed(2) + 'deg')
+  event.currentTarget.style.setProperty('--photo-glow-x', (x * 100).toFixed(1) + '%')
+  event.currentTarget.style.setProperty('--photo-glow-y', (y * 100).toFixed(1) + '%')
+}
+
+function resetPhotoPointer(event) {
+  for (const property of ['--photo-tilt-x', '--photo-tilt-y', '--photo-glow-x', '--photo-glow-y']) {
+    event.currentTarget.style.removeProperty(property)
+  }
+}
+
 export default function HomeAlbum() {
   const [filter, setFilter] = useState('All photos')
   const [preview, setPreview] = useState(null)
@@ -76,7 +93,8 @@ export default function HomeAlbum() {
                 event.preventDefault()
                 setPreview(index)
               }}>
-              <span className="journal-image" data-frame={photo.id}>
+              <span className="journal-image" data-frame={photo.id}
+                onPointerMove={trackPhotoPointer} onPointerLeave={resetPhotoPointer}>
                 <img src={photo.thumb}
                   srcSet={widths[photo.id] ? journalSources(photo.id, photo.width, widths[photo.id]) : undefined}
                   sizes={widths[photo.id] ? widths[photo.id] + 'px' : undefined}

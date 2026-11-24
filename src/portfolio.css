@@ -42,6 +42,8 @@
 .cover-role { margin-bottom:.7rem; color:#eed0b9; text-shadow:0 1px 9px #080808; }
 .cover-title h1 { font:400 clamp(6rem,11.8vw,12rem)/.91 var(--serif); letter-spacing:-.061em; white-space:nowrap; }
 .cover-title h1 em { font-weight:400; }
+.cover-heading-mask { display:inline-block; overflow:hidden; vertical-align:bottom; }
+.cover-heading-word { display:inline-block; padding-block:.1em; margin-block:-.1em; }
 .cover-intro { max-width:46ch; margin:clamp(.8rem,1.4vw,1.3rem) auto 1.2rem; font-size:clamp(1rem,1.32vw,1.2rem); line-height:1.5; color:var(--body); text-wrap:pretty; }
 .cover-actions { justify-content:center; gap:1.6rem; }
 .cover-foot { border-top:var(--stroke); margin:0 0 .5rem; min-height:54px; }
@@ -78,13 +80,12 @@
   .portrait-replay span { display:none; }
 }
 @media (prefers-reduced-motion:no-preference) {
-  :root[data-motion=on] .cover-title h1 span { animation:cover-first-word .6s var(--ease-out); }
-  :root[data-motion=on] .cover-title h1 em { animation:cover-last-word .78s var(--ease-out); }
+  :root[data-motion=on] .cover-title h1 > .cover-heading-mask:first-of-type .cover-heading-word { animation:cover-heading-reveal .82s var(--ease-out) both; }
+  :root[data-motion=on] .cover-title h1 > .cover-heading-mask:last-of-type .cover-heading-word { animation:cover-heading-reveal .98s var(--ease-out) .11s both; }
   :root[data-motion=on] .portrait-replay:is(:hover,:focus-visible) svg { transform:rotate(30deg); }
   :root[data-motion=on] .portrait-replay svg { transition:transform .3s var(--ease-out); }
 }
-@keyframes cover-first-word { from { translate:0 .15em; } to { translate:0 0; } }
-@keyframes cover-last-word { from { translate:0 .24em; } to { translate:0 0; } }
+@keyframes cover-heading-reveal { from { transform:translateY(112%); filter:blur(13px); opacity:.35; } to { transform:translateY(0); filter:blur(0); opacity:1; } }
 .nav-label { display:grid; position:relative; overflow:hidden; line-height:1.4; }
 .nav-label > span { grid-area:1/1; }
 .nav-label > span[aria-hidden] { transform:translateY(108%); }

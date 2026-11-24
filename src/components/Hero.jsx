@@ -68,7 +68,7 @@ export default function Hero() {
         </button>
         <div className="cover-title">
           <p className="cover-role">Laravel backend developer</p>
-          <h1 id="home-title"><span>Madin</span>{' '}<em>Bloch.</em></h1>
+          <h1 id="home-title"><span className="cover-heading-mask"><span className="cover-heading-word">Madin</span></span>{' '}<span className="cover-heading-mask"><em className="cover-heading-word">Bloch.</em></span></h1>
           <p className="cover-intro">I build the Laravel APIs behind Kesari Select’s travel bookings and take them from development to production on AWS.</p>
           <div className="cover-actions">
             <Link to="/#selected-work" className="action-pill">Explore my work <FiArrowDown aria-hidden="true" /></Link>

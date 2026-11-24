@@ -36,7 +36,7 @@ export default function Navbar() {
     <>
       <header className="masthead" ref={header}>
         <nav className="main-nav" aria-label="Main navigation">
-          <Link to="/" className="wordmark" aria-label="Madin Bloch home">Madin <em>Bloch.</em></Link>
+          <Link to="/" className="wordmark" aria-label="Madin Bloch home"><img src="/favicon.svg" width="34" height="34" alt="" /><span>Madin <em>Bloch.</em></span></Link>
           <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
             {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><span className="nav-label"><span>{title}</span><span aria-hidden="true">{title}</span></span></Link>)}
           </div>

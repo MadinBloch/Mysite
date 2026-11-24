@@ -17,9 +17,20 @@
 .action-line, .bp-text-link { text-decoration: underline; text-decoration-color: var(--edge); text-underline-offset: .48em; }
 .action-line:hover, .bp-text-link:hover { color: var(--accent-text); text-decoration-color: currentColor; }
 .bp-text-link { display:inline-flex; align-items:center; gap:.55rem; min-height:44px; font-size:.95rem; }
+/* Resume downloads share a high-contrast surface in the hero and footer. */
+.cover-actions a[download], .contact-section a[download] {
+  color:#ffcca5; background:#201914; border:1px solid #826248; border-radius:var(--radius-pill);
+  padding:.65rem 1rem; text-decoration:none;
+}
+.cover-actions a[download]:is(:hover,:focus-visible), .contact-section a[download]:is(:hover,:focus-visible) {
+  color:#17110e; background:#ffcca5; border-color:#ffcca5;
+}
+@media (max-width:420px) {
+  .cover-actions a[download] { padding-inline:.7rem; gap:.4rem; }
+}
 .masthead { position: sticky; top:0; height: var(--nav-height); z-index:50; padding: 14px var(--gutter) 0; pointer-events: none; }
 .main-nav { position:relative; display:flex; align-items:center; gap:clamp(1rem,2.5vw,2.5rem); width:min(100%,1170px); height:100%; margin:auto; padding:0 clamp(.85rem,2vw,1.9rem); border:1px solid var(--line); border-radius:19px; color:var(--text); background:color-mix(in srgb,var(--panel) 92%,transparent); backdrop-filter:blur(14px); pointer-events:auto; }
-.wordmark { margin-right:auto; font:400 clamp(1.55rem,2vw,2.15rem)/1 var(--serif); letter-spacing:-.048em; }
+.wordmark { display:inline-flex; align-items:center; gap:.5rem; margin-right:auto; font:400 clamp(1.55rem,2vw,2.15rem)/1 var(--serif); letter-spacing:-.048em; }
 .main-menu, .nav-actions { display:flex; align-items:center; gap:clamp(1rem,2.3vw,2rem); }
 .main-menu a { display:inline-flex; align-items:center; min-height:44px; font-size:.89rem; color:var(--body); }
 .main-menu a:hover, .main-menu [aria-current] { color:var(--accent-text); }
@@ -126,16 +137,16 @@
 
 /* Platform figures and profile */
 .impact-band { background:var(--paper-2); border-block:var(--stroke); }
-.impact-inner { padding-block:clamp(24px,3.8vw,55px); display:grid; grid-template-columns:minmax(9rem,.6fr) minmax(0,2.5fr); column-gap:clamp(.8rem,1.8vw,2rem); align-items:center; }
+.impact-inner { padding-block:clamp(12px,1.25vw,20px); display:grid; grid-template-columns:minmax(9rem,.6fr) minmax(0,2.5fr); column-gap:clamp(.8rem,1.8vw,2rem); align-items:center; }
 .impact-credit { display:inline-flex; align-items:center; gap:.5rem; width:fit-content; min-height:44px; font:400 clamp(1.5rem,2.6vw,2.7rem)/1 var(--serif); }
 .impact-credit svg { color:var(--accent-text); width:.55em; }
 .impact-inner dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.25rem,.8vw,.8rem); }
 .impact-inner dl > div,.chapter-impact dl > div { display:flex; flex-direction:column-reverse; }
 .impact-inner dl > div { border-left:var(--stroke); padding-left:clamp(.6rem,1.2vw,1.2rem); }
-.impact-inner dd { font:400 clamp(2.4rem,5vw,5.2rem)/1 var(--serif); letter-spacing:-.055em; }
+.impact-inner dd { font:400 clamp(2.4rem,4.1vw,4.15rem)/1 var(--serif); letter-spacing:-.055em; }
 .impact-inner dd .stat-suffix { color:var(--accent-text); font-size:.6em; vertical-align:super; }
 .impact-inner dt,.estimate-note { color:var(--muted); font:400 .73rem/1.45 var(--mono); }
-.impact-inner dt { margin:.4rem 0; }
+.impact-inner dt { margin:.22rem 0 0; color:var(--body); }
 .impact-inner .estimate-note { grid-column:2; margin:.8rem 0 0 clamp(.75rem,2.2vw,2.3rem); }
 .about-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.9fr); align-items:center; gap:clamp(2rem,7vw,8rem); }
 .profile-section .bp-section-title { margin-bottom:1rem; }
@@ -215,7 +226,7 @@
 }
 @media (max-width:480px) {
   .impact-inner dd { font-size:clamp(1.8rem,7.2vw,2.25rem); }
-  .impact-inner dt { font-size:.59rem; line-height:1.35; } .impact-inner dl { gap:.25rem; }
+  .impact-inner dt { font-size:.68rem; line-height:1.35; } .impact-inner dl { gap:.25rem; }
 
   .case-figure { aspect-ratio:auto; min-height:218px; }
 }

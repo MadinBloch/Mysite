@@ -1,6 +1,6 @@
 // Card sizes are shared by the browser and the build-time encoder.
 export function previewWidths(width) {
-  return [200, 360, 560, 800].filter(size => size < width && (size < 800 || width > 1000))
+  return [200, 360, 560, 640, 800].filter(size => size < width && (size < 800 || width > 1000))
 }
 
 export function renditionUrl(file, width) {
@@ -18,6 +18,8 @@ export function photoSources(file, width) {
     src,
     small: sizes.length ? renditionUrl(file, sizes.includes(360) ? 360 : sizes[0]) : src,
     thumb: sizes.length ? renditionUrl(file, sizes[0]) : src,
+    cardSrcSet: width <= 640 ? [...previews, src + ' ' + width + 'w'].join(', ')
+      : sizes.filter(size => size <= 640).map(size => renditionUrl(file, size) + ' ' + size + 'w').join(', '),
     srcSet: [...previews, src + ' ' + width + 'w'].join(', '),
   }
 }

@@ -69,6 +69,22 @@
 @media (max-width:480px) { .cover-actions { gap:.85rem; } .cover-actions > a { font-size:.88rem; } }
 @media (max-width:390px) { .cover-actions { gap:1rem; } .action-pill { padding-inline:1rem; } .cover-top { letter-spacing:.065em; } }
 .portrait-particles { position:absolute; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+.portrait-replay { position:absolute; z-index:2; top:35%; right:var(--gutter); display:inline-flex; align-items:center; gap:.55rem; min-height:44px; min-width:44px; color:var(--muted); font:400 .68rem/1.2 var(--mono); }
+.portrait-replay svg { width:18px; height:18px; }
+.portrait-replay:hover, .portrait-replay:focus-visible { color:var(--accent-text); }
+.portrait-replay:disabled { visibility:hidden; }
+@media (max-width:740px) {
+  .portrait-replay { top:16%; justify-content:center; border:1px solid var(--edge); border-radius:50%; background:var(--canvas); }
+  .portrait-replay span { display:none; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  :root[data-motion=on] .cover-title h1 span { animation:cover-first-word .6s var(--ease-out); }
+  :root[data-motion=on] .cover-title h1 em { animation:cover-last-word .78s var(--ease-out); }
+  :root[data-motion=on] .portrait-replay:is(:hover,:focus-visible) svg { transform:rotate(30deg); }
+  :root[data-motion=on] .portrait-replay svg { transition:transform .3s var(--ease-out); }
+}
+@keyframes cover-first-word { from { translate:0 .15em; } to { translate:0 0; } }
+@keyframes cover-last-word { from { translate:0 .24em; } to { translate:0 0; } }
 .nav-label { display:grid; position:relative; overflow:hidden; line-height:1.4; }
 .nav-label > span { grid-area:1/1; }
 .nav-label > span[aria-hidden] { transform:translateY(108%); }
@@ -112,6 +128,7 @@
 .perspective-detail p { font-size:1rem; }
 .profile-facts { margin-top:1.1rem; }
 .profile-figure { min-width:0; }
+.profile-photo-open { position:relative; display:block; width:100%; cursor:zoom-in; }
 .profile-figure img { width:100%; height:auto; aspect-ratio:5/4; object-fit:contain; background:var(--paper-2); }
 .profile-figure figcaption,.case-figure > p,.case-figure figcaption { color:var(--muted); font:400 .7rem/1.45 var(--mono); letter-spacing:.065em; }
 .profile-figure figcaption { border-top:var(--stroke); margin-top:.7rem; padding-top:.6rem; }

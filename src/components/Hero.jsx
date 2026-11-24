@@ -2,29 +2,47 @@ import { useEffect, useRef } from 'react'
 import { useMotionPreference } from './motion/MotionPreferences'
 import { portrait } from '../portrait'
 import { Link } from 'react-router-dom'
-import { FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
+import { FiAperture, FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/profile'
 
 export default function Hero() {
   const stageRef = useRef(null)
   const imageRef = useRef(null)
   const canvasRef = useRef(null)
+  const replayRef = useRef(null)
   const { reduced, ready } = useMotionPreference()
   useEffect(() => {
     if (!ready || reduced) return
+    const stage = stageRef.current
     const image = imageRef.current
+    const canvas = canvasRef.current
     let disposed = false
-    let teardown
-    async function start() {
-      try {
-        await image.decode()
-        if (disposed) return
-        const { mountDissolve } = await import('./motion/portraitDissolve')
-        if (!disposed) teardown = mountDissolve(stageRef.current, image, canvasRef.current)
-      } catch { /* Keep the photograph visible if canvas or decoding is unavailable. */ }
+    let controller
+    let pending
+    function prepare() {
+      if (!pending) {
+        pending = Promise.all([image.decode(), import('./motion/portraitDissolve')])
+          .then(([, module]) => {
+            if (!disposed) controller = module.mountDissolve(stage, image, canvas)
+            return controller
+          }).catch(() => { /* The unmodified photograph stays visible. */ })
+      }
+      return pending
     }
-    start()
-    return () => { disposed = true; teardown?.() }
+    function onScroll() {
+      if (window.scrollY <= 0 || stage.getBoundingClientRect().bottom <= 0) return
+      window.removeEventListener('scroll', onScroll)
+      prepare()
+    }
+    replayRef.current = async () => { (await prepare())?.replay() }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      disposed = true
+      replayRef.current = null
+      window.removeEventListener('scroll', onScroll)
+      controller?.dispose()
+    }
   }, [reduced, ready])
 
   return (
@@ -44,6 +62,10 @@ export default function Hero() {
           <span className="margin-tick" />
           <span>Laravel<br />ERP integrations<br />AWS deployments</span>
         </div>
+        <button type="button" className="portrait-replay" aria-label="Animate portrait"
+          disabled={!ready || reduced} onClick={() => replayRef.current?.()}>
+          <FiAperture aria-hidden="true" /><span>Animate portrait</span>
+        </button>
         <div className="cover-title">
           <p className="cover-role">Laravel backend developer</p>
           <h1 id="home-title"><span>Madin</span>{' '}<em>Bloch.</em></h1>

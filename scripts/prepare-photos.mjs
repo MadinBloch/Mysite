@@ -21,7 +21,7 @@ function writeSizes(source, name, widths, quality = 68) {
       image.clone(copy => {
         if (width !== image.width) copy.resize(width, 0)
         copy.strip()
-        copy.quality = quality
+        copy.quality = width === 640 ? 52 : quality
         copy.write(MagickFormat.WebP, bytes => {
           writeFileSync(join(output, name + '-' + width + '.webp'), bytes)
         })
@@ -47,6 +47,7 @@ for (const [label, source, rendition] of [
   ['Workshop group, full frame', 'workshop/certificate.jpg', 'workshop-certificate-1280.webp'],
   ['Laravel meetup, 360px card', 'photos/boarding/laravel-group-sm.webp', 'laravel-group-360.webp'],
   ['Laravel meetup, 560px card', 'photos/boarding/laravel-group.webp', 'laravel-group-560.webp'],
+  ['Laravel meetup, 640px card', 'photos/boarding/laravel-group.webp', 'laravel-group-640.webp'],
   ['Portrait, 384px', 'photos/madin-portrait.webp', 'madin-portrait-384.webp'],
   ['Portrait, 520px', 'photos/madin-portrait.webp', 'madin-portrait-520.webp'],
 ]) {

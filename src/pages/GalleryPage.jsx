@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FiFilm, FiGrid } from 'react-icons/fi'
-import PhotoDeck from '../components/PhotoDeck'
 import { archiveImage } from '../components/archiveImages'
 import PhotoGrid from '../components/PhotoGrid'
 import { certificatePhotos, hackathonPhotos, meetupPhotos, workshopPhotos } from '../data/photos'
+
+const PhotoDeck = lazy(() => import('../components/PhotoDeck'))
 
 const albums = [
   {
@@ -70,7 +71,9 @@ export default function GalleryPage() {
         </div>
         <div className="album-collection">
           {slideshow
-            ? <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
+            ? <Suspense fallback={<p role="status">Loading slideshow…</p>}>
+              <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
+            </Suspense>
             : <PhotoGrid photos={album.photos} />}
         </div>
       </section>

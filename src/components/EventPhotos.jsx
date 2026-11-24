@@ -19,7 +19,7 @@ export const frames = {
 }
 
 export function EventPhoto({ photo, sizes = '100vw', className = '' }) {
-  return <img className={className} src={photo.small} srcSet={photo.srcSet} sizes={'auto, ' + sizes}
+  return <img className={className} src={photo.small} srcSet={photo.cardSrcSet} sizes={'auto, ' + sizes}
     width={photo.width} height={photo.height} alt={photo.alt} style={{ objectPosition: photo.position }}
     loading="lazy" decoding="async" />
 }

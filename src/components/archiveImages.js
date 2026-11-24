@@ -20,7 +20,7 @@ const eventFrames = {
 export function archiveImage(photo) {
   const event = eventFrames[photo.id]
   if (event) {
-    return { ...photo, src: event.src, printSrc: event.small, thumb: event.thumb, srcSet: event.srcSet,
+    return { ...photo, src: event.src, printSrc: event.small, thumb: event.thumb, srcSet: event.srcSet, cardSrcSet: event.cardSrcSet,
       width: event.width, height: event.height, position: event.position, alt: event.alt }
   }
 
@@ -28,6 +28,6 @@ export function archiveImage(photo) {
   if (!extra) return photo
   const [file, width, height, alt] = extra
   const sources = photoSources(file, width)
-  return { ...photo, src: sources.src, srcSet: sources.srcSet, printSrc: sources.small,
+  return { ...photo, src: sources.src, srcSet: sources.srcSet, cardSrcSet: sources.cardSrcSet, printSrc: sources.small,
     thumb: sources.thumb, width, height, alt }
 }

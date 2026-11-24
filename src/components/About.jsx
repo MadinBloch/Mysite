@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowUpRight, FiMaximize2 } from 'react-icons/fi'
+import Lightbox from './Lightbox'
 import { EventPhoto, frames } from './EventPhotos'
 
 const perspectives = [
@@ -15,8 +16,11 @@ const perspectives = [
     to: '/about#workshop', action: 'Inside the workshop' },
 ]
 
+const perspectivePhotos = perspectives.map(item => item.photo)
+
 export default function About({ home = false }) {
   const [selected, setSelected] = useState(0)
+  const [photoIndex, setPhotoIndex] = useState(null)
   const current = perspectives[selected]
   const Heading = home ? 'h2' : 'h1'
   return (
@@ -41,10 +45,14 @@ export default function About({ home = false }) {
           <Link to={home ? '/about' : '/about#experience'} className="bp-text-link">{home ? 'Full profile' : 'My experience'} <FiArrowUpRight aria-hidden="true" /></Link>
         </div>
         <figure className="profile-figure">
-          <EventPhoto photo={current.photo} sizes="(min-width: 820px) 45vw, 92vw" />
+          <button type="button" className="profile-photo-open" aria-label={'Open full photo: ' + current.photo.title} onClick={() => setPhotoIndex(selected)}>
+            <EventPhoto photo={current.photo} sizes="(min-width: 820px) 45vw, 92vw" />
+            <span className="print-zoom" aria-hidden="true"><FiMaximize2 size={15} /></span>
+          </button>
           <figcaption>{current.photo.title}</figcaption>
         </figure>
       </div>
+      {photoIndex !== null && <Lightbox photos={perspectivePhotos} index={photoIndex} onChange={setPhotoIndex} onClose={() => setPhotoIndex(null)} />}
     </section>
   )
 }

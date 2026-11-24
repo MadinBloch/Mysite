@@ -44,16 +44,14 @@ function samplePortrait(image, columns) {
   return buckets
 }
 
-let introduced = false
-
 export function mountDissolve(stage, image, canvas) {
   const ctx = canvas.getContext('2d')
-  if (!ctx || !image.naturalWidth) return () => {}
+  if (!ctx || !image.naturalWidth) return null
   let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples
   let frame = 0
   let lastProgress = -1
   let introStart = 0
-  let introTimer = 0
+  let replayScroll = 0
   const write = (key, value) => stage.style.setProperty(key, value)
   const palette = Array.from({ length: 12 }, (_, i) =>
     'rgb(' + [Math.round(67 + i * 16.6), Math.round(46 + i * 14), Math.round(34 + i * 11)].join(' ') + ')')
@@ -65,10 +63,9 @@ export function mountDissolve(stage, image, canvas) {
     let p = scrollProgress
     if (introStart) {
       const elapsed = (now - introStart) / 1700
-      if (elapsed >= 1 || window.scrollY > 6) introStart = 0
+      if (elapsed >= 1 || Math.abs(window.scrollY - replayScroll) > 4) introStart = 0
       else {
-        // One silent opening pass. Scroll immediately takes over, including on touch screens.
-        p = .62 * Math.pow(Math.sin(Math.PI * clamp(elapsed)), 2)
+        p += (1 - p) * .72 * Math.pow(Math.sin(Math.PI * clamp(elapsed)), 2)
         requestDraw()
       }
     }
@@ -88,7 +85,7 @@ export function mountDissolve(stage, image, canvas) {
     if (p >= .998) return
     const spread = smooth(.12, .91, p)
     const envelope = smooth(.012, .19, p) * (1 - smooth(.63, 1, p))
-    const dot = Math.max(1.1, Math.min(3.4, imageWidth / columns * .64))
+    const dot = Math.max(1.25, Math.min(3.7, imageWidth / columns * .65))
     const waveCenter = height * .24 + scrollProgress * distance * .65
     const strength = Math.min(width * .13, height * .14)
     ctx.globalAlpha = envelope
@@ -123,7 +120,7 @@ export function mountDissolve(stage, image, canvas) {
     imageWidth = photo.width
     imageHeight = photo.height
     distance = Math.max(250, Math.min(window.innerHeight, height) * .78)
-    const nextColumns = width < 650 ? 92 : 144
+    const nextColumns = width < 650 ? 76 : 126
     if (columns !== nextColumns) samples = undefined
     columns = nextColumns
     const ratio = Math.min(window.devicePixelRatio || 1, 1.5)
@@ -141,16 +138,12 @@ export function mountDissolve(stage, image, canvas) {
   window.addEventListener('scroll', requestDraw, { passive: true })
   document.addEventListener('visibilitychange', requestDraw)
   measure()
-  if (!introduced && window.scrollY < 6) {
-    introTimer = window.setTimeout(() => {
-      if (document.hidden || window.scrollY > 6) return
-      introduced = true
-      introStart = performance.now()
-      requestDraw()
-    }, 1050)
+  function replay() {
+    introStart = performance.now()
+    replayScroll = window.scrollY
+    requestDraw()
   }
-  return () => {
-    clearTimeout(introTimer)
+  function dispose() {
     resize?.disconnect()
     window.removeEventListener('resize', measure)
     window.removeEventListener('scroll', requestDraw)
@@ -159,4 +152,5 @@ export function mountDissolve(stage, image, canvas) {
     canvas.width = canvas.height = 1
     for (const key of ['--portrait-opacity', '--type-shift', '--name-spacing', '--name-alpha']) stage.style.removeProperty(key)
   }
+  return { replay, dispose }
 }

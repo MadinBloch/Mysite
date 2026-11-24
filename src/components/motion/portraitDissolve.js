@@ -46,118 +46,63 @@ function samplePortrait(image, columns) {
 
 export function mountDissolve(stage, image, canvas) {
   const ctx = canvas.getContext('2d')
-  if (!ctx || !image.naturalWidth) return null
-  let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples
+  const columns = image.clientWidth < 650 ? 134 : 204
+  const buckets = ctx && samplePortrait(image, columns)
+  if (!buckets) return
   let frame = 0
-  let lastProgress = -1
-  let introStart = 0
-  let replayScroll = 0
-  const write = (key, value) => stage.style.setProperty(key, value)
-  const palette = Array.from({ length: 12 }, (_, i) =>
-    'rgb(' + [Math.round(148 + i * 7.6), Math.round(146 + i * 7.5), Math.round(142 + i * 7.3)].join(' ') + ')')
-  const amber = Array.from({ length: 12 }, (_, i) =>
-    'rgb(' + [Math.round(166 + i * 7.4), Math.round(91 + i * 7.1), Math.round(37 + i * 4.8)].join(' ') + ')')
+  let target = 0
+  let progress = 0
+  let last = 0
+  let width, height
 
   function draw(now) {
     frame = 0
-    if (document.hidden) return
-    const scrollProgress = clamp((window.scrollY - top) / distance)
-    let p = scrollProgress
-    if (introStart) {
-      const elapsed = (now - introStart) / 1700
-      if (elapsed >= 1 || Math.abs(window.scrollY - replayScroll) > 4) introStart = 0
-      else {
-        p += (1 - p) * .72 * Math.pow(Math.sin(Math.PI * clamp(elapsed)), 2)
-        requestDraw()
-      }
+    const dt = last ? Math.min(64, now - last) : 16
+    last = now
+    progress = mix(progress, target, 1 - Math.exp(-dt / 58))
+    if (Math.abs(progress - target) < .001) progress = target
+    const dissolve = smooth(.01, .68, progress)
+    image.style.opacity = String(1 - dissolve)
+    ctx.clearRect(0, 0, width * 2, height)
+    if (dissolve > 0 && progress < 1) {
+      const spread = smooth(.08, .92, progress)
+      const cell = width / columns
+      buckets.forEach((points, level) => {
+        ctx.fillStyle = level > 4 ? '#f5e3cc' : '#c68751'
+        ctx.globalAlpha = dissolve * (1 - smooth(.62, 1, progress)) * (level + 1) / 12
+        for (const { u, v, noise } of points) {
+          const wave = Math.sin(u * 12 + v * 2 + progress * 3)
+          const x = (.5 + u + spread * ((u - .5) * 1.45 + (noise - .5) * .12)) * width
+          const y = mix(v, .37 + wave * .07 + (noise - .5) * .08, spread) * height
+          ctx.fillRect(x, y, cell * .57, cell * .46)
+        }
+      })
     }
-    if (Math.abs(p - lastProgress) < .0004) return
-    lastProgress = p
-    ctx.clearRect(0, 0, width, height)
-    // Let the page carry the title toward the sticky nav, while the portrait
-    // lags behind like a pinned backdrop. Keep the reveal tied to scroll so it
-    // stays predictable on trackpads, touch screens, and keyboard scrolling.
-    const portraitDrift = Math.min(distance * .46, height * .48) * scrollProgress
-    write('--portrait-y', portraitDrift.toFixed(2) + 'px')
-    if (!samples) samples = samplePortrait(image, columns)
-    if (!samples) return
-    // The portrait starts as a real photo. As the heading travels upward, a
-    // halftone layer resolves over it; keep that image treatment present through
-    // the hero and let the section edge carry it away naturally.
-    const reveal = smooth(.08, .48, p)
-    const endFade = 1 - smooth(.96, 1.12, p)
-    write('--type-shift', (-Math.min(24, height * .035) * smooth(.02, .78, p)).toFixed(2) + 'px')
-    write('--name-spacing', (8 * smooth(.12, .68, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - smooth(.94, 1.08, p) * .18).toFixed(3))
-    write('--portrait-opacity', (1 - reveal * .7).toFixed(3))
-    const spread = .26 * smooth(.26, .78, p)
-    const envelope = reveal * endFade
-    const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
-    const waveCenter = height * .28 + scrollProgress * distance * .65
-    const strength = Math.min(width * .085, height * .09)
-    ctx.globalAlpha = envelope * .9
-    samples.forEach((bucket, level) => {
-      for (const { u, v, noise } of bucket) {
-        ctx.fillStyle = u > .57 && v < .54 && noise > .34 ? amber[level] : palette[level]
-        const drift = .32 * smooth(.35 + .12 * (1 - v), .96, p)
-        const targetX = (.5 + (u - .50) * 2.55 + (noise - .5) * .062) * width
-        const wave = Math.sin(10.5 * u + 1.9 * v + 5 * p) + .38 * Math.sin(18 * u - 3.3 * v - 2.5 * p)
-        const targetY = waveCenter + strength * wave + (v - .42) * height * .24 + (noise - .5) * height * .045
-        const x = mix(left + u * imageWidth, targetX, drift)
-        const y = mix(imageTop + portraitDrift + v * imageHeight, targetY, spread)
-        const size = dot * (.63 + .034 * level)
-        ctx.fillRect(x, y, size * (1 + .47 * spread), size)
-      }
-    })
-    ctx.globalAlpha = 1
+    if (progress !== target) frame = requestAnimationFrame(draw)
+    else last = 0
   }
-
-  function requestDraw() {
-    if (!frame && !document.hidden) frame = requestAnimationFrame(draw)
-  }
-
-  function measure() {
+  function scroll() {
     const bounds = stage.getBoundingClientRect()
-    const photo = image.getBoundingClientRect()
-    width = bounds.width
-    height = bounds.height
-    top = bounds.top + window.scrollY
-    left = photo.left - bounds.left
-    imageTop = photo.top - bounds.top
-    imageWidth = photo.width
-    imageHeight = photo.height
-    distance = Math.max(250, Math.min(window.innerHeight, height) * .78)
-    const nextColumns = width < 650 ? 110 : 164
-    if (columns !== nextColumns) samples = undefined
-    columns = nextColumns
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5)
-    canvas.width = Math.max(1, Math.round(width * ratio))
-    canvas.height = Math.max(1, Math.round(height * ratio))
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
-    lastProgress = -1
-    requestDraw()
+    target = clamp((window.scrollY) / Math.max(1, bounds.height * .78))
+    if (!frame && (last || progress !== target)) frame = requestAnimationFrame(draw)
   }
-
-  const resize = window.ResizeObserver ? new ResizeObserver(measure) : null
-  resize?.observe(stage)
-  resize?.observe(image)
-  window.addEventListener('resize', measure)
-  window.addEventListener('scroll', requestDraw, { passive: true })
-  document.addEventListener('visibilitychange', requestDraw)
-  measure()
-  function replay() {
-    introStart = performance.now()
-    replayScroll = window.scrollY
-    requestDraw()
+  function resize() {
+    width = image.clientWidth
+    height = image.clientHeight
+    canvas.width = width * 2
+    canvas.height = height
+    scroll()
+    if (!frame) frame = requestAnimationFrame(draw)
   }
-  function dispose() {
-    resize?.disconnect()
-    window.removeEventListener('resize', measure)
-    window.removeEventListener('scroll', requestDraw)
-    document.removeEventListener('visibilitychange', requestDraw)
+  const observer = new ResizeObserver(resize)
+  observer.observe(image)
+  window.addEventListener('scroll', scroll, { passive: true })
+  resize()
+  return () => {
+    observer.disconnect()
+    window.removeEventListener('scroll', scroll)
     cancelAnimationFrame(frame)
-    canvas.width = canvas.height = 1
-    for (const key of ['--portrait-opacity', '--portrait-y', '--type-shift', '--name-spacing', '--name-alpha']) stage.style.removeProperty(key)
+    image.style.removeProperty('opacity')
+    canvas.width = 1
   }
-  return { replay, dispose }
 }

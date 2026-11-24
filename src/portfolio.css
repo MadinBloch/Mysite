@@ -107,11 +107,11 @@
    scrolls in document flow at the same speed as the next section. */
 .portrait-track { position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:clip; }
 .portrait-pin { position:relative; height:1px; }
-.portrait-pin .cover-photo { width:min(86vw,100svh,960px); top:0; transform:translateX(-50%); }
+.portrait-pin .cover-photo { width:min(77.4vw,90svh,864px); top:0; transform:translateX(-50%); }
 .cover-title { top:clamp(210px,40svh,410px); }
 .cover-foot { position:relative; }
 @media (max-width:740px) {
-  .portrait-pin .cover-photo { width:min(145vw,660px); top:30px; }
+  .portrait-pin .cover-photo { width:min(130.5vw,594px); top:30px; }
   .cover-title { top:clamp(220px,34svh,300px); }
 }
 @media (prefers-reduced-motion:no-preference) {

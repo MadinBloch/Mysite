@@ -26,12 +26,13 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/portfolio-audits"
-          mobile="$RUNNER_TEMP/portfolio-audits/mobile-390.json"
           tablet="$RUNNER_TEMP/portfolio-audits/tablet-768.json"
           desktop="$RUNNER_TEMP/portfolio-audits/desktop-1440.json"
           audit=(npx --yes lighthouse@13.5.0 https://beta.madinbloch.online/ --only-categories=performance,seo,accessibility --chrome-flags="--headless --no-sandbox" --output=json --quiet)
-          "${audit[@]}" --screenEmulation.width=390 --screenEmulation.height=844 --output-path="$mobile"
-          node scripts/report-lighthouse.mjs "$mobile"
+          for trial in 1 2 3; do
+            "${audit[@]}" --screenEmulation.width=390 --screenEmulation.height=844 --output-path="$RUNNER_TEMP/portfolio-audits/mobile-390-$trial.json"
+          done
+          node scripts/report-lighthouse.mjs "$RUNNER_TEMP"/portfolio-audits/mobile-390-*.json
           "${audit[@]}" --screenEmulation.width=768 --screenEmulation.height=1024 --screenEmulation.deviceScaleFactor=2 --output-path="$tablet"
           node scripts/report-lighthouse.mjs "$tablet"
           "${audit[@]}" --preset=desktop --screenEmulation.width=1440 --screenEmulation.height=900 --output-path="$desktop"

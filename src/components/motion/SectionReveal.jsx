@@ -15,11 +15,19 @@ export function PageReveals() {
     if (!ready || reduced || !window.IntersectionObserver || !Element.prototype.animate) return
     const main = document.getElementById('main-content')
     const seen = new WeakSet()
+    const belowFold = new WeakSet()
     const playing = new Set()
     const observer = new IntersectionObserver(entries => {
-      const entering = entries.filter(entry => entry.isIntersecting)
+      const entering = []
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          if (entry.boundingClientRect.top > 0) belowFold.add(entry.target)
+          continue
+        }
+        observer.unobserve(entry.target)
+        if (belowFold.has(entry.target)) entering.push(entry)
+      }
       entering.forEach(({ target }, index) => {
-        observer.unobserve(target)
         const heading = target.matches('h2,h3')
         const animation = target.animate([
           { opacity: .28, transform: heading ? 'translateY(.37em)' : 'translateY(22px)' },
@@ -34,7 +42,7 @@ export function PageReveals() {
     function watch(element) {
       if (seen.has(element)) return
       seen.add(element)
-      if (element.getBoundingClientRect().top > window.innerHeight * .9) observer.observe(element)
+      observer.observe(element)
     }
     main.querySelectorAll(targets).forEach(watch)
     const added = new MutationObserver(records => {

@@ -3,11 +3,13 @@ import { createContext, useContext, useEffect, useSyncExternalStore } from 'reac
 const MotionPreference = createContext(null)
 const preferenceKey = 'portfolio-motion'
 const query = '(prefers-reduced-motion: reduce)'
-let sessionPaused
+let fallbackPaused
 
 function snapshot() {
-  let paused = sessionPaused || false
-  try { paused = window.localStorage.getItem(preferenceKey) === 'off' } catch { /* Use the session setting. */ }
+  let paused = fallbackPaused
+  if (paused === undefined) {
+    try { paused = window.localStorage.getItem(preferenceKey) === 'off' } catch { paused = false }
+  }
   return (window.matchMedia(query).matches ? 2 : 0) | (paused ? 1 : 0)
 }
 
@@ -24,11 +26,12 @@ function subscribe(notify) {
 }
 
 function toggleMotion() {
-  sessionPaused = !(snapshot() & 1)
+  const next = !(snapshot() & 1)
   try {
-    if (sessionPaused) window.localStorage.setItem(preferenceKey, 'off')
+    if (next) window.localStorage.setItem(preferenceKey, 'off')
     else window.localStorage.removeItem(preferenceKey)
-  } catch { /* Private windows can still change the setting for this session. */ }
+    fallbackPaused = undefined
+  } catch { fallbackPaused = next }
   window.dispatchEvent(new Event('portfolio-motion-change'))
 }
 

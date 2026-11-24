@@ -7,11 +7,14 @@ import './index.css'
 import './portfolio.css'
 
 const root = document.getElementById('root')
-const app = <React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>
 const path = window.location.pathname.replace(/\/+$/, '') || '/'
-// A fragment can open an early project or redirect a legacy URL. Album queries can select different markup.
-if (root.dataset.page === path && !window.location.search && !window.location.hash) {
-  hydrateRoot(root, app)
-} else {
-  createRoot(root).render(app)
+
+function start(Destinations) {
+  const app = <React.StrictMode><BrowserRouter><App Destinations={Destinations} /></BrowserRouter></React.StrictMode>
+  // Some legacy fragments redirect and album queries select markup the server cannot see.
+  if (root.dataset.page === path && !window.location.search && !window.location.hash) hydrateRoot(root, app)
+  else createRoot(root).render(app)
 }
+
+if (path === '/') start()
+else import('./DestinationRoutes').then(module => start(module.default))

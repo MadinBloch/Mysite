@@ -31,6 +31,7 @@ for (const title of requiredTitles) {
 }
 
 const app = read('src/App.jsx')
+const destinations = read('src/DestinationRoutes.jsx')
 const story = read('src/components/PortfolioStory.jsx')
 const hackathon = read('src/components/Hackathon.jsx')
 const workshop = read('src/components/Workshop.jsx')
@@ -72,11 +73,11 @@ for (const id of ['regional', 'presentation', 'finale-team', 'team-certificates'
   assert.ok(hackathon.includes("'" + id + "'") && hackathonPhotos.some(photo => photo.id === id), 'Missing landing photo: ' + id)
 }
 for (const path of ['/projects', '/about', '/gallery', '/blogs']) {
-  assert.ok(app.includes('path="' + path + '"'), 'Missing page: ' + path)
+  assert.ok(destinations.includes('path="' + path + '"'), 'Missing page: ' + path)
   assert.ok(sitemapUrls.includes(origin + path), 'Page missing from sitemap: ' + path)
 }
 for (const section of ['About', 'Experience', 'Skills', 'Projects']) {
-  assert.ok(app.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
+  assert.ok(destinations.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
 }
 assert.ok(hero.includes('Madin Bloch') && hero.includes('src={portrait.src}') && read('src/portrait.js').includes('/photos/madin-portrait.webp'), 'The cover should introduce Madin with his portrait')
 assert.ok(existsSync('public/profile-portrait.png') && existsSync('public/photos/madin-portrait.webp'), 'Formal portrait missing')
@@ -108,9 +109,9 @@ for (const phrase of ['200+ daily inquiries', '30K+ customer records', '10K+ vis
 const resume = readFileSync('public/Madin_Bloch_Resume.pdf')
 assert.equal(resume.subarray(0, 5).toString(), '%PDF-', 'Resume download must be an actual PDF')
 
-const home = app.slice(app.indexOf('function HomePage()'), app.indexOf('export default function App()'))
+const home = app.slice(app.indexOf('function HomePage()'), app.indexOf('export default function App('))
 assert.ok(home.includes('<Journey />') && !home.includes('<PortfolioStory />'))
-assert.ok(app.includes('<PortfolioStory />'), 'The full event and production stories must remain accessible')
+assert.ok(destinations.includes('<PortfolioStory />'), 'The full event and production stories must remain accessible')
 assert.match(highlights, /const cases = \['kesari-select-backend', 'email-campaign-engine', 'smart-print-operations'\]/,
   'Lead with Kesari Select and keep each engineering case distinct')
 

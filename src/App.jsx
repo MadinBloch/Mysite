@@ -1,7 +1,7 @@
 import { applyPageMeta, getPageMeta } from './pageMeta'
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { MotionProvider } from './components/motion/MotionPreferences'
-import { Link, Navigate, Routes, Route, useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { PageReveals } from './components/motion/SectionReveal'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -9,17 +9,12 @@ import Impact from './components/Impact'
 import WorkHighlights from './components/WorkHighlights'
 import About from './components/About'
 import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Experience from './components/Experience'
 import Journey from './components/Journey'
-import PortfolioStory from './components/PortfolioStory'
 import HomeAlbum from './components/HomeAlbum'
-import GalleryPage from './pages/GalleryPage'
 import Blogs from './components/Blogs'
 import Contact from './components/Contact'
-import BlogsPage from './pages/BlogsPage'
-import BlogPostPage from './pages/BlogPostPage'
-import CaseStudyPage from './pages/CaseStudyPage'
+
+const DeferredDestinations = lazy(() => import('./DestinationRoutes'))
 
 const legacySections = {
   '#boarding-pass': '/#home',
@@ -81,34 +76,20 @@ function HomePage() {
   )
 }
 
-export default function App() {
+export default function App({ Destinations = DeferredDestinations }) {
+  const { pathname } = useLocation()
   return (
     <MotionProvider>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-panel focus:p-3 focus:text-ink">
         Skip to content
       </a>
-      <PageLocation />
       <Navbar />
-      <PageReveals />
       <main id="main-content" tabIndex={-1}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/about" element={<><About /><Experience /><PortfolioStory /><Skills /></>} />
-          <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/projects/:slug" element={<CaseStudyPage />} />
-          <Route path="/blogs" element={<BlogsPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage />} />
-          <Route
-            path="*"
-            element={
-              <section className="portfolio-shell pb-28 pt-36">
-                <h1 className="section-heading">Page not found</h1>
-                <Link to="/" className="btn-primary mt-8">Back to portfolio</Link>
-              </section>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<p role="status" className="portfolio-shell destination-page">Opening page…</p>}>
+          <PageLocation />
+          <PageReveals />
+          {pathname === '/' ? <HomePage /> : <Destinations />}
+        </Suspense>
       </main>
       <Contact />
     </MotionProvider>

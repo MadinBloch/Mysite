@@ -5,6 +5,10 @@ import { gzipSync } from 'node:zlib'
 
 const read = path => readFileSync(join('dist', path), 'utf8')
 const urls = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]))
+const robots = read('robots.txt')
+assert.match(robots, /Sitemap:\\s*https:\\/\\/www\\.madinbloch\\.online\\/sitemap\\.xml/)
+assert.ok(urls.length >= 10, 'Expected the sitemap to include all portfolio content routes')
+assert.equal(new Set(urls.map(url => url.href)).size, urls.length, 'Sitemap URLs must be unique')
 const titles = new Set()
 for (const url of urls) {
   const path = url.pathname

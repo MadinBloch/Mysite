@@ -157,7 +157,7 @@ const fontCss = read('src/fonts.css')
 for (const font of ['bricolage-grotesque-latin-wght.woff2', 'dm-mono-regular-ui.woff2', 'dm-mono-medium-ui.woff2', 'instrument-serif-normal-ui.woff2', 'instrument-serif-italic-ui.woff2']) {
   const asset = readFileSync('public/fonts/' + font)
   assert.equal(asset.toString('ascii', 0, 4), 'wOF2', 'Expected a valid WOFF2 font: ' + font)
-  assert.ok(fontCss.includes('/fonts/' + font) || font.startsWith('instrument-serif-'), 'Declare optimized font: ' + font)
+  assert.ok(fontCss.includes('/fonts/' + font), 'Declare optimized font: ' + font)
 }
 assert.ok(fontCss.includes("font-weight: 200 800") && fontCss.includes('dm-mono-regular-ui.woff2'), 'Use the optimized variable and UI-subset font files')
 assert.ok(read('scripts/prerender.mjs').includes('application/ld+json'), 'Add structured identity and page metadata')

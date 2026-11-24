@@ -47,7 +47,7 @@ function samplePortrait(image, columns) {
 export function mountDissolve(stage, image, canvas) {
   const ctx = canvas.getContext('2d')
   if (!ctx || !image.naturalWidth) return null
-  let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples, titleOffset, navBottom
+  let width, height, top, left, imageTop, imageWidth, imageHeight, distance, columns, samples
   let frame = 0
   let lastProgress = -1
   let introStart = 0
@@ -71,9 +71,6 @@ export function mountDissolve(stage, image, canvas) {
         requestDraw()
       }
     }
-    // Freeze the crossing point from layout geometry. Measuring the title's
-    // live screen position here would move the threshold along with the scroll.
-    const arrival = clamp((titleOffset - navBottom) / distance)
     if (Math.abs(p - lastProgress) < .0004) return
     lastProgress = p
     ctx.clearRect(0, 0, width, height)
@@ -84,12 +81,17 @@ export function mountDissolve(stage, image, canvas) {
     write('--portrait-y', portraitDrift.toFixed(2) + 'px')
     if (!samples) samples = samplePortrait(image, columns)
     if (!samples) return
-    write('--type-shift', (-Math.min(92, height * .13) * smooth(arrival - .3, arrival + .42, p)).toFixed(2) + 'px')
-    write('--name-spacing', (12 * smooth(arrival - .1, arrival + .2, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - smooth(arrival - .04, arrival + .12, p)).toFixed(3))
-    write('--portrait-opacity', (.26 * (1 - smooth(arrival - .04, arrival + .26, p) * .9)).toFixed(3))
-    const spread = smooth(arrival - .02, arrival + .5, p)
-    const envelope = 1 - smooth(arrival - .05, arrival + .24, p)
+    // The portrait starts as a real photo. As the heading travels upward, a
+    // halftone layer resolves over it; keep that image treatment present through
+    // the hero and let the section edge carry it away naturally.
+    const reveal = smooth(.08, .48, p)
+    const endFade = 1 - smooth(.96, 1.12, p)
+    write('--type-shift', (-Math.min(24, height * .035) * smooth(.02, .78, p)).toFixed(2) + 'px')
+    write('--name-spacing', (8 * smooth(.12, .68, p)).toFixed(2) + 'px')
+    write('--name-alpha', (1 - smooth(.94, 1.08, p) * .18).toFixed(3))
+    write('--portrait-opacity', (1 - reveal * .78).toFixed(3))
+    const spread = .42 * smooth(.26, .78, p)
+    const envelope = reveal * endFade
     const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
     const waveCenter = height * .28 + scrollProgress * distance * .65
     const strength = Math.min(width * .12, height * .13)
@@ -97,7 +99,7 @@ export function mountDissolve(stage, image, canvas) {
     samples.forEach((bucket, level) => {
       for (const { u, v, noise } of bucket) {
         ctx.fillStyle = u > .57 && v < .54 && noise > .34 ? amber[level] : palette[level]
-        const drift = smooth(arrival + .08 + .13 * (1 - v), arrival + .72, p)
+        const drift = .32 * smooth(.35 + .12 * (1 - v), .96, p)
         const targetX = (.5 + (u - .50) * 2.55 + (noise - .5) * .062) * width
         const wave = Math.sin(10.5 * u + 1.9 * v + 5 * p) + .38 * Math.sin(18 * u - 3.3 * v - 2.5 * p)
         const targetY = waveCenter + strength * wave + (v - .42) * height * .24 + (noise - .5) * height * .045
@@ -120,10 +122,6 @@ export function mountDissolve(stage, image, canvas) {
     width = bounds.width
     height = bounds.height
     top = bounds.top + window.scrollY
-    const title = stage.querySelector('#home-title')
-    const nav = document.querySelector('.main-nav')
-    titleOffset = title ? title.offsetTop + title.parentElement.offsetTop : height * .36
-    navBottom = nav?.getBoundingClientRect().bottom ?? 72
     left = photo.left - bounds.left
     imageTop = photo.top - bounds.top
     imageWidth = photo.width

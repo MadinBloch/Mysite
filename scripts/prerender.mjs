@@ -28,7 +28,8 @@ function head(meta, image) {
   ]
   if (meta.url) tags.push('<link rel="canonical" href="' + e(meta.url) + '">', '<meta property="og:url" content="' + e(meta.url) + '">')
   if (image) tags.unshift('<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' + e(image.src) + '" imagesrcset="' + e(image.srcSet) + '" imagesizes="' + e(image.sizes) + '">')
-  for (const style of ['normal', 'italic']) tags.push('<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-' + style + '.woff2">')
+  tags.push('<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/bricolage-grotesque-latin-wght.woff2">')
+  for (const style of ['normal', 'italic']) tags.push('<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-' + style + '-ui.woff2">')
   const graph = {
     '@context': 'https://schema.org',
     '@graph': [

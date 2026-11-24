@@ -12,7 +12,8 @@ export default function Hero() {
   const { reduced } = useMotionPreference()
 
   useEffect(() => {
-    if (reduced) return
+    // Canvas particle sampling is unnecessary on touch-first devices.
+    if (reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     let cancelled = false
     let dispose
     Promise.all([img.current.decode(), import('./motion/portraitDissolve')])

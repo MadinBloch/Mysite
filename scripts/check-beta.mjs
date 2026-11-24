@@ -12,6 +12,7 @@ for (let attempt = 0; attempt < 45; attempt++) {
   try {
     const home = await get('/?build=' + encodeURIComponent(entry))
     assert.equal(home.status, 200)
+    assert.match(home.headers.get('link') || '', /bricolage-grotesque-latin-wght\.woff2>;/, 'Waiting for the cover font preload header.')
     const html = await home.text()
     assert.ok(html.includes(entry), 'The beta alias still serves a different build.')
     assert.match(html, /<img\b[^>]*alt="Madin Bloch"[^>]*fetchpriority="high"/i)

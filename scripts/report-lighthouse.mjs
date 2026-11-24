@@ -25,6 +25,12 @@ for (const item of items) {
 }
 const imageItems = report.audits['image-delivery-insight']?.details?.items || []
 for (const item of imageItems) if (item.url) console.log('Image opportunity: ' + item.url + ' (' + item.wastedBytes + ' bytes)')
+for (const { id } of report.categories.accessibility?.auditRefs || []) {
+  const audit = report.audits[id]
+  if (audit?.score !== 0) continue
+  console.log('Accessibility check: ' + audit.title)
+  for (const item of (audit.details?.items || []).slice(0, 6)) console.log('  ' + (item.node?.selector || item.node?.snippet || ''))
+}
 const finalImage = report.audits['final-screenshot']?.details?.data
 if (finalImage?.startsWith('data:image/jpeg;base64,')) {
   writeFileSync(process.argv[2].replace(/\.json$/, '.jpg'), Buffer.from(finalImage.split(',')[1], 'base64'))

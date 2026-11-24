@@ -21,16 +21,19 @@ jobs:
       - name: Verify the public Vercel beta
         if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'portfolio/boarding-pass' && github.event.pull_request.head.repo.full_name == github.repository
         run: node scripts/check-beta.mjs
-      - name: Measure mobile and desktop delivery
+      - name: Measure phone, tablet and desktop delivery
         if: github.event_name == 'pull_request' && github.event.pull_request.head.ref == 'portfolio/boarding-pass' && github.event.pull_request.head.repo.full_name == github.repository
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/portfolio-audits"
           mobile="$RUNNER_TEMP/portfolio-audits/mobile-390.json"
+          tablet="$RUNNER_TEMP/portfolio-audits/tablet-768.json"
           desktop="$RUNNER_TEMP/portfolio-audits/desktop-1440.json"
-          audit=(npx --yes lighthouse@13.5.0 https://beta.madinbloch.online/ --only-categories=performance,seo --chrome-flags="--headless --no-sandbox" --output=json --quiet)
+          audit=(npx --yes lighthouse@13.5.0 https://beta.madinbloch.online/ --only-categories=performance,seo,accessibility --chrome-flags="--headless --no-sandbox" --output=json --quiet)
           "${audit[@]}" --screenEmulation.width=390 --screenEmulation.height=844 --output-path="$mobile"
           node scripts/report-lighthouse.mjs "$mobile"
+          "${audit[@]}" --screenEmulation.width=768 --screenEmulation.height=1024 --screenEmulation.deviceScaleFactor=2 --output-path="$tablet"
+          node scripts/report-lighthouse.mjs "$tablet"
           "${audit[@]}" --preset=desktop --screenEmulation.width=1440 --screenEmulation.height=900 --output-path="$desktop"
           node scripts/report-lighthouse.mjs "$desktop"
       - name: Save Lighthouse reports and viewport captures

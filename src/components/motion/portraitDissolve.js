@@ -89,12 +89,12 @@ export function mountDissolve(stage, image, canvas) {
     write('--type-shift', (-Math.min(24, height * .035) * smooth(.02, .78, p)).toFixed(2) + 'px')
     write('--name-spacing', (8 * smooth(.12, .68, p)).toFixed(2) + 'px')
     write('--name-alpha', (1 - smooth(.94, 1.08, p) * .18).toFixed(3))
-    write('--portrait-opacity', (1 - reveal * .78).toFixed(3))
-    const spread = .42 * smooth(.26, .78, p)
+    write('--portrait-opacity', (1 - reveal * .7).toFixed(3))
+    const spread = .26 * smooth(.26, .78, p)
     const envelope = reveal * endFade
     const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
     const waveCenter = height * .28 + scrollProgress * distance * .65
-    const strength = Math.min(width * .12, height * .13)
+    const strength = Math.min(width * .085, height * .09)
     ctx.globalAlpha = envelope * .9
     samples.forEach((bucket, level) => {
       for (const { u, v, noise } of bucket) {

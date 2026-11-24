@@ -8,6 +8,38 @@ const sections = [
   ['Photos', 'album'], ['Writing', 'blogs'],
 ]
 
+function ReadingProgress() {
+  const bar = useRef(null)
+  const { key } = useLocation()
+
+  useEffect(() => {
+    let frame = 0
+    function update() {
+      frame = 0
+      const page = document.documentElement
+      const distance = page.scrollHeight - page.clientHeight
+      const fraction = distance > 0 ? Math.min(1, Math.max(0, window.scrollY / distance)) : 0
+      bar.current.style.transform = `scaleX(${fraction})`
+    }
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    const observer = new ResizeObserver(schedule)
+    observer.observe(document.body)
+    window.addEventListener('resize', schedule)
+    window.addEventListener('scroll', schedule, { passive: true })
+    schedule()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', schedule)
+      window.removeEventListener('scroll', schedule)
+      cancelAnimationFrame(frame)
+    }
+  }, [key])
+
+  return <div ref={bar} className="reading-progress" aria-hidden="true" />
+}
+
 export default function Navbar() {
   const { key, hash, pathname } = useLocation()
   const [open, setOpen] = useState(false)
@@ -34,9 +66,10 @@ export default function Navbar() {
 
   return (
     <>
+      <ReadingProgress />
       <header className="masthead" ref={header}>
         <nav className="main-nav" aria-label="Main navigation">
-          <Link to="/" className="wordmark" aria-label="Madin Bloch home">Madin <em>Bloch.</em></Link>
+          <Link to="/" className="wordmark" aria-label="Madin Bloch home"><span>Madin <em>Bloch.</em></span></Link>
           <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
             {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><span className="nav-label"><span>{title}</span><span aria-hidden="true">{title}</span></span></Link>)}
           </div>

@@ -64,9 +64,9 @@ export function mountDissolve(stage, image, canvas) {
     const dissolve = smooth(.01, .68, progress)
     image.style.opacity = String(1 - dissolve)
     ctx.clearRect(0, 0, width * 2, height)
+    const spread = smooth(.08, .92, progress)
+    const cell = width / columns
     if (dissolve > 0 && progress < 1) {
-      const spread = smooth(.08, .92, progress)
-      const cell = width / columns
       buckets.forEach((points, level) => {
         ctx.fillStyle = level > 4 ? '#f5e3cc' : '#c68751'
         ctx.globalAlpha = dissolve * (1 - smooth(.62, 1, progress)) * (level + 1) / 12
@@ -78,6 +78,7 @@ export function mountDissolve(stage, image, canvas) {
         }
       })
     }
+    ctx.globalAlpha = 1
     if (progress !== target) frame = requestAnimationFrame(draw)
     else last = 0
   }

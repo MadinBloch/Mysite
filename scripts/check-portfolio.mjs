@@ -153,7 +153,13 @@ assert.equal(homePhotos[0], 'workshop', 'Lead the photo journal with the Git and
 assert.ok(highlights.includes('Object.entries(kesariPageLoad)'), 'Chart the observed times from the canonical data')
 assert.ok(app.includes("import { MotionProvider }") && app.includes('<MotionProvider>'))
 assert.ok(read('src/components/motion/MotionPreferences.jsx').includes('useSyncExternalStore(subscribe, snapshot, () => 0)'), 'Hydration requires matching initial motion preferences')
-assert.ok(read('src/fonts.css').includes('/fonts/bricolage-grotesque-latin.woff2') && !read('src/fonts.css').includes('-ui.woff2'), 'Use the original valid WOFF2 font files')
+const fontCss = read('src/fonts.css')
+for (const font of ['bricolage-grotesque-latin-wght.woff2', 'dm-mono-regular-ui.woff2', 'dm-mono-medium-ui.woff2', 'instrument-serif-normal-ui.woff2', 'instrument-serif-italic-ui.woff2']) {
+  const asset = readFileSync('public/fonts/' + font)
+  assert.equal(asset.toString('ascii', 0, 4), 'wOF2', 'Expected a valid WOFF2 font: ' + font)
+  assert.ok(fontCss.includes('/fonts/' + font) || font.startsWith('instrument-serif-'), 'Declare optimized font: ' + font)
+}
+assert.ok(fontCss.includes("font-weight: 200 800") && fontCss.includes('dm-mono-regular-ui.woff2'), 'Use the optimized variable and UI-subset font files')
 assert.ok(read('scripts/prerender.mjs').includes('application/ld+json'), 'Add structured identity and page metadata')
 for (const photo of [...hackathonPhotos, ...workshopPhotos, ...meetupPhotos, ...certificatePhotos]) assert.ok(photo.alt || photo.title, 'Gallery image needs descriptive alt text: ' + photo.id)
 

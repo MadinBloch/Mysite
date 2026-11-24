@@ -38,6 +38,16 @@ const workshop = read('src/components/Workshop.jsx')
 const hero = read('src/components/Hero.jsx')
 const gallery = read('src/pages/GalleryPage.jsx')
 const origin = 'https://www.madinbloch.online'
+const vercel = JSON.parse(read('vercel.json'))
+const hostRedirects = vercel.redirects || []
+for (const host of ['madin-bloch.vercel.app', 'madinbloch.online']) {
+  assert.ok(hostRedirects.some(rule =>
+    rule.source === '/:path*' &&
+    rule.permanent === true &&
+    rule.destination === origin + '/:path*' &&
+    rule.has?.some(condition => condition.type === 'host' && condition.value === host)
+  ), 'Missing permanent canonical-host redirect for ' + host)
+}
 const sitemap = read('public/sitemap.xml')
 const sitemapIndex = read('public/sitemap_index.xml')
 const sitemapLocations = xml => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url)

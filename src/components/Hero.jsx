@@ -29,18 +29,12 @@ export default function Hero() {
       }
       return pending
     }
-    function onScroll() {
-      if (window.scrollY <= 0 || stage.getBoundingClientRect().bottom <= 0) return
-      window.removeEventListener('scroll', onScroll)
-      prepare()
-    }
     replayRef.current = async () => { (await prepare())?.replay() }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    // Draw the halftone portrait on first paint; scroll only changes its motion.
+    prepare()
     return () => {
       disposed = true
       replayRef.current = null
-      window.removeEventListener('scroll', onScroll)
       controller?.dispose()
     }
   }, [reduced, ready])

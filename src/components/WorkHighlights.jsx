@@ -59,7 +59,7 @@ function CaseCard({ slug }) {
         <h3><Link to={'/projects/' + slug}>{project.title}</Link></h3>
         <p>{project.description}</p>
         <ul className="bp-chips" aria-label="Technologies">{project.tech.map(tech => <li key={tech}>{tech}</li>)}</ul>
-        <Link to={'/projects/' + slug} aria-label={'Read the ' + project.title + ' case study'} className="bp-text-link">Read case study <FiArrowUpRight aria-hidden="true" /></Link>
+        <Link to={'/projects/' + slug} aria-label={'Read case study for ' + project.title} className="bp-text-link">Read case study <FiArrowUpRight aria-hidden="true" /></Link>
       </div>
     </article>
   )

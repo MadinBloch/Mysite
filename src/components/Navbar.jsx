@@ -48,7 +48,7 @@ export default function Navbar() {
           </div>
         </nav>
       </header>
-      <button type="button" className="motion-toggle" aria-label="Animations" aria-pressed={!reduced} disabled={systemReduced}
+      <button type="button" className="motion-toggle" aria-pressed={!reduced} disabled={systemReduced}
         title={systemReduced ? 'Reduced motion is enabled on your device' : 'Toggle animations'} onClick={toggleMotion}>
         {reduced ? <FiPlay aria-hidden="true" /> : <FiPause aria-hidden="true" />}
         Motion {reduced ? 'off' : 'on'}

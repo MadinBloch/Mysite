@@ -103,6 +103,21 @@
 }
 @media (prefers-reduced-motion:reduce) { .portrait-particles { display:none; } }
 
+/* Clip the pinned background at the hero boundary. The entire foreground
+   scrolls in document flow at the same speed as the next section. */
+.portrait-track { position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:clip; }
+.portrait-pin { position:relative; height:1px; }
+.portrait-pin .cover-photo { width:min(86vw,100svh,960px); top:0; transform:translateX(-50%); }
+.cover-title { top:clamp(210px,40svh,410px); }
+.cover-foot { position:relative; }
+@media (max-width:740px) {
+  .portrait-pin .cover-photo { width:min(145vw,660px); top:30px; }
+  .cover-title { top:clamp(220px,34svh,300px); }
+}
+@media (prefers-reduced-motion:no-preference) {
+  :root[data-motion=on] .portrait-pin { position:sticky; top:var(--nav-height); }
+}
+
 /* Platform figures and profile */
 .impact-band { background:var(--paper-2); border-block:var(--stroke); }
 .impact-inner { padding-block:clamp(24px,3.8vw,55px); display:grid; grid-template-columns:minmax(9rem,.6fr) minmax(0,2.5fr); column-gap:clamp(.8rem,1.8vw,2rem); align-items:center; }

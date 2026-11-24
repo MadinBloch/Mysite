@@ -79,17 +79,17 @@ export function mountDissolve(stage, image, canvas) {
     write('--portrait-y', portraitDrift.toFixed(2) + 'px')
     write('--type-shift', (-Math.min(92, height * .13) * smooth(.04, .94, p)).toFixed(2) + 'px')
     write('--name-spacing', (16 * smooth(.04, .82, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - smooth(.72, .94, p)).toFixed(3))
+    write('--name-alpha', (1 - smooth(.48, .70, p)).toFixed(3))
     if (p < .008) {
       write('--portrait-opacity', 1)
       return
     }
     if (!samples) samples = samplePortrait(image, columns)
     if (!samples) return
-    write('--portrait-opacity', (1 - smooth(.80, .99, p)).toFixed(3))
+    write('--portrait-opacity', (1 - smooth(.56, .88, p)).toFixed(3))
     if (p >= .998) return
-    const spread = smooth(.72, .99, p)
-    const envelope = smooth(.74, .84, p) * (1 - smooth(.96, 1, p))
+    const spread = smooth(.50, .94, p)
+    const envelope = smooth(.50, .60, p) * (1 - smooth(.92, 1, p))
     const dot = Math.max(1.25, Math.min(3.7, imageWidth / columns * .65))
     const waveCenter = height * .24 + scrollProgress * distance * .65
     const strength = Math.min(width * .13, height * .14)

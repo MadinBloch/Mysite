@@ -113,7 +113,7 @@ export default function Lightbox({ photos, index, onChange, onClose }) {
             src={photo.src}
             srcSet={zoomed ? undefined : photo.srcSet}
             sizes={zoomed ? undefined : 'min(100vw, ' + Math.round(100 * photo.width / photo.height) + 'dvh)'}
-            alt={photo.alt || photo.title}
+            alt={photo.alt || photo.title + (photo.caption ? ': ' + photo.caption : '')}
             width={photo.width}
             height={photo.height}
             draggable={false}

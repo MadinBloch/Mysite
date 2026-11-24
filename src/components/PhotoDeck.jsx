@@ -64,7 +64,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                   sizes={(priority && index === 0 ? '' : 'auto, ') + '(max-width: 1024px) 92vw, 60rem'}
                   width={photo.width}
                   height={photo.height}
-                  alt={photo.alt || photo.title}
+                  alt={photo.alt || photo.title + (photo.caption ? ': ' + photo.caption : '')}
                   loading={priority && index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={priority && index === 0 ? 'high' : 'auto'}
                   decoding="async"

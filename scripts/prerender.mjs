@@ -2,6 +2,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { build } from 'vite'
+import { profile } from '../src/data/profile.js'
 import react from '@vitejs/plugin-react'
 
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
@@ -21,12 +22,34 @@ function head(meta, image) {
     '<meta name="twitter:card" content="summary">',
     '<meta name="twitter:title" content="' + e(meta.twitterTitle) + '">',
     '<meta name="twitter:description" content="' + e(meta.twitterDescription) + '">',
+    '<meta property="og:image" content="https://www.madinbloch.online/photos/madin-portrait.webp">',
+    '<meta property="og:image:alt" content="Madin Bloch, Laravel backend developer in Ahmedabad">',
+    '<meta name="twitter:image" content="https://www.madinbloch.online/photos/madin-portrait.webp">',
   ]
   if (meta.url) tags.push('<link rel="canonical" href="' + e(meta.url) + '">', '<meta property="og:url" content="' + e(meta.url) + '">')
   if (image) tags.unshift('<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="' + e(image.src) + '" imagesrcset="' + e(image.srcSet) + '" imagesizes="' + e(image.sizes) + '">')
-  if (image) {
-    for (const style of ['normal', 'italic']) tags.push('<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-' + style + '-ui.woff2">')
+  for (const style of ['normal', 'italic']) tags.push('<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-' + style + '.woff2">')
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person', '@id': 'https://www.madinbloch.online/#person',
+        name: 'Madin Bloch', url: 'https://www.madinbloch.online/',
+        jobTitle: 'Laravel Backend Developer',
+        image: 'https://www.madinbloch.online/photos/madin-portrait.webp',
+        address: { '@type': 'PostalAddress', addressLocality: 'Ahmedabad', addressCountry: 'IN' },
+        sameAs: [profile.github, profile.linkedin],
+      },
+      { '@type': 'WebSite', '@id': 'https://www.madinbloch.online/#website',
+        url: 'https://www.madinbloch.online/', name: 'Madin Bloch', inLanguage: 'en-IN' },
+      ...(meta.url ? [{ '@type': 'WebPage', '@id': meta.url + '#webpage', url: meta.url,
+        name: meta.title, description: meta.description,
+        isPartOf: { '@id': 'https://www.madinbloch.online/#website' },
+        about: { '@id': 'https://www.madinbloch.online/#person' },
+        ...(image ? { primaryImageOfPage: { '@type': 'ImageObject', url: 'https://www.madinbloch.online' + image.src, width: 720, height: 720 } } : {}) }] : []),
+    ],
   }
+  tags.push('<script type="application/ld+json">' + JSON.stringify(graph).replace(/</g, '\\u003c') + '</script>')
   return tags.join('\n    ')
 }
 

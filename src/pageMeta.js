@@ -28,6 +28,8 @@ export function getPageMeta(pathname) {
     ogDescription: path === '/' ? 'Explore Madin’s Laravel and ERP work for Kesari Select, production releases on AWS, and the stories behind his projects.' : description,
     twitterTitle: path === '/' ? 'Madin Bloch | Backend Developer' : title,
     twitterDescription: path === '/' ? 'Laravel projects, engineering experience and more.' : description,
+    image: origin + '/photos/madin-portrait.webp',
+    imageAlt: 'Madin Bloch, Laravel backend developer in Ahmedabad',
   }
 }
 
@@ -37,6 +39,8 @@ export function applyPageMeta(meta) {
     ['name', 'robots', meta.robots], ['name', 'description', meta.description],
     ['property', 'og:title', meta.title], ['property', 'og:description', meta.ogDescription], ['property', 'og:url', meta.url],
     ['name', 'twitter:title', meta.twitterTitle], ['name', 'twitter:description', meta.twitterDescription],
+    ['property', 'og:image', meta.image], ['property', 'og:image:alt', meta.imageAlt],
+    ['name', 'twitter:image', meta.image],
   ]
   for (const [key, name, content] of tags) {
     let tag = document.head.querySelector('meta[' + key + '="' + name + '"]')

@@ -36,8 +36,8 @@ function toggleMotion() {
 }
 
 export function MotionProvider({ children }) {
-  const flags = useSyncExternalStore(subscribe, snapshot, () => -1)
-  const ready = flags >= 0
+  const flags = useSyncExternalStore(subscribe, snapshot, () => 0)
+  const ready = true
   const reduced = ready && flags !== 0
   const systemReduced = ready && Boolean(flags & 2)
   useEffect(() => {

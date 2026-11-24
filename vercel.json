@@ -1,16 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Link",
-          "value": "</fonts/bricolage-grotesque-latin-wght.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin=anonymous, </fonts/dm-mono-regular-ui.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin=anonymous"
-        }
-      ]
-    }
-  ]
+  "trailingSlash": false
 }

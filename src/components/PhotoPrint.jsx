@@ -17,7 +17,7 @@ export default function PhotoPrint({ photo, caption, className = '', priority = 
           sizes={priority ? sizes : 'auto, ' + (sizes || '100vw')}
           width={width}
           height={height}
-          alt={photo.alt || photo.title}
+          alt={photo.alt || photo.title + (photo.caption ? ': ' + photo.caption : '')}
           style={{ objectPosition: photo.position, objectFit: photo.fit }}
           loading={priority ? 'eager' : 'lazy'}
           fetchPriority={priority ? 'high' : 'auto'}

@@ -89,9 +89,9 @@ export function mountDissolve(stage, image, canvas) {
     write('--type-shift', (-Math.min(92, height * .13) * smooth(arrival - .4, arrival + .48, p)).toFixed(2) + 'px')
     write('--name-spacing', (12 * smooth(arrival - .12, arrival + .25, p)).toFixed(2) + 'px')
     write('--name-alpha', (1 - smooth(arrival + .02, arrival + .2, p)).toFixed(3))
-    write('--portrait-opacity', (.26 * (1 - smooth(arrival + .06, arrival + .4, p) * .86)).toFixed(3))
+    write('--portrait-opacity', (.26 * (1 - smooth(arrival + .03, arrival + .32, p) * .9)).toFixed(3))
     const spread = smooth(arrival - .02, arrival + .5, p)
-    const envelope = 1 - smooth(arrival + .35, arrival + .62, p)
+    const envelope = 1 - smooth(arrival - .03, arrival + .28, p)
     const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
     const waveCenter = height * .28 + scrollProgress * distance * .65
     const strength = Math.min(width * .12, height * .13)

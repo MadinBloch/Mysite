@@ -33,6 +33,22 @@ export function getPageMeta(pathname) {
   }
 }
 
+function structuredData(meta) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'Person', '@id': origin + '/#person', name: 'Madin Bloch', url: origin + '/',
+        jobTitle: 'Laravel Backend Developer', image: origin + '/photos/madin-portrait.webp',
+        address: { '@type': 'PostalAddress', addressLocality: 'Ahmedabad', addressCountry: 'IN' },
+        sameAs: ['https://github.com/MadinBloch', 'https://www.linkedin.com/in/madin-bloch/'] },
+      { '@type': 'WebSite', '@id': origin + '/#website', url: origin + '/', name: 'Madin Bloch', inLanguage: 'en-IN' },
+      ...(meta.url ? [{ '@type': 'WebPage', '@id': meta.url + '#webpage', url: meta.url,
+        name: meta.title, description: meta.description, isPartOf: { '@id': origin + '/#website' },
+        about: { '@id': origin + '/#person' } }] : []),
+    ],
+  }
+}
+
 export function applyPageMeta(meta) {
   document.title = meta.title
   const tags = [
@@ -48,6 +64,15 @@ export function applyPageMeta(meta) {
     if (!tag) { tag = document.createElement('meta'); tag.setAttribute(key, name); document.head.append(tag) }
     tag.content = content
   }
+  let jsonLd = document.head.querySelector('#page-structured-data')
+  if (!jsonLd) {
+    jsonLd = document.createElement('script')
+    jsonLd.id = 'page-structured-data'
+    jsonLd.type = 'application/ld+json'
+    document.head.append(jsonLd)
+  }
+  jsonLd.textContent = JSON.stringify(structuredData(meta))
+
   let link = document.head.querySelector('link[rel="canonical"]')
   if (!meta.url) { link?.remove(); return }
   if (!link) { link = document.createElement('link'); link.rel = 'canonical'; document.head.append(link) }

@@ -49,7 +49,7 @@ function head(meta, image) {
         ...(image ? { primaryImageOfPage: { '@type': 'ImageObject', url: 'https://www.madinbloch.online' + image.src, width: 720, height: 720 } } : {}) }] : []),
     ],
   }
-  tags.push('<script type="application/ld+json">' + JSON.stringify(graph).replace(/</g, '\\u003c') + '</script>')
+  tags.push('<script id="page-structured-data" type="application/ld+json">' + JSON.stringify(graph).replace(/</g, '\\u003c') + '</script>')
   return tags.join('\n    ')
 }
 

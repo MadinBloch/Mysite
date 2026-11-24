@@ -21,7 +21,7 @@ function writeSizes(source, name, widths, quality = 68) {
       image.clone(copy => {
         if (width !== image.width) copy.resize(width, 0)
         copy.strip()
-        copy.quality = width === 640 ? 52 : quality
+        copy.quality = width === 640 ? 52 : Math.min(quality, width === 280 || width === 440 ? 62 : 100)
         copy.write(MagickFormat.WebP, bytes => {
           writeFileSync(join(output, name + '-' + width + '.webp'), bytes)
         })

@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiMaximize2 } from 'react-icons/fi'
-import { EventPhoto, frames } from './EventPhotos'
+import { frames } from './EventPhotos'
+import { journalSources } from '../photoRenditions'
 import Lightbox from './Lightbox'
 
 const albums = {
@@ -17,7 +18,43 @@ const allPhotos = [
 export default function HomeAlbum() {
   const [filter, setFilter] = useState('All photos')
   const [preview, setPreview] = useState(null)
+  const sheet = useRef(null)
+  const [widths, setWidths] = useState({})
   const album = albums[filter] || allPhotos
+
+  useEffect(() => {
+    const tiles = sheet.current.querySelectorAll('.journal-image')
+    function record(entries) {
+      setWidths(previous => {
+        let next = previous
+        for (const entry of entries) {
+          const width = Math.ceil((entry.contentRect || entry.boundingClientRect).width)
+          const id = entry.target.dataset.frame
+          if (!width || previous[id] === width) continue
+          if (next === previous) next = { ...previous }
+          next[id] = width
+        }
+        return next
+      })
+    }
+    const resize = window.ResizeObserver ? new ResizeObserver(record) : null
+    if (!window.IntersectionObserver) {
+      record([...tiles].map(target => ({ target, contentRect: target.getBoundingClientRect() })))
+      tiles.forEach(tile => resize?.observe(tile))
+      return () => resize?.disconnect()
+    }
+    const near = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting)
+      if (!visible.length) return
+      record(visible)
+      for (const { target } of visible) {
+        near.unobserve(target)
+        resize?.observe(target)
+      }
+    }, { rootMargin: '420px 0px' })
+    tiles.forEach(tile => near.observe(tile))
+    return () => { near.disconnect(); resize?.disconnect() }
+  }, [filter])
   return (
     <section id="album" className="home-album" aria-labelledby="album-heading">
       <div className="bp-shell bp-section">
@@ -30,16 +67,23 @@ export default function HomeAlbum() {
           {['All photos', ...Object.keys(albums)].map(name => <button type="button" className="filter-button"
             key={name} aria-pressed={filter === name} onClick={() => setFilter(name)}>{name}</button>)}
         </div>
-        <div className="contact-sheet" data-filter={filter} id="landing-hackathon">
+        <div ref={sheet} className="contact-sheet" data-filter={filter} id="landing-hackathon">
           {album.map((photo, index) => (
-            <button type="button" key={photo.id} className="journal-photo"
+            <a href={photo.src} aria-haspopup="dialog" key={photo.id} className="journal-photo"
               style={{ '--frame-ratio': photo.width / photo.height }}
-              aria-label={'Open full photo: ' + photo.title} onClick={() => setPreview(index)}>
-              <span className="journal-image">
-                <EventPhoto photo={photo} sizes="(max-width: 580px) 92vw, (max-width: 950px) 48vw, 36vw" />
+              aria-label={'Open full photo: ' + photo.title} onClick={event => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return
+                event.preventDefault()
+                setPreview(index)
+              }}>
+              <span className="journal-image" data-frame={photo.id}>
+                <img src={photo.thumb}
+                  srcSet={widths[photo.id] ? journalSources(photo.id, photo.width, widths[photo.id]) : undefined}
+                  sizes={widths[photo.id] ? widths[photo.id] + 'px' : undefined}
+                  width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" />
               </span>
               <span className="journal-caption">{photo.title}<FiMaximize2 aria-hidden="true" /></span>
-            </button>
+            </a>
           ))}
         </div>
       </div>

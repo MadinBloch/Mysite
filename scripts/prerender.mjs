@@ -86,7 +86,18 @@ try {
     await mkdir(dirname(destination), { recursive: true })
     await writeFile(destination, html)
   }
-  console.log('Rendered ' + pagePaths.length + ' portfolio pages and the 404 page.')
+
+  // Keep search discovery in sync with every route generated above.
+  const sitemapUrls = pagePaths.map((path) => '  <url><loc>https://www.madinbloch.online' + escape(path) + '</loc></url>')
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...sitemapUrls,
+    '</urlset>',
+    '',
+  ].join('\n')
+  await writeFile(join(dist, 'sitemap.xml'), sitemap)
+  console.log('Rendered ' + pagePaths.length + ' portfolio pages, sitemap and the 404 page.')
 } finally {
   await rm(serverDir, { recursive: true, force: true })
 }

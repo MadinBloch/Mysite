@@ -53,8 +53,10 @@ export function mountDissolve(stage, image, canvas) {
   let introStart = 0
   let replayScroll = 0
   const write = (key, value) => stage.style.setProperty(key, value)
-  const palette = Array.from({ length: 12 }, (_, i) =>
-    'rgb(' + [Math.round(67 + i * 16.6), Math.round(46 + i * 14), Math.round(34 + i * 11)].join(' ') + ')')
+  const palette = Array.from({ length: 12 }, (_, i) => {
+    const warm = i > 8 ? Math.round((i - 8) * 10) : 0
+    return 'rgb(' + [Math.min(255, 193 + i * 5 + warm), Math.min(255, 190 + i * 5 + warm * .65), Math.min(255, 181 + i * 5 + warm * .15)].join(' ') + ')'
+  })
 
   function draw(now) {
     frame = 0
@@ -69,6 +71,11 @@ export function mountDissolve(stage, image, canvas) {
         requestDraw()
       }
     }
+    const nav = document.querySelector('.main-nav')
+    const title = stage.querySelector('#home-title')
+    const navBottom = nav?.getBoundingClientRect().bottom ?? 72
+    const titleGap = title ? title.getBoundingClientRect().top - navBottom : height * .36
+    const arrival = clamp(scrollProgress + Math.max(0, titleGap) / distance)
     if (Math.abs(p - lastProgress) < .0004) return
     lastProgress = p
     ctx.clearRect(0, 0, width, height)
@@ -77,27 +84,22 @@ export function mountDissolve(stage, image, canvas) {
     // stays predictable on trackpads, touch screens, and keyboard scrolling.
     const portraitDrift = Math.min(distance * .46, height * .48) * scrollProgress
     write('--portrait-y', portraitDrift.toFixed(2) + 'px')
-    write('--type-shift', (-Math.min(92, height * .13) * smooth(.04, .94, p)).toFixed(2) + 'px')
-    write('--name-spacing', (16 * smooth(.04, .82, p)).toFixed(2) + 'px')
-    write('--name-alpha', (1 - smooth(.48, .70, p)).toFixed(3))
-    if (p < .008) {
-      write('--portrait-opacity', 1)
-      return
-    }
     if (!samples) samples = samplePortrait(image, columns)
     if (!samples) return
-    write('--portrait-opacity', (1 - smooth(.56, .88, p)).toFixed(3))
-    if (p >= .998) return
-    const spread = smooth(.50, .94, p)
-    const envelope = smooth(.50, .60, p) * (1 - smooth(.92, 1, p))
-    const dot = Math.max(1.25, Math.min(3.7, imageWidth / columns * .65))
-    const waveCenter = height * .24 + scrollProgress * distance * .65
-    const strength = Math.min(width * .13, height * .14)
+    write('--type-shift', (-Math.min(92, height * .13) * smooth(arrival - .4, arrival + .48, p)).toFixed(2) + 'px')
+    write('--name-spacing', (12 * smooth(arrival - .12, arrival + .25, p)).toFixed(2) + 'px')
+    write('--name-alpha', (1 - smooth(arrival + .02, arrival + .2, p)).toFixed(3))
+    write('--portrait-opacity', (.26 * (1 - smooth(arrival + .06, arrival + .4, p) * .86)).toFixed(3))
+    const spread = smooth(arrival - .02, arrival + .5, p)
+    const envelope = 1 - smooth(arrival + .35, arrival + .62, p)
+    const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
+    const waveCenter = height * .28 + scrollProgress * distance * .65
+    const strength = Math.min(width * .12, height * .13)
     ctx.globalAlpha = envelope
     samples.forEach((bucket, level) => {
       ctx.fillStyle = palette[level]
       for (const { u, v, noise } of bucket) {
-        const drift = smooth(.09 + .13 * (1 - v), .9, p)
+        const drift = smooth(arrival + .08 + .13 * (1 - v), arrival + .72, p)
         const targetX = (.5 + (u - .50) * 2.55 + (noise - .5) * .062) * width
         const wave = Math.sin(10.5 * u + 1.9 * v + 5 * p) + .38 * Math.sin(18 * u - 3.3 * v - 2.5 * p)
         const targetY = waveCenter + strength * wave + (v - .42) * height * .24 + (noise - .5) * height * .045
@@ -125,7 +127,7 @@ export function mountDissolve(stage, image, canvas) {
     imageWidth = photo.width
     imageHeight = photo.height
     distance = Math.max(250, Math.min(window.innerHeight, height) * .78)
-    const nextColumns = width < 650 ? 76 : 126
+    const nextColumns = width < 650 ? 110 : 164
     if (columns !== nextColumns) samples = undefined
     columns = nextColumns
     const ratio = Math.min(window.devicePixelRatio || 1, 1.5)

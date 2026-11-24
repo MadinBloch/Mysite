@@ -111,7 +111,7 @@
 .impact-inner dl > div,.chapter-impact dl > div { display:flex; flex-direction:column-reverse; }
 .impact-inner dl > div { border-left:var(--stroke); padding-left:clamp(.6rem,1.2vw,1.2rem); }
 .impact-inner dd { font:400 clamp(2.4rem,5vw,5.2rem)/1 var(--serif); letter-spacing:-.055em; }
-.impact-inner dd span { color:var(--accent-text); font-size:.6em; vertical-align:super; }
+.impact-inner dd .stat-suffix { color:var(--accent-text); font-size:.6em; vertical-align:super; }
 .impact-inner dt,.estimate-note { color:var(--muted); font:400 .73rem/1.45 var(--mono); }
 .impact-inner dt { margin:.4rem 0; }
 .impact-inner .estimate-note { grid-column:2; margin:.8rem 0 0 clamp(.75rem,2.2vw,2.3rem); }

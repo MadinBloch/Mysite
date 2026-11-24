@@ -38,7 +38,7 @@ export default function AnimatedNumber({ target }) {
   return (
     <span ref={element} className="inline-block tabular-nums">
       <span className="sr-only">{formatCount(target)}+</span>
-      <span aria-hidden="true">{formatCount(animate ? count : target)}+</span>
+      <span aria-hidden="true">{formatCount(animate ? count : target)}<span className="stat-suffix">+</span></span>
     </span>
   )
 }

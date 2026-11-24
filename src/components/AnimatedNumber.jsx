@@ -6,15 +6,22 @@ export default function AnimatedNumber({ target }) {
   const element = useRef(null)
   const { reduced: reduce } = useMotionPreference()
   const [count, setCount] = useState(0)
+  const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    if (reduce || !('IntersectionObserver' in window)) return
+    if (reduce) return
+    if (!('IntersectionObserver' in window)) {
+      setCount(target)
+      setStarted(true)
+      return
+    }
 
     let frame
     const observe = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return
       observe.disconnect()
 
+      setStarted(true)
       const start = performance.now()
       const tick = (time) => {
         const progress = Math.min(1, (time - start) / 950)
@@ -33,7 +40,7 @@ export default function AnimatedNumber({ target }) {
     }
   }, [target, reduce])
 
-  const animate = !reduce && typeof IntersectionObserver !== 'undefined'
+  const animate = !reduce && started
 
   return (
     <span ref={element} className="inline-block tabular-nums">

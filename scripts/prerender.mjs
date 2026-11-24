@@ -95,7 +95,7 @@ try {
     ...sitemapUrls,
     '</urlset>',
     '',
-  ].join('\\n')
+  ].join('\n')
   await writeFile(join(dist, 'sitemap.xml'), sitemap)
   console.log('Rendered ' + pagePaths.length + ' portfolio pages, sitemap and the 404 page.')
 } finally {

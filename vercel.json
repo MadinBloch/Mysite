@@ -1,5 +1,29 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "madin-bloch.vercel.app"
+        }
+      ],
+      "destination": "https://www.madinbloch.online/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "madinbloch.online"
+        }
+      ],
+      "destination": "https://www.madinbloch.online/:path*",
+      "permanent": true
+    }
+  ]
 }

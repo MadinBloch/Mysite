@@ -8,10 +8,10 @@ export default function Impact({ home = false }) {
   return (
     <Wrapper id="impact" className={home ? 'impact-band' : 'chapter-impact'} aria-label="Kesari Select platform activity">
       <div className={home ? 'bp-shell impact-inner' : undefined}>
-        {home && <Link className="impact-credit" to="/projects/kesari-select-backend">Kesari Select <FiArrowUpRight aria-hidden="true" /></Link>}
         <dl>{kesariStats.map(({ count, contextLabel }) => (
           <div key={contextLabel}><dt>{contextLabel}</dt><dd>{home ? <AnimatedNumber target={count} /> : <>{formatCount(count)}<span className="stat-suffix">+</span></>}</dd></div>
         ))}</dl>
+        {home && <Link className="impact-credit" to="/projects/kesari-select-backend">Kesari Select case study <FiArrowUpRight aria-hidden="true" /></Link>}
       </div>
     </Wrapper>
   )

@@ -28,11 +28,8 @@ function samplePortrait(image, columns) {
   ctx.drawImage(image, 0, 0, columns, rows)
   const pixels = ctx.getImageData(0, 0, columns, rows).data
   const buckets = Array.from({ length: 12 }, () => [])
-  const rim = []
   for (let row = 0; row < rows; row++) {
     const v = (row + .5) / rows
-    let right = columns - 1
-    while (right > 0 && pixels[4 * (row * columns + right) + 3] < 155) right--
     for (let col = 0; col < columns; col++) {
       const i = 4 * (row * columns + col)
       if (pixels[i + 3] < 155 || v > .9) continue
@@ -41,21 +38,17 @@ function samplePortrait(image, columns) {
       const light = (.14 + .86 * luma) * (1 - smooth(.42, .92, v))
       if (light < .04) continue
       const noise = Math.sin(col * 23.41 + row * 17.71) * 1834.64
-      // Sample a narrow strip inside the lit edge of the hair and shoulder.
-      const edge = 1 - smooth(0, columns * .034, right - col)
-      if (edge > 0 && v < .66) rim.push({ u, v, strength: edge * (1 - smooth(.33, .66, v)) })
       buckets[Math.min(11, Math.floor(light * 12))].push({ u, v, noise: noise - Math.floor(noise) })
     }
   }
-  return { buckets, rim }
+  return buckets
 }
 
 export function mountDissolve(stage, image, canvas) {
   const ctx = canvas.getContext('2d')
   const columns = image.clientWidth < 650 ? 134 : 204
-  const samples = ctx && samplePortrait(image, columns)
-  if (!samples) return
-  const { buckets, rim } = samples
+  const buckets = ctx && samplePortrait(image, columns)
+  if (!buckets) return
   let frame = 0
   let target = 0
   let progress = 0
@@ -84,19 +77,6 @@ export function mountDissolve(stage, image, canvas) {
           ctx.fillRect(x, y, cell * .57, cell * .46)
         }
       })
-    }
-    // The same lit pixels follow the wave as the silhouette breaks apart.
-    const rimAlpha = 1 - smooth(.58, .96, progress)
-    if (rimAlpha > 0) {
-      ctx.fillStyle = '#ffb675'
-      for (const { u, v, strength } of rim) {
-        const wave = Math.sin(u * 12 + v * 2 + progress * 3)
-        const x = (.5 + u + spread * (u - .5) * 1.45) * width
-        const y = mix(v, .37 + wave * .07, spread) * height
-        const gleam = 1 - smooth(0, .1, Math.abs(v - progress * .85 - .06))
-        ctx.globalAlpha = rimAlpha * strength * (.42 + .5 * gleam)
-        ctx.fillRect(x, y, cell * .82, cell * .75)
-      }
     }
     ctx.globalAlpha = 1
     if (progress !== target) frame = requestAnimationFrame(draw)

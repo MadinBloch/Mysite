@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   FiArrowUpRight, FiBookOpen, FiChevronDown, FiCpu, FiGithub, FiMail, FiPrinter, FiTruck, FiUsers,
 } from 'react-icons/fi'
@@ -17,7 +17,7 @@ function ProjectCard({ project }) {
   const liveLabel = project.live?.includes('youtu') ? 'Watch demo' : project.logo ? 'Public website' : 'Live site'
 
   return (
-    <article className="portfolio-panel project-card">
+    <article id={'project-' + project.id} className="portfolio-panel project-card">
       <div className="project-meta">
         {project.logo ? (
           <img src={project.logo} alt="" width="258" height="113" loading="lazy" decoding="async" />
@@ -58,6 +58,8 @@ function ProjectCard({ project }) {
 }
 
 export default function Projects() {
+  const { hash } = useLocation()
+  const earlyLink = earlyProjects.some(project => hash === '#project-' + project.id)
   const [filter, setFilter] = useState('All')
   const current = projects.filter(project => project.type !== 'Early Work' && (filter === 'All' || project.type === filter))
   const showEarly = earlyProjects.length > 0 && (filter === 'All' || filter === 'Early Work')
@@ -85,7 +87,7 @@ export default function Projects() {
           </div>
         )}
         {showEarly && (
-          <details className="early-projects" key={filter} open={filter === 'Early Work'}>
+          <details className="early-projects" key={filter} open={filter === 'Early Work' || earlyLink}>
             <summary>More early projects <FiChevronDown aria-hidden="true" /></summary>
             <div className="project-grid">
               {earlyProjects.map(project => <ProjectCard key={project.id} project={project} />)}

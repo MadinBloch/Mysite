@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiCheck, FiCopy, FiDownload, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import { SectionReveal } from './motion/SectionReveal'
 import { profile } from '../data/profile'
 
 export default function Contact() {
@@ -25,34 +24,25 @@ export default function Contact() {
   }
 
   return (
-    <footer id="contact" className="contact-footer" aria-labelledby="contact-title">
-      <div className="portfolio-shell">
-        <SectionReveal className="contact-layout">
-          <div>
-            <p className="availability"><span aria-hidden="true" />Open to backend roles</p>
-            <h2 id="contact-title" className="editorial-heading">Get in <em>touch.</em></h2>
-            <p className="portfolio-copy contact-invite">Hiring for a Laravel role? I’m based in Ahmedabad and open to remote work or relocation.</p>
-          </div>
-          <div className="contact-actions">
-            <div className="contact-address">
-              <a href={'mailto:' + profile.email} ref={email}>{profile.email}</a>
-              <button type="button" className="icon-button" onClick={copyEmail} aria-label="Copy email address">
-                {copyResult === 'Email address copied.' ? <FiCheck aria-hidden="true" /> : <FiCopy aria-hidden="true" />}
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a href={'mailto:' + profile.email} className="btn-primary"><FiMail aria-hidden="true" />Email me</a>
-              <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" />Download resume</a>
-            </div>
-            <p role="status" className="copy-result">{copyResult}</p>
-          </div>
-        </SectionReveal>
-        <div className="footer-signoff">
-          <Link to="/" className="font-display text-lg font-semibold">Madin Bloch</Link>
-          <div>
-            <a href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" />GitHub</a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" />LinkedIn</a>
-          </div>
+    <footer id="contact" className="contact-section" aria-labelledby="contact-title">
+      <div className="bp-shell">
+        <p className="bp-kicker">Open to backend roles · Remote or relocation</p>
+        <h2 id="contact-title">Let’s work <em>together.</em></h2>
+        <div className="contact-email">
+          <a href={'mailto:' + profile.email} ref={email}>{profile.email}</a>
+          <button type="button" onClick={copyEmail} aria-label="Copy email address">
+            {copyResult === 'Email address copied.' ? <FiCheck aria-hidden="true" /> : <FiCopy aria-hidden="true" />}
+          </button>
+        </div>
+        <p role="status" className="email-feedback">{copyResult}</p>
+        <div className="bp-actions">
+          <a href={'mailto:' + profile.email} className="bp-button bp-primary"><FiMail aria-hidden="true" />Email me</a>
+          <a href={profile.resume} download className="bp-button"><FiDownload aria-hidden="true" />Download résumé</a>
+        </div>
+        <div className="contact-signoff">
+          <Link to="/">© Madin Bloch</Link>
+          <a href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" />GitHub</a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" />LinkedIn</a>
         </div>
       </div>
     </footer>

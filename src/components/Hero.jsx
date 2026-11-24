@@ -1,66 +1,83 @@
+import { useEffect, useRef } from 'react'
+import { useMotionPreference } from './motion/MotionPreferences'
+import { portrait } from '../portrait'
 import { Link } from 'react-router-dom'
-import { FiBookOpen, FiDownload, FiGithub, FiLinkedin, FiMapPin } from 'react-icons/fi'
-import PhotoDeck from './PhotoDeck'
+import { FiAperture, FiArrowDown, FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import { profile } from '../data/profile'
-import { hackathonPhotos, workshopPhotos } from '../data/photos'
-
-const photos = [
-  {
-    id: 'portrait',
-    width: 800,
-    height: 800,
-    src: '/profile-portrait.png',
-    printSrc: '/photos/madin-portrait.webp',
-    title: 'Madin Bloch',
-    alt: 'Portrait of Madin Bloch in a navy suit',
-    caption: 'Ahmedabad, India',
-    position: 'center 12%',
-    shortLabel: 'Portrait',
-  },
-  {
-    ...hackathonPhotos.find(photo => photo.id === 'presentation'),
-    height: 960,
-    shortLabel: 'Hackathon',
-    title: 'Presenting our backend',
-    caption: 'New India Vibrant Hackathon · 2023',
-  },
-  {
-    ...workshopPhotos[0],
-    width: 800,
-    height: 600,
-    shortLabel: 'Workshop',
-    title: 'Teaching Git and Docker',
-    caption: 'Dr. Subhash University · August 2026',
-  },
-]
 
 export default function Hero() {
+  const stageRef = useRef(null)
+  const imageRef = useRef(null)
+  const canvasRef = useRef(null)
+  const replayRef = useRef(null)
+  const { reduced, ready } = useMotionPreference()
+  useEffect(() => {
+    if (!ready || reduced) return
+    const stage = stageRef.current
+    const image = imageRef.current
+    const canvas = canvasRef.current
+    let disposed = false
+    let controller
+    let pending
+    function prepare() {
+      if (!pending) {
+        pending = Promise.all([image.decode(), import('./motion/portraitDissolve')])
+          .then(([, module]) => {
+            if (!disposed) controller = module.mountDissolve(stage, image, canvas)
+            return controller
+          }).catch(() => { /* The unmodified photograph stays visible. */ })
+      }
+      return pending
+    }
+    function onScroll() {
+      if (window.scrollY <= 0 || stage.getBoundingClientRect().bottom <= 0) return
+      window.removeEventListener('scroll', onScroll)
+      prepare()
+    }
+    replayRef.current = async () => { (await prepare())?.replay() }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      disposed = true
+      replayRef.current = null
+      window.removeEventListener('scroll', onScroll)
+      controller?.dispose()
+    }
+  }, [reduced, ready])
+
   return (
-    <section id="home" className="profile-cover" aria-labelledby="home-title">
-      <div className="portfolio-shell cover-layout">
-        <div className="cover-copy">
-          <p className="availability"><span aria-hidden="true" />Open to backend roles</p>
-          <h1 id="home-title" className="cover-title">Madin <em>Bloch.</em></h1>
-          <p className="cover-role">Laravel Backend Developer</p>
-          <p className="cover-intro">
-            I build the software Kesari Select’s teams use to take a travel inquiry through to a booking. At Shine Infosoft, I write the Laravel APIs, connect them to the ERP, and deploy the changes on AWS.
-          </p>
+    <section id="home" className="portrait-cover" aria-labelledby="home-title">
+      <div className="cover-inner" ref={stageRef}>
+        <div className="cover-top meta-line">
+          <span className="availability">Open to backend roles</span>
+          <span>Ahmedabad, India</span>
+        </div>
+        <div className="portrait-light" aria-hidden="true" />
+        <div className="cover-photo">
+          <img ref={imageRef} src={portrait.src} srcSet={portrait.srcSet} sizes={portrait.sizes}
+            width="720" height="720" alt="Madin Bloch" loading="eager" fetchpriority="high" />
+        </div>
+        <canvas ref={canvasRef} className="portrait-particles" width="1" height="1" aria-hidden="true" />
+        <div className="cover-margin" aria-hidden="true">
+          <span className="margin-tick" />
+          <span>Laravel<br />ERP integrations<br />AWS deployments</span>
+        </div>
+        <button type="button" className="portrait-replay" aria-label="Animate portrait"
+          disabled={!ready || reduced} onClick={() => replayRef.current?.()}>
+          <FiAperture aria-hidden="true" /><span>Animate portrait</span>
+        </button>
+        <div className="cover-title">
+          <p className="cover-role">Laravel backend developer</p>
+          <h1 id="home-title"><span>Madin</span>{' '}<em>Bloch.</em></h1>
+          <p className="cover-intro">I build the Laravel APIs behind Kesari Select’s travel bookings and take them from development to production on AWS.</p>
           <div className="cover-actions">
-            <Link to="/#selected-work" className="btn-primary">Explore my work</Link>
-            <a href={profile.resume} download className="btn-outline"><FiDownload aria-hidden="true" /> Download resume</a>
-          </div>
-          <div className="cover-links">
-            <span><FiMapPin aria-hidden="true" />Ahmedabad, India</span>
-            <a href={profile.github} target="_blank" rel="noreferrer"><FiGithub aria-hidden="true" />GitHub</a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer"><FiLinkedin aria-hidden="true" />LinkedIn</a>
+            <Link to="/#selected-work" className="action-pill">Explore my work <FiArrowDown aria-hidden="true" /></Link>
+            <a href={profile.resume} download className="action-line"><FiDownload aria-hidden="true" /> Download résumé</a>
           </div>
         </div>
-        <PhotoDeck photos={photos} label="Madin in photos" appearance="cover" priority />
-      </div>
-      <div className="portfolio-shell">
-        <div className="cover-note">
-          <p>Outside client work, I teach Git and Docker and meet other Laravel developers.</p>
-          <Link to="/#story"><FiBookOpen aria-hidden="true" />Read my story</Link>
+        <div className="cover-foot meta-line">
+          <Link to="/#profile">Meet the developer <FiArrowDown aria-hidden="true" /></Link>
+          <Link to="/projects/kesari-select-backend">Kesari Select case study <FiArrowUpRight aria-hidden="true" /></Link>
         </div>
       </div>
     </section>

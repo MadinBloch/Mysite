@@ -4,6 +4,7 @@ export const workshopPhotos = [
     src: '/workshop/presenting.jpg',
     title: 'Presenting at Dr. Subhash University',
     caption: 'A live walkthrough of Git and local setup',
+    alt: 'Madin presenting Git and local setup to university students',
     position: 'center 37%',
   },
   {
@@ -19,6 +20,7 @@ export const workshopPhotos = [
     src: '/workshop/classroom.jpg',
     title: 'Hands-on classroom',
     caption: 'Students working through the practical session',
+    alt: 'University students following the practical workshop lesson',
     fit: 'contain',
   },
   {
@@ -26,6 +28,7 @@ export const workshopPhotos = [
     src: '/workshop/certificate.jpg',
     title: 'Workshop certificate presentation',
     caption: 'Dr. Subhash University',
+    alt: 'Madin with the workshop hosts after the Git and Docker session',
   },
 ]
 
@@ -35,6 +38,7 @@ export const hackathonPhotos = [
     src: '/imag1hackthone.jpg',
     title: 'New India Vibrant Hackathon Grand Finale',
     caption: 'PDEU · 2023',
+    alt: 'Madin at the New India Vibrant Hackathon Grand Finale at PDEU in 2023',
     position: 'center 47%',
   },
   {
@@ -77,6 +81,7 @@ export const hackathonPhotos = [
     id: 'working',
     src: '/image6.jpg',
     title: 'Team working session',
+    alt: 'Hackathon teammates working together around a table',
     position: 'center 45%',
   },
 ]
@@ -86,6 +91,7 @@ export const certificatePhotos = [
     id: 'finale-certificate',
     src: '/certificateHackthnone.jpg',
     title: 'Hackathon Grand Finale',
+    alt: 'New India Vibrant Hackathon Grand Finale certificate',
     caption: 'New India Vibrant Hackathon · 2023',
     fit: 'contain',
   },
@@ -93,6 +99,7 @@ export const certificatePhotos = [
     id: 'pw-skills',
     src: '/certs/pw-skills-nodejs.png',
     title: 'Node.js backend certificate',
+    alt: 'Madin’s Node.js backend development certificate from PW Skills',
     caption: 'PW Skills · July 2023',
     fit: 'contain',
   },
@@ -100,6 +107,7 @@ export const certificatePhotos = [
     id: 'regional-certificate',
     src: '/image9.jpg',
     title: 'Hackathon regional round',
+    alt: 'New India Vibrant Hackathon regional round certificate',
     caption: 'New India Vibrant Hackathon · 2023',
     fit: 'contain',
   },
@@ -107,6 +115,7 @@ export const certificatePhotos = [
     id: 'cricket',
     src: '/certs/cricket-national.jpg',
     title: 'National-level cricket',
+    alt: 'Madin’s cricket participation certificate',
     position: 'center 43%',
   },
 ]
@@ -116,12 +125,14 @@ export const meetupPhotos = [
     id: 'meetup-group',
     src: '/community/laravel-meetup-group.jpg',
     title: 'Laravel meetup group photo',
+    alt: 'Developers posing together at a Laravel meetup in Ahmedabad',
     position: 'center 59%',
   },
   {
     id: 'meetup',
     src: '/community/laravel-meetup.jpg',
     title: 'At the Laravel meetup',
+    alt: 'Madin meeting developers at a Laravel meetup',
     position: 'center 45%',
   },
 ]

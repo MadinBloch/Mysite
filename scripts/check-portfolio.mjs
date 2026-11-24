@@ -31,12 +31,13 @@ for (const title of requiredTitles) {
 }
 
 const app = read('src/App.jsx')
+const destinations = read('src/DestinationRoutes.jsx')
 const story = read('src/components/PortfolioStory.jsx')
 const hackathon = read('src/components/Hackathon.jsx')
 const workshop = read('src/components/Workshop.jsx')
 const hero = read('src/components/Hero.jsx')
 const gallery = read('src/pages/GalleryPage.jsx')
-const origin = 'https://madin-bloch.vercel.app'
+const origin = 'https://www.madinbloch.online'
 const sitemap = read('public/sitemap.xml')
 const sitemapIndex = read('public/sitemap_index.xml')
 const sitemapLocations = xml => [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url)
@@ -56,10 +57,10 @@ for (const slug of Object.keys(CASE_STUDIES)) {
   assert.ok(sitemapUrls.includes(origin + '/projects/' + slug), 'Case study missing from sitemap: ' + slug)
 }
 
-assert.match(app, /<Hero \/>[\s\S]*<WorkHighlights \/>[\s\S]*<PortfolioStory \/>[\s\S]*<Blogs \/>/, 'Show selected work immediately after the profile cover')
-assert.match(hero, /<h1[^>]*>Madin <em>Bloch\.<\/em><\/h1>/, 'Use the original name-led cover')
-assert.ok(hero.includes('appearance="cover"'), 'Restore the cover photo selector')
-assert.match(story, /<Hackathon \/>[\s\S]*<ProductionChapter \/>[\s\S]*<Workshop \/>/, 'Preserve the chapter order')
+assert.match(app, /<Hero \/>[\s\S]*<Impact home \/>[\s\S]*<About home \/>[\s\S]*<WorkHighlights \/>[\s\S]*<Journey \/>[\s\S]*<Skills home \/>[\s\S]*<HomeAlbum \/>[\s\S]*<Blogs \/>/, 'Keep the story-led homepage in reading order')
+assert.deepEqual([...story.matchAll(/<Chapter date="([^"]+)"/g)].map(match => match[1]),
+  ['2023', '2024-12', '2025-05', '2026-08'], 'Keep the four chapters in chronological order')
+assert.match(story, /<Hackathon \/>[\s\S]*mage\.company[\s\S]*<Impact \/>[\s\S]*<Workshop \/>/)
 assert.ok(story.includes('internal TAP walkthroughs'), 'Credit the internal training in the Kesari chapter')
 assert.ok(read('src/components/Impact.jsx').includes('*developer-reported estimates'))
 for (const [page, id] of [[story, 'story'], [workshop, 'workshop'], [hackathon, 'hackathon'], [hackathon, 'landing-hackathon']]) {
@@ -72,13 +73,13 @@ for (const id of ['regional', 'presentation', 'finale-team', 'team-certificates'
   assert.ok(hackathon.includes("'" + id + "'") && hackathonPhotos.some(photo => photo.id === id), 'Missing landing photo: ' + id)
 }
 for (const path of ['/projects', '/about', '/gallery', '/blogs']) {
-  assert.ok(app.includes('path="' + path + '"'), 'Missing page: ' + path)
+  assert.ok(destinations.includes('path="' + path + '"'), 'Missing page: ' + path)
   assert.ok(sitemapUrls.includes(origin + path), 'Page missing from sitemap: ' + path)
 }
 for (const section of ['About', 'Experience', 'Skills', 'Projects']) {
-  assert.ok(app.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
+  assert.ok(destinations.includes('<' + section + ' />'), 'Portfolio section missing: ' + section)
 }
-assert.ok(hero.includes('Madin Bloch') && hero.includes('/profile-portrait.png'), 'The cover should introduce Madin with his portrait')
+assert.ok(hero.includes('Madin Bloch') && hero.includes('src={portrait.src}') && read('src/portrait.js').includes('/photos/madin-portrait.webp'), 'The cover should introduce Madin with his portrait')
 assert.ok(existsSync('public/profile-portrait.png') && existsSync('public/photos/madin-portrait.webp'), 'Formal portrait missing')
 assert.ok(!hero.includes('10000') && !hero.includes('pipeline'), 'No platform dashboard in the hero')
 assert.deepEqual(kesariStats.map(({ count, label }) => [count, label]), [
@@ -95,7 +96,6 @@ for (const [id, photos] of Object.entries({ hackathon: hackathonPhotos, workshop
 }
 
 const highlights = read('src/components/WorkHighlights.jsx')
-assert.ok(highlights.includes('role="tablist"') && highlights.includes('role="tabpanel"'), 'Keep the case studies keyboard-selectable')
 assert.ok(highlights.includes("from '../data/projects.json'"), 'Use the canonical projects for selected work')
 for (const project of projects.filter(project => project.caseStudySlug)) {
   assert.ok(highlights.includes("'" + project.caseStudySlug + "'"), 'Missing featured case study: ' + project.title)
@@ -108,5 +108,37 @@ for (const phrase of ['200+ daily inquiries', '30K+ customer records', '10K+ vis
 
 const resume = readFileSync('public/Madin_Bloch_Resume.pdf')
 assert.equal(resume.subarray(0, 5).toString(), '%PDF-', 'Resume download must be an actual PDF')
+
+const home = app.slice(app.indexOf('function HomePage()'), app.indexOf('export default function App('))
+assert.ok(home.includes('<Journey />') && !home.includes('<PortfolioStory />'))
+assert.ok(destinations.includes('<PortfolioStory />'), 'The full event and production stories must remain accessible')
+assert.match(highlights, /const cases = \['kesari-select-backend', 'email-campaign-engine', 'smart-print-operations'\]/,
+  'Lead with Kesari Select and keep each engineering case distinct')
+
+const photos = read('src/components/EventPhotos.jsx')
+const frameIds = [...photos.matchAll(/:\s*frame\('([^']+)'/g)].map(match => match[1])
+assert.equal(new Set(frameIds).size, 11, 'Use the eleven reviewed source photographs')
+for (const id of frameIds) {
+  for (const suffix of ['.webp', '-sm.webp']) {
+    const image = readFileSync('public/photos/boarding/' + id + suffix)
+    assert.equal(image.toString('ascii', 8, 12), 'WEBP')
+  }
+}
+assert.ok(read('src/components/HomeAlbum.jsx').includes('<Lightbox photos={album}'),
+  'Opening an album photo must use the reviewed image')
+assert.ok(read('src/components/Experience.jsx').includes("useState('mage')"))
+
+const journal = read('src/components/HomeAlbum.jsx')
+const allPhotos = journal.match(/const allPhotos = \[([^\]]+)\]/)?.[1] || ''
+const homePhotos = [...allPhotos.matchAll(/frames\.(\w+)/g)].map(match => match[1])
+const reviewedPhotos = [...photos.matchAll(/(\w+): frame\(/g)].map(match => match[1])
+assert.deepEqual([...homePhotos].sort(), [...reviewedPhotos].sort(), 'Keep every reviewed photograph in the home journal')
+assert.equal(homePhotos[0], 'workshop', 'Lead the photo journal with the Git and Docker classroom')
+assert.ok(highlights.includes('Object.entries(kesariPageLoad)'), 'Chart the observed times from the canonical data')
+assert.ok(app.includes("import { MotionProvider }") && app.includes('<MotionProvider>'))
+assert.ok(read('src/components/motion/MotionPreferences.jsx').includes('useSyncExternalStore(subscribe, snapshot, () => 0)'), 'Hydration requires matching initial motion preferences')
+assert.ok(read('src/fonts.css').includes('/fonts/bricolage-grotesque-latin.woff2') && !read('src/fonts.css').includes('-ui.woff2'), 'Use the original valid WOFF2 font files')
+assert.ok(read('scripts/prerender.mjs').includes('application/ld+json'), 'Add structured identity and page metadata')
+for (const photo of [...hackathonPhotos, ...workshopPhotos, ...meetupPhotos, ...certificatePhotos]) assert.ok(photo.alt || photo.title, 'Gallery image needs descriptive alt text: ' + photo.id)
 
 console.log('Portfolio content validation passed')

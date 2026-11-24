@@ -6,18 +6,27 @@ At Shine Infosoft, Madin builds backend features for Kesari Select's Travel Assi
 
 ## Portfolio
 
-- [Home](https://madin-bloch.vercel.app/)
-- [Profile and experience](https://madin-bloch.vercel.app/about)
-- [Project directory](https://madin-bloch.vercel.app/projects)
-- [Resume PDF](https://madin-bloch.vercel.app/Madin_Bloch_Resume.pdf)
+- [Home](https://www.madinbloch.online/)
+- [Profile and experience](https://www.madinbloch.online/about)
+- [Project directory](https://www.madinbloch.online/projects)
+- [Resume PDF](https://www.madinbloch.online/Madin_Bloch_Resume.pdf)
 
 ## Case studies
 
-- [Kesari Select](https://madin-bloch.vercel.app/projects/kesari-select-backend)
-- [Email Campaign Platform](https://madin-bloch.vercel.app/projects/email-campaign-engine)
-- [Smart Print](https://madin-bloch.vercel.app/projects/smart-print-operations)
+- [Kesari Select](https://www.madinbloch.online/projects/kesari-select-backend)
+- [Email Campaign Platform](https://www.madinbloch.online/projects/email-campaign-engine)
+- [Smart Print](https://www.madinbloch.online/projects/smart-print-operations)
 
 ## Optional
 
-- [Writing](https://madin-bloch.vercel.app/blogs)
-- [Workshop, hackathon, and meetup photos](https://madin-bloch.vercel.app/gallery)
+- [Writing](https://www.madinbloch.online/blogs)
+- [Workshop, hackathon, and meetup photos](https://www.madinbloch.online/gallery)
+
+## Articles
+
+- [Shipping Laravel Apps on EC2: A Practical Checklist](https://www.madinbloch.online/blog/shipping-laravel-apps-on-ec2)
+- [Database Design Lessons from Real Client Projects](https://www.madinbloch.online/blog/database-design-lessons-from-real-projects)
+- [Using Queue Jobs for Reliable Email Campaign Delivery](https://www.madinbloch.online/blog/queue-jobs-for-email-campaigns)
+- [Backend-Focused Hackathon Takeaways](https://www.madinbloch.online/blog/backend-focused-hackathon-takeaways)
+- [Docker for Laravel Beginners: What Actually Matters](https://www.madinbloch.online/blog/docker-for-laravel-beginners)
+- [From Raw PHP to Maintainable Laravel Architecture](https://www.madinbloch.online/blog/from-raw-php-to-maintainable-laravel)

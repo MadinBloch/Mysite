@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FiFilm, FiGrid } from 'react-icons/fi'
-import PhotoDeck from '../components/PhotoDeck'
+import { archiveImage } from '../components/archiveImages'
 import PhotoGrid from '../components/PhotoGrid'
 import { certificatePhotos, hackathonPhotos, meetupPhotos, workshopPhotos } from '../data/photos'
+
+const PhotoDeck = lazy(() => import('../components/PhotoDeck'))
 
 const albums = [
   {
@@ -38,7 +40,7 @@ const albums = [
     description: 'Meeting other PHP and Laravel developers and comparing how we build and deploy our applications.',
     photos: meetupPhotos,
   },
-]
+].map(album => ({ ...album, photos: album.photos.map(archiveImage) }))
 
 export default function GalleryPage() {
   const [params] = useSearchParams()
@@ -60,7 +62,7 @@ export default function GalleryPage() {
           <h2 id="album-title">{album.title}</h2>
           <p>{album.description}</p>
           {album.recordings?.map(([label, href]) => (
-            <a key={href} href={href} target="_blank" rel="noreferrer" className="story-link">{label}</a>
+            <a key={href} href={href} target="_blank" rel="noreferrer" className="journal-link">{label}</a>
           ))}
           <div className="album-view-switch" role="group" aria-label="Album layout">
             <button type="button" aria-pressed={!slideshow} onClick={() => setSlideshow(false)}><FiGrid aria-hidden="true" />All photos</button>
@@ -69,7 +71,9 @@ export default function GalleryPage() {
         </div>
         <div className="album-collection">
           {slideshow
-            ? <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
+            ? <Suspense fallback={<p role="status">Loading slideshow…</p>}>
+              <PhotoDeck photos={album.photos} label={album.name + ' photos'} priority />
+            </Suspense>
             : <PhotoGrid photos={album.photos} />}
         </div>
       </section>

@@ -13,8 +13,8 @@ node scripts/check-portfolio.mjs
 
 ## Site structure
 
-- `src/components/Hero.jsx` introduces Madin with a portrait, hackathon and workshop thumbnails, and a resume download.
-- `src/components/WorkHighlights.jsx` connects three engineering examples to their full case studies.
+- `src/components/Hero.jsx` introduces Madin with a boarding pass, portrait and résumé download.
+- `src/components/WorkHighlights.jsx` leads with Kesari Select and links all three engineering examples to their case studies.
 - `src/components/PortfolioStory.jsx` connects four hackathon photos, the Kesari Select operating figures and the university workshop.
 - `src/components/About.jsx`: Short biography.
 - `src/components/Skills.jsx`: Backend, data and deployment skills.
@@ -32,7 +32,7 @@ This is a personal site first, not a business metrics dashboard. Kesari Select f
 
 The portfolio uses real workshop/hackathon photos. No confidential client screenshots or invented product UIs are shown.
 
-The photo archive carousel supports swipe, thumbnails and arrow keys. Open any homepage photo to zoom or move between the originals in the full-size viewer.
+The photo archive carousel supports swipe, thumbnails and arrow keys. Open a photo in the homepage album to zoom or move between the reviewed WebP images.
 
 ## Deployment
 

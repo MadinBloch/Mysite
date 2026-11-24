@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { FiArrowLeft, FiArrowUpRight, FiPlus } from 'react-icons/fi'
 import { CASE_STUDIES } from '../data/caseStudies'
@@ -30,26 +29,6 @@ export default function CaseStudyPage() {
   const study = project && CASE_STUDIES[slug]
   const related = projects.filter((item) => item.caseStudySlug && item.caseStudySlug !== slug).slice(0, 2)
 
-  useEffect(() => {
-    if (!study) return
-
-    const description = document.querySelector('meta[name="description"]')
-    const canonical = document.querySelector('link[rel="canonical"]')
-    const oldTitle = document.title
-    const oldDescription = description?.getAttribute('content')
-    const oldCanonical = canonical?.getAttribute('href')
-
-    document.title = project.title + ' | Madin Bloch'
-    description?.setAttribute('content', study.subtitle)
-    canonical?.setAttribute('href', 'https://madin-bloch.vercel.app/projects/' + slug)
-
-    return () => {
-      document.title = oldTitle
-      if (oldDescription) description?.setAttribute('content', oldDescription)
-      if (oldCanonical) canonical?.setAttribute('href', oldCanonical)
-    }
-  }, [slug, study, project])
-
   if (!study) {
     return (
       <section className="portfolio-shell pb-24 pt-36">
@@ -60,11 +39,11 @@ export default function CaseStudyPage() {
   }
 
   return (
-    <article className="portfolio-shell pb-20 pt-28 sm:pb-28 sm:pt-36">
+    <article className="portfolio-shell destination-page">
       <Link to="/projects" className="link-accent mb-5 min-h-10 text-sm">
         <FiArrowLeft size={17} aria-hidden="true" /> Selected work
       </Link>
-      <header className="project-feature hero-enter grid items-end gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.43fr] lg:p-10">
+      <header className="project-feature grid items-end gap-7 p-5 sm:p-8 lg:grid-cols-[1fr_.43fr] lg:p-10">
         <div>
           <p className="section-label">{project.category} · {project.year}</p>
           <h1 className="section-heading mt-3">{project.title}</h1>

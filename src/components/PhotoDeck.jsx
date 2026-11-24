@@ -1,11 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { useReducedMotion } from 'framer-motion'
+import { useMotionPreference } from './motion/MotionPreferences'
 import { FiArrowLeft, FiArrowRight, FiMaximize2 } from 'react-icons/fi'
 import Lightbox from './Lightbox'
 
 export default function PhotoDeck({ photos, label, priority = false, className = '', appearance = 'album' }) {
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
   const [viewportRef, carousel] = useEmblaCarousel({ loop: true, duration: 24 })
   const [selected, setSelected] = useState(0)
   const [preview, setPreview] = useState(null)
@@ -24,7 +24,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
     }
   }, [carousel])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const slides = carousel?.slideNodes()
     const focused = document.activeElement
     if (slides?.includes(focused) && focused !== slides[selected]) {
@@ -59,10 +59,12 @@ export default function PhotoDeck({ photos, label, priority = false, className =
                 onClick={() => setPreview(index)}
               >
                 <img
-                  src={isCover ? photo.printSrc || photo.src : photo.src}
+                  src={photo.printSrc || photo.src}
+                  srcSet={photo.srcSet}
+                  sizes={(priority && index === 0 ? '' : 'auto, ') + '(max-width: 1024px) 92vw, 60rem'}
                   width={photo.width}
                   height={photo.height}
-                  alt={photo.alt || photo.title}
+                  alt={photo.alt || photo.title + (photo.caption ? ': ' + photo.caption : '')}
                   loading={priority && index === 0 ? 'eager' : 'lazy'}
                   fetchPriority={priority && index === 0 ? 'high' : 'auto'}
                   decoding="async"
@@ -101,7 +103,7 @@ export default function PhotoDeck({ photos, label, priority = false, className =
               onClick={() => carousel?.scrollTo(index, Boolean(reduce))}
             >
               <img
-                src={photo.printSrc || photo.src}
+                src={photo.thumb || photo.printSrc || photo.src}
                 width={photo.width}
                 height={photo.height}
                 alt=""

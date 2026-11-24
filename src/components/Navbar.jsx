@@ -1,102 +1,58 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { profile } from '../data/profile'
-import { FiMail, FiDownload, FiMenu, FiX } from 'react-icons/fi'
+import { FiArrowUpRight, FiMenu, FiPause, FiPlay, FiX } from 'react-icons/fi'
+import { useMotionPreference } from './motion/MotionPreferences'
 
-const links = [
-  ['/', 'Home'],
-  ['/projects', 'Work'],
-  ['/about', 'Profile'],
-  ['/gallery', 'Gallery'],
-  ['/blogs', 'Writing'],
+const sections = [
+  ['Work', 'selected-work'], ['About', 'profile'], ['Journey', 'story'],
+  ['Photos', 'album'], ['Writing', 'blogs'],
 ]
 
 export default function Navbar() {
+  const { key, hash, pathname } = useLocation()
   const [open, setOpen] = useState(false)
+  const { reduced, systemReduced, toggleMotion } = useMotionPreference()
   const header = useRef(null)
-  const menuButton = useRef(null)
-  const location = useLocation()
-  const { pathname } = location
-
-  useEffect(() => {
-    setOpen(false)
-  }, [location.key])
-
+  const toggle = useRef(null)
+  useEffect(() => { setOpen(false) }, [key])
   useEffect(() => {
     if (!open) return
-
-    const onPointerDown = (event) => {
-      if (!header.current.contains(event.target)) setOpen(false)
-    }
-    const onKeyDown = (event) => {
-      if (event.key !== 'Escape') return
+    function dismiss(event) {
+      if (event.type === 'keydown') {
+        if (event.key !== 'Escape') return
+        toggle.current?.focus()
+      } else if (header.current?.contains(event.target)) return
       setOpen(false)
-      menuButton.current?.focus()
     }
-
-    document.addEventListener('pointerdown', onPointerDown)
-    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('keydown', dismiss)
+    document.addEventListener('pointerdown', dismiss)
     return () => {
-      document.removeEventListener('pointerdown', onPointerDown)
-      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('keydown', dismiss)
+      document.removeEventListener('pointerdown', dismiss)
     }
   }, [open])
 
-  const activePath = pathname.startsWith('/projects/') ? '/projects'
-    : pathname.startsWith('/blog/') ? '/blogs' : pathname
-
-  const navLinks = links.map(([path, label]) => (
-    <Link
-      key={path}
-      to={path}
-      className="nav-link"
-      aria-current={activePath === path ? 'page' : undefined}
-      onClick={() => setOpen(false)}
-    >
-      {label}
-    </Link>
-  ))
-
   return (
-    <header ref={header} className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
-      <div className="portfolio-shell">
-        <nav className="site-nav pointer-events-auto flex h-[3.9rem] items-center justify-between gap-3 rounded-full px-2.5 sm:px-3.5" aria-label="Main navigation">
-          <Link to="/" className="inline-flex shrink-0 items-center gap-2.5 rounded-full font-display text-base font-semibold" aria-label="Madin Bloch home">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-accent text-sm font-bold tracking-tight text-[#13251b]" aria-hidden="true">MB</span>
-            <span>Madin Bloch</span>
-          </Link>
-
-          <div className="hidden items-center gap-1 lg:flex">{navLinks}</div>
-
-          <Link to="/#contact" className="nav-link hidden gap-2 border border-[#466756] bg-[#192722] text-[#d6f6e3] lg:inline-flex">
-            Let’s talk <FiMail size={16} aria-hidden="true" />
-          </Link>
-
-          <button
-            ref={menuButton}
-            type="button"
-            className="icon-button lg:hidden"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <FiX size={20} aria-hidden="true" /> : <FiMenu size={20} aria-hidden="true" />}
-          </button>
+    <>
+      <header className="masthead" ref={header}>
+        <nav className="main-nav" aria-label="Main navigation">
+          <Link to="/" className="wordmark" aria-label="Madin Bloch home">Madin <em>Bloch.</em></Link>
+          <div id="main-menu" className={'main-menu' + (open ? ' is-open' : '')}>
+            {sections.map(([title, id]) => <Link key={id} to={'/#' + id} onClick={() => setOpen(false)} aria-current={pathname === '/' && hash === '#' + id ? 'location' : undefined}><span className="nav-label"><span>{title}</span><span aria-hidden="true">{title}</span></span></Link>)}
+          </div>
+          <div className="nav-actions">
+            <Link to="/#contact" className="nav-contact">Let’s talk <FiArrowUpRight aria-hidden="true" /></Link>
+            <button ref={toggle} className="menu-toggle" type="button" aria-controls="main-menu" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen(!open)}>
+              {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+            </button>
+          </div>
         </nav>
-
-        <nav
-          id="mobile-navigation"
-          className={'site-nav pointer-events-auto mt-2 max-h-[calc(100dvh-6rem)] overflow-auto rounded-3xl p-3 lg:hidden ' + (open ? 'menu-enter grid' : 'hidden')}
-          aria-label="Mobile navigation"
-        >
-          {navLinks}
-          <Link to="/#contact" className="nav-link" onClick={() => setOpen(false)}>Contact</Link>
-          <a href={profile.resume} download className="btn-primary mt-2" onClick={() => setOpen(false)}>
-            Download resume <FiDownload size={17} aria-hidden="true" />
-          </a>
-        </nav>
-      </div>
-    </header>
+      </header>
+      <button type="button" className="motion-toggle" aria-pressed={!reduced} disabled={systemReduced}
+        title={systemReduced ? 'Reduced motion is enabled on your device' : 'Toggle animations'} onClick={toggleMotion}>
+        {reduced ? <FiPlay aria-hidden="true" /> : <FiPause aria-hidden="true" />}
+        Motion {reduced ? 'off' : 'on'}
+      </button>
+    </>
   )
 }

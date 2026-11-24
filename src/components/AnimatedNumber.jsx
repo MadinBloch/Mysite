@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useMotionPreference } from './motion/MotionPreferences'
 import { formatCount } from '../data/siteStats'
 
 export default function AnimatedNumber({ target }) {
   const element = useRef(null)
-  const reduce = useReducedMotion()
+  const { reduced: reduce } = useMotionPreference()
   const [count, setCount] = useState(0)
 
   useEffect(() => {

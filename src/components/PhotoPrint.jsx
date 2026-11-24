@@ -9,15 +9,15 @@ export function spreadImageSize(index) {
 
 export default function PhotoPrint({ photo, caption, className = '', priority = false, sizes, width = photo.width, height = photo.height, onOpen }) {
   return (
-    <figure className={'photo-print ' + className}>
+    <figure className={'photo-print ' + className} style={{ '--frame-ratio': width / height }}>
       <button type="button" onClick={onOpen} aria-label={'Open full photo: ' + photo.title}>
         <img
           src={photo.printSrc || photo.src}
-          srcSet={photo.previewWidth && `${photo.printSrc} ${photo.previewWidth}w, ${photo.src} ${photo.width}w`}
-          sizes={sizes}
+          srcSet={photo.cardSrcSet || photo.srcSet}
+          sizes={priority ? sizes : 'auto, ' + (sizes || '100vw')}
           width={width}
           height={height}
-          alt={photo.alt || photo.title}
+          alt={photo.alt || photo.title + (photo.caption ? ': ' + photo.caption : '')}
           style={{ objectPosition: photo.position, objectFit: photo.fit }}
           loading={priority ? 'eager' : 'lazy'}
           fetchPriority={priority ? 'high' : 'auto'}

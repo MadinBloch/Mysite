@@ -107,12 +107,18 @@
    scrolls in document flow at the same speed as the next section. */
 .portrait-track { position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:clip; }
 .portrait-pin { position:relative; height:1px; }
-.portrait-pin .cover-photo { width:min(77.4vw,90svh,864px); top:0; transform:translateX(-50%); }
-.cover-title { top:clamp(210px,40svh,410px); }
+.portrait-pin .cover-photo { width:min(68vw,79svh,760px); top:0; transform:translateX(-50%); }
+.cover-inner { min-height:min(calc(100svh - var(--nav-height)),930px); padding-top:clamp(98px,18svh,190px); }
+.cover-title { position:relative; inset:auto; width:100%; margin:0; padding:0; }
+.cover-title h1 { font-size:clamp(5.4rem,min(11.4vw,19svh),11rem); }
+.cover-intro { max-width:54ch; margin:clamp(.75rem,2svh,1.3rem) auto .85rem; text-wrap:balance; }
+.cover-foot { margin-top:clamp(12px,3svh,32px); }
 .cover-foot { position:relative; }
 @media (max-width:740px) {
-  .portrait-pin .cover-photo { width:min(130.5vw,594px); top:30px; }
-  .cover-title { top:clamp(220px,34svh,300px); }
+  .portrait-pin .cover-photo { width:min(115vw,522px); top:30px; }
+  .cover-title h1 { font-size:clamp(3.8rem,17vw,7.2rem); }
+  .cover-intro { max-width:36ch; }
+  .cover-actions { gap:.65rem; }
 }
 @media (prefers-reduced-motion:no-preference) {
   :root[data-motion=on] .portrait-pin { position:sticky; top:var(--nav-height); }

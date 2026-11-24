@@ -1,4 +1,5 @@
-import { FiPlus } from 'react-icons/fi'
+import { FiCloud, FiCode, FiGitBranch, FiLayers, FiPlus, FiServer, FiTable } from 'react-icons/fi'
+import { SiDocker, SiGit, SiLaravel, SiLinux, SiLivewire, SiMongodb, SiMysql, SiNginx, SiPhp, SiPostgresql } from 'react-icons/si'
 
 const groups = [
   {
@@ -18,6 +19,27 @@ const groups = [
   },
 ]
 
+const skillIcons = {
+  Laravel: SiLaravel,
+  PHP: SiPhp,
+  'REST APIs': FiServer,
+  Queues: FiLayers,
+  Livewire: SiLivewire,
+  Blade: FiCode,
+  MySQL: SiMysql,
+  MongoDB: SiMongodb,
+  PostgreSQL: SiPostgresql,
+  'ERP APIs': FiGitBranch,
+  'Excel / DBF': FiTable,
+  'AWS S3': FiCloud,
+  Docker: SiDocker,
+  'AWS EC2': FiCloud,
+  Nginx: SiNginx,
+  'PHP-FPM': SiPhp,
+  Linux: SiLinux,
+  Git: SiGit,
+}
+
 export default function Skills({ home = false }) {
   return (
     <section id={home ? 'tech-stack' : 'skills'} className="bp-shell bp-section tool-section" aria-labelledby="skills-title">
@@ -29,7 +51,12 @@ export default function Skills({ home = false }) {
             <details className="tool-entry" name="toolkit" key={title} open={index === 0}>
               <summary>{title} <FiPlus aria-hidden="true" /></summary>
               <p>{description}</p>
-              <ul className="bp-chips">{skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+              <ul className="bp-chips">{skills.map(skill => {
+                const Icon = skillIcons[skill]
+                return <li key={skill} className="tool-chip" data-brand={skill}>
+                  <Icon aria-hidden="true" focusable="false" /><span>{skill}</span>
+                </li>
+              })}</ul>
             </details>
           ))}
         </div>

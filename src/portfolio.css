@@ -40,7 +40,7 @@
 .margin-tick { width:21px; height:1px; background:var(--accent-text); }
 .cover-title { position:absolute; z-index:1; inset-inline:var(--gutter); top:clamp(175px,26svh,285px); width:auto; text-align:center; }
 .cover-role { margin-bottom:.7rem; color:#eed0b9; text-shadow:0 1px 9px #080808; }
-.cover-title h1 { font:400 clamp(6rem,10.8vw,10.5rem)/.84 var(--serif); letter-spacing:-.061em; white-space:nowrap; text-shadow:0 2px 24px rgba(0,0,0,.8); }
+.cover-title h1 { font:400 clamp(6rem,12.8vw,12rem)/.84 var(--serif); letter-spacing:-.061em; white-space:nowrap; text-shadow:0 2px 24px rgba(0,0,0,.8); }
 .cover-title h1 em { font-weight:400; }
 .cover-heading-mask { display:inline-block; overflow:hidden; vertical-align:bottom; }
 .cover-heading-word { display:inline-block; padding-block:.1em; margin-block:-.1em; }

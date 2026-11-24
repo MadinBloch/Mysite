@@ -53,10 +53,10 @@ export function mountDissolve(stage, image, canvas) {
   let introStart = 0
   let replayScroll = 0
   const write = (key, value) => stage.style.setProperty(key, value)
-  const palette = Array.from({ length: 12 }, (_, i) => {
-    const warm = i > 8 ? Math.round((i - 8) * 10) : 0
-    return 'rgb(' + [Math.min(255, 193 + i * 5 + warm), Math.min(255, 190 + i * 5 + warm * .65), Math.min(255, 181 + i * 5 + warm * .15)].join(' ') + ')'
-  })
+  const palette = Array.from({ length: 12 }, (_, i) =>
+    'rgb(' + [Math.round(148 + i * 7.6), Math.round(146 + i * 7.5), Math.round(142 + i * 7.3)].join(' ') + ')')
+  const amber = Array.from({ length: 12 }, (_, i) =>
+    'rgb(' + [Math.round(166 + i * 7.4), Math.round(91 + i * 7.1), Math.round(37 + i * 4.8)].join(' ') + ')')
 
   function draw(now) {
     frame = 0
@@ -95,10 +95,10 @@ export function mountDissolve(stage, image, canvas) {
     const dot = Math.max(1.25, Math.min(2.55, imageWidth / columns * .44))
     const waveCenter = height * .28 + scrollProgress * distance * .65
     const strength = Math.min(width * .12, height * .13)
-    ctx.globalAlpha = envelope
+    ctx.globalAlpha = envelope * .9
     samples.forEach((bucket, level) => {
-      ctx.fillStyle = palette[level]
       for (const { u, v, noise } of bucket) {
+        ctx.fillStyle = u > .57 && v < .54 && noise > .34 ? amber[level] : palette[level]
         const drift = smooth(arrival + .08 + .13 * (1 - v), arrival + .72, p)
         const targetX = (.5 + (u - .50) * 2.55 + (noise - .5) * .062) * width
         const wave = Math.sin(10.5 * u + 1.9 * v + 5 * p) + .38 * Math.sin(18 * u - 3.3 * v - 2.5 * p)
